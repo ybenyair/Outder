@@ -1,0 +1,566 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18739AC8193D1CF100059644 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18739AC6193D1CF100059644 /* DashboardViewController.m */; };
+		187A5757193D0F15009BA935 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A5755193D0F15009BA935 /* LoginViewController.m */; };
+		187A575A193D0FC5009BA935 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A5759193D0FC5009BA935 /* FacebookSDK.framework */; };
+		18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE95CA193D310C00021A5D /* TermOfUseViewController.m */; };
+		18DE95CF193D424000021A5D /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95CE193D424000021A5D /* sample.png */; };
+		18DE95FC1944FDC500021A5D /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95FB1944FDC500021A5D /* DashboardViewController.xib */; };
+		18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */; };
+		18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE96031944FF0D00021A5D /* LoginViewController.xib */; };
+		18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */; };
+		18EC4FA4193D0E4B003E5335 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA3193D0E4B003E5335 /* Foundation.framework */; };
+		18EC4FA6193D0E4B003E5335 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA5193D0E4B003E5335 /* CoreGraphics.framework */; };
+		18EC4FA8193D0E4B003E5335 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA7193D0E4B003E5335 /* UIKit.framework */; };
+		18EC4FAA193D0E4B003E5335 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA9193D0E4B003E5335 /* CoreData.framework */; };
+		18EC4FB0193D0E4B003E5335 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4FAE193D0E4B003E5335 /* InfoPlist.strings */; };
+		18EC4FB2193D0E4B003E5335 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4FB1193D0E4B003E5335 /* main.m */; };
+		18EC4FB6193D0E4B003E5335 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4FB5193D0E4B003E5335 /* AppDelegate.m */; };
+		18EC4FB9193D0E4B003E5335 /* Outder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */; };
+		18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4FBA193D0E4B003E5335 /* Images.xcassets */; };
+		18EC4FC2193D0E4B003E5335 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FC1193D0E4B003E5335 /* XCTest.framework */; };
+		18EC4FC3193D0E4B003E5335 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA3193D0E4B003E5335 /* Foundation.framework */; };
+		18EC4FC4193D0E4B003E5335 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA7193D0E4B003E5335 /* UIKit.framework */; };
+		18EC4FC5193D0E4B003E5335 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA9193D0E4B003E5335 /* CoreData.framework */; };
+		18EC4FCD193D0E4B003E5335 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4FCB193D0E4B003E5335 /* InfoPlist.strings */; };
+		18EC4FCF193D0E4B003E5335 /* OutderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4FCE193D0E4B003E5335 /* OutderTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18EC4FC6193D0E4B003E5335 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18EC4F98193D0E4B003E5335 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18EC4F9F193D0E4B003E5335;
+			remoteInfo = Outder;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		18DE95F21944F54700021A5D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		18739AC5193D1CF100059644 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		18739AC6193D1CF100059644 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		187A5754193D0F15009BA935 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		187A5755193D0F15009BA935 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		187A5759193D0FC5009BA935 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		18DE95C9193D310B00021A5D /* TermOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermOfUseViewController.h; sourceTree = "<group>"; };
+		18DE95CA193D310C00021A5D /* TermOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermOfUseViewController.m; sourceTree = "<group>"; };
+		18DE95CE193D424000021A5D /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
+		18DE95FB1944FDC500021A5D /* DashboardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardViewController.xib; sourceTree = "<group>"; };
+		18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermOfUseViewController.xib; sourceTree = "<group>"; };
+		18DE96051944FF5500021A5D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		18DE96061944FF8300021A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginViewController.xib; sourceTree = "<group>"; };
+		18DE96071944FFA100021A5D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/LoginViewController.strings; sourceTree = "<group>"; };
+		18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKOverrides.bundle; sourceTree = "<group>"; };
+		18EC4FA0193D0E4B003E5335 /* Outder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18EC4FA3193D0E4B003E5335 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		18EC4FA5193D0E4B003E5335 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		18EC4FA7193D0E4B003E5335 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		18EC4FA9193D0E4B003E5335 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		18EC4FAD193D0E4B003E5335 /* Outder-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Outder-Info.plist"; sourceTree = "<group>"; };
+		18EC4FAF193D0E4B003E5335 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		18EC4FB1193D0E4B003E5335 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		18EC4FB3193D0E4B003E5335 /* Outder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Outder-Prefix.pch"; sourceTree = "<group>"; };
+		18EC4FB4193D0E4B003E5335 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		18EC4FB5193D0E4B003E5335 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		18EC4FB8193D0E4B003E5335 /* Outder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Outder.xcdatamodel; sourceTree = "<group>"; };
+		18EC4FBA193D0E4B003E5335 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		18EC4FC0193D0E4B003E5335 /* OutderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OutderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18EC4FC1193D0E4B003E5335 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		18EC4FCA193D0E4B003E5335 /* OutderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OutderTests-Info.plist"; sourceTree = "<group>"; };
+		18EC4FCC193D0E4B003E5335 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		18EC4FCE193D0E4B003E5335 /* OutderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutderTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18EC4F9D193D0E4B003E5335 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EC4FA6193D0E4B003E5335 /* CoreGraphics.framework in Frameworks */,
+				187A575A193D0FC5009BA935 /* FacebookSDK.framework in Frameworks */,
+				18EC4FAA193D0E4B003E5335 /* CoreData.framework in Frameworks */,
+				18EC4FA8193D0E4B003E5335 /* UIKit.framework in Frameworks */,
+				18EC4FA4193D0E4B003E5335 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EC4FBD193D0E4B003E5335 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EC4FC2193D0E4B003E5335 /* XCTest.framework in Frameworks */,
+				18EC4FC5193D0E4B003E5335 /* CoreData.framework in Frameworks */,
+				18EC4FC4193D0E4B003E5335 /* UIKit.framework in Frameworks */,
+				18EC4FC3193D0E4B003E5335 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18DE95D0193D424800021A5D /* PNG */ = {
+			isa = PBXGroup;
+			children = (
+				18DE95CE193D424000021A5D /* sample.png */,
+			);
+			name = PNG;
+			sourceTree = "<group>";
+		};
+		18EC4F97193D0E4B003E5335 = {
+			isa = PBXGroup;
+			children = (
+				18EC4FAB193D0E4B003E5335 /* Outder */,
+				18EC4FC8193D0E4B003E5335 /* OutderTests */,
+				18EC4FA2193D0E4B003E5335 /* Frameworks */,
+				18EC4FA1193D0E4B003E5335 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18EC4FA1193D0E4B003E5335 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18EC4FA0193D0E4B003E5335 /* Outder.app */,
+				18EC4FC0193D0E4B003E5335 /* OutderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18EC4FA2193D0E4B003E5335 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				187A5759193D0FC5009BA935 /* FacebookSDK.framework */,
+				18EC4FA3193D0E4B003E5335 /* Foundation.framework */,
+				18EC4FA5193D0E4B003E5335 /* CoreGraphics.framework */,
+				18EC4FA7193D0E4B003E5335 /* UIKit.framework */,
+				18EC4FA9193D0E4B003E5335 /* CoreData.framework */,
+				18EC4FC1193D0E4B003E5335 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		18EC4FAB193D0E4B003E5335 /* Outder */ = {
+			isa = PBXGroup;
+			children = (
+				18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */,
+				18EC4FB4193D0E4B003E5335 /* AppDelegate.h */,
+				18EC4FB5193D0E4B003E5335 /* AppDelegate.m */,
+				187A5754193D0F15009BA935 /* LoginViewController.h */,
+				187A5755193D0F15009BA935 /* LoginViewController.m */,
+				18DE96031944FF0D00021A5D /* LoginViewController.xib */,
+				18739AC5193D1CF100059644 /* DashboardViewController.h */,
+				18739AC6193D1CF100059644 /* DashboardViewController.m */,
+				18DE95FB1944FDC500021A5D /* DashboardViewController.xib */,
+				18DE95C9193D310B00021A5D /* TermOfUseViewController.h */,
+				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
+				18DE95CA193D310C00021A5D /* TermOfUseViewController.m */,
+				18EC4FBA193D0E4B003E5335 /* Images.xcassets */,
+				18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */,
+				18EC4FAC193D0E4B003E5335 /* Supporting Files */,
+			);
+			path = Outder;
+			sourceTree = "<group>";
+		};
+		18EC4FAC193D0E4B003E5335 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				18DE95D0193D424800021A5D /* PNG */,
+				18EC4FAD193D0E4B003E5335 /* Outder-Info.plist */,
+				18EC4FAE193D0E4B003E5335 /* InfoPlist.strings */,
+				18EC4FB1193D0E4B003E5335 /* main.m */,
+				18EC4FB3193D0E4B003E5335 /* Outder-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18EC4FC8193D0E4B003E5335 /* OutderTests */ = {
+			isa = PBXGroup;
+			children = (
+				18EC4FCE193D0E4B003E5335 /* OutderTests.m */,
+				18EC4FC9193D0E4B003E5335 /* Supporting Files */,
+			);
+			path = OutderTests;
+			sourceTree = "<group>";
+		};
+		18EC4FC9193D0E4B003E5335 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				18EC4FCA193D0E4B003E5335 /* OutderTests-Info.plist */,
+				18EC4FCB193D0E4B003E5335 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18EC4F9F193D0E4B003E5335 /* Outder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18EC4FD2193D0E4B003E5335 /* Build configuration list for PBXNativeTarget "Outder" */;
+			buildPhases = (
+				18EC4F9C193D0E4B003E5335 /* Sources */,
+				18EC4F9D193D0E4B003E5335 /* Frameworks */,
+				18EC4F9E193D0E4B003E5335 /* Resources */,
+				18DE95F21944F54700021A5D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Outder;
+			productName = Outder;
+			productReference = 18EC4FA0193D0E4B003E5335 /* Outder.app */;
+			productType = "com.apple.product-type.application";
+		};
+		18EC4FBF193D0E4B003E5335 /* OutderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18EC4FD5193D0E4B003E5335 /* Build configuration list for PBXNativeTarget "OutderTests" */;
+			buildPhases = (
+				18EC4FBC193D0E4B003E5335 /* Sources */,
+				18EC4FBD193D0E4B003E5335 /* Frameworks */,
+				18EC4FBE193D0E4B003E5335 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18EC4FC7193D0E4B003E5335 /* PBXTargetDependency */,
+			);
+			name = OutderTests;
+			productName = OutderTests;
+			productReference = 18EC4FC0193D0E4B003E5335 /* OutderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18EC4F98193D0E4B003E5335 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "\bOutder";
+				TargetAttributes = {
+					18EC4FBF193D0E4B003E5335 = {
+						TestTargetID = 18EC4F9F193D0E4B003E5335;
+					};
+				};
+			};
+			buildConfigurationList = 18EC4F9B193D0E4B003E5335 /* Build configuration list for PBXProject "Outder" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"he-IL",
+				he,
+				Base,
+				fr,
+			);
+			mainGroup = 18EC4F97193D0E4B003E5335;
+			productRefGroup = 18EC4FA1193D0E4B003E5335 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18EC4F9F193D0E4B003E5335 /* Outder */,
+				18EC4FBF193D0E4B003E5335 /* OutderTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18EC4F9E193D0E4B003E5335 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EC4FB0193D0E4B003E5335 /* InfoPlist.strings in Resources */,
+				18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */,
+				18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */,
+				18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */,
+				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
+				18DE95CF193D424000021A5D /* sample.png in Resources */,
+				18DE95FC1944FDC500021A5D /* DashboardViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EC4FBE193D0E4B003E5335 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EC4FCD193D0E4B003E5335 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18EC4F9C193D0E4B003E5335 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18739AC8193D1CF100059644 /* DashboardViewController.m in Sources */,
+				18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */,
+				187A5757193D0F15009BA935 /* LoginViewController.m in Sources */,
+				18EC4FB6193D0E4B003E5335 /* AppDelegate.m in Sources */,
+				18EC4FB9193D0E4B003E5335 /* Outder.xcdatamodeld in Sources */,
+				18EC4FB2193D0E4B003E5335 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EC4FBC193D0E4B003E5335 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EC4FCF193D0E4B003E5335 /* OutderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18EC4FC7193D0E4B003E5335 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18EC4F9F193D0E4B003E5335 /* Outder */;
+			targetProxy = 18EC4FC6193D0E4B003E5335 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		18DE96031944FF0D00021A5D /* LoginViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18DE96061944FF8300021A5D /* Base */,
+				18DE96071944FFA100021A5D /* he */,
+			);
+			name = LoginViewController.xib;
+			sourceTree = "<group>";
+		};
+		18EC4FAE193D0E4B003E5335 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18EC4FAF193D0E4B003E5335 /* en */,
+				18DE96051944FF5500021A5D /* he */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		18EC4FCB193D0E4B003E5335 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18EC4FCC193D0E4B003E5335 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		18EC4FD0193D0E4B003E5335 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18EC4FD1193D0E4B003E5335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18EC4FD3193D0E4B003E5335 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Outder/Outder-Prefix.pch";
+				INFOPLIST_FILE = "Outder/Outder-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		18EC4FD4193D0E4B003E5335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Outder/Outder-Prefix.pch";
+				INFOPLIST_FILE = "Outder/Outder-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		18EC4FD6193D0E4B003E5335 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Outder.app/Outder";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Outder/Outder-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "OutderTests/OutderTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		18EC4FD7193D0E4B003E5335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Outder.app/Outder";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Outder/Outder-Prefix.pch";
+				INFOPLIST_FILE = "OutderTests/OutderTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18EC4F9B193D0E4B003E5335 /* Build configuration list for PBXProject "Outder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18EC4FD0193D0E4B003E5335 /* Debug */,
+				18EC4FD1193D0E4B003E5335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18EC4FD2193D0E4B003E5335 /* Build configuration list for PBXNativeTarget "Outder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18EC4FD3193D0E4B003E5335 /* Debug */,
+				18EC4FD4193D0E4B003E5335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18EC4FD5193D0E4B003E5335 /* Build configuration list for PBXNativeTarget "OutderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18EC4FD6193D0E4B003E5335 /* Debug */,
+				18EC4FD7193D0E4B003E5335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				18EC4FB8193D0E4B003E5335 /* Outder.xcdatamodel */,
+			);
+			currentVersion = 18EC4FB8193D0E4B003E5335 /* Outder.xcdatamodel */;
+			path = Outder.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 18EC4F98193D0E4B003E5335 /* Project object */;
+}
