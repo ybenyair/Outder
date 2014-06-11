@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomUIViewController.h"
 
-@interface DashboardViewController : UIViewController
+@interface DashboardViewController : CustomUIViewController
 
 @end

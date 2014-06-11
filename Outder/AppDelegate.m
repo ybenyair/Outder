@@ -9,12 +9,16 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "LoginViewController.h"
+#import "DashboardViewController.h"
+#import "CustomNavigationController.h"
+#import "UserInfo+Login.h"
 
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -26,14 +30,34 @@
     return wasHandled;
 }
 
+- (void)startLoginViewController:(CustomNavigationController *)navcon
+{
+    LoginViewController *lvc = [[LoginViewController alloc] init];
+    [lvc initManagedObjectContext:self.managedObjectContext];
+    [navcon pushViewController:lvc animated:NO];
+}
+
+- (void)startDashboardViewController:(CustomNavigationController *)navcon
+{
+    DashboardViewController *lvc = [[DashboardViewController alloc] init];
+    [lvc initManagedObjectContext:self.managedObjectContext];
+    [navcon pushViewController:lvc animated:NO];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [FBLoginView class];
     [FBProfilePictureView class];
     
-    UINavigationController *navcon = [[UINavigationController alloc] init];
-	LoginViewController *lvc = [[LoginViewController alloc] init];
-	[navcon pushViewController:lvc animated:NO];
+    CustomNavigationController *navcon = [[CustomNavigationController alloc] init];
+	UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
+    
+    if ([userInfo.isValid boolValue] == YES) {
+        [self startDashboardViewController:navcon];
+    } else {
+        [self startLoginViewController:navcon];
+    }
+	
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

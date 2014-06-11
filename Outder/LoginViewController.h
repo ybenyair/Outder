@@ -8,15 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "CustomUIViewController.h"
 
-@interface LoginViewController : UIViewController <FBLoginViewDelegate> {
-    BOOL loggedIn;
+@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate> {
+    BOOL closingFBSession;
 }
 
+@property BOOL closingFBSession;
+@property NSManagedObjectContext *managedObjectContext;
+
+@property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet FBLoginView *loginView;
-@property BOOL loggedIn;
+
 
 - (IBAction)termOfUseClicked:(UIButton *)sender;
 - (IBAction)guestLoginClicked:(UIButton *)sender;
+- (IBAction)playVideoClicked:(UIButton *)sender;
+
++ (void)signOutFacebook;
 
 @end

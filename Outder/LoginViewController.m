@@ -9,6 +9,9 @@
 #import "LoginViewController.h"
 #import "DashboardViewController.h"
 #import "TermOfUseViewController.h"
+#import "Constants.h"
+#import "DejalActivityView.h"
+#import "UserInfo+Login.h"
 
 @interface LoginViewController ()
 
@@ -16,7 +19,7 @@
 
 @implementation LoginViewController
 
-@synthesize loggedIn;
+@synthesize closingFBSession;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,9 +28,17 @@
         // Custom initialization
     }
     
-    self.loggedIn = NO;
-    
     return self;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    
+}
+
++ (void)signOutFacebook
+{
+    [FBSession.activeSession closeAndClearTokenInformation];
 }
 
 - (void)viewDidLoad
@@ -40,28 +51,69 @@
 - (void)pushDashboard
 {
     DashboardViewController *dvc = [[DashboardViewController alloc] init];
-    [self.navigationController pushViewController:dvc animated:YES];
+    [dvc initManagedObjectContext:self.managedObjectContext];
+    [self.navigationController setViewControllers:[NSArray arrayWithObject:dvc] animated:YES];
 }
+
+- (NSError *)login:(UserInfo *)userInfo
+{
+    NSError *error = nil;
+    NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    NSString *methodWithParams = [kLogin stringByAppendingFormat:@"?%@=%@&%@=%@&%@=%@&%@=%@",kEmail,@"",kPassword,kDefaultPassword,kCompanyid,kCompanyDefaultId,kDid,deviceUdid];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",kOutderURL,methodWithParams];
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLResponse *response;
+    
+    [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Login...", nil)];
+    
+    //send it synchronous
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    // check for an error. If there is a network error, you should handle it here.
+    if(!error)
+    {
+        //log response
+        NSLog(@"Response from server = %@", responseString);
+    }
+    [DejalBezelActivityView removeViewAnimated:NO];
+    return error;
+}
+
 
 // This method will be called when the user information has been fetched
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
+    NSLog(@"Fetching user information %d", closingFBSession);
     
-    if (self.loggedIn == NO) {
-        self.loggedIn = YES;
-        [self pushDashboard];
+    UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
+    if ([userInfo.isValid boolValue] == NO) {
+        
+        userInfo.userName = [NSString stringWithFormat:@"%@",user.name];
+        userInfo.facebookID = [NSString stringWithFormat:@"%@",user.objectID];
+        userInfo.isValid = [NSNumber numberWithBool:YES];
+        
+        NSError *error = [self login:userInfo];
+        if (error == nil) {
+            [UserInfo userLoggedIn:self.managedObjectContext userInfo:userInfo];
+            [self pushDashboard];
+        }
     }
-
 }
 
 // Implement the loginViewShowingLoggedInUser: delegate method to modify your app's UI for a logged-in user experience
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
+    NSLog(@"ShowingLoggedInUser %d", closingFBSession);
 
 }
 
 // Implement the loginViewShowingLoggedOutUser: delegate method to modify your app's UI for a logged-out user experience
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    self.loggedIn = NO;
+    [UserInfo userLoggedOut:self.managedObjectContext];
 }
 
 // You need to override loginView:handleError in order to handle possible errors that can occur during login
@@ -121,6 +173,58 @@
 
 - (IBAction)guestLoginClicked:(UIButton *)sender
 {
+    UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
+    if ([userInfo.isValid boolValue] == NO) {
+        
+        userInfo.userName = [NSString stringWithFormat:@"GUEST"];
+        userInfo.isValid = [NSNumber numberWithBool:YES];
+
+        NSError *error = [self login:userInfo];
+        if (error == nil) {
+            [UserInfo userLoggedIn:self.managedObjectContext userInfo:userInfo];
+            [self pushDashboard];
+        }
+    }
+}
+
+- (IBAction)playVideoClicked:(UIButton *)sender
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
+    NSURL *url;
+    url = [NSURL URLWithString:@"http://d167cgw0so9a1a.cloudfront.net/media/loginsamplevideo.mp4"];
+    MPMoviePlayerViewController *mpMoviewPlayerCon = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+    [self presentMoviePlayerViewControllerAnimated:mpMoviewPlayerCon];
+    
+    [mpMoviewPlayerCon.moviePlayer play];
+
+    /* Playing an Embedded Video
+     
+     MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+     
+     [player prepareToPlay];
+     [player setFullscreen:true animated:true];
+     [player setShouldAutoplay:true];
+     [player.view setFrame: self.videoView.bounds];
+     [player setControlStyle:MPMovieControlStyleNone];
+     [player setScalingMode:MPMovieScalingModeAspectFill];
+     [self.videoView addSubview: player.view];
+     
+     [player play];
+     */
+
+}
+
+-(void)MPMoviePlayerPlaybackDidFinishNotification:(NSNotification*)notif {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:nil];
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return  UIInterfaceOrientationMaskPortrait;
 }
 
 @end

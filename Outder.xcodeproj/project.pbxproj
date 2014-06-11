@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1834BF9E1947ACB300AE7332 /* DejalActivityView.m */; };
+		184DDAE419485E1700F22B2A /* UserInfo+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DDAE319485E1700F22B2A /* UserInfo+Login.m */; };
+		184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DDAE61948666000F22B2A /* CustomNavigationController.m */; };
 		18739AC8193D1CF100059644 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18739AC6193D1CF100059644 /* DashboardViewController.m */; };
 		187A5757193D0F15009BA935 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A5755193D0F15009BA935 /* LoginViewController.m */; };
 		187A575A193D0FC5009BA935 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A5759193D0FC5009BA935 /* FacebookSDK.framework */; };
+		18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AAE19486E37001410B7 /* CustomUIViewController.m */; };
+		18984AB219487B7C001410B7 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AB119487B7C001410B7 /* UserInfo.m */; };
+		18984AB61948F1EB001410B7 /* signOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 18984AB51948F1EB001410B7 /* signOut.png */; };
 		18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE95CA193D310C00021A5D /* TermOfUseViewController.m */; };
 		18DE95CF193D424000021A5D /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95CE193D424000021A5D /* sample.png */; };
 		18DE95FC1944FDC500021A5D /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95FB1944FDC500021A5D /* DashboardViewController.xib */; };
 		18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */; };
 		18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE96031944FF0D00021A5D /* LoginViewController.xib */; };
 		18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */; };
+		18DE960D194568E100021A5D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DE960C194568E100021A5D /* MediaPlayer.framework */; };
 		18EC4FA4193D0E4B003E5335 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA3193D0E4B003E5335 /* Foundation.framework */; };
 		18EC4FA6193D0E4B003E5335 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA5193D0E4B003E5335 /* CoreGraphics.framework */; };
 		18EC4FA8193D0E4B003E5335 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA7193D0E4B003E5335 /* UIKit.framework */; };
@@ -56,11 +63,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1834BF9A19479F4200AE7332 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		1834BF9E1947ACB300AE7332 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
+		1834BFA01947AD2F00AE7332 /* DejalActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
+		184DDAE219485E0200F22B2A /* UserInfo+Login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UserInfo+Login.h"; sourceTree = "<group>"; };
+		184DDAE319485E1700F22B2A /* UserInfo+Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserInfo+Login.m"; sourceTree = "<group>"; };
+		184DDAE51948665700F22B2A /* CustomNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
+		184DDAE61948666000F22B2A /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		18739AC5193D1CF100059644 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		18739AC6193D1CF100059644 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
 		187A5754193D0F15009BA935 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		187A5755193D0F15009BA935 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		187A5759193D0FC5009BA935 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		18984AAD19486E2F001410B7 /* CustomUIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomUIViewController.h; sourceTree = "<group>"; };
+		18984AAE19486E37001410B7 /* CustomUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUIViewController.m; sourceTree = "<group>"; };
+		18984AB019487B7C001410B7 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		18984AB119487B7C001410B7 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		18984AB51948F1EB001410B7 /* signOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signOut.png; sourceTree = "<group>"; };
 		18DE95C9193D310B00021A5D /* TermOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermOfUseViewController.h; sourceTree = "<group>"; };
 		18DE95CA193D310C00021A5D /* TermOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermOfUseViewController.m; sourceTree = "<group>"; };
 		18DE95CE193D424000021A5D /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
@@ -70,6 +89,7 @@
 		18DE96061944FF8300021A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginViewController.xib; sourceTree = "<group>"; };
 		18DE96071944FFA100021A5D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/LoginViewController.strings; sourceTree = "<group>"; };
 		18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKOverrides.bundle; sourceTree = "<group>"; };
+		18DE960C194568E100021A5D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		18EC4FA0193D0E4B003E5335 /* Outder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18EC4FA3193D0E4B003E5335 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18EC4FA5193D0E4B003E5335 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18DE960D194568E100021A5D /* MediaPlayer.framework in Frameworks */,
 				18EC4FA6193D0E4B003E5335 /* CoreGraphics.framework in Frameworks */,
 				187A575A193D0FC5009BA935 /* FacebookSDK.framework in Frameworks */,
 				18EC4FAA193D0E4B003E5335 /* CoreData.framework in Frameworks */,
@@ -117,9 +138,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1834BF9B1947AC3600AE7332 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1834BF9C1947AC8800AE7332 /* DejalActivityView */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		1834BF9C1947AC8800AE7332 /* DejalActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				1834BFA01947AD2F00AE7332 /* DejalActivityView.h */,
+				1834BF9E1947ACB300AE7332 /* DejalActivityView.m */,
+			);
+			name = DejalActivityView;
+			sourceTree = "<group>";
+		};
+		1834BFA41948243500AE7332 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				187A5754193D0F15009BA935 /* LoginViewController.h */,
+				187A5755193D0F15009BA935 /* LoginViewController.m */,
+				18DE96031944FF0D00021A5D /* LoginViewController.xib */,
+				18DE95C9193D310B00021A5D /* TermOfUseViewController.h */,
+				18DE95CA193D310C00021A5D /* TermOfUseViewController.m */,
+				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
+				184DDAE219485E0200F22B2A /* UserInfo+Login.h */,
+				184DDAE319485E1700F22B2A /* UserInfo+Login.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		184DDAE819486D7C00F22B2A /* Customized Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				18984AAD19486E2F001410B7 /* CustomUIViewController.h */,
+				18984AAE19486E37001410B7 /* CustomUIViewController.m */,
+				184DDAE51948665700F22B2A /* CustomNavigationController.h */,
+				184DDAE61948666000F22B2A /* CustomNavigationController.m */,
+			);
+			name = "Customized Controllers";
+			sourceTree = "<group>";
+		};
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				18984AB51948F1EB001410B7 /* signOut.png */,
 				18DE95CE193D424000021A5D /* sample.png */,
 			);
 			name = PNG;
@@ -147,6 +212,7 @@
 		18EC4FA2193D0E4B003E5335 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18DE960C194568E100021A5D /* MediaPlayer.framework */,
 				187A5759193D0FC5009BA935 /* FacebookSDK.framework */,
 				18EC4FA3193D0E4B003E5335 /* Foundation.framework */,
 				18EC4FA5193D0E4B003E5335 /* CoreGraphics.framework */,
@@ -160,20 +226,17 @@
 		18EC4FAB193D0E4B003E5335 /* Outder */ = {
 			isa = PBXGroup;
 			children = (
-				18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */,
+				184DDAE819486D7C00F22B2A /* Customized Controllers */,
+				1834BF9B1947AC3600AE7332 /* Helpers */,
+				1834BFA41948243500AE7332 /* Login */,
 				18EC4FB4193D0E4B003E5335 /* AppDelegate.h */,
 				18EC4FB5193D0E4B003E5335 /* AppDelegate.m */,
-				187A5754193D0F15009BA935 /* LoginViewController.h */,
-				187A5755193D0F15009BA935 /* LoginViewController.m */,
-				18DE96031944FF0D00021A5D /* LoginViewController.xib */,
+				1834BF9A19479F4200AE7332 /* Constants.h */,
 				18739AC5193D1CF100059644 /* DashboardViewController.h */,
 				18739AC6193D1CF100059644 /* DashboardViewController.m */,
 				18DE95FB1944FDC500021A5D /* DashboardViewController.xib */,
-				18DE95C9193D310B00021A5D /* TermOfUseViewController.h */,
-				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
-				18DE95CA193D310C00021A5D /* TermOfUseViewController.m */,
 				18EC4FBA193D0E4B003E5335 /* Images.xcassets */,
-				18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */,
+				18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */,
 				18EC4FAC193D0E4B003E5335 /* Supporting Files */,
 			);
 			path = Outder;
@@ -182,10 +245,13 @@
 		18EC4FAC193D0E4B003E5335 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				18DE95D0193D424800021A5D /* PNG */,
-				18EC4FAD193D0E4B003E5335 /* Outder-Info.plist */,
-				18EC4FAE193D0E4B003E5335 /* InfoPlist.strings */,
 				18EC4FB1193D0E4B003E5335 /* main.m */,
+				18984AB019487B7C001410B7 /* UserInfo.h */,
+				18984AB119487B7C001410B7 /* UserInfo.m */,
+				18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */,
+				18EC4FAD193D0E4B003E5335 /* Outder-Info.plist */,
+				18DE95D0193D424800021A5D /* PNG */,
+				18EC4FAE193D0E4B003E5335 /* InfoPlist.strings */,
 				18EC4FB3193D0E4B003E5335 /* Outder-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -295,6 +361,7 @@
 				18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */,
 				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
 				18DE95CF193D424000021A5D /* sample.png in Resources */,
+				18984AB61948F1EB001410B7 /* signOut.png in Resources */,
 				18DE95FC1944FDC500021A5D /* DashboardViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,11 +381,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */,
 				18739AC8193D1CF100059644 /* DashboardViewController.m in Sources */,
+				184DDAE419485E1700F22B2A /* UserInfo+Login.m in Sources */,
 				18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */,
 				187A5757193D0F15009BA935 /* LoginViewController.m in Sources */,
 				18EC4FB6193D0E4B003E5335 /* AppDelegate.m in Sources */,
+				184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */,
 				18EC4FB9193D0E4B003E5335 /* Outder.xcdatamodeld in Sources */,
+				18984AB219487B7C001410B7 /* UserInfo.m in Sources */,
+				1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */,
 				18EC4FB2193D0E4B003E5335 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
