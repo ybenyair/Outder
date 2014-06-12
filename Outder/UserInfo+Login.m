@@ -55,7 +55,7 @@
     userInfo.facebookID = dbEntry.facebookID;
     userInfo.isValid = dbEntry.isValid;
     [UserInfo storeInDB:context];
-    NSLog(@"Logged-in with user %@",userInfo.userName);
+    NSLog(@"Logged-in with user %@ email %@",userInfo.userName, userInfo.emailAddress);
 }
 
 + (void)userLoggedOut:(NSManagedObjectContext *)context

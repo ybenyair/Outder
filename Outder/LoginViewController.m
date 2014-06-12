@@ -44,11 +44,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.loginView.readPermissions =    @[@"email",
-                                     @"basic_info",
-                                     @"user_location",
-                                     @"user_birthday",
-                                     @"user_likes"];
+    self.fbLoginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
 }
 
 - (void)pushDashboard

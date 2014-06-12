@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="fbLoginView" destination="HTK-Bv-Bjg" id="xko-Tc-S8V"/>
                 <outlet property="videoView" destination="ClX-8x-Tqj" id="dMN-Fo-Fye"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

@@ -19,7 +19,7 @@
 @property NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
-@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
+@property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;
 
 
 - (IBAction)termOfUseClicked:(UIButton *)sender;

@@ -16,7 +16,7 @@
     self.userInfo = userInfo;
     NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
-    NSString *methodWithParams = [kLogin stringByAppendingFormat:@"?%@=%@&%@=%@&%@=%@&%@=%@",kEmail,@"",kPassword,kDefaultPassword,kCompanyid,kCompanyDefaultId,kDid,deviceUdid];
+    NSString *methodWithParams = [kLogin stringByAppendingFormat:@"?%@=%@&%@=%@&%@=%@&%@=%@",kEmail,userInfo.emailAddress,kPassword,kDefaultPassword,kCompanyid,kCompanyDefaultId,kDid,deviceUdid];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",kOutderURL,methodWithParams];
     
