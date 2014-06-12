@@ -13,6 +13,8 @@
 		18739AC8193D1CF100059644 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18739AC6193D1CF100059644 /* DashboardViewController.m */; };
 		187A5757193D0F15009BA935 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A5755193D0F15009BA935 /* LoginViewController.m */; };
 		187A575A193D0FC5009BA935 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A5759193D0FC5009BA935 /* FacebookSDK.framework */; };
+		188B8F1A1949F2C200A88D43 /* LoginCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B8F191949F2C200A88D43 /* LoginCommunication.m */; };
+		188B8F1D194A158300A88D43 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 188B8F1F194A158300A88D43 /* Localizable.strings */; };
 		18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AAE19486E37001410B7 /* CustomUIViewController.m */; };
 		18984AB219487B7C001410B7 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AB119487B7C001410B7 /* UserInfo.m */; };
 		18984AB61948F1EB001410B7 /* signOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 18984AB51948F1EB001410B7 /* signOut.png */; };
@@ -75,6 +77,10 @@
 		187A5754193D0F15009BA935 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		187A5755193D0F15009BA935 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		187A5759193D0FC5009BA935 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		188B8F181949F2B800A88D43 /* LoginCommunication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginCommunication.h; sourceTree = "<group>"; };
+		188B8F191949F2C200A88D43 /* LoginCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCommunication.m; sourceTree = "<group>"; };
+		188B8F1E194A158300A88D43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		188B8F20194A158800A88D43 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		18984AAD19486E2F001410B7 /* CustomUIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomUIViewController.h; sourceTree = "<group>"; };
 		18984AAE19486E37001410B7 /* CustomUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUIViewController.m; sourceTree = "<group>"; };
 		18984AB019487B7C001410B7 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
@@ -161,6 +167,8 @@
 				187A5754193D0F15009BA935 /* LoginViewController.h */,
 				187A5755193D0F15009BA935 /* LoginViewController.m */,
 				18DE96031944FF0D00021A5D /* LoginViewController.xib */,
+				188B8F181949F2B800A88D43 /* LoginCommunication.h */,
+				188B8F191949F2C200A88D43 /* LoginCommunication.m */,
 				18DE95C9193D310B00021A5D /* TermOfUseViewController.h */,
 				18DE95CA193D310C00021A5D /* TermOfUseViewController.m */,
 				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
@@ -245,6 +253,7 @@
 		18EC4FAC193D0E4B003E5335 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				188B8F1F194A158300A88D43 /* Localizable.strings */,
 				18EC4FB1193D0E4B003E5335 /* main.m */,
 				18984AB019487B7C001410B7 /* UserInfo.h */,
 				18984AB119487B7C001410B7 /* UserInfo.m */,
@@ -359,6 +368,7 @@
 				18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */,
 				18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */,
 				18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */,
+				188B8F1D194A158300A88D43 /* Localizable.strings in Resources */,
 				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
 				18DE95CF193D424000021A5D /* sample.png in Resources */,
 				18984AB61948F1EB001410B7 /* signOut.png in Resources */,
@@ -391,6 +401,7 @@
 				18EC4FB9193D0E4B003E5335 /* Outder.xcdatamodeld in Sources */,
 				18984AB219487B7C001410B7 /* UserInfo.m in Sources */,
 				1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */,
+				188B8F1A1949F2C200A88D43 /* LoginCommunication.m in Sources */,
 				18EC4FB2193D0E4B003E5335 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +425,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		188B8F1F194A158300A88D43 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				188B8F1E194A158300A88D43 /* Base */,
+				188B8F20194A158800A88D43 /* he */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		18DE96031944FF0D00021A5D /* LoginViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

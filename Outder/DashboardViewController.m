@@ -7,7 +7,7 @@
 //
 
 #import "DashboardViewController.h"
-#import "LoginViewController.h"
+#import "CustomNavigationController.h"
 
 @interface DashboardViewController ()
 
@@ -54,10 +54,7 @@
 
 - (void) signOutClicked
 {
-    [LoginViewController signOutFacebook];
-    LoginViewController *lvc = [[LoginViewController alloc] init];
-    [lvc initManagedObjectContext:self.managedObjectContext];
-    [self.navigationController setViewControllers:[NSArray arrayWithObject:lvc] animated:YES];
+    [CustomNavigationController startLoginViewController:self.navigationController logOut: YES];
 }
 
 - (void)didReceiveMemoryWarning

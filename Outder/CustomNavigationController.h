@@ -10,8 +10,14 @@
 
 @interface CustomNavigationController : UINavigationController {
     NSUInteger supprtedOrientations;
+    NSManagedObjectContext *managedObjectContext;
 }
 
 @property NSUInteger supprtedOrientations;
+@property NSManagedObjectContext *managedObjectContext;
+
++ (void)startLoginViewController:(UINavigationController *)navcon logOut:(BOOL)logOut;
++ (void)startDashboardViewController:(UINavigationController *)navcon;
+
 
 @end

@@ -14,6 +14,4 @@
 
 @property NSManagedObjectContext *managedObjectContext;
 
-- (void)initManagedObjectContext:(NSManagedObjectContext *)context;
-
 @end

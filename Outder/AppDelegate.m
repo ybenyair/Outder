@@ -32,16 +32,12 @@
 
 - (void)startLoginViewController:(CustomNavigationController *)navcon
 {
-    LoginViewController *lvc = [[LoginViewController alloc] init];
-    [lvc initManagedObjectContext:self.managedObjectContext];
-    [navcon pushViewController:lvc animated:NO];
+    [CustomNavigationController startLoginViewController:navcon logOut: NO];
 }
 
 - (void)startDashboardViewController:(CustomNavigationController *)navcon
 {
-    DashboardViewController *lvc = [[DashboardViewController alloc] init];
-    [lvc initManagedObjectContext:self.managedObjectContext];
-    [navcon pushViewController:lvc animated:NO];
+    [CustomNavigationController startDashboardViewController:navcon];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -50,6 +46,7 @@
     [FBProfilePictureView class];
     
     CustomNavigationController *navcon = [[CustomNavigationController alloc] init];
+    navcon.managedObjectContext = self.managedObjectContext;
 	UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
     
     if ([userInfo.isValid boolValue] == YES) {

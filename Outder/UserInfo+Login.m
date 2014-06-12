@@ -43,11 +43,6 @@
         
 	}
     
-    if ([userInfo.isValid boolValue] == YES) {
-        NSLog(@"Logged-in with user %@",userInfo.userName);
-    }
-
-    
     return userInfo;
 }
 

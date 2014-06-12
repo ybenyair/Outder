@@ -10,12 +10,12 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "CustomUIViewController.h"
+#import "LoginCommunication.h"
 
-@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate> {
-    BOOL closingFBSession;
+@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate, LoginCommunicationDelegate> {
+
 }
 
-@property BOOL closingFBSession;
 @property NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;

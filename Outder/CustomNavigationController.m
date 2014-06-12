@@ -7,6 +7,8 @@
 //
 
 #import "CustomNavigationController.h"
+#import "LoginViewController.h"
+#import "DashboardViewController.h"
 
 @interface CustomNavigationController ()
 
@@ -15,6 +17,7 @@
 @implementation CustomNavigationController
 
 @synthesize supprtedOrientations;
+@synthesize managedObjectContext;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -48,6 +51,26 @@
 -(NSUInteger)supportedInterfaceOrientations
 {
     return [self.topViewController supportedInterfaceOrientations];
+}
+
++ (void)startLoginViewController:(UINavigationController *)navcon logOut:(BOOL)logOut;
+{
+    if (logOut) {
+        [LoginViewController signOutFacebook];
+    }
+    CustomNavigationController *nav = (CustomNavigationController *)navcon;
+
+    LoginViewController *lvc = [[LoginViewController alloc] init];
+    lvc.managedObjectContext = nav.managedObjectContext;
+    [nav setViewControllers:[NSArray arrayWithObject:lvc] animated:YES];
+}
+
++ (void)startDashboardViewController:(UINavigationController *)navcon
+{
+    CustomNavigationController *nav = (CustomNavigationController *)navcon;
+    DashboardViewController *dvc = [[DashboardViewController alloc] init];
+    dvc.managedObjectContext = nav.managedObjectContext;
+    [nav setViewControllers:[NSArray arrayWithObject:dvc] animated:YES];
 }
 
 /*

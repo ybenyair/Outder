@@ -17,9 +17,4 @@
 
 @synthesize managedObjectContext;
 
-- (void)initManagedObjectContext:(NSManagedObjectContext *)context
-{
-    self.managedObjectContext = context;
-}
-
 @end
