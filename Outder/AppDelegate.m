@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "DashboardViewController.h"
 #import "CustomNavigationController.h"
+#import "FeedViewController.h"
 #import "UserInfo+Login.h"
 
 @implementation AppDelegate
@@ -32,12 +33,12 @@
 
 - (void)startLoginViewController:(CustomNavigationController *)navcon
 {
-    [CustomNavigationController startLoginViewController:navcon logOut: NO];
+    [[CustomNavigationController getInstance] startLoginViewController:NO];
 }
 
 - (void)startDashboardViewController:(CustomNavigationController *)navcon
 {
-    [CustomNavigationController startDashboardViewController:navcon];
+    [[CustomNavigationController getInstance] startDashboardViewController];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -47,6 +48,7 @@
     
     CustomNavigationController *navcon = [[CustomNavigationController alloc] init];
     navcon.managedObjectContext = self.managedObjectContext;
+    
 	UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
     
     if ([userInfo.isValid boolValue] == YES) {
@@ -54,13 +56,11 @@
     } else {
         [self startLoginViewController:navcon];
     }
-	
-
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
 
-    //[self.window addSubview:navcon.view];
     self.window.rootViewController = navcon;
 
     [self.window makeKeyAndVisible];

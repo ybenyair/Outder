@@ -16,8 +16,8 @@
 @property NSUInteger supprtedOrientations;
 @property NSManagedObjectContext *managedObjectContext;
 
-+ (void)startLoginViewController:(UINavigationController *)navcon logOut:(BOOL)logOut;
-+ (void)startDashboardViewController:(UINavigationController *)navcon;
-
+- (void)startLoginViewController:(BOOL)logOut;
+- (void)startDashboardViewController;
++ (CustomNavigationController *)getInstance;
 
 @end

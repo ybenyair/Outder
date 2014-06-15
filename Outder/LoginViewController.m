@@ -49,7 +49,7 @@
 
 - (void)pushDashboard
 {
-    [CustomNavigationController startDashboardViewController:self.navigationController];
+    [[CustomNavigationController getInstance] startDashboardViewController];
 }
 
 - (void)loginResponse:(UserInfo *)userInfo result:(BOOL)ok;

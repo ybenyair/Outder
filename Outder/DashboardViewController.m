@@ -24,10 +24,16 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"Appear view %@", self.tabBarItem.title);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setNavigationBarItems];
+    //[self setNavigationBarItems];
+    NSLog(@"Load view %@", self.tabBarItem.title);
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -49,12 +55,12 @@
     UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     //then set it.  phew.
-    [self.navigationItem setRightBarButtonItem:barButtonItem];
+    [self.tabBarController.navigationItem setRightBarButtonItem:barButtonItem];
 }
 
 - (void) signOutClicked
 {
-    [CustomNavigationController startLoginViewController:self.navigationController logOut: YES];
+    
 }
 
 - (void)didReceiveMemoryWarning
