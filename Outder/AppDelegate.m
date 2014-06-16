@@ -9,10 +9,10 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "LoginViewController.h"
-#import "DashboardViewController.h"
 #import "CustomNavigationController.h"
-#import "FeedViewController.h"
 #import "UserInfo+Login.h"
+#import "MyVideo+Feed.h"
+#import "RootViewController.h"
 
 @implementation AppDelegate
 
@@ -31,39 +31,27 @@
     return wasHandled;
 }
 
-- (void)startLoginViewController:(CustomNavigationController *)navcon
++ (AppDelegate *)getInstance
 {
-    [[CustomNavigationController getInstance] startLoginViewController:NO];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return appDelegate;
 }
 
-- (void)startDashboardViewController:(CustomNavigationController *)navcon
-{
-    [[CustomNavigationController getInstance] startDashboardViewController];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [FBLoginView class];
-    [FBProfilePictureView class];
-    
-    CustomNavigationController *navcon = [[CustomNavigationController alloc] init];
-    navcon.managedObjectContext = self.managedObjectContext;
-    
-	UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
-    
-    if ([userInfo.isValid boolValue] == YES) {
-        [self startDashboardViewController:navcon];
-    } else {
-        [self startLoginViewController:navcon];
-    }
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-
-    self.window.rootViewController = navcon;
-
-    [self.window makeKeyAndVisible];
+    
+    [FBLoginView class];
+    [FBProfilePictureView class];
+    
+    [MyVideo setMyVideoTestData:self.managedObjectContext];
+    
+    RootViewController *rootController = [RootViewController getInstance];
+    [rootController start];
+    
     return YES;
 }
 

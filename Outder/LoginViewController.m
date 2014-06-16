@@ -13,6 +13,8 @@
 #import "DejalActivityView.h"
 #import "UserInfo+Login.h"
 #import "LoginCommunication.h"
+#import "CustomNavigationController.h"
+#import "RootViewController.h"
 
 @interface LoginViewController ()
 
@@ -24,11 +26,12 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     
     return self;
 }
+
 
 - (void) viewDidAppear:(BOOL)animated
 {
@@ -49,7 +52,7 @@
 
 - (void)pushDashboard
 {
-    [[CustomNavigationController getInstance] startDashboardViewController];
+    [[RootViewController getInstance] startDashboardViewController];
 }
 
 - (void)loginResponse:(UserInfo *)userInfo result:(BOOL)ok;

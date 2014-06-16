@@ -8,6 +8,7 @@
 
 #import "CustomUIViewController.h"
 #import "LoginViewController.h"
+#import "RootViewController.h"
 
 @interface CustomUIViewController ()
 
@@ -16,5 +17,12 @@
 @implementation CustomUIViewController
 
 @synthesize managedObjectContext;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+}
+
 
 @end

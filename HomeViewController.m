@@ -1,19 +1,19 @@
 //
-//  DashboardViewController.m
+//  HomeViewController.m
 //  Outder
 //
-//  Created by Yossi on 6/2/14.
+//  Created by Yossi on 6/16/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
-#import "DashboardViewController.h"
-#import "CustomNavigationController.h"
+#import "HomeViewController.h"
+#import "RootViewController.h"
 
-@interface DashboardViewController ()
+@interface HomeViewController ()
 
 @end
 
-@implementation DashboardViewController
+@implementation HomeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,20 +24,26 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    NSLog(@"Appear view %@", self.tabBarItem.title);
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self setNavigationBarItems];
-    NSLog(@"Load view %@", self.tabBarItem.title);
     // Do any additional setup after loading the view from its nib.
+    [self setSignOutNavigationBarItems];
 }
 
-- (void) setNavigationBarItems
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void) signOutClicked
+{
+    RootViewController *root = [RootViewController getInstance];
+    [root startLoginViewController: YES];
+}
+
+- (void) setSignOutNavigationBarItems
 {
     //create the image for your button, and set the frame for its size
     UIImage *image = [UIImage imageNamed:@"signOut"];
@@ -55,18 +61,7 @@
     UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     //then set it.  phew.
-    [self.tabBarController.navigationItem setRightBarButtonItem:barButtonItem];
-}
-
-- (void) signOutClicked
-{
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 
 @end
