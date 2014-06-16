@@ -100,6 +100,7 @@ static RootViewController *instance = nil;
     [navfeatured pushViewController:featuredvideovc animated:NO];
     
     [tbc setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];
+    
     [self setActiveView:tbc];
 }
 

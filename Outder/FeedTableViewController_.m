@@ -2,11 +2,11 @@
 //  FeedTableViewController.m
 //  Outder
 //
-//  Created by Yossi on 6/16/14.
+//  Created by Yossi on 6/14/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
-#import "FeedTableViewController.h"
+#import "FeedTableViewController_.h"
 #import "MyVideo.h"
 #import "FeedTableViewCell.h"
 #import "RootViewController.h"
@@ -21,6 +21,7 @@
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,23 +33,16 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (_refreshHeaderView == nil) {
-        
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height - 5, self.view.frame.size.width, self.tableView.bounds.size.height)];
-        view.viewOffset = 64.0;
-        view.delegate = self;
-        [self.tableView addSubview:view];
-        _refreshHeaderView = view;
-        
-    }
-    //  update the last update date
-    [_refreshHeaderView refreshLastUpdatedDate];
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    NSLog(@"Appear view %@", self.tabBarItem.title);
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
     NSLog(@"Load view %@", self.tabBarItem.title);
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
@@ -56,10 +50,27 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     [self setSignOutNavigationBarItems];
     
+    if (_refreshHeaderView == nil) {
+        /*
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+         */
+    }
+    /*
+    [self.tableView setContentInset:UIEdgeInsetsMake(50,0,0,0)];
+    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(50,0,0,0)];
+    */
+    //  update the last update date
+    [_refreshHeaderView refreshLastUpdatedDate];
 }
+
 
 #pragma mark -
 #pragma mark Data Source Loading / Reloading Methods
@@ -86,6 +97,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    NSLog(@"%f" ,self.tableView.contentInset.top);
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -174,7 +187,13 @@
     // Return the number of rows in the section.
     id  sectionInfo =
     [[_fetchedResultsController sections] objectAtIndex:section];
+    NSInteger num =[sectionInfo numberOfObjects];
     return [sectionInfo numberOfObjects];
+}
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 125.0;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -183,7 +202,6 @@
     myCell.title.text = info.title;
     [myCell.image setImageWithURL:[NSURL URLWithString:info.imageURL] ];
     myCell.image.contentMode = UIViewContentModeScaleAspectFit;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
