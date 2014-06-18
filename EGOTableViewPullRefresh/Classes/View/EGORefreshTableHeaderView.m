@@ -132,6 +132,7 @@
 
 }
 
+
 - (void)setState:(EGOPullRefreshState)aState{
 	
 	switch (aState) {
@@ -215,6 +216,22 @@
 	
 }
 
+- (void)egoSetStateToRefreshLoading:(UIScrollView *)scrollView
+{
+    
+    if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDidTriggerRefresh:)]) {
+        [_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
+    }
+    
+    [self setState:EGOOPullRefreshLoading];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.2];
+    scrollView.contentInset = UIEdgeInsetsMake(60.0f + viewOffset, 0.0f, 0.0f, 0.0f);
+    [UIView commitAnimations];
+
+}
+
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView {
 	
 	BOOL _loading = NO;
@@ -242,11 +259,10 @@
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
-	[scrollView setContentInset:UIEdgeInsetsMake(viewOffset, 0.0f, 0.0f, 0.0f)];
+    //scrollView.contentInset = UIEdgeInsetsMake(viewOffset, 0.0f, 0.0f, 0.0f);
 	[UIView commitAnimations];
-	
 	[self setState:EGOOPullRefreshNormal];
-
+    scrollView.contentInset = UIEdgeInsetsMake(viewOffset, 0.0f, 0.0f, 0.0f);
 }
 
 

@@ -10,9 +10,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "CustomUIViewController.h"
-#import "LoginCommunication.h"
+#import "ServerCommunication.h"
 
-@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate, LoginCommunicationDelegate> {
+@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
 
 }
 

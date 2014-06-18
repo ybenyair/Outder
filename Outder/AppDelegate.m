@@ -11,7 +11,6 @@
 #import "LoginViewController.h"
 #import "CustomNavigationController.h"
 #import "UserInfo+Login.h"
-#import "MyVideo+Feed.h"
 #import "RootViewController.h"
 
 @implementation AppDelegate
@@ -46,9 +45,7 @@
     
     [FBLoginView class];
     [FBProfilePictureView class];
-    
-    [MyVideo setMyVideoTestData:self.managedObjectContext];
-    
+        
     RootViewController *rootController = [RootViewController getInstance];
     [rootController start];
     

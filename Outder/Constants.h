@@ -18,8 +18,9 @@ typedef enum {
 #define kNumberOfFails 3
 
 //Loging defaults
-#define kCompanyDefaultId @"4"
+#define kCompanyDefaultId @"5"
 #define kDefaultPassword @"outder1!"
+#define kGuestEmail @"benyair.yossi@gmail.com"
 
 //Services
 #define kOutderURL              @"http://www.outder.com/api/"
@@ -29,6 +30,9 @@ typedef enum {
 #define kCampaignData           @"campaign/%@"
 #define kUploadUserShot         @"usershot/"
 #define kUploadUsercampaignText @"usercampaigntext/"
+#define kUserVideos             @"usereditedclip/"
+
+
 
 //response
 #define kMessage    @"message"

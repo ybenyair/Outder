@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13A598" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="MyVideo" representedClassName="MyVideo" syncable="YES">
-        <attribute name="feedID" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Feed" representedClassName="Feed" syncable="YES">
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="subTemplateID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="templateID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="UserInfo" representedClassName="UserInfo" syncable="YES">
@@ -16,7 +14,7 @@
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MyVideo" positionX="-54" positionY="18" width="128" height="150"/>
+        <element name="Feed" positionX="-54" positionY="18" width="128" height="120"/>
         <element name="UserInfo" positionX="-54" positionY="-9" width="128" height="105"/>
     </elements>
 </model>

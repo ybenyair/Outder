@@ -7,10 +7,14 @@
 //
 
 #import "FeedTableViewController.h"
-#import "MyVideo.h"
+#import "Feed.h"
 #import "FeedTableViewCell.h"
 #import "RootViewController.h"
+#import "FeedCoreData.h"
+#import "UserInfo+Login.h"
+#import "ServerCommunication.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "DejalActivityView.h"
 
 @interface FeedTableViewController ()
 
@@ -20,6 +24,7 @@
 
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
+@synthesize feedType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,17 +37,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (_refreshHeaderView == nil) {
-        
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height - 5, self.view.frame.size.width, self.tableView.bounds.size.height)];
-        view.viewOffset = 64.0;
-        view.delegate = self;
-        [self.tableView addSubview:view];
-        _refreshHeaderView = view;
-        
-    }
-    //  update the last update date
-    [_refreshHeaderView refreshLastUpdatedDate];
+    
 }
 
 - (void)viewDidLoad
@@ -59,6 +54,19 @@
     
     [self setSignOutNavigationBarItems];
     
+    if (_refreshHeaderView == nil) {
+        
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height - 5, self.view.frame.size.width, self.tableView.bounds.size.height)];
+        view.viewOffset = 64.0;
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+        
+    }
+    //  update the last update date
+    [_refreshHeaderView refreshLastUpdatedDate];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Loading...", nil)];
+    [self reloadTableViewDataSource];
 }
 
 #pragma mark -
@@ -68,16 +76,34 @@
     
     //  should be calling your tableviews data source model to reload
     //  put here just for demo
+    [FeedCoreData clearDB:managedObjectContext feedType:feedType];
+    ServerCommunication *comm = [[ServerCommunication alloc] init];
+    comm.delegate = self;
+    UserInfo *userInfo = [UserInfo getUserInfo:managedObjectContext];
+    [comm refreshFeed:userInfo feedType:feedType];
     _reloading = YES;
-    
 }
 
 - (void)doneLoadingTableViewData{
-    
+    [DejalBezelActivityView removeViewAnimated:YES];
     //  model should call this when its done loading
     _reloading = NO;
     [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-    
+}
+
+
+- (void)communicationResponse:(NSDictionary *)json userInfo:(UserInfo *)info
+                 responseCode:(eCommResponseCode)code
+{
+    if (code == kCommOK) {
+        //[FeedCoreData setFeedTestData: managedObjectContext feedType:feedType];
+        [FeedCoreData fillFeeds:managedObjectContext data:json feedType:feedType];
+        [self doneLoadingTableViewData];
+    } else {
+        NSString *alertMessage = NSLocalizedString(@"Internet connection error", nil);
+        NSString *alertTitle = NSLocalizedString(@"Login failed", nil);
+        NSLog(@"%@: %@",alertTitle, alertMessage);
+    }
 }
 
 #pragma mark -
@@ -179,11 +205,25 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FeedTableViewCell *myCell = (FeedTableViewCell *)cell;
-    MyVideo *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-    myCell.title.text = info.title;
-    [myCell.image setImageWithURL:[NSURL URLWithString:info.imageURL] ];
+    Feed *feed = [_fetchedResultsController objectAtIndexPath:indexPath];
+    NSURL *url = [NSURL URLWithString:feed.imageURL];
+    myCell.title.text = feed.title;
+   
+    [myCell.image setImageWithURL:url
+                       placeholderImage:nil
+                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                                  if (image)
+                                  {
+                                      myCell.image.alpha = 0.0;
+                                      [UIView animateWithDuration:1.0
+                                                       animations:^{
+                                                           myCell.image.alpha = 1.0;
+                                                       }];
+                                  }
+                              }];
+    
     myCell.image.contentMode = UIViewContentModeScaleAspectFit;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    myCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -226,12 +266,13 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"type = %@", feedType];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"MyVideo" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Feed" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"title" ascending:YES];
+                              initWithKey:@"time" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     [fetchRequest setFetchBatchSize:10];
@@ -239,7 +280,7 @@
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:managedObjectContext sectionNameKeyPath:nil
-                                                   cacheName:@"MyVideo"];
+                                                   cacheName:feedType];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = self;
     

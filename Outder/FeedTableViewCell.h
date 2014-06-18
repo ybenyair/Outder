@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface FeedTableViewCell : UITableViewCell
-
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 

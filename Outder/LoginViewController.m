@@ -12,7 +12,6 @@
 #import "Constants.h"
 #import "DejalActivityView.h"
 #import "UserInfo+Login.h"
-#import "LoginCommunication.h"
 #import "CustomNavigationController.h"
 #import "RootViewController.h"
 
@@ -55,12 +54,13 @@
     [[RootViewController getInstance] startDashboardViewController];
 }
 
-- (void)loginResponse:(UserInfo *)userInfo result:(BOOL)ok;
+- (void)communicationResponse:(NSDictionary *)json userInfo:(UserInfo *)info
+                 responseCode:(eCommResponseCode)code
 {
     [DejalBezelActivityView removeViewAnimated:YES];
 
-    if (ok) {
-        [UserInfo userLoggedIn:self.managedObjectContext userInfo:userInfo];
+    if (code == kCommOK) {
+        [UserInfo userLoggedIn:self.managedObjectContext userInfo:info];
         [self pushDashboard];
     } else {
         NSString *alertMessage = NSLocalizedString(@"Internet connection error", nil);
@@ -73,7 +73,7 @@
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Login...", nil)];
 
-    LoginCommunication *loginComm = [[LoginCommunication alloc] init];
+    ServerCommunication *loginComm = [[ServerCommunication alloc] init];
     loginComm.delegate = self;
     [loginComm sendLogin:userInfo];
     
@@ -173,6 +173,7 @@
 {
     UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
     userInfo.userName = [NSString stringWithFormat:@"GUEST"];
+    userInfo.emailAddress = kGuestEmail;
     userInfo.isValid = [NSNumber numberWithBool:YES];
     [self login:userInfo];
 }
