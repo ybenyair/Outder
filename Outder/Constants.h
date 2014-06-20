@@ -85,8 +85,6 @@ typedef enum {
 #define kText               @"text"
 
 //S3
-#define ACCESS_KEY_ID          @"AKIAJLYFA336HK4YLDDA"
-#define SECRET_KEY             @"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"
 #define VIDEO_BUCKET           @"outder"
 
 #define alreadyRecorded @"alreadyRecorded"
