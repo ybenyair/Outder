@@ -10,6 +10,8 @@
 		180474AD195149A800067AE0 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180474AC195149A800067AE0 /* HomeViewController.m */; };
 		180474AF195149B200067AE0 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180474AE195149B200067AE0 /* HomeViewController.xib */; };
 		180474B51954522600067AE0 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 180474B41954522600067AE0 /* Feed.m */; };
+		180474BF1954691F00067AE0 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 180474BE1954691F00067AE0 /* share.png */; };
+		180474C11954692800067AE0 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 180474C01954692800067AE0 /* camera.png */; };
 		1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1834BF9E1947ACB300AE7332 /* DejalActivityView.m */; };
 		183C14E2194F9D4500DF8ABD /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C14E1194F9D4500DF8ABD /* FeedTableViewController.m */; };
 		183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183C14E3194F9D5000DF8ABD /* FeedTableViewController.xib */; };
@@ -40,6 +42,7 @@
 		18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AAE19486E37001410B7 /* CustomUIViewController.m */; };
 		18984AB219487B7C001410B7 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AB119487B7C001410B7 /* UserInfo.m */; };
 		18984AB61948F1EB001410B7 /* signOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 18984AB51948F1EB001410B7 /* signOut.png */; };
+		18D457CE19546D4900C5932F /* ObjUITapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D457CD19546D4900C5932F /* ObjUITapGestureRecognizer.m */; };
 		18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE95CA193D310C00021A5D /* TermOfUseViewController.m */; };
 		18DE95CF193D424000021A5D /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95CE193D424000021A5D /* sample.png */; };
 		18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */; };
@@ -92,6 +95,8 @@
 		180474AE195149B200067AE0 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		180474B31954522600067AE0 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		180474B41954522600067AE0 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
+		180474BE1954691F00067AE0 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
+		180474C01954692800067AE0 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		1834BF9A19479F4200AE7332 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1834BF9E1947ACB300AE7332 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
 		1834BFA01947AD2F00AE7332 /* DejalActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
@@ -135,6 +140,8 @@
 		18984AB019487B7C001410B7 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		18984AB119487B7C001410B7 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		18984AB51948F1EB001410B7 /* signOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signOut.png; sourceTree = "<group>"; };
+		18D457CC19546D3D00C5932F /* ObjUITapGestureRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ObjUITapGestureRecognizer.h; path = Outder/ObjUITapGestureRecognizer.h; sourceTree = "<group>"; };
+		18D457CD19546D4900C5932F /* ObjUITapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjUITapGestureRecognizer.m; path = Outder/ObjUITapGestureRecognizer.m; sourceTree = "<group>"; };
 		18DE95C9193D310B00021A5D /* TermOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermOfUseViewController.h; sourceTree = "<group>"; };
 		18DE95CA193D310C00021A5D /* TermOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermOfUseViewController.m; sourceTree = "<group>"; };
 		18DE95CE193D424000021A5D /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
@@ -263,6 +270,8 @@
 			children = (
 				183C14EF1950DDC400DF8ABD /* ServerCommunication.h */,
 				183C14ED1950DDBA00DF8ABD /* ServerCommunication.m */,
+				18D457CC19546D3D00C5932F /* ObjUITapGestureRecognizer.h */,
+				18D457CD19546D4900C5932F /* ObjUITapGestureRecognizer.m */,
 			);
 			name = Common;
 			path = ..;
@@ -324,6 +333,8 @@
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				180474BE1954691F00067AE0 /* share.png */,
+				180474C01954692800067AE0 /* camera.png */,
 				188569EF194D21D700980F36 /* featured.png */,
 				188569ED194D210700980F36 /* myvideos.png */,
 				188569E9194D1F3F00980F36 /* home.png */,
@@ -517,6 +528,7 @@
 				1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */,
 				188B8F1D194A158300A88D43 /* Localizable.strings in Resources */,
 				1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */,
+				180474BF1954691F00067AE0 /* share.png in Resources */,
 				1889C0B5194F74BE0065FFE0 /* whiteArrow@2x.png in Resources */,
 				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
 				188569F0194D21D700980F36 /* featured.png in Resources */,
@@ -525,6 +537,7 @@
 				18984AB61948F1EB001410B7 /* signOut.png in Resources */,
 				183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */,
 				183F885F194D61BC006EDD8C /* FeedTableViewCell.xib in Resources */,
+				180474C11954692800067AE0 /* camera.png in Resources */,
 				180474AF195149B200067AE0 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,6 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D457CE19546D4900C5932F /* ObjUITapGestureRecognizer.m in Sources */,
 				1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */,
 				183C14EE1950DDBA00DF8ABD /* ServerCommunication.m in Sources */,
 				18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */,

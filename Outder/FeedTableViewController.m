@@ -15,6 +15,8 @@
 #import "ServerCommunication.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "DejalActivityView.h"
+#import "ObjUITapGestureRecognizer.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 #define kDefaultTime @"9999-12-31 00:00:00"
 
@@ -272,7 +274,8 @@
     Feed *feed = [_fetchedResultsController objectAtIndexPath:indexPath];
     NSURL *url = [NSURL URLWithString:feed.imageURL];
     myCell.title.text = feed.title;
-   
+    myCell.feed = feed;
+    
     [myCell.image setImageWithURL:url
                        placeholderImage:nil
                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
@@ -286,10 +289,42 @@
                                   }
                               }];
     
+    // Configure the tapping
     myCell.image.contentMode = UIViewContentModeScaleAspectFit;
     myCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [self setTapGesture:myCell];
+    
     lastFeedTime = feed.time;
     NSLog(@"lastFeedTime = %@", lastFeedTime);
+}
+
+#pragma mark - Table view data source (setting the tap gesture)
+
+- (void)setTapGesture:(FeedTableViewCell *)cell
+{
+    [cell setUserInteractionEnabled:YES];
+    [cell.image setUserInteractionEnabled:YES];
+    
+    ObjUITapGestureRecognizer *tap = [[ObjUITapGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(feedTap:)];
+    tap.object = cell;
+    [cell addGestureRecognizer:tap];
+}
+
+- (void)feedTap:(UIGestureRecognizer *)sender
+{
+    ObjUITapGestureRecognizer *tap = (ObjUITapGestureRecognizer *)sender;
+    FeedTableViewCell *cell = (FeedTableViewCell *)tap.object;
+    NSLog(@"Tapped on feed: %@", cell.feed.title);
+    [cell imageClicked];
+    
+    NSURL *url;
+    url = [NSURL URLWithString:cell.feed.videoURL];
+    MPMoviePlayerViewController *mpMoviewPlayerCon = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+    [self presentMoviePlayerViewControllerAnimated:mpMoviewPlayerCon];
+    [mpMoviewPlayerCon.moviePlayer play];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
