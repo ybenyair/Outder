@@ -38,12 +38,14 @@
     }
 }
 
-- (void)refreshFeed:(UserInfo *)userInfo feedType:(NSString *)type;
+- (void)getFeeds:(UserInfo *)userInfo fromTime:(NSString *)time feedType:(NSString *)type;
 {
     self.userDetails = userInfo;
-
-    NSString *urlString = [NSString stringWithFormat:@"%@%@?%@=%@&%@=%@",kOutderURL, kUserVideos, kCompanyid,kCompanyDefaultId,kEmail,userInfo.emailAddress];
     
+    NSString *newString = [NSString stringWithFormat:@"%@%@?%@=%@&%@=%@&%@=%@",kOutderURL, kUserVideos, kCompanyid,kCompanyDefaultId,kEmail,userInfo.emailAddress,kTime, time];
+    
+    NSString *urlString = [newString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     NSLog(@"Server request: %@", urlString);
     
     NSURL *url = [NSURL URLWithString:urlString];

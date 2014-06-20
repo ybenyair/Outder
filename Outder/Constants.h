@@ -32,7 +32,8 @@ typedef enum {
 #define kUploadUsercampaignText @"usercampaigntext/"
 #define kUserVideos             @"usereditedclip/"
 
-
+//feed
+#define kTime       @"time"
 
 //response
 #define kMessage    @"message"

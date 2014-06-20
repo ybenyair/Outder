@@ -28,7 +28,7 @@ typedef enum {
 @property (nonatomic,strong) UserInfo* userDetails;
 @property (nonatomic, weak) id <ServerCommunicationDelegate> delegate;
 
-- (void)refreshFeed:(UserInfo *)userInfo feedType:(NSString *)type;
+- (void)getFeeds:(UserInfo *)userInfo fromTime:(NSString *)time feedType:(NSString *)type;
 - (void)sendLogin:(UserInfo *)userInfo;
 
 @end

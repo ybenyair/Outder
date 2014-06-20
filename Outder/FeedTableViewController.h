@@ -14,12 +14,18 @@
 {
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _reloading;
+    BOOL loadingMore;
 }
 
 @property (nonatomic,strong) NSString* feedType;
+@property (nonatomic,strong) NSString* lastFeedTime;
+
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) IBOutlet UIView *loadingMoreView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingMoreIndicator;
 
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;

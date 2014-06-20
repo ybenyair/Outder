@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180474A71951208B00067AE0 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 180474A61951208B00067AE0 /* Feed.m */; };
 		180474AD195149A800067AE0 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180474AC195149A800067AE0 /* HomeViewController.m */; };
 		180474AF195149B200067AE0 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180474AE195149B200067AE0 /* HomeViewController.xib */; };
+		180474B51954522600067AE0 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 180474B41954522600067AE0 /* Feed.m */; };
 		1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1834BF9E1947ACB300AE7332 /* DejalActivityView.m */; };
 		183C14E2194F9D4500DF8ABD /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C14E1194F9D4500DF8ABD /* FeedTableViewController.m */; };
 		183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183C14E3194F9D5000DF8ABD /* FeedTableViewController.xib */; };
@@ -87,11 +87,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		180474A51951208400067AE0 /* Feed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
-		180474A61951208B00067AE0 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		180474AB195149A000067AE0 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		180474AC195149A800067AE0 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		180474AE195149B200067AE0 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		180474B31954522600067AE0 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
+		180474B41954522600067AE0 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		1834BF9A19479F4200AE7332 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1834BF9E1947ACB300AE7332 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
 		1834BFA01947AD2F00AE7332 /* DejalActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
@@ -200,8 +200,9 @@
 		1832694D194D4BA3002717DA /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				180474A51951208400067AE0 /* Feed.h */,
-				180474A61951208B00067AE0 /* Feed.m */,
+				18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */,
+				180474B31954522600067AE0 /* Feed.h */,
+				180474B41954522600067AE0 /* Feed.m */,
 				18984AB019487B7C001410B7 /* UserInfo.h */,
 				18984AB119487B7C001410B7 /* UserInfo.m */,
 				184DDAE219485E0200F22B2A /* UserInfo+Login.h */,
@@ -397,7 +398,6 @@
 			children = (
 				188B8F1F194A158300A88D43 /* Localizable.strings */,
 				18EC4FB1193D0E4B003E5335 /* main.m */,
-				18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */,
 				18EC4FAD193D0E4B003E5335 /* Outder-Info.plist */,
 				18DE95D0193D424800021A5D /* PNG */,
 				18EC4FAE193D0E4B003E5335 /* InfoPlist.strings */,
@@ -545,9 +545,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */,
-				180474A71951208B00067AE0 /* Feed.m in Sources */,
 				183C14EE1950DDBA00DF8ABD /* ServerCommunication.m in Sources */,
 				18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */,
+				180474B51954522600067AE0 /* Feed.m in Sources */,
 				1877E1601950E6B10008D5A7 /* FeedCoreData.m in Sources */,
 				180474AD195149A800067AE0 /* HomeViewController.m in Sources */,
 				184DDAE419485E1700F22B2A /* UserInfo+Login.m in Sources */,

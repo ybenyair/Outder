@@ -16,6 +16,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "DejalActivityView.h"
 
+#define kDefaultTime @"9999-12-31 00:00:00"
+
 @interface FeedTableViewController ()
 
 @end
@@ -25,6 +27,7 @@
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
 @synthesize feedType;
+@synthesize lastFeedTime;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,6 +56,7 @@
 	}
     
     [self setSignOutNavigationBarItems];
+    [self loadMoreTableViewDataSourceEnd];
     
     if (_refreshHeaderView == nil) {
         
@@ -63,32 +67,81 @@
         _refreshHeaderView = view;
         
     }
+    
+    lastFeedTime = kDefaultTime;
+    
     //  update the last update date
     [_refreshHeaderView refreshLastUpdatedDate];
     [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Loading...", nil)];
-    [self reloadTableViewDataSource];
+    [self reloadTableViewDataSourceStart];
 }
 
 #pragma mark -
 #pragma mark Data Source Loading / Reloading Methods
 
+- (void)reloadTableViewDataSourceStart
+{
+    _reloading = YES;
+    lastFeedTime = kDefaultTime;
+    [FeedCoreData clearDB:managedObjectContext feedType:feedType];
+    [self performSelector:@selector(reloadTableViewDataSource) withObject:nil afterDelay:1.0];
+}
+
 - (void)reloadTableViewDataSource{
     
     //  should be calling your tableviews data source model to reload
     //  put here just for demo
-    [FeedCoreData clearDB:managedObjectContext feedType:feedType];
     ServerCommunication *comm = [[ServerCommunication alloc] init];
     comm.delegate = self;
     UserInfo *userInfo = [UserInfo getUserInfo:managedObjectContext];
-    [comm refreshFeed:userInfo feedType:feedType];
-    _reloading = YES;
+    [comm getFeeds:userInfo fromTime:lastFeedTime feedType:feedType];
+}
+
+- (void)reloadTableViewDataSourceEnd
+{
+    _reloading = NO;
+    [DejalBezelActivityView removeViewAnimated:YES];
+    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+}
+
+- (void)loadMoreTableViewDataSourceStart
+{
+    loadingMore = YES;
+    self.loadingMoreView.hidden = NO;
+    self.loadingMoreView.alpha = 0.0;
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.loadingMoreView.alpha = 1.0;
+                     }];
+    
+    [self.loadingMoreIndicator startAnimating];
+    [self performSelector:@selector(loadMoreTableViewDataSource) withObject:nil afterDelay:1.0];
+}
+
+- (void)loadMoreTableViewDataSource
+{
+    ServerCommunication *comm = [[ServerCommunication alloc] init];
+    comm.delegate = self;
+    UserInfo *userInfo = [UserInfo getUserInfo:managedObjectContext];
+    [comm getFeeds:userInfo fromTime:lastFeedTime feedType:feedType];
+}
+
+- (void)loadMoreTableViewDataSourceEnd
+{
+    loadingMore = NO;
+    self.loadingMoreView.hidden = YES;
+    [self.loadingMoreIndicator stopAnimating];
 }
 
 - (void)doneLoadingTableViewData{
-    [DejalBezelActivityView removeViewAnimated:YES];
-    //  model should call this when its done loading
-    _reloading = NO;
-    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    
+    if (_reloading) {
+        [self reloadTableViewDataSourceEnd];
+    }
+    
+    if (loadingMore) {
+        [self loadMoreTableViewDataSourceEnd];
+    }
 }
 
 
@@ -101,7 +154,7 @@
         [self doneLoadingTableViewData];
     } else {
         NSString *alertMessage = NSLocalizedString(@"Internet connection error", nil);
-        NSString *alertTitle = NSLocalizedString(@"Login failed", nil);
+        NSString *alertTitle = NSLocalizedString(@"Failed refreshing feed", nil);
         NSLog(@"%@: %@",alertTitle, alertMessage);
     }
 }
@@ -110,8 +163,15 @@
 #pragma mark UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
     [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    float endScrolling = scrollView.contentOffset.y + scrollView.frame.size.height;
+    if (endScrolling >= scrollView.contentSize.height)
+    {
+        if (!loadingMore && !_reloading) {
+            NSLog(@"More data...");
+            [self loadMoreTableViewDataSourceStart];
+        }
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -120,13 +180,17 @@
     
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    
+}
 
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
     
-    [self reloadTableViewDataSource];
+    [self reloadTableViewDataSourceStart];
     [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
     
 }
@@ -224,6 +288,8 @@
     
     myCell.image.contentMode = UIViewContentModeScaleAspectFit;
     myCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    lastFeedTime = feed.time;
+    NSLog(@"lastFeedTime = %@", lastFeedTime);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -235,7 +301,6 @@
         [tableView registerNib:[UINib nibWithNibName:@"FeedTableViewCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     }
-    
     return cell;
 }
 
@@ -272,7 +337,7 @@
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"time" ascending:YES];
+                              initWithKey:@"time" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     [fetchRequest setFetchBatchSize:10];
@@ -305,7 +370,9 @@
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            if (indexPath) {
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
             break;
             
         case NSFetchedResultsChangeUpdate:

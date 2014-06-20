@@ -56,18 +56,44 @@
     }
 }
 
++ (Feed *)getFeed:(NSManagedObjectContext *)context feedID:(NSString *)feedID feedType:(NSString *)type
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
+    request.predicate = [NSPredicate predicateWithFormat:@"feedID = %@ AND type = %@", feedID, type];
+    NSError *error;
+    Feed *feed = nil;
+    feed = [[context executeFetchRequest:request error:&error] lastObject];
+    
+    if (!error && !feed) {
+        // Create the initial userInfo entity in the DB
+        feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:context];
+        NSLog(@"New feedID = %@", feedID);
+	} else {
+        NSLog(@"Update feedID = %@", feedID);
+    }
+    
+    return  feed;
+}
+
 + (void)fillFeeds:(NSManagedObjectContext *)context data:(NSDictionary *)json feedType:(NSString *)type
 {
     NSArray *dataArray = [json objectForKey:@"data"];
     for (id dataElement in dataArray) {
+
         NSDictionary *feedData = (NSDictionary *)dataElement;
-        Feed *feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:context];
-        feed.title = [feedData objectForKey:@"title"];
-        feed.time = [feedData objectForKey:@"time"];
-        feed.videoURL = [feedData objectForKey:@"video_url"];
-        feed.imageURL = @"https://s3.amazonaws.com/outder/C1/elal/ElAl-1.png";
-        feed.type = type;
-        NSLog(@"%@", feed);
+        NSString *feedID = [feedData objectForKey:@"id"];
+        Feed *feed = [FeedCoreData getFeed:context feedID:feedID feedType:type];
+        
+        if (feed) {
+            feed.title = [feedData objectForKey:@"title"];
+            NSString *time = [feedData objectForKey:@"time"];
+            // remove the time zone
+            feed.time = [time stringByReplacingOccurrencesOfString:@"+00:00" withString:@""];
+            feed.videoURL = [feedData objectForKey:@"video_url"];
+            feed.imageURL = @"https://s3.amazonaws.com/outder/C1/elal/ElAl-1.png";
+            feed.type = type;
+            feed.feedID = [NSNumber numberWithInt:[feedID intValue]];
+        }
     }
 }
 
