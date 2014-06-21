@@ -97,7 +97,6 @@
 		180474B41954522600067AE0 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		180474BE1954691F00067AE0 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
 		180474C01954692800067AE0 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
-		1834BF9A19479F4200AE7332 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1834BF9E1947ACB300AE7332 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
 		1834BFA01947AD2F00AE7332 /* DejalActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
 		183C14E0194F9D3900DF8ABD /* FeedTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedTableViewController.h; path = Outder/FeedTableViewController.h; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 		18984AB51948F1EB001410B7 /* signOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signOut.png; sourceTree = "<group>"; };
 		18D457CC19546D3D00C5932F /* ObjUITapGestureRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ObjUITapGestureRecognizer.h; path = Outder/ObjUITapGestureRecognizer.h; sourceTree = "<group>"; };
 		18D457CD19546D4900C5932F /* ObjUITapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjUITapGestureRecognizer.m; path = Outder/ObjUITapGestureRecognizer.m; sourceTree = "<group>"; };
+		18D457CF1955C7B400C5932F /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		18DE95C9193D310B00021A5D /* TermOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermOfUseViewController.h; sourceTree = "<group>"; };
 		18DE95CA193D310C00021A5D /* TermOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermOfUseViewController.m; sourceTree = "<group>"; };
 		18DE95CE193D424000021A5D /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
@@ -391,7 +391,7 @@
 				1834BFA41948243500AE7332 /* Login */,
 				18EC4FB4193D0E4B003E5335 /* AppDelegate.h */,
 				18EC4FB5193D0E4B003E5335 /* AppDelegate.m */,
-				1834BF9A19479F4200AE7332 /* Constants.h */,
+				18D457CF1955C7B400C5932F /* Defines.h */,
 				180474AB195149A000067AE0 /* HomeViewController.h */,
 				180474AC195149A800067AE0 /* HomeViewController.m */,
 				180474AE195149B200067AE0 /* HomeViewController.xib */,
