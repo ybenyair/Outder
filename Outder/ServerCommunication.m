@@ -8,7 +8,7 @@
 
 #import "ServerCommunication.h"
 #import "UserInfo+Login.h"
-#import "Constants.h"
+#import "Defines.h"
 
 @implementation ServerCommunication
 

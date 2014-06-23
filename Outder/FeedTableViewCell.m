@@ -7,11 +7,12 @@
 //
 
 #import "FeedTableViewCell.h"
-#import <MediaPlayer/MediaPlayer.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation FeedTableViewCell
 
 @synthesize feed;
+@synthesize videoCtrl;
 
 - (void) layoutSubviews{
     
@@ -22,20 +23,74 @@
 {
     // Initialization code
     
+    [self setUserInteractionEnabled:YES];
     [self.image setUserInteractionEnabled:YES];
     [self.image setHighlighted:YES];
     [self.sharedButton setShowsTouchWhenHighlighted:YES];
     [self.cameraButton setShowsTouchWhenHighlighted:YES];
+    // Configure the tapping
+    self.image.contentMode = UIViewContentModeScaleAspectFit;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [self setTapGesture];
 }
-
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
+
+- (void)configureCell:(Feed *)feedInfo
+{
+    feed = feedInfo;
+    self.title.text = feed.title;
+    
+    NSURL *url = [NSURL URLWithString:feed.imageURL];
+    
+    [self.image setImageWithURL:url
+                 placeholderImage:nil
+                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                            if (image)
+                            {
+                                self.image.alpha = 0.0;
+                                [UIView animateWithDuration:1.0
+                                                 animations:^{
+                                                     self.image.alpha = 1.0;
+                                                 }];
+                            }
+                        }];
+    
+    if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
+        [videoCtrl stopVideo];
+        videoCtrl = nil;
+    }
+    
+}
+
+- (void)setTapGesture
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(feedTap:)];
+    [self addGestureRecognizer:tap];
+}
+
+- (void)feedTap:(UIGestureRecognizer *)sender
+{
+    NSLog(@"Tapped on feed: %@", feed.title);
+    if (!videoCtrl) {
+        videoCtrl = [[VideoPlayerViewController alloc] init];
+    }
+    
+    if (videoCtrl.videoState == kVideoClosed) {
+        [videoCtrl playVideo:feed.videoURL inView:self.image];
+    } else {
+        NSLog(@"Video is already playing...	");
+    }
+    
+ }
+
 
 - (void) imageClicked {
     [self.image.layer setOpacity:0.6];

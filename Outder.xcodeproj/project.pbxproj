@@ -43,6 +43,10 @@
 		18984AB219487B7C001410B7 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AB119487B7C001410B7 /* UserInfo.m */; };
 		18984AB61948F1EB001410B7 /* signOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 18984AB51948F1EB001410B7 /* signOut.png */; };
 		18D457CE19546D4900C5932F /* ObjUITapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D457CD19546D4900C5932F /* ObjUITapGestureRecognizer.m */; };
+		18D457D8195659F500C5932F /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D457D6195659F500C5932F /* VideoPlayerViewController.m */; };
+		18D457D9195659F500C5932F /* VideoPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D457D7195659F500C5932F /* VideoPlayerViewController.xib */; };
+		18D457DD1956B27800C5932F /* mediaStopBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D457DC1956B27800C5932F /* mediaStopBtn.png */; };
+		18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D457DE1956B27E00C5932F /* mediaPlayBtn.png */; };
 		18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE95CA193D310C00021A5D /* TermOfUseViewController.m */; };
 		18DE95CF193D424000021A5D /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95CE193D424000021A5D /* sample.png */; };
 		18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */; };
@@ -142,6 +146,11 @@
 		18D457CC19546D3D00C5932F /* ObjUITapGestureRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ObjUITapGestureRecognizer.h; path = Outder/ObjUITapGestureRecognizer.h; sourceTree = "<group>"; };
 		18D457CD19546D4900C5932F /* ObjUITapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjUITapGestureRecognizer.m; path = Outder/ObjUITapGestureRecognizer.m; sourceTree = "<group>"; };
 		18D457CF1955C7B400C5932F /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
+		18D457D5195659F500C5932F /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		18D457D6195659F500C5932F /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
+		18D457D7195659F500C5932F /* VideoPlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlayerViewController.xib; sourceTree = "<group>"; };
+		18D457DC1956B27800C5932F /* mediaStopBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediaStopBtn.png; sourceTree = "<group>"; };
+		18D457DE1956B27E00C5932F /* mediaPlayBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediaPlayBtn.png; sourceTree = "<group>"; };
 		18DE95C9193D310B00021A5D /* TermOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermOfUseViewController.h; sourceTree = "<group>"; };
 		18DE95CA193D310C00021A5D /* TermOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermOfUseViewController.m; sourceTree = "<group>"; };
 		18DE95CE193D424000021A5D /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
@@ -242,6 +251,9 @@
 				187A5754193D0F15009BA935 /* LoginViewController.h */,
 				187A5755193D0F15009BA935 /* LoginViewController.m */,
 				18DE96031944FF0D00021A5D /* LoginViewController.xib */,
+				18D457D5195659F500C5932F /* VideoPlayerViewController.h */,
+				18D457D6195659F500C5932F /* VideoPlayerViewController.m */,
+				18D457D7195659F500C5932F /* VideoPlayerViewController.xib */,
 				18DE95C9193D310B00021A5D /* TermOfUseViewController.h */,
 				18DE95CA193D310C00021A5D /* TermOfUseViewController.m */,
 				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
@@ -333,6 +345,8 @@
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				18D457DE1956B27E00C5932F /* mediaPlayBtn.png */,
+				18D457DC1956B27800C5932F /* mediaStopBtn.png */,
 				180474BE1954691F00067AE0 /* share.png */,
 				180474C01954692800067AE0 /* camera.png */,
 				188569EF194D21D700980F36 /* featured.png */,
@@ -515,6 +529,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */,
 				18EC4FB0193D0E4B003E5335 /* InfoPlist.strings in Resources */,
 				18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */,
 				188569EA194D1F3F00980F36 /* home.png in Resources */,
@@ -528,6 +543,7 @@
 				1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */,
 				188B8F1D194A158300A88D43 /* Localizable.strings in Resources */,
 				1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */,
+				18D457DD1956B27800C5932F /* mediaStopBtn.png in Resources */,
 				180474BF1954691F00067AE0 /* share.png in Resources */,
 				1889C0B5194F74BE0065FFE0 /* whiteArrow@2x.png in Resources */,
 				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
@@ -535,6 +551,7 @@
 				188569EE194D210700980F36 /* myvideos.png in Resources */,
 				18DE95CF193D424000021A5D /* sample.png in Resources */,
 				18984AB61948F1EB001410B7 /* signOut.png in Resources */,
+				18D457D9195659F500C5932F /* VideoPlayerViewController.xib in Resources */,
 				183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */,
 				183F885F194D61BC006EDD8C /* FeedTableViewCell.xib in Resources */,
 				180474C11954692800067AE0 /* camera.png in Resources */,
@@ -557,6 +574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D457D8195659F500C5932F /* VideoPlayerViewController.m in Sources */,
 				18D457CE19546D4900C5932F /* ObjUITapGestureRecognizer.m in Sources */,
 				1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */,
 				183C14EE1950DDBA00DF8ABD /* ServerCommunication.m in Sources */,

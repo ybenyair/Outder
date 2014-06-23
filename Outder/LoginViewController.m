@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "CustomNavigationController.h"
 #import "TermOfUseViewController.h"
-#import "Constants.h"
+#import "Defines.h"
 #import "DejalActivityView.h"
 #import "UserInfo+Login.h"
 #import "CustomNavigationController.h"
@@ -183,26 +183,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     
     NSURL *url;
+    
     url = [NSURL URLWithString:@"http://d167cgw0so9a1a.cloudfront.net/media/loginsamplevideo.mp4"];
+
     MPMoviePlayerViewController *mpMoviewPlayerCon = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     [self presentMoviePlayerViewControllerAnimated:mpMoviewPlayerCon];
     
     [mpMoviewPlayerCon.moviePlayer play];
-
-    /* Playing an Embedded Video
-     
-     MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-     
-     [player prepareToPlay];
-     [player setFullscreen:true animated:true];
-     [player setShouldAutoplay:true];
-     [player.view setFrame: self.videoView.bounds];
-     [player setControlStyle:MPMovieControlStyleNone];
-     [player setScalingMode:MPMovieScalingModeAspectFill];
-     [self.videoView addSubview: player.view];
-     
-     [player play];
-     */
 
 }
 

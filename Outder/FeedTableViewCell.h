@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Feed.h"
+#import "VideoPlayerViewController.h"
 
 @interface FeedTableViewCell : UITableViewCell
 
@@ -21,7 +22,10 @@
 - (IBAction)cameraButtonClicked:(id)sender;
 
 - (void) imageClicked;
+- (void)configureCell:(Feed *)feedInfo;
 
 @property (nonatomic,strong) Feed* feed;
+@property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
+
 
 @end

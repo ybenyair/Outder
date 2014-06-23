@@ -67,6 +67,7 @@
     if (!error && !feed) {
         // Create the initial userInfo entity in the DB
         feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:context];
+        feed.feedID = 0;
         NSLog(@"New feedID = %@", feedID);
 	} else {
         NSLog(@"Update feedID = %@", feedID);
@@ -84,7 +85,8 @@
         NSString *feedID = [feedData objectForKey:@"id"];
         Feed *feed = [FeedCoreData getFeed:context feedID:feedID feedType:type];
         
-        if (feed) {
+        if (feed.feedID == 0) {
+            // A new feed
             feed.title = [feedData objectForKey:@"title"];
             NSString *time = [feedData objectForKey:@"time"];
             // remove the time zone

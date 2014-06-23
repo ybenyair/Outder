@@ -13,7 +13,6 @@
 #import "FeedCoreData.h"
 #import "UserInfo+Login.h"
 #import "ServerCommunication.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "DejalActivityView.h"
 #import "ObjUITapGestureRecognizer.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -71,6 +70,7 @@
     }
     
     lastFeedTime = kDefaultTime;
+    
     
     //  update the last update date
     [_refreshHeaderView refreshLastUpdatedDate];
@@ -272,60 +272,13 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FeedTableViewCell *myCell = (FeedTableViewCell *)cell;
     Feed *feed = [_fetchedResultsController objectAtIndexPath:indexPath];
-    NSURL *url = [NSURL URLWithString:feed.imageURL];
-    myCell.title.text = feed.title;
-    myCell.feed = feed;
-    
-    [myCell.image setImageWithURL:url
-                       placeholderImage:nil
-                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                                  if (image)
-                                  {
-                                      myCell.image.alpha = 0.0;
-                                      [UIView animateWithDuration:1.0
-                                                       animations:^{
-                                                           myCell.image.alpha = 1.0;
-                                                       }];
-                                  }
-                              }];
-    
-    // Configure the tapping
-    myCell.image.contentMode = UIViewContentModeScaleAspectFit;
-    myCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    [self setTapGesture:myCell];
+    [myCell configureCell:feed];
     
     lastFeedTime = feed.time;
     NSLog(@"lastFeedTime = %@", lastFeedTime);
 }
 
 #pragma mark - Table view data source (setting the tap gesture)
-
-- (void)setTapGesture:(FeedTableViewCell *)cell
-{
-    [cell setUserInteractionEnabled:YES];
-    [cell.image setUserInteractionEnabled:YES];
-    
-    ObjUITapGestureRecognizer *tap = [[ObjUITapGestureRecognizer alloc]
-                                      initWithTarget:self action:@selector(feedTap:)];
-    tap.object = cell;
-    [cell addGestureRecognizer:tap];
-}
-
-- (void)feedTap:(UIGestureRecognizer *)sender
-{
-    ObjUITapGestureRecognizer *tap = (ObjUITapGestureRecognizer *)sender;
-    FeedTableViewCell *cell = (FeedTableViewCell *)tap.object;
-    NSLog(@"Tapped on feed: %@", cell.feed.title);
-    [cell imageClicked];
-    
-    NSURL *url;
-    url = [NSURL URLWithString:cell.feed.videoURL];
-    MPMoviePlayerViewController *mpMoviewPlayerCon = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [self presentMoviePlayerViewControllerAnimated:mpMoviewPlayerCon];
-    [mpMoviewPlayerCon.moviePlayer play];
-    
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
