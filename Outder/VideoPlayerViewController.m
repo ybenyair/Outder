@@ -106,7 +106,7 @@
             break;
             
         case UIDeviceOrientationPortrait:
-            [self stopButtonClicked:nil];
+            [self configurePlayerViewBackToPortrait];
             NSLog(@"Portrait");
             break;
             
@@ -117,6 +117,27 @@
         default:
             break;
     };
+}
+
+- (void)configurePlayerViewBackToPortrait
+{
+    [UIView animateWithDuration:0.2f
+                     animations:^{
+                         [videoPlayer.view setTransform:CGAffineTransformMakeRotation(2*M_PI)];
+                     }];
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    CGFloat x = self.view.center.x;
+    CGFloat y = self.view.center.y;
+    
+    [videoPlayer.view setBounds:CGRectMake(0, 0, width, height)];
+    [videoPlayer.view setCenter:CGPointMake(x, y)];
+    
+    [videoPlayer.view removeFromSuperview];
+    [self.view addSubview:videoPlayer.view];
+    [self positionItemsOnPlayerView];
 }
 
 - (void)configurePlayerViewPortrait:(UIView *)videoView
