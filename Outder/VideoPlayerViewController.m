@@ -18,6 +18,7 @@
 @synthesize stopButton;
 @synthesize videoPlayer;
 @synthesize videoState;
+@synthesize playbackErrorLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +31,7 @@
         self.view.contentMode = UIViewContentModeScaleAspectFit;
         self.videoState = kVideoClosed;
         [self initStopButton];
+        [self initPlaybackErrorLabel];
     }
     return self;
 }
@@ -45,6 +47,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)initPlaybackErrorLabel
+{
+    playbackErrorLabel = [[UILabel alloc] init];
+    playbackErrorLabel.frame = CGRectMake(0, 0, 200.0, 35.0);
+    playbackErrorLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    playbackErrorLabel.text = NSLocalizedString(@"ERROR PLAYING VIDEO", nil);
+    playbackErrorLabel.textColor = [UIColor whiteColor];
+    playbackErrorLabel.textAlignment = NSTextAlignmentCenter;
+}
+
 - (void)initStopButton
 {
     stopButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -55,12 +67,15 @@
     stopButton.hidden = YES;
 }
 
-- (void)setStopButtonFrame: (UIView *)videoView
+- (void)setVideoFrame: (UIView *)videoView
 {
     CGFloat x = videoView.frame.size.width - 40;
     CGFloat y = videoView.frame.size.height - 40;
     stopButton.frame = CGRectMake(x, y, 35.0, 35.0);
     stopButton.hidden = NO;
+   
+    playbackErrorLabel.center = videoView.center;
+    playbackErrorLabel.hidden = YES;
 }
 
 - (void) allocVideoPlayer:(NSString *)videoURL
@@ -81,7 +96,7 @@
 {
     self.view.frame = videoView.bounds;
     [self.view setAlpha:1];
-    [self setStopButtonFrame:videoView];
+    [self setVideoFrame:videoView];
 }
 
 - (void) allocActivityIndicator
@@ -112,6 +127,7 @@
     [self.view addSubview: videoPlayer.view];
     [videoPlayer.view addSubview: activityIndicator];
     [videoPlayer.view addSubview: stopButton];
+    [videoPlayer.view addSubview: playbackErrorLabel];
     [activityIndicator startAnimating];
     
     [videoPlayer play];
@@ -136,19 +152,6 @@
     [self openVideo: videoView];
 }
 
-- (void)movieStateCallback:(NSNotification *)notification
-{
-    NSLog(@"Player state = %d", videoPlayer.loadState);
-    
-    if ((videoState == kVideoOpening) &&
-        (videoPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable) {
-        videoState = kVideoOpened;
-        [self.activityIndicator stopAnimating];
-        NSLog(@"Video is opened");
-    }
-}
-
-
 - (void) deregisterPlayerCallbacks
 {
     // Remove this class from the observers
@@ -161,11 +164,42 @@
                                                   object:videoPlayer];
 }
 
-- (void)movieFinishedCallback:(NSNotification*)aNotification
+- (void)movieStateCallback:(NSNotification *)notification
 {
-
-    [self deregisterPlayerCallbacks];
+    NSLog(@"Player state = %d", videoPlayer.loadState);
     
+    if ((videoState == kVideoOpening) &&
+        (videoPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable) {
+        videoState = kVideoOpened;
+        [self.activityIndicator stopAnimating];
+        NSLog(@"Video is opened");
+    }
+}
+
+- (void)movieFinishedError
+{
+    videoState = kVideoClosing;
+    NSLog(@"Video is closing");
+    
+    playbackErrorLabel.hidden = NO;
+    [activityIndicator stopAnimating];
+    
+    [self.view setAlpha:1];
+    
+    [UIView animateWithDuration:3.0f
+                     animations:^{
+                         [self.view setAlpha:0];
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished)
+                         {
+                             [self closeVideo];
+                         }
+                     }];
+}
+
+- (void)movieFinishedOK
+{
     if (videoState == kVideoOpened) {
         
         videoState = kVideoClosing;
@@ -182,9 +216,24 @@
                                  [self closeVideo];
                              }
                          }];
-
+        
     } else {
         [self closeVideo];
+    }
+}
+
+- (void)movieFinishedCallback:(NSNotification*)aNotification
+{
+    NSNumber* reason = [[aNotification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
+    
+    [self deregisterPlayerCallbacks];
+    
+    if ([reason intValue] == MPMovieFinishReasonPlaybackError) {
+        NSLog(@"playbackFinished. Reason: Playback Error");
+        [self movieFinishedError];
+    } else {
+        NSLog(@"playbackFinished. Reason: OK");
+        [self movieFinishedOK];
     }
     
 }
@@ -201,6 +250,7 @@
 
 - (void) closeVideo
 {
+    [self.playbackErrorLabel removeFromSuperview];
     [self.stopButton removeFromSuperview];
     [videoPlayer.view removeFromSuperview];
     [self.view removeFromSuperview];

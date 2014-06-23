@@ -84,7 +84,7 @@
     }
     
     if (videoCtrl.videoState == kVideoClosed) {
-        [videoCtrl playVideo:feed.videoURL inView:self.image];
+        [videoCtrl playVideo:feed.videoURL inView:self.feedContentView];
     } else {
         NSLog(@"Video is already playing...	");
     }

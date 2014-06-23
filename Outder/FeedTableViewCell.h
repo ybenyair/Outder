@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIButton *sharedButton;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIView *feedContentView;
 
 
 - (IBAction)sharedButtonClicked:(id)sender;

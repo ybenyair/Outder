@@ -26,6 +26,8 @@ typedef enum {
 @property (nonatomic,strong) MPMoviePlayerController *videoPlayer;
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIButton *stopButton;
+@property (nonatomic,strong) UILabel *playbackErrorLabel;
+
 @property  eVideoPlayerState videoState;
 
 
