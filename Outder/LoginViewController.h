@@ -10,12 +10,14 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "ServerCommunication.h"
+#import "VideoPlayerViewController.h"
 
 @interface LoginViewController : UIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
 
 }
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;

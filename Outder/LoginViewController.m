@@ -22,6 +22,7 @@
 @implementation LoginViewController
 
 @synthesize managedObjectContext;
+@synthesize videoCtrl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -182,24 +183,13 @@
 
 - (IBAction)playVideoClicked:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    // Release the previous video player and allocate a new one
+    videoCtrl = nil;
+    videoCtrl = [[VideoPlayerViewController alloc] init];
     
-    NSURL *url;
-    
-    url = [NSURL URLWithString:@"http://d167cgw0so9a1a.cloudfront.net/media/loginsamplevideo.mp4"];
-
-    MPMoviePlayerViewController *mpMoviewPlayerCon = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [self presentMoviePlayerViewControllerAnimated:mpMoviewPlayerCon];
-    
-    [mpMoviewPlayerCon.moviePlayer play];
-
-}
-
--(void)MPMoviePlayerPlaybackDidFinishNotification:(NSNotification*)notif {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:MPMoviePlayerPlaybackDidFinishNotification
-                                                  object:nil];
+    // PLay the video
+    NSString *url = @"http://d167cgw0so9a1a.cloudfront.net/media/loginsamplevideo.mp4";
+    [videoCtrl playVideo:url inView:self.videoView];
 }
 
 @end

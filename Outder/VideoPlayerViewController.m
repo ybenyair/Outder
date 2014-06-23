@@ -106,7 +106,7 @@
             break;
             
         case UIDeviceOrientationPortrait:
-            /* start special animation */
+            [self stopButtonClicked:nil];
             NSLog(@"Portrait");
             break;
             
@@ -123,11 +123,13 @@
 {
     // Set the whole view frame
     self.view.frame = videoView.bounds;
-    
     // Set the video player frame
     videoPlayer.view.frame = videoView.bounds;
     
     [self positionItemsOnPlayerView];
+    
+    [self.view addSubview: videoPlayer.view];
+    [videoView addSubview:self.view];
 }
 
 - (void)configurePlayerViewLandscape:(CGFloat)angle
@@ -143,11 +145,14 @@
     [videoPlayer.view setBounds:CGRectMake(0, 0, width, height)];
     [videoPlayer.view setCenter:CGPointMake(x, y)];
     [self positionItemsOnPlayerView];
-    
-    [videoPlayer.view setTransform:CGAffineTransformMakeRotation(angle)];
-    
+
     [videoPlayer.view removeFromSuperview];
     [videoView addSubview:videoPlayer.view];
+    
+    [UIView animateWithDuration:0.2f
+                     animations:^{
+                         [videoPlayer.view setTransform:CGAffineTransformMakeRotation(angle)];
+                     }];
 }
 
 #pragma mark - allocating and configure positions of view items
@@ -198,6 +203,13 @@
     activityIndicator.center = videoPlayer.view.center;
 }
 
+- (void)addItemsOnPlayerView
+{
+    [videoPlayer.view addSubview: activityIndicator];
+    [videoPlayer.view addSubview: stopButton];
+    [videoPlayer.view addSubview: playbackErrorLabel];
+}
+
 #pragma mark - Video Player (notifications)
 
 - (void) registerPlayerCallbacks
@@ -230,17 +242,9 @@
 
 - (void)openVideo: (UIView *)videoView
 {
-    [self.view addSubview: videoPlayer.view];
-    
-    [videoPlayer.view addSubview: activityIndicator];
-    [videoPlayer.view addSubview: stopButton];
-    [videoPlayer.view addSubview: playbackErrorLabel];
     [activityIndicator startAnimating];
-    
-    [videoPlayer play];
-    [videoView addSubview:self.view];
-    
     [self registerToDeviceOrientationNotification];
+    [videoPlayer play];
 }
 
 - (void) closeVideo
@@ -264,13 +268,14 @@
         NSLog(@"Video is already playing...");
         return;
     }
-    
+        
     videoState = kVideoOpening;
     NSLog(@"Video is opening");
     
     // Alloc various objects
     [self allocVideoPlayer:videoURL];
     [self allocActivityIndicator];
+    [self addItemsOnPlayerView];
     [self registerPlayerCallbacks];
 
     // Configure view
