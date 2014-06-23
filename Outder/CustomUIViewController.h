@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CustomUIViewController : UIViewController {
-    NSManagedObjectContext *managedObjectContext;
-}
 
-@property NSManagedObjectContext *managedObjectContext;
+}
 
 @end

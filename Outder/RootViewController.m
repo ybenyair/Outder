@@ -10,7 +10,6 @@
 #import "LoginViewController.h"
 #import "FeedTableViewController.h"
 #import "HomeViewController.h"
-#import "CustomNavigationController.h"
 #import "AppDelegate.h"
 #import "UserInfo+Login.h"
 
@@ -69,7 +68,7 @@ static RootViewController *instance = nil;
     }
     LoginViewController *lvc = [[LoginViewController alloc] init];
     lvc.managedObjectContext = self.managedObjectContext;
-    CustomNavigationController *navcon = [[CustomNavigationController alloc] init];
+    UINavigationController *navcon = [[UINavigationController alloc] init];
     [navcon pushViewController:lvc animated:YES];
     [self setActiveView:navcon];
 }
@@ -82,7 +81,7 @@ static RootViewController *instance = nil;
     homevc.managedObjectContext = self.managedObjectContext;
     homevc.tabBarItem.title = @"Home";
     homevc.tabBarItem.image	 = [UIImage imageNamed:@"home"];
-    CustomNavigationController *navhome = [[CustomNavigationController alloc] init];
+    UINavigationController *navhome = [[UINavigationController alloc] init];
     [navhome pushViewController:homevc animated:NO];
     
     FeedTableViewController *myvideovc = [[FeedTableViewController alloc] init];
@@ -90,7 +89,7 @@ static RootViewController *instance = nil;
     myvideovc.tabBarItem.title = @"My Video";
     myvideovc.feedType = @"MyVideo";
     myvideovc.tabBarItem.image	 = [UIImage imageNamed:@"myvideos"];
-    CustomNavigationController *navmyvideo = [[CustomNavigationController alloc] init];
+    UINavigationController *navmyvideo = [[UINavigationController alloc] init];
     [navmyvideo pushViewController:myvideovc animated:NO];
     
     FeedTableViewController *featuredvideovc = [[FeedTableViewController alloc] init];
@@ -98,7 +97,7 @@ static RootViewController *instance = nil;
     featuredvideovc.tabBarItem.title = @"Featured";
     featuredvideovc.feedType = @"FeaturedVideo";
     featuredvideovc.tabBarItem.image	 = [UIImage imageNamed:@"featured"];
-    CustomNavigationController *navfeatured = [[CustomNavigationController alloc] init];
+    UINavigationController *navfeatured = [[UINavigationController alloc] init];
     [navfeatured pushViewController:featuredvideovc animated:NO];
     
     [tbc setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];

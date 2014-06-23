@@ -52,7 +52,9 @@ static CustomNavigationController* instace = nil;
 
 - (BOOL)shouldAutorotate
 {
-    return self.topViewController.shouldAutorotate; //you are asking your current controller what it should do
+    NSLog(@"Should autorotate = %d",self.topViewController.shouldAutorotate);
+    //return self.topViewController.shouldAutorotate; //you are asking your current controller what it should do
+    return NO;
 }
 
 -(NSUInteger)supportedInterfaceOrientations

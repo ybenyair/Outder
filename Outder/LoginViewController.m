@@ -21,6 +21,8 @@
 
 @implementation LoginViewController
 
+@synthesize managedObjectContext;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -198,11 +200,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:nil];
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return  UIInterfaceOrientationMaskPortrait;
 }
 
 @end

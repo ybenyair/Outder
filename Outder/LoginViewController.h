@@ -9,14 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "CustomUIViewController.h"
 #import "ServerCommunication.h"
 
-@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
+@interface LoginViewController : UIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
 
 }
 
-@property NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;

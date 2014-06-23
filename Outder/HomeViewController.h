@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CustomUIViewController.h"
 
-@interface HomeViewController : CustomUIViewController
+@interface HomeViewController : UIViewController
+
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
 @end

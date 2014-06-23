@@ -20,6 +20,12 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 
+-(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return  UIInterfaceOrientationMaskPortrait;
+}
+
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     // Call FBAppCall's handleOpenURL:sourceApplication to handle Facebook app responses

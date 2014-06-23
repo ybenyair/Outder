@@ -16,8 +16,6 @@
 
 @implementation CustomUIViewController
 
-@synthesize managedObjectContext;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
