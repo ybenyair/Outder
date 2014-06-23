@@ -106,24 +106,26 @@
             break;
             
         case UIDeviceOrientationPortrait:
-            [self configurePlayerViewBackToPortrait];
+            [self configurePlayerViewBackToPortrait:(2 * M_PI)];
             NSLog(@"Portrait");
             break;
             
         case UIDeviceOrientationPortraitUpsideDown:
             /* start special animation */
+            [self configurePlayerViewBackToPortrait:(M_PI)];
+            NSLog(@"Portrait UpsideDown");
             break;
-            
+
         default:
             break;
     };
 }
 
-- (void)configurePlayerViewBackToPortrait
+- (void)configurePlayerViewBackToPortrait:(CGFloat)angle
 {
     [UIView animateWithDuration:0.2f
                      animations:^{
-                         [videoPlayer.view setTransform:CGAffineTransformMakeRotation(2*M_PI)];
+                         [videoPlayer.view setTransform:CGAffineTransformMakeRotation(angle)];
                      }];
     
     CGFloat width = self.view.frame.size.width;
