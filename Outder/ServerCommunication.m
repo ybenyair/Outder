@@ -67,12 +67,12 @@
 {
     self.userDetails = userInfo;
 
-    NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    //NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 
     //www.outder.com/api/company/4/dashboard?email=aaa@bbb.com&did=85DD5154-9403-4B62-A3B8-A93CD9438F83
-    NSString *urlString = [NSString stringWithFormat:@"http://www.outder.com/api/company/%@/dashboard?email=%@&did=%@",kCompanyDefaultId,userInfo.emailAddress,deviceUdid];
+    //NSString *urlString = [NSString stringWithFormat:@"http://www.outder.com/api/company/%@/dashboard?email=%@&did=%@",kCompanyDefaultId,userInfo.emailAddress,deviceUdid];
     
-    //NSString *urlString = @"http://www.outder.com/tou/1000/";
+    NSString *urlString = @"http://www.outder.com/tou/1000/";
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url

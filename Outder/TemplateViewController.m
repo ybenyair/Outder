@@ -11,16 +11,19 @@
 #import "Template.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TemplatePromotedView.h"
+#import "TemplateCoreData.h"
 
+@interface PromotedTemplate : NSObject {
+    NSInteger templateID;
+}
 
-@interface PromotedTemplate : NSObject
+@property (nonatomic) NSInteger templateID;
 @property (nonatomic,strong) NSString *imageURL;
-@property (nonatomic,strong) TemplatePromotedView *promotedView;
 @end
 
 @implementation PromotedTemplate
 @synthesize imageURL;
-@synthesize promotedView;
+@synthesize templateID;
 @end
 
 
@@ -32,8 +35,8 @@
 {
     NSMutableArray *_objectChanges;
     NSMutableArray *_sectionChanges;
-    
     NSMutableArray *_promotedTemplates;
+    NSMutableDictionary *_reusedPromotedViews;
     NSInteger _currentPage;
 }
 
@@ -66,46 +69,44 @@ static NSString *CellIdentifier = @"templateCell";
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
     _promotedTemplates = [NSMutableArray array];
+    _reusedPromotedViews = [NSMutableDictionary dictionary];
+    
+    [self setPromotedTemplates];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"TemplateCell" bundle:nil] forCellWithReuseIdentifier:CellIdentifier];
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    [self setPromotedTemplates];
-
     self.carousel.type = iCarouselTypeCustom;
     self.carousel.centerItemWhenSelected = NO;
 }
 
-
 - (void) setPromotedTemplates
 {
-    PromotedTemplate *template = [[PromotedTemplate alloc] init];
-    template.imageURL = @"http://d167cgw0so9a1a.cloudfront.net/C3/static/makingtakeaction.jpg";
-    [_promotedTemplates addObject:template];
+    NSArray *promotedTemplates = [TemplateCoreData getPromotedTemplates:managedObjectContext];
     
-    template = [[PromotedTemplate alloc] init];
-    template.imageURL = @"http://d167cgw0so9a1a.cloudfront.net/C3/static/getstarted.jpg";
-    [_promotedTemplates addObject:template];
-    
-    template = [[PromotedTemplate alloc] init];
-    template.imageURL = @"http://d167cgw0so9a1a.cloudfront.net/C3/static/JoinGCI.jpg";
-    [_promotedTemplates addObject:template];
-    
-    template = [[PromotedTemplate alloc] init];
-    template.imageURL = @"http://d167cgw0so9a1a.cloudfront.net/C3/static/Makeachangevideo.jpg";
-    [_promotedTemplates addObject:template];
-    
+    for (id dataElement in promotedTemplates) {
+        PromotedTemplate *promotedTemplate = [[PromotedTemplate alloc] init];
+        promotedTemplate.imageURL = ((Template *)dataElement).imageURL;
+        promotedTemplate.templateID = [((Template *)dataElement).id intValue];
+        NSLog(@"Promoted id: %d Image: %@", promotedTemplate.templateID, promotedTemplate.imageURL);
+        [_promotedTemplates addObject:promotedTemplate];
+    }
+
     self.pageControl.numberOfPages = [_promotedTemplates count];
     NSLog(@"Set number of pages = %d", self.pageControl.numberOfPages);
     _currentPage = 0;
-    
+    [self.carousel reloadData];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     self.fetchedResultsController = nil;
+    _objectChanges = nil;
+    _sectionChanges = nil;
+    _promotedTemplates = nil;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -165,7 +166,7 @@ static NSString *CellIdentifier = @"templateCell";
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    //fetchRequest.predicate = [NSPredicate predicateWithFormat:@"type = %@", feedType];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"promoted = 0"];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"Template" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -305,22 +306,29 @@ static NSString *CellIdentifier = @"templateCell";
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
-    return 4;
+    NSInteger count = [_promotedTemplates count];
+    NSLog(@"Promoted templates count = %d", count);
+    return count;
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    PromotedTemplate *template = [_promotedTemplates objectAtIndex:index];
+    TemplatePromotedView *promotedView = nil;
+    PromotedTemplate *promotedTemplate = [_promotedTemplates objectAtIndex:index];
     NSLog(@"viewForItemAtIndex %d", index);
     //create new view if no view is available for recycling
     if (view == nil)
     {
         NSLog(@"Create a new view for index %d",index);
-        template.promotedView = [[TemplatePromotedView alloc] init];
-        view = template.promotedView.view;
+        promotedView = [[TemplatePromotedView alloc] init];
+        NSString *key = [NSString stringWithFormat:@"%p",promotedView.view];
+        [_reusedPromotedViews setObject:promotedView forKey:key];
+        view = promotedView.view;
     }
     else
     {
+        NSString *key = [NSString stringWithFormat:@"%p",view];
+        promotedView = [_reusedPromotedViews objectForKey:key];
         NSLog(@"Update the view for index %d",index);
     }
     
@@ -328,14 +336,14 @@ static NSString *CellIdentifier = @"templateCell";
     //views outside of the `if (view == nil) {...}` check otherwise
     //you'll get weird issues with carousel item content appearing
     //in the wrong place in the carousel
-    [template.promotedView setImage:template.imageURL];
+    [promotedView setImage:promotedTemplate.imageURL];
     return view;
 }
 
 - (NSUInteger)numberOfPlaceholdersInCarousel:(iCarousel *)carousel
 {
     //note: placeholder views are only displayed on some carousels if wrapping is disabled
-    return 5;
+    return 0;
 }
 
 - (UIView *)carousel:(iCarousel *)carousel placeholderViewAtIndex:(NSUInteger)index reusingView:(UIView *)view

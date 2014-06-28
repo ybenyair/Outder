@@ -10,6 +10,7 @@
 
 @interface TemplateCoreData : NSObject
 
++ (NSArray *) getPromotedTemplates:(NSManagedObjectContext *)context;
 + (void)fillTemplates:(NSManagedObjectContext *)context data:(NSDictionary *)json;
 + (void)clearDB:(NSManagedObjectContext *)context;
 

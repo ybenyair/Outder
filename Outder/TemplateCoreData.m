@@ -8,6 +8,8 @@
 
 #import "TemplateCoreData.h"
 #import "Template.h"
+#import "SubTemplate.h"
+#import "Instruction.h"
 
 @implementation TemplateCoreData
 
@@ -59,30 +61,79 @@
     return  template;
 }
 
++ (void)fillInstructions: (NSArray *)instructions inSubTemplate:(SubTemplate *)subTemplate atContext:(NSManagedObjectContext *)context
+{
+    Instruction *instruction = nil;
+    for (id dataElement in instructions) {
+        NSDictionary *instructionData = (NSDictionary *)dataElement;
+        instruction = [NSEntityDescription insertNewObjectForEntityForName:@"Instruction" inManagedObjectContext:context];
+        instruction.id = [instructionData objectForKey:@"id"];
+        instruction.fixed = [instructionData objectForKey:@"fixed"];
+        instruction.imageURL = [instructionData objectForKey:@"image"];
+        instruction.videoURL = [instructionData objectForKey:@"video_url"];
+        instruction.usertexthint = [instructionData objectForKey:@"usertexthint"];
+        instruction.usertext = [instructionData objectForKey:@"usertext"];
+        instruction.name = [instructionData objectForKey:@"name"];
+        instruction.minlength = [instructionData objectForKey:@"minlength"];
+        instruction.length = [instructionData objectForKey:@"length"];
+        [subTemplate addInstructionsObject:instruction];
+    }
+}
+
++ (void)fillSubTemplates: (NSArray *)subTemplates inTemplate:(Template *)template atContext:(NSManagedObjectContext *)context
+{
+    SubTemplate *subTemplate = nil;
+    for (id dataElement in subTemplates) {
+        NSDictionary *subTemplateData = (NSDictionary *)dataElement;
+        subTemplate = [NSEntityDescription insertNewObjectForEntityForName:@"SubTemplate" inManagedObjectContext:context];
+        subTemplate.id = [subTemplateData objectForKey:@"id"];
+        subTemplate.order = [subTemplateData objectForKey:@"order"];
+        subTemplate.imageURL = [subTemplateData objectForKey:@"image"];
+        subTemplate.title = [subTemplateData objectForKey:@"title"];
+        [template addSubTemplatesObject:subTemplate];
+        
+        NSArray *instructions = [subTemplateData objectForKey:@"instructions"];
+        [TemplateCoreData fillInstructions:instructions inSubTemplate:subTemplate atContext:context];
+    }
+}
+
 + (void)fillTemplates:(NSManagedObjectContext *)context data:(NSDictionary *)json
 {
-    NSArray *dataArray = [json objectForKey:@"campaigns"];
+    NSArray *dataArray = [json objectForKey:@"data"];
     
     for (id dataElement in dataArray) {
         
         NSDictionary *templateData = (NSDictionary *)dataElement;
         NSString *templateID = [templateData objectForKey:@"id"];
-        //NSString *templateID = [NSString stringWithFormat:@"%d",index];
         
         Template *template = [TemplateCoreData getTemplate:context templateID:templateID];
         
         if (template.id == 0) {
-            NSString *field = nil;
             // A new template
-            template.imageURL = [templateData objectForKey:@"dashboardimagekey"];
-            template.title = [templateData objectForKey:@"name"];
-            field = [templateData objectForKey:@"order"];
-            template.order = [NSNumber numberWithInt:[field intValue]];
-            field = [templateData objectForKey:@"id"];
-            template.id = [NSNumber numberWithInt:[field intValue]];
-    
+            template.id = [templateData objectForKey:@"id"];
+            template.order = [templateData objectForKey:@"order"];
+            template.imageURL = [templateData objectForKey:@"image"];
+            template.title = [templateData objectForKey:@"title"];
+            template.promoted = [templateData objectForKey:@"promoted"];
+            NSArray *subTemplates = [templateData objectForKey:@"subtemplate"];
+            [TemplateCoreData fillSubTemplates:subTemplates inTemplate:template atContext:context];
         }
     }
+}
+
++ (NSArray *) getPromotedTemplates:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Template"];
+    request.predicate = [NSPredicate predicateWithFormat:@"promoted = 1"];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                              initWithKey:@"order" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [request setFetchBatchSize:10];
+    
+    NSError *error;
+    NSArray *result = nil;
+    result = [context executeFetchRequest:request error:&error];
+    return  result;
 }
 
 @end
