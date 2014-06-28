@@ -30,5 +30,6 @@ typedef enum {
 
 - (void)getFeeds:(UserInfo *)userInfo fromTime:(NSString *)time feedType:(NSString *)type;
 - (void)sendLogin:(UserInfo *)userInfo;
+- (void)getTemplates: (UserInfo *)userInfo;
 
 @end

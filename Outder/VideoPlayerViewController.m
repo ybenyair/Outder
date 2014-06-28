@@ -106,13 +106,13 @@
             break;
             
         case UIDeviceOrientationPortrait:
-            [self configurePlayerViewBackToPortrait:(2 * M_PI)];
+            [self configurePlayerViewBackToPortrait:(0)];
             NSLog(@"Portrait");
             break;
             
         case UIDeviceOrientationPortraitUpsideDown:
             /* start special animation */
-            [self configurePlayerViewBackToPortrait:(M_PI)];
+            [self configurePlayerViewBackToPortrait:(0)];
             NSLog(@"Portrait UpsideDown");
             break;
 
@@ -322,8 +322,6 @@
 
 - (void)movieStateCallback:(NSNotification *)notification
 {
-    NSLog(@"Player state = %d", videoPlayer.loadState);
-    
     if ((videoState == kVideoOpening) &&
         (videoPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable) {
         videoState = kVideoOpened;

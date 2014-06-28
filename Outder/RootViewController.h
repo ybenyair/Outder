@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ServerCommunication.h"
 
-@interface RootViewController : UIViewController
+@interface RootViewController : UIViewController <ServerCommunicationDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 

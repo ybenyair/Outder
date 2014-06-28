@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "18EC4F9F193D0E4B003E5335"
-               BuildableName = "Outder.app"
-               BlueprintName = "Outder"
+               BuildableName = "outder.app"
+               BlueprintName = "outder"
                ReferencedContainer = "container:Outder.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "18EC4F9F193D0E4B003E5335"
-            BuildableName = "Outder.app"
-            BlueprintName = "Outder"
+            BuildableName = "outder.app"
+            BlueprintName = "outder"
             ReferencedContainer = "container:Outder.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "18EC4F9F193D0E4B003E5335"
-            BuildableName = "Outder.app"
-            BlueprintName = "Outder"
+            BuildableName = "outder.app"
+            BlueprintName = "outder"
             ReferencedContainer = "container:Outder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "18EC4F9F193D0E4B003E5335"
-            BuildableName = "Outder.app"
-            BlueprintName = "Outder"
+            BuildableName = "outder.app"
+            BlueprintName = "outder"
             ReferencedContainer = "container:Outder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

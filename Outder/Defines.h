@@ -26,7 +26,7 @@ typedef enum {
 #define kOutderURL              @"http://www.outder.com/api/"
 #define kAmazonURL              @"https://s3.amazonaws.com/outder/%@"
 #define kLogin                  @"accounts/login"
-#define kCompanyDashboard       @"company/%@/dashboard"
+#define kCompanyTemplate        @"company/%@/dashboard"
 #define kCampaignData           @"campaign/%@"
 #define kUploadUserShot         @"usershot/"
 #define kUploadUsercampaignText @"usercampaigntext/"

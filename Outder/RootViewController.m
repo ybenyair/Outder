@@ -9,9 +9,10 @@
 #import "RootViewController.h"
 #import "LoginViewController.h"
 #import "FeedTableViewController.h"
-#import "HomeViewController.h"
+#import "TemplateViewController.h"
 #import "AppDelegate.h"
 #import "UserInfo+Login.h"
+#import "TemplateCoreData.h"
 
 @interface RootViewController ()
 
@@ -75,9 +76,11 @@ static RootViewController *instance = nil;
 
 - (void)startDashboardViewController
 {
+    [self getTemplates];
+    
     UITabBarController *tbc = [[UITabBarController alloc] init];
     
-    HomeViewController *homevc = [[HomeViewController alloc] init];
+    TemplateViewController *homevc = [[TemplateViewController alloc] init];
     homevc.managedObjectContext = self.managedObjectContext;
     homevc.tabBarItem.title = @"Home";
     homevc.tabBarItem.image	 = [UIImage imageNamed:@"home"];
@@ -103,6 +106,30 @@ static RootViewController *instance = nil;
     [tbc setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];
     
     [self setActiveView:tbc];
+}
+
+- (void)communicationResponse:(NSDictionary *)json userInfo:(UserInfo *)info
+                 responseCode:(eCommResponseCode)code
+{
+
+    //[DejalBezelActivityView removeViewAnimated:YES];
+    
+    if (code == kCommOK) {
+        [TemplateCoreData clearDB:self.managedObjectContext];
+        [TemplateCoreData fillTemplates:self.managedObjectContext data:json];
+    } else {
+        NSString *alertMessage = NSLocalizedString(@"Internet connection error", nil);
+        NSLog(@"%@", alertMessage);
+    }
+}
+
+- (void)getTemplates
+{
+    //[DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Login...", nil)];
+    UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
+    ServerCommunication *templateComm = [[ServerCommunication alloc] init];
+    templateComm.delegate = self;
+    [templateComm getTemplates:userInfo];
 }
 
 @end

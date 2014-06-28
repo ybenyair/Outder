@@ -63,6 +63,31 @@
     }
 }
 
+- (void)getTemplates: (UserInfo *)userInfo
+{
+    self.userDetails = userInfo;
+
+    NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+
+    //www.outder.com/api/company/4/dashboard?email=aaa@bbb.com&did=85DD5154-9403-4B62-A3B8-A93CD9438F83
+    NSString *urlString = [NSString stringWithFormat:@"http://www.outder.com/api/company/%@/dashboard?email=%@&did=%@",kCompanyDefaultId,userInfo.emailAddress,deviceUdid];
+    
+    //NSString *urlString = @"http://www.outder.com/tou/1000/";
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                         timeoutInterval:10.0];
+    
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (!conn) {
+        NSLog(@"Failed opening a connection");
+        [self.delegate communicationResponse:nil
+                                    userInfo:self.userDetails
+                                responseCode:kCommErrorNetwork];
+    }
+
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
@@ -95,7 +120,7 @@
     
     eCommResponseCode code = kCommOK;
     NSString *status = [json objectForKey:@"status"];
-    if (![status isEqualToString:@"ok" ]) {
+    if (status && ![status isEqualToString:@"ok" ]) {
         code = kCommErrorServer;
     }
     
