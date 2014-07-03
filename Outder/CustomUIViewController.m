@@ -22,5 +22,15 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    /*
+    self.tabBarController.tabBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
+    self.tabBarController.tabBar.tintColor = [UIColor whiteColor];
+    self.tabBarController.tabBar.selectedImageTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
+    self.navigationItem.hidesBackButton = YES;
+     */
+}
 
 @end

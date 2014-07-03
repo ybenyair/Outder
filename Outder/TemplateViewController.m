@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TemplatePromotedView.h"
 #import "TemplateCoreData.h"
+#import "SubTemplateViewController.h"
 
 @interface PromotedTemplate : NSObject {
     NSInteger templateID;
@@ -55,6 +56,12 @@ static NSString *CellIdentifier = @"templateCell";
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -89,12 +96,12 @@ static NSString *CellIdentifier = @"templateCell";
         PromotedTemplate *promotedTemplate = [[PromotedTemplate alloc] init];
         promotedTemplate.imageURL = ((Template *)dataElement).imageURL;
         promotedTemplate.templateID = [((Template *)dataElement).id intValue];
-        NSLog(@"Promoted id: %d Image: %@", promotedTemplate.templateID, promotedTemplate.imageURL);
+        NSLog(@"Promoted id: %ld Image: %@", (long)promotedTemplate.templateID, promotedTemplate.imageURL);
         [_promotedTemplates addObject:promotedTemplate];
     }
 
     self.pageControl.numberOfPages = [_promotedTemplates count];
-    NSLog(@"Set number of pages = %d", self.pageControl.numberOfPages);
+    NSLog(@"Set number of pages = %ld", (long)self.pageControl.numberOfPages);
     _currentPage = 0;
     [self.carousel reloadData];
 }
@@ -151,9 +158,8 @@ static NSString *CellIdentifier = @"templateCell";
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     Template *template = [_fetchedResultsController objectAtIndexPath:indexPath];
-
     NSLog(@"Select cell %@", template.title);
-
+    [self createSubTemplatesViewController:template];
 }
 
 
@@ -307,7 +313,7 @@ static NSString *CellIdentifier = @"templateCell";
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     NSInteger count = [_promotedTemplates count];
-    NSLog(@"Promoted templates count = %d", count);
+    NSLog(@"Promoted templates count = %ld", (long)count);
     return count;
 }
 
@@ -315,11 +321,11 @@ static NSString *CellIdentifier = @"templateCell";
 {
     TemplatePromotedView *promotedView = nil;
     PromotedTemplate *promotedTemplate = [_promotedTemplates objectAtIndex:index];
-    NSLog(@"viewForItemAtIndex %d", index);
+    NSLog(@"viewForItemAtIndex %ld", (long)index);
     //create new view if no view is available for recycling
     if (view == nil)
     {
-        NSLog(@"Create a new view for index %d",index);
+        NSLog(@"Create a new view for index %ld",(long)index);
         promotedView = [[TemplatePromotedView alloc] init];
         NSString *key = [NSString stringWithFormat:@"%p",promotedView.view];
         [_reusedPromotedViews setObject:promotedView forKey:key];
@@ -329,7 +335,7 @@ static NSString *CellIdentifier = @"templateCell";
     {
         NSString *key = [NSString stringWithFormat:@"%p",view];
         promotedView = [_reusedPromotedViews objectForKey:key];
-        NSLog(@"Update the view for index %d",index);
+        NSLog(@"Update the view for index %ld",(long)index);
     }
     
     //remember to always set any properties of your carousel item
@@ -420,7 +426,21 @@ static NSString *CellIdentifier = @"templateCell";
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
     //NSNumber *item = (self.items)[index];
-    NSLog(@"Tapped view number: %d", index);
+    PromotedTemplate *promotedTemplate = [_promotedTemplates objectAtIndex:index];
+    Template *template = [TemplateCoreData getTemplate:managedObjectContext byId:promotedTemplate.templateID];
+    NSLog(@"Tapped view number: %ld with title: %@", (long)index, template.title);
+    [self createSubTemplatesViewController:template];
 }
+
+
+#pragma mark -
+#pragma mark Creating a SubTemplatesViewController
+
+-(void) createSubTemplatesViewController: (Template *)template
+{
+    SubTemplateViewController *subCtrl = [[SubTemplateViewController alloc] initWithSubTemplates:template.subTemplates];
+    [self.navigationController pushViewController:subCtrl animated:NO];
+}
+
 
 @end

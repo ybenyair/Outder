@@ -9,11 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
 #import "ServerCommunication.h"
+#import "CustomUIViewController.h"
 
-@interface FeedTableViewController : UIViewController <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, ServerCommunicationDelegate>
+@interface FeedTableViewController : CustomUIViewController <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, ServerCommunicationDelegate>
 {
     EGORefreshTableHeaderView *_refreshHeaderView;
+    // First time to load data
+    BOOL loading;
+    // Pull down to refresh
     BOOL _reloading;
+    // Scrolled till the end of feed list
     BOOL loadingMore;
 }
 
@@ -29,5 +34,6 @@
 
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;
+- (void)loadData;
 
 @end

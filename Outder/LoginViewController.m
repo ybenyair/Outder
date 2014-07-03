@@ -37,7 +37,12 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    
+    [super viewDidAppear:animated];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 + (void)signOutFacebook
@@ -57,12 +62,10 @@
     [[RootViewController getInstance] startDashboardViewController];
 }
 
-- (void)communicationResponse:(NSDictionary *)json userInfo:(UserInfo *)info
-                 responseCode:(eCommResponseCode)code
+- (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data
 {
-    [DejalBezelActivityView removeViewAnimated:YES];
-
     if (code == kCommOK) {
+        UserInfo *info = (UserInfo *)data;
         [UserInfo userLoggedIn:self.managedObjectContext userInfo:info];
         [self pushDashboard];
     } else {
@@ -78,8 +81,8 @@
 
     ServerCommunication *loginComm = [[ServerCommunication alloc] init];
     loginComm.delegate = self;
+    [loginComm setUserData:userInfo];
     [loginComm sendLogin:userInfo];
-    
 }
 
 

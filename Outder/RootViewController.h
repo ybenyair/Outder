@@ -12,6 +12,7 @@
 @interface RootViewController : UIViewController <ServerCommunicationDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) UITabBarController *tabController;
 
 + (RootViewController *)getInstance;
 - (void)startLoginViewController:(BOOL)logOut;

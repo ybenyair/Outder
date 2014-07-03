@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "UserInfo+Login.h"
 #import "TemplateCoreData.h"
+#import "DejalActivityView.h"
 
 @interface RootViewController ()
 
@@ -21,6 +22,7 @@
 @implementation RootViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
+@synthesize tabController;
 
 static RootViewController *instance = nil;
 
@@ -32,6 +34,15 @@ static RootViewController *instance = nil;
         instance = self;
         AppDelegate *app = [AppDelegate getInstance];
         instance.managedObjectContext = app.managedObjectContext;
+        [self initSplashView];
+        
+        
+        [[UINavigationBar appearance] setBarTintColor:[UIColor viewFlipsideBackgroundColor]];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UITabBar appearance] setBarTintColor:[UIColor viewFlipsideBackgroundColor]];
+        [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
+
     }
     
     return self;
@@ -49,16 +60,54 @@ static RootViewController *instance = nil;
 {
     UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
     if ([userInfo.isValid boolValue] == YES) {
+        [self setSplashView];
         [self startDashboardViewController];
     } else {
         [self startLoginViewController:YES];
     }
 }
 
+- (void)viewDidLoad
+{
+    [DejalBezelActivityView activityViewForView:self.view  withLabel:NSLocalizedString(@"Loading...", nil)];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [DejalBezelActivityView removeViewAnimated:YES];
+}
+
+- (void) initSplashView
+{
+
+    UIImage* imageDefault = [UIImage imageNamed:@"splash.jpg"];
+    CGRect frame;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    frame.size.width = [AppDelegate getInstance].window.frame.size.width;
+    frame.size.height = [AppDelegate getInstance].window.frame.size.height;
+    
+    UIImageView *splash = [[UIImageView alloc] initWithFrame:frame];
+    splash.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [splash setImage:imageDefault];
+    [self.view addSubview:splash];
+    [self.view sendSubviewToBack:splash];
+    
+}
+
 - (void)setActiveView: (UIViewController *)viewController
 {
     AppDelegate *app = [AppDelegate getInstance];
     app.window.rootViewController = viewController;
+    [app.window makeKeyAndVisible];
+}
+
+
+- (void)setSplashView
+{
+    AppDelegate *app = [AppDelegate getInstance];
+    app.window.rootViewController = self;
     [app.window makeKeyAndVisible];
 }
 
@@ -76,9 +125,7 @@ static RootViewController *instance = nil;
 
 - (void)startDashboardViewController
 {
-    [self getTemplates];
-    
-    UITabBarController *tbc = [[UITabBarController alloc] init];
+    tabController = [[UITabBarController alloc] init];
     
     TemplateViewController *homevc = [[TemplateViewController alloc] init];
     homevc.managedObjectContext = self.managedObjectContext;
@@ -86,37 +133,44 @@ static RootViewController *instance = nil;
     homevc.tabBarItem.image	 = [UIImage imageNamed:@"home"];
     UINavigationController *navhome = [[UINavigationController alloc] init];
     [navhome pushViewController:homevc animated:NO];
+    navhome.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
     
     FeedTableViewController *myvideovc = [[FeedTableViewController alloc] init];
     myvideovc.managedObjectContext = self.managedObjectContext;
     myvideovc.tabBarItem.title = @"My Video";
     myvideovc.feedType = @"MyVideo";
     myvideovc.tabBarItem.image	 = [UIImage imageNamed:@"myvideos"];
+    [myvideovc loadData];
     UINavigationController *navmyvideo = [[UINavigationController alloc] init];
     [navmyvideo pushViewController:myvideovc animated:NO];
-    
+    navmyvideo.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
+
     FeedTableViewController *featuredvideovc = [[FeedTableViewController alloc] init];
     featuredvideovc.managedObjectContext = self.managedObjectContext;
     featuredvideovc.tabBarItem.title = @"Featured";
     featuredvideovc.feedType = @"FeaturedVideo";
     featuredvideovc.tabBarItem.image	 = [UIImage imageNamed:@"featured"];
+    [featuredvideovc loadData];
     UINavigationController *navfeatured = [[UINavigationController alloc] init];
     [navfeatured pushViewController:featuredvideovc animated:NO];
+    navfeatured.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
+
+    [tabController setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];
     
-    [tbc setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];
+    tabController.selectedViewController=[tabController.viewControllers objectAtIndex:1];
+    tabController.tabBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
     
-    [self setActiveView:tbc];
+    [self getTemplates];
 }
 
-- (void)communicationResponse:(NSDictionary *)json userInfo:(UserInfo *)info
-                 responseCode:(eCommResponseCode)code
+- (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data
 {
-
-    //[DejalBezelActivityView removeViewAnimated:YES];
-    
+    NSString *response = (NSString *)data;
+    NSLog(@"Response for %@", response);
     if (code == kCommOK) {
         [TemplateCoreData clearDB:self.managedObjectContext];
         [TemplateCoreData fillTemplates:self.managedObjectContext data:json];
+        [self setActiveView:tabController];
     } else {
         NSString *alertMessage = NSLocalizedString(@"Internet connection error", nil);
         NSLog(@"%@", alertMessage);
@@ -125,10 +179,10 @@ static RootViewController *instance = nil;
 
 - (void)getTemplates
 {
-    //[DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Login...", nil)];
     UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
     ServerCommunication *templateComm = [[ServerCommunication alloc] init];
     templateComm.delegate = self;
+    [templateComm setUserData:@"templates"];
     [templateComm getTemplates:userInfo];
 }
 

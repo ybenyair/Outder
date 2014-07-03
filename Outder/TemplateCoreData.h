@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Template.h"
 
 @interface TemplateCoreData : NSObject
 
 + (NSArray *) getPromotedTemplates:(NSManagedObjectContext *)context;
 + (void)fillTemplates:(NSManagedObjectContext *)context data:(NSDictionary *)json;
 + (void)clearDB:(NSManagedObjectContext *)context;
++ (Template *) getTemplate: (NSManagedObjectContext *)context byId:(NSInteger)id;
 
 @end

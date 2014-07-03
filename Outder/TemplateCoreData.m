@@ -41,21 +41,21 @@
     }
 }
 
-+ (Template *)getTemplate:(NSManagedObjectContext *)context templateID:(NSString *)templateID
++ (Template *)getTemplate:(NSManagedObjectContext *)context withId:(NSInteger)templateID atAutoCreate:(BOOL)create
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Template"];
-    request.predicate = [NSPredicate predicateWithFormat:@"id = %@", templateID];
+    request.predicate = [NSPredicate predicateWithFormat:@"id = %d", templateID];
     NSError *error;
     Template *template = nil;
     template = [[context executeFetchRequest:request error:&error] lastObject];
     
-    if (!error && !template) {
+    if (!error && !template && create) {
         // Create the initial userInfo entity in the DB
         template = [NSEntityDescription insertNewObjectForEntityForName:@"Template" inManagedObjectContext:context];
         template.id = 0;
-        NSLog(@"New templateID = %@", templateID);
+        NSLog(@"New templateID = %ld", (long)templateID);
 	} else {
-        NSLog(@"Update templateID = %@", templateID);
+        NSLog(@"Update templateID = %ld", (long)templateID);
     }
     
     return  template;
@@ -105,8 +105,8 @@
         
         NSDictionary *templateData = (NSDictionary *)dataElement;
         NSString *templateID = [templateData objectForKey:@"id"];
-        
-        Template *template = [TemplateCoreData getTemplate:context templateID:templateID];
+        NSInteger numId = [templateID intValue];
+        Template *template = [TemplateCoreData getTemplate:context withId:numId atAutoCreate:YES];
         
         if (template.id == 0) {
             // A new template
@@ -134,6 +134,13 @@
     NSArray *result = nil;
     result = [context executeFetchRequest:request error:&error];
     return  result;
+}
+
+
++ (Template *) getTemplate: (NSManagedObjectContext *)context byId:(NSInteger)id
+{
+    Template *template = [TemplateCoreData getTemplate:context withId:id atAutoCreate:NO];
+    return template;
 }
 
 @end

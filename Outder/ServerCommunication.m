@@ -10,13 +10,19 @@
 #import "UserInfo+Login.h"
 #import "Defines.h"
 
+#define kDefaultTime @"9999-12-31 00:00:00"
+
 @implementation ServerCommunication
 
-@synthesize userDetails;
+@synthesize userData;
+
+- (void)setUserData: (NSObject *)obj
+{
+    userData = obj;
+}
 
 - (void)sendLogin:(UserInfo *)userInfo
 {
-    self.userDetails = userInfo;
     NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
     NSString *methodWithParams = [kLogin stringByAppendingFormat:@"?%@=%@&%@=%@&%@=%@&%@=%@",kEmail,userInfo.emailAddress,kPassword,kDefaultPassword,kCompanyid,kCompanyDefaultId,kDid,deviceUdid];
@@ -33,15 +39,18 @@
     if (!conn) {
         NSLog(@"Failed opening a connection");
         [self.delegate communicationResponse:nil
-                                    userInfo:self.userDetails
-                                responseCode:kCommErrorNetwork];
+                                responseCode:kCommErrorNetwork
+                                    userData:userData];
     }
+}
+
+- (void)refreshFeeds:(UserInfo *)userInfo feedType:(NSString *)type
+{
+    [self getFeeds:userInfo fromTime:kDefaultTime feedType: type];
 }
 
 - (void)getFeeds:(UserInfo *)userInfo fromTime:(NSString *)time feedType:(NSString *)type;
 {
-    self.userDetails = userInfo;
-    
     NSString *newString = [NSString stringWithFormat:@"%@%@?%@=%@&%@=%@&%@=%@",kOutderURL, kUserVideos, kCompanyid,kCompanyDefaultId,kEmail,userInfo.emailAddress,kTime, time];
     
     NSString *urlString = [newString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -58,15 +67,13 @@
     if (!conn) {
         NSLog(@"Failed opening a connection");
         [self.delegate communicationResponse:nil
-                                    userInfo:self.userDetails
-                                responseCode:kCommErrorNetwork];
+                                responseCode:kCommErrorNetwork
+                                    userData:userData];
     }
 }
 
 - (void)getTemplates: (UserInfo *)userInfo
 {
-    self.userDetails = userInfo;
-
     //NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 
     //www.outder.com/api/company/4/dashboard?email=aaa@bbb.com&did=85DD5154-9403-4B62-A3B8-A93CD9438F83
@@ -83,8 +90,8 @@
     if (!conn) {
         NSLog(@"Failed opening a connection");
         [self.delegate communicationResponse:nil
-                                    userInfo:self.userDetails
-                                responseCode:kCommErrorNetwork];
+                                responseCode:kCommErrorNetwork
+                                    userData:userData];
     }
 
 }
@@ -126,8 +133,8 @@
     
     NSLog(@"Server response (JSON): %@", json);
     [self.delegate communicationResponse:json
-                                userInfo:self.userDetails
-                            responseCode:code];
+                            responseCode:code
+                                userData:userData];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -135,8 +142,8 @@
     // Check the error var
     NSLog(@"%@", [error localizedDescription]);
     [self.delegate communicationResponse:nil
-                                userInfo:self.userDetails
-                            responseCode:kCommErrorNetwork];
+                            responseCode:kCommErrorNetwork
+                                userData:userData];
 }
 
 @end

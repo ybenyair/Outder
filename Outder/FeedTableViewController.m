@@ -35,13 +35,14 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        loading = NO;
     }
     return self;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
+    [super viewDidAppear:animated];
 }
 
 - (void)viewDidLoad
@@ -71,11 +72,20 @@
     
     lastFeedTime = kDefaultTime;
     
-    
     //  update the last update date
     [_refreshHeaderView refreshLastUpdatedDate];
-    [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Loading...", nil)];
-    [self reloadTableViewDataSourceStart];
+    
+    //[DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Loading...", nil)];
+    //[self reloadTableViewDataSourceStart];
+}
+
+- (void)loadData
+{
+    loading = YES;
+    ServerCommunication *comm = [[ServerCommunication alloc] init];
+    comm.delegate = self;
+    UserInfo *userInfo = [UserInfo getUserInfo:managedObjectContext];
+    [comm getFeeds:userInfo fromTime:kDefaultTime feedType:feedType];
 }
 
 #pragma mark -
@@ -144,11 +154,13 @@
     if (loadingMore) {
         [self loadMoreTableViewDataSourceEnd];
     }
+    
+    if (loading) {
+        loading = NO;
+    }
 }
 
-
-- (void)communicationResponse:(NSDictionary *)json userInfo:(UserInfo *)info
-                 responseCode:(eCommResponseCode)code
+- (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data
 {
     if (code == kCommOK) {
         //[FeedCoreData setFeedTestData: managedObjectContext feedType:feedType];
@@ -167,7 +179,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
     float endScrolling = scrollView.contentOffset.y + scrollView.frame.size.height;
-    if (endScrolling >= scrollView.contentSize.height)
+    if ((scrollView.contentSize.height > 0) && (endScrolling >= scrollView.contentSize.height))
     {
         if (!loadingMore && !_reloading) {
             NSLog(@"More data...");

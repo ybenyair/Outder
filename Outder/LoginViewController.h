@@ -11,8 +11,9 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "ServerCommunication.h"
 #import "VideoPlayerViewController.h"
+#import "CustomUIViewController.h"
 
-@interface LoginViewController : UIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
+@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
 
 }
 

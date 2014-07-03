@@ -12,10 +12,13 @@
 		180474B51954522600067AE0 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 180474B41954522600067AE0 /* Feed.m */; };
 		180474BF1954691F00067AE0 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 180474BE1954691F00067AE0 /* share.png */; };
 		180474C11954692800067AE0 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 180474C01954692800067AE0 /* camera.png */; };
+		181BF039195FD55300BCBC05 /* splash.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 181BF038195FD55300BCBC05 /* splash.jpg */; };
 		1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1834BF9E1947ACB300AE7332 /* DejalActivityView.m */; };
 		183C14E2194F9D4500DF8ABD /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C14E1194F9D4500DF8ABD /* FeedTableViewController.m */; };
 		183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183C14E3194F9D5000DF8ABD /* FeedTableViewController.xib */; };
 		183C14EE1950DDBA00DF8ABD /* ServerCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C14ED1950DDBA00DF8ABD /* ServerCommunication.m */; };
+		183C38CA1961C88D004F1596 /* SubTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C38C91961C88D004F1596 /* SubTemplateViewController.m */; };
+		183C38CC1961C895004F1596 /* SubTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183C38CB1961C895004F1596 /* SubTemplateViewController.xib */; };
 		183F885D194D61B6006EDD8C /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F885C194D61B6006EDD8C /* FeedTableViewCell.m */; };
 		183F885F194D61BC006EDD8C /* FeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183F885E194D61BC006EDD8C /* FeedTableViewCell.xib */; };
 		183F8881194D8360006EDD8C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F8880194D8360006EDD8C /* SDWebImage.framework */; };
@@ -45,6 +48,7 @@
 		188DB1E3195F5ADD00EA404C /* Instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 188DB1E2195F5ADD00EA404C /* Instruction.m */; };
 		188DB1E6195F5ADE00EA404C /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = 188DB1E5195F5ADE00EA404C /* Template.m */; };
 		188DB1E9195F5ADE00EA404C /* SubTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 188DB1E8195F5ADE00EA404C /* SubTemplate.m */; };
+		188FF8071962E14200238A70 /* SubTemplateItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FF8061962E14200238A70 /* SubTemplateItemVC.m */; };
 		189413B6195ACCF50056907A /* TemplateCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 189413B5195ACCF50056907A /* TemplateCoreData.m */; };
 		18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AAE19486E37001410B7 /* CustomUIViewController.m */; };
 		18984AB219487B7C001410B7 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AB119487B7C001410B7 /* UserInfo.m */; };
@@ -112,6 +116,7 @@
 		180474B41954522600067AE0 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		180474BE1954691F00067AE0 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
 		180474C01954692800067AE0 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		181BF038195FD55300BCBC05 /* splash.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = splash.jpg; sourceTree = "<group>"; };
 		1834BF9E1947ACB300AE7332 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
 		1834BFA01947AD2F00AE7332 /* DejalActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
 		183C14E0194F9D3900DF8ABD /* FeedTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedTableViewController.h; path = Outder/FeedTableViewController.h; sourceTree = "<group>"; };
@@ -119,6 +124,9 @@
 		183C14E3194F9D5000DF8ABD /* FeedTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedTableViewController.xib; path = Outder/FeedTableViewController.xib; sourceTree = "<group>"; };
 		183C14ED1950DDBA00DF8ABD /* ServerCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerCommunication.m; path = Outder/ServerCommunication.m; sourceTree = "<group>"; };
 		183C14EF1950DDC400DF8ABD /* ServerCommunication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ServerCommunication.h; path = Outder/ServerCommunication.h; sourceTree = "<group>"; };
+		183C38C81961C87C004F1596 /* SubTemplateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SubTemplateViewController.h; path = Outder/SubTemplateViewController.h; sourceTree = "<group>"; };
+		183C38C91961C88D004F1596 /* SubTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubTemplateViewController.m; path = Outder/SubTemplateViewController.m; sourceTree = "<group>"; };
+		183C38CB1961C895004F1596 /* SubTemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubTemplateViewController.xib; path = Outder/SubTemplateViewController.xib; sourceTree = "<group>"; };
 		183F885B194D61AD006EDD8C /* FeedTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = Outder/FeedTableViewCell.h; sourceTree = "<group>"; };
 		183F885C194D61B6006EDD8C /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = Outder/FeedTableViewCell.m; sourceTree = "<group>"; };
 		183F885E194D61BC006EDD8C /* FeedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedTableViewCell.xib; path = Outder/FeedTableViewCell.xib; sourceTree = "<group>"; };
@@ -160,6 +168,8 @@
 		188DB1E5195F5ADE00EA404C /* Template.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
 		188DB1E7195F5ADE00EA404C /* SubTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTemplate.h; sourceTree = "<group>"; };
 		188DB1E8195F5ADE00EA404C /* SubTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTemplate.m; sourceTree = "<group>"; };
+		188FF8051962E13C00238A70 /* SubTemplateItemVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SubTemplateItemVC.h; path = Outder/SubTemplateItemVC.h; sourceTree = "<group>"; };
+		188FF8061962E14200238A70 /* SubTemplateItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubTemplateItemVC.m; path = Outder/SubTemplateItemVC.m; sourceTree = "<group>"; };
 		189413B4195ACCF50056907A /* TemplateCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemplateCoreData.h; path = Outder/TemplateCoreData.h; sourceTree = "<group>"; };
 		189413B5195ACCF50056907A /* TemplateCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TemplateCoreData.m; path = Outder/TemplateCoreData.m; sourceTree = "<group>"; };
 		18984AAD19486E2F001410B7 /* CustomUIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomUIViewController.h; sourceTree = "<group>"; };
@@ -398,6 +408,19 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		188A64881961C799009310BB /* SubTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				188FF8051962E13C00238A70 /* SubTemplateItemVC.h */,
+				188FF8061962E14200238A70 /* SubTemplateItemVC.m */,
+				183C38C81961C87C004F1596 /* SubTemplateViewController.h */,
+				183C38C91961C88D004F1596 /* SubTemplateViewController.m */,
+				183C38CB1961C895004F1596 /* SubTemplateViewController.xib */,
+			);
+			name = SubTemplate;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		188AB93C195EA1380000106A /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +433,7 @@
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				181BF038195FD55300BCBC05 /* splash.jpg */,
 				18D457DE1956B27E00C5932F /* mediaPlayBtn.png */,
 				18D457DC1956B27800C5932F /* mediaStopBtn.png */,
 				180474BE1954691F00067AE0 /* share.png */,
@@ -467,6 +491,7 @@
 				183C14E91950DAD900DF8ABD /* Common */,
 				1834BF9B1947AC3600AE7332 /* Helpers */,
 				181043E9195A5CC50016B104 /* Template */,
+				188A64881961C799009310BB /* SubTemplate */,
 				183C14E81950959300DF8ABD /* Feed */,
 				1834BFA41948243500AE7332 /* Login */,
 				18EC4FB4193D0E4B003E5335 /* AppDelegate.h */,
@@ -598,6 +623,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181BF039195FD55300BCBC05 /* splash.jpg in Resources */,
 				18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */,
 				18DEDEC2195AABA2002DE2D2 /* TemplateCell.xib in Resources */,
 				18EC4FB0193D0E4B003E5335 /* InfoPlist.strings in Resources */,
@@ -616,6 +642,7 @@
 				1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */,
 				18D457DD1956B27800C5932F /* mediaStopBtn.png in Resources */,
 				180474BF1954691F00067AE0 /* share.png in Resources */,
+				183C38CC1961C895004F1596 /* SubTemplateViewController.xib in Resources */,
 				1889C0B5194F74BE0065FFE0 /* whiteArrow@2x.png in Resources */,
 				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
 				188569F0194D21D700980F36 /* featured.png in Resources */,
@@ -648,6 +675,7 @@
 			files = (
 				18D457D8195659F500C5932F /* VideoPlayerViewController.m in Sources */,
 				18D457CE19546D4900C5932F /* ObjUITapGestureRecognizer.m in Sources */,
+				188FF8071962E14200238A70 /* SubTemplateItemVC.m in Sources */,
 				1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */,
 				183C14EE1950DDBA00DF8ABD /* ServerCommunication.m in Sources */,
 				18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */,
@@ -660,6 +688,7 @@
 				188AB93B195EA12C0000106A /* iCarousel.m in Sources */,
 				183F885D194D61B6006EDD8C /* FeedTableViewCell.m in Sources */,
 				189413B6195ACCF50056907A /* TemplateCoreData.m in Sources */,
+				183C38CA1961C88D004F1596 /* SubTemplateViewController.m in Sources */,
 				188DB1E9195F5ADE00EA404C /* SubTemplate.m in Sources */,
 				18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */,
 				187A5757193D0F15009BA935 /* LoginViewController.m in Sources */,
@@ -767,7 +796,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
