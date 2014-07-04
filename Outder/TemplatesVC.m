@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
-#import "TemplateViewController.h"
+#import "TemplatesVC.h"
 #import "TemplateCell.h"
 #import "Template.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "TemplatePromotedView.h"
+#import "TemplatePromotedCell.h"
 #import "TemplateCoreData.h"
-#import "SubTemplateViewController.h"
+#import "SubTemplatesVC.h"
 
 @interface PromotedTemplate : NSObject {
     NSInteger templateID;
@@ -319,14 +319,14 @@ static NSString *CellIdentifier = @"templateCell";
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    TemplatePromotedView *promotedView = nil;
+    TemplatePromotedCell *promotedView = nil;
     PromotedTemplate *promotedTemplate = [_promotedTemplates objectAtIndex:index];
     NSLog(@"viewForItemAtIndex %ld", (long)index);
     //create new view if no view is available for recycling
     if (view == nil)
     {
         NSLog(@"Create a new view for index %ld",(long)index);
-        promotedView = [[TemplatePromotedView alloc] init];
+        promotedView = [[TemplatePromotedCell alloc] init];
         NSString *key = [NSString stringWithFormat:@"%p",promotedView.view];
         [_reusedPromotedViews setObject:promotedView forKey:key];
         view = promotedView.view;
@@ -401,7 +401,7 @@ static NSString *CellIdentifier = @"templateCell";
         case iCarouselOptionSpacing:
         {
             //add a bit of spacing between the item views
-            return value * 1.01f;
+            return value * 1.02f;
         }
         case iCarouselOptionFadeMax:
         {
@@ -438,7 +438,7 @@ static NSString *CellIdentifier = @"templateCell";
 
 -(void) createSubTemplatesViewController: (Template *)template
 {
-    SubTemplateViewController *subCtrl = [[SubTemplateViewController alloc] initWithSubTemplates:template.subTemplates];
+    SubTemplatesVC *subCtrl = [[SubTemplatesVC alloc] initWithSubTemplates:template.subTemplates];
     [self.navigationController pushViewController:subCtrl animated:NO];
 }
 

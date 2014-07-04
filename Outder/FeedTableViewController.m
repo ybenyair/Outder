@@ -11,10 +11,8 @@
 #import "FeedTableViewCell.h"
 #import "RootViewController.h"
 #import "FeedCoreData.h"
-#import "UserInfo+Login.h"
 #import "ServerCommunication.h"
 #import "DejalActivityView.h"
-#import "ObjUITapGestureRecognizer.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 #define kDefaultTime @"9999-12-31 00:00:00"
@@ -84,8 +82,7 @@
     loading = YES;
     ServerCommunication *comm = [[ServerCommunication alloc] init];
     comm.delegate = self;
-    UserInfo *userInfo = [UserInfo getUserInfo:managedObjectContext];
-    [comm getFeeds:userInfo fromTime:kDefaultTime feedType:feedType];
+    [comm getFeeds: kDefaultTime feedType:feedType];
 }
 
 #pragma mark -
@@ -105,8 +102,7 @@
     //  put here just for demo
     ServerCommunication *comm = [[ServerCommunication alloc] init];
     comm.delegate = self;
-    UserInfo *userInfo = [UserInfo getUserInfo:managedObjectContext];
-    [comm getFeeds:userInfo fromTime:lastFeedTime feedType:feedType];
+    [comm getFeeds:lastFeedTime feedType:feedType];
 }
 
 - (void)reloadTableViewDataSourceEnd
@@ -134,8 +130,7 @@
 {
     ServerCommunication *comm = [[ServerCommunication alloc] init];
     comm.delegate = self;
-    UserInfo *userInfo = [UserInfo getUserInfo:managedObjectContext];
-    [comm getFeeds:userInfo fromTime:lastFeedTime feedType:feedType];
+    [comm getFeeds:lastFeedTime feedType:feedType];
 }
 
 - (void)loadMoreTableViewDataSourceEnd
@@ -179,7 +174,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
     float endScrolling = scrollView.contentOffset.y + scrollView.frame.size.height;
-    if ((scrollView.contentSize.height > 0) && (endScrolling >= scrollView.contentSize.height))
+    if ((scrollView.contentSize.height > 0) && (endScrolling >= scrollView.contentSize.height + 20))
     {
         if (!loadingMore && !_reloading) {
             NSLog(@"More data...");
@@ -280,7 +275,7 @@
     FeedTableViewCell *myCell = (FeedTableViewCell *)cell;
     Feed *feed = [_fetchedResultsController objectAtIndexPath:indexPath];
     [myCell configureCell:feed];
-    
+    myCell.superCtrl = self;
     lastFeedTime = feed.time;
     NSLog(@"lastFeedTime = %@", lastFeedTime);
 }

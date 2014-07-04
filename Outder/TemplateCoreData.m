@@ -89,6 +89,7 @@
         subTemplate.id = [subTemplateData objectForKey:@"id"];
         subTemplate.order = [subTemplateData objectForKey:@"order"];
         subTemplate.imageURL = [subTemplateData objectForKey:@"image"];
+        subTemplate.videoURL = [subTemplateData objectForKey:@"video_url"];
         subTemplate.title = [subTemplateData objectForKey:@"title"];
         [template addSubTemplatesObject:subTemplate];
         

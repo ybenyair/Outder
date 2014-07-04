@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
-#import "SubTemplateViewController.h"
-#import "SubTemplateItemVC.h"
+#import "SubTemplatesVC.h"
+#import "SubTemplateCell.h"
 #import "Template.h"
 #import "SubTemplate.h"
 
-@interface SubTemplateViewController ()
+@interface SubTemplatesVC ()
 
 @end
 
-@implementation SubTemplateViewController
+@implementation SubTemplatesVC
 {
     NSMutableArray *_subTemplates;
     NSMutableDictionary *_reusedSubTemplateViews;
@@ -113,14 +113,14 @@
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    SubTemplateItemVC *subTemplateItem = nil;
+    SubTemplateCell *subTemplateItem = nil;
     SubTemplate *subTemplate = [_subTemplates objectAtIndex:index];
     NSLog(@"viewForItemAtIndex %ld", (long)index);
     //create new view if no view is available for recycling
     if (view == nil)
     {
         NSLog(@"Create a new view for index %ld",(long)index);
-        subTemplateItem = [[SubTemplateItemVC alloc] init];
+        subTemplateItem = [[SubTemplateCell alloc] init];
         subTemplateItem.view.frame = carousel.frame;
         NSString *key = [NSString stringWithFormat:@"%p",subTemplateItem.view];
         [_reusedSubTemplateViews setObject:subTemplateItem forKey:key];
@@ -201,12 +201,12 @@
         }
         case iCarouselOptionFadeMax:
         {
-            return 1.0f;
+            return 0.4f;
         }
             
         case iCarouselOptionFadeMin:
         {
-            return -1.0f;
+            return -0.4f;
         }
             
         default:

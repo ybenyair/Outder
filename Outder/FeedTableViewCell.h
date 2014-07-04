@@ -26,6 +26,8 @@
 - (void)configureCell:(Feed *)feedInfo;
 
 @property (nonatomic,strong) Feed* feed;
+@property (nonatomic,strong) UIViewController* superCtrl;
+
 @property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
 
 

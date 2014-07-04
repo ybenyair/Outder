@@ -13,6 +13,7 @@
 
 @synthesize feed;
 @synthesize videoCtrl;
+@synthesize superCtrl;
 
 - (void) layoutSubviews{
     
@@ -32,6 +33,12 @@
     self.image.contentMode = UIViewContentModeScaleAspectFit;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    [self.title setFont:[UIFont fontWithName:@"AvenirNextCondensed-Heavy" size:36.0]];
+    self.title.shadowColor = [UIColor blackColor];
+    self.title.shadowOffset = CGSizeMake(0, -1.0);
+    self.title.numberOfLines = 0;
+    self.title.lineBreakMode = NSLineBreakByCharWrapping;
+    self.title.textAlignment = NSTextAlignmentNatural;
     [self setTapGesture];
 }
 
@@ -106,6 +113,27 @@
 
 - (IBAction)sharedButtonClicked:(id)sender {
     NSLog(@"shared clicked");
+    /*
+    NSString *msg = NSLocalizedString(@"Watch my movie from OUTDER:", nil);
+    NSString *whatsappMsg = @"whatsapp://send?text=";
+    NSString *fullMsg = [NSString stringWithFormat:@"%@%@\n%@ \n",whatsappMsg, msg, feed.pageURL];
+    NSString *urlString = [fullMsg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *whatsappURL = [NSURL URLWithString:urlString];
+    
+    if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
+        [[UIApplication sharedApplication] openURL: whatsappURL];
+    }
+    */
+    
+    NSString *msg = NSLocalizedString(@"Watch my movie from OUTDER:", nil);
+    NSString *fullMsg = [NSString stringWithFormat:@"%@\n%@ \n", msg, feed.pageURL];
+    NSArray* dataToShare = @[fullMsg];  // ...or whatever pieces of data you want to share.
+    
+    UIActivityViewController* activityViewController =
+    [[UIActivityViewController alloc] initWithActivityItems:dataToShare
+                                      applicationActivities:nil];
+    
+    [self.superCtrl presentViewController:activityViewController animated:YES completion:^{}];
 }
 
 - (IBAction)cameraButtonClicked:(id)sender {

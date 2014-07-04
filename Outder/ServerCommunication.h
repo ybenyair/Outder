@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInfo.h"
+#import "LoginInfo.h"
 
 typedef enum {
     kCommOK,
@@ -27,11 +27,11 @@ typedef enum {
 @property (nonatomic,strong) NSObject* userData;
 @property (nonatomic, weak) id <ServerCommunicationDelegate> delegate;
 
-- (void)getFeeds:(UserInfo *)userInfo fromTime:(NSString *)time feedType:(NSString *)type;
-- (void)refreshFeeds:(UserInfo *)userInfo feedType:(NSString *)type;
+- (void)getFeeds: (NSString *)time feedType:(NSString *)type;
+- (void)refreshFeeds:(NSString *)type;
 
-- (void)sendLogin:(UserInfo *)userInfo;
-- (void)getTemplates: (UserInfo *)userInfo;
+- (void)sendLogin:(LoginInfo *)loginInfo;
+- (void)getTemplates;
 - (void)setUserData: (NSObject *)obj;
 
 @end

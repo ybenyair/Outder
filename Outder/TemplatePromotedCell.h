@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TemplatePromotedView : UIViewController
+@interface TemplatePromotedCell : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (assign, nonatomic) NSInteger index;

@@ -6,23 +6,24 @@
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
-#import "SubTemplateItemVC.h"
+#import "SubTemplateCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Instruction.h"
 
 #define kLineHeight 35.0f
 
-@interface SubTemplateItemVC ()
+@interface SubTemplateCell ()
 
 @end
 
 
-@implementation SubTemplateItemVC
+@implementation SubTemplateCell
 {
     NSMutableArray *directions;
 }
 
-@synthesize videoImage, labelTitle, btnMake, btnDirection, lineLayer, labelTitleDirection, tableDirections;
+@synthesize videoImage, labelTitle,btnMake,imgMake,btnDirection,lineLayer,labelTitleDirection,tableDirections;
+@synthesize videoCtrl;
 @synthesize subTemplate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,6 +33,8 @@
         // Custom initialization
         self.videoImage = [[UIImageView alloc] init];
         [self.view addSubview:self.videoImage];
+        [self.videoImage setUserInteractionEnabled:YES];
+
 
         self.labelTitle = [[UILabel alloc] init];
         [self.view addSubview:labelTitle];
@@ -39,6 +42,10 @@
         self.btnMake = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.view addSubview:btnMake];
         
+        self.imgMake =  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MakeOne.png"]];
+        [self.view addSubview:imgMake];
+        self.videoImage.contentMode = UIViewContentModeScaleAspectFit;
+
         self.lineLayer = [CAShapeLayer layer];
         [self.view.layer addSublayer:lineLayer];
         
@@ -50,9 +57,34 @@
         self.tableDirections.dataSource = self;
         self.tableDirections.delegate = self;
         [self.view addSubview:tableDirections];
+        
+        [self setTapGesture];
     }
     
     return self;
+}
+
+- (void)setTapGesture
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self action:@selector(videoImageTap:)];
+    [self.videoImage addGestureRecognizer:tap];
+}
+
+- (void)videoImageTap:(UIGestureRecognizer *)sender
+{
+    NSLog(@"Video image tapped");
+    
+    if (!videoCtrl) {
+        videoCtrl = [[VideoPlayerViewController alloc] init];
+    }
+    
+    if (videoCtrl.videoState == kVideoClosed) {
+        [videoCtrl playVideo:subTemplate.videoURL inView:self.videoImage];
+    } else {
+        NSLog(@"Video is already playing...	");
+    }
+    
 }
 
 #pragma mark - ScrollView Methods
@@ -192,25 +224,64 @@
     NSLog(@"Title frame = %@", NSStringFromCGRect(self.labelTitle.frame));
 }
 
+#define CATEGORY_DYNAMIC_FONT_SIZE_MAXIMUM_VALUE 35
+#define CATEGORY_DYNAMIC_FONT_SIZE_MINIMUM_VALUE 3
+
+-(void) adjustFontSizeToFillItsContents: (UILabel *)label
+{
+    NSString* text = label.text;
+    
+    for (int i = CATEGORY_DYNAMIC_FONT_SIZE_MAXIMUM_VALUE; i>CATEGORY_DYNAMIC_FONT_SIZE_MINIMUM_VALUE; i--) {
+        
+        UIFont *font = [UIFont fontWithName:label.font.fontName size:(CGFloat)i];
+        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName: font}];
+        
+        CGRect rectSize = [attributedText boundingRectWithSize:CGSizeMake(label.frame.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+        
+        if (rectSize.size.height <= label.frame.size.height) {
+            label.font = [UIFont fontWithName:label.font.fontName size:(CGFloat)i];
+            break;
+        }
+    }
+    
+}
+
 - (void) configureBtnMake: (UIView *)inView
 {
-    [btnMake setTitle: @"MAKE ONE" forState: UIControlStateNormal];
-    [btnMake setTitleColor: [UIColor purpleColor] forState: UIControlStateNormal];
+    // Set the text inside the image
+    NSString *text = NSLocalizedString(@"MAKE\nONE", nil);
+    [btnMake setTitle: text forState: UIControlStateNormal];
+    [btnMake setTitleColor: [UIColor redColor] forState: UIControlStateNormal];
 
-    [btnMake.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    // Locate the center of the view. It should be between the videoImage and the directionTable
+    CGFloat YstartPoint = labelTitle.frame.origin.y  + labelTitle.frame.size.height + 5;
+    CGFloat YendPoint = tableDirections.frame.origin.y;
+    CGFloat Yheight = YendPoint - YstartPoint;
+    CGPoint center;
+    center.x = inView.frame.size.width/2;
+    center.y = YstartPoint + Yheight/2;
+    
+    // Configure image frame
+    CGRect imgFrame;
+    imgFrame.size.height = Yheight - 4;
+    imgFrame.size.width = imgFrame.size.height;
+    imgMake.frame = imgFrame;
+    imgMake.center = center;
+
+    // Configure text frame
+    CGRect frame;
+    frame.size.width = imgFrame.size.width - 50;
+    frame.size.height = imgFrame.size.height - 50;
+    btnMake.frame = frame;
+    btnMake.center = center;
+    
+    // Adjust text to fit the frame
     btnMake.titleLabel.textAlignment = NSTextAlignmentCenter;
     btnMake.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    btnMake.titleLabel.numberOfLines = 2;
+    [btnMake.titleLabel sizeToFit];
+    [self adjustFontSizeToFillItsContents:btnMake.titleLabel];
     
-    CGRect frame;
-    frame.size.width = 60;
-    frame.size.height = 30;
-    frame.origin.x = inView.frame.size.width/2 -  frame.size.width/2;
-    
-    CGFloat startPoint = labelTitle.frame.origin.y  + labelTitle.frame.size.height;
-    CGFloat endPoint = tableDirections.frame.origin.y;
-    frame.origin.y = startPoint + (endPoint - startPoint)/2 - frame.size.height/2;
-    
-    btnMake.frame = frame;
     NSLog(@"MAKE ONE frame = %@", NSStringFromCGRect(self.btnMake.frame));
 }
 
@@ -233,7 +304,7 @@
     tableDirections.frame = frame;
     
     NSLog(@"Table directions frame = %@ for subTemplate %@", NSStringFromCGRect(self.tableDirections.frame), subTemplate.order);
-
+    
 }
 
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view
@@ -251,6 +322,11 @@
     [self configureLine:view];
     [self configureTableDirections:view];
     [self configureBtnMake:view];
+    
+    if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
+        [videoCtrl stopVideo];
+        videoCtrl = nil;
+    }
 }
 
 - (void)setImage:(NSString *)imageURL

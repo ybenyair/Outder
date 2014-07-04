@@ -92,7 +92,8 @@
             // remove the time zone
             feed.time = [time stringByReplacingOccurrencesOfString:@"+00:00" withString:@""];
             feed.videoURL = [feedData objectForKey:@"video_url"];
-            feed.imageURL = @"https://s3.amazonaws.com/outder/C1/elal/ElAl-1.png";
+            feed.imageURL = [feedData objectForKey:@"image"];
+            feed.pageURL = [feedData objectForKey:@"page_url"];
             feed.type = type;
             feed.feedID = [NSNumber numberWithInt:[feedID intValue]];
         }

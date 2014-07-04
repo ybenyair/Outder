@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="190" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3yr-7Q-SrR">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="184" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3yr-7Q-SrR">
                     <rect key="frame" x="0.0" y="123" width="320" height="333"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,7 +42,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="3yr-7Q-SrR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="H6b-Ki-hII"/>
+                <constraint firstItem="3yr-7Q-SrR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-1" id="H6b-Ki-hII"/>
                 <constraint firstAttribute="bottom" secondItem="KNx-t5-H3M" secondAttribute="bottom" constant="45" id="OYm-8H-wh9"/>
                 <constraint firstAttribute="bottom" secondItem="3yr-7Q-SrR" secondAttribute="bottom" constant="45" id="yhX-yj-FLl"/>
             </constraints>

@@ -11,7 +11,7 @@
 #import "TermOfUseViewController.h"
 #import "Defines.h"
 #import "DejalActivityView.h"
-#import "UserInfo+Login.h"
+#import "LoginInfo.h"
 #import "CustomNavigationController.h"
 #import "RootViewController.h"
 
@@ -65,8 +65,8 @@
 - (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data
 {
     if (code == kCommOK) {
-        UserInfo *info = (UserInfo *)data;
-        [UserInfo userLoggedIn:self.managedObjectContext userInfo:info];
+        LoginInfo *info = (LoginInfo *)data;
+        [info storeLoggedIn];
         [self pushDashboard];
     } else {
         NSString *alertMessage = NSLocalizedString(@"Internet connection error", nil);
@@ -75,14 +75,14 @@
     }
 }
 
-- (void)login:(UserInfo *)userInfo
+- (void)login:(LoginInfo *)loginInfo
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Login...", nil)];
 
     ServerCommunication *loginComm = [[ServerCommunication alloc] init];
     loginComm.delegate = self;
-    [loginComm setUserData:userInfo];
-    [loginComm sendLogin:userInfo];
+    [loginComm setUserData:loginInfo];
+    [loginComm sendLogin:loginInfo];
 }
 
 
@@ -91,16 +91,14 @@
                             user:(id<FBGraphUser>)user {
     NSLog(@"Fetching user information");
     
-    UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
-    if ([userInfo.isValid boolValue] == NO) {
+    LoginInfo *loginInfo = [LoginInfo getInstance];
+    if (!loginInfo) {
         
-        userInfo.userName = [NSString stringWithFormat:@"%@",user.name];
-        userInfo.facebookID = [NSString stringWithFormat:@"%@",user.objectID];
-        userInfo.emailAddress =[user objectForKey:@"email"];
-        userInfo.isValid = [NSNumber numberWithBool:YES];
-        
-        [self login:userInfo];
-       
+        loginInfo.userName = [NSString stringWithFormat:@"%@",user.name];
+        loginInfo.facebookID = [NSString stringWithFormat:@"%@",user.objectID];
+        loginInfo.emailAddress =[user objectForKey:@"email"];
+        loginInfo.isValid = YES;
+        [self login:loginInfo];
     }
 }
 
@@ -112,7 +110,8 @@
 
 // Implement the loginViewShowingLoggedOutUser: delegate method to modify your app's UI for a logged-out user experience
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    [UserInfo userLoggedOut:self.managedObjectContext];
+    LoginInfo *loginInfo = [LoginInfo getInstance];
+    [loginInfo storeLoggedOut];
 }
 
 - (void) presentErrorMessage: (NSString *)alertMessage title:(NSString *)alertTitle
@@ -177,11 +176,11 @@
 
 - (IBAction)guestLoginClicked:(UIButton *)sender
 {
-    UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
-    userInfo.userName = [NSString stringWithFormat:@"GUEST"];
-    userInfo.emailAddress = kGuestEmail;
-    userInfo.isValid = [NSNumber numberWithBool:YES];
-    [self login:userInfo];
+    LoginInfo *loginInfo = [LoginInfo getInstance];
+    loginInfo.userName = [NSString stringWithFormat:@"GUEST"];
+    loginInfo.emailAddress = kGuestEmail;
+    loginInfo.isValid = YES;
+    [self login:loginInfo];
 }
 
 - (IBAction)playVideoClicked:(UIButton *)sender

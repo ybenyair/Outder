@@ -7,7 +7,7 @@
 //
 
 #import "ServerCommunication.h"
-#import "UserInfo+Login.h"
+#import "LoginInfo.h"
 #import "Defines.h"
 
 #define kDefaultTime @"9999-12-31 00:00:00"
@@ -21,11 +21,11 @@
     userData = obj;
 }
 
-- (void)sendLogin:(UserInfo *)userInfo
+- (void)sendLogin:(LoginInfo *)loginInfo
 {
     NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
-    NSString *methodWithParams = [kLogin stringByAppendingFormat:@"?%@=%@&%@=%@&%@=%@&%@=%@",kEmail,userInfo.emailAddress,kPassword,kDefaultPassword,kCompanyid,kCompanyDefaultId,kDid,deviceUdid];
+    NSString *methodWithParams = [kLogin stringByAppendingFormat:@"?%@=%@&%@=%@&%@=%@&%@=%@",kEmail,loginInfo.emailAddress,kPassword,kDefaultPassword,kCompanyid,kCompanyDefaultId,kDid,deviceUdid];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",kOutderURL,methodWithParams];
     
@@ -44,20 +44,25 @@
     }
 }
 
-- (void)refreshFeeds:(UserInfo *)userInfo feedType:(NSString *)type
+- (void)refreshFeeds: (NSString *)type
 {
-    [self getFeeds:userInfo fromTime:kDefaultTime feedType: type];
+    [self getFeeds:kDefaultTime feedType: type];
 }
 
-- (void)getFeeds:(UserInfo *)userInfo fromTime:(NSString *)time feedType:(NSString *)type;
+- (void)getFeeds:(NSString *)time feedType:(NSString *)type;
 {
+    /*
     NSString *newString = [NSString stringWithFormat:@"%@%@?%@=%@&%@=%@&%@=%@",kOutderURL, kUserVideos, kCompanyid,kCompanyDefaultId,kEmail,userInfo.emailAddress,kTime, time];
     
     NSString *urlString = [newString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    */
+    
+    NSString *urlString = @"http://www.outder.com/tou/1001/";
 
     NSLog(@"Server request: %@", urlString);
     
     NSURL *url = [NSURL URLWithString:urlString];
+
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -72,7 +77,7 @@
     }
 }
 
-- (void)getTemplates: (UserInfo *)userInfo
+- (void)getTemplates
 {
     //NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 

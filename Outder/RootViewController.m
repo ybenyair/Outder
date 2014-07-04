@@ -9,9 +9,9 @@
 #import "RootViewController.h"
 #import "LoginViewController.h"
 #import "FeedTableViewController.h"
-#import "TemplateViewController.h"
+#import "TemplatesVC.h"
 #import "AppDelegate.h"
-#import "UserInfo+Login.h"
+#import "LoginInfo.h"
 #import "TemplateCoreData.h"
 #import "DejalActivityView.h"
 
@@ -58,8 +58,8 @@ static RootViewController *instance = nil;
 
 - (void)start
 {
-    UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
-    if ([userInfo.isValid boolValue] == YES) {
+    LoginInfo *loginInfo = [LoginInfo getInstance];
+    if (loginInfo.isValid) {
         [self setSplashView];
         [self startDashboardViewController];
     } else {
@@ -179,11 +179,10 @@ static RootViewController *instance = nil;
 
 - (void)getTemplates
 {
-    UserInfo *userInfo = [UserInfo getUserInfo:self.managedObjectContext];
     ServerCommunication *templateComm = [[ServerCommunication alloc] init];
     templateComm.delegate = self;
     [templateComm setUserData:@"templates"];
-    [templateComm getTemplates:userInfo];
+    [templateComm getTemplates];
 }
 
 @end

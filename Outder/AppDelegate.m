@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "LoginViewController.h"
 #import "CustomNavigationController.h"
-#import "UserInfo+Login.h"
+#import "LoginInfo.h"
 #import "RootViewController.h"
 
 @implementation AppDelegate

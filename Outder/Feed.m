@@ -2,7 +2,7 @@
 //  Feed.m
 //  Outder
 //
-//  Created by Yossi on 6/20/14.
+//  Created by Yossi on 7/4/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
@@ -11,11 +11,12 @@
 
 @implementation Feed
 
+@dynamic feedID;
 @dynamic imageURL;
 @dynamic time;
 @dynamic title;
 @dynamic type;
 @dynamic videoURL;
-@dynamic feedID;
+@dynamic pageURL;
 
 @end

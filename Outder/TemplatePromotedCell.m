@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
-#import "TemplatePromotedView.h"
+#import "TemplatePromotedCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface TemplatePromotedView ()
+@interface TemplatePromotedCell ()
 
 @end
 
-@implementation TemplatePromotedView
+@implementation TemplatePromotedCell
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
