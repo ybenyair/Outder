@@ -41,7 +41,7 @@
     NSURL *url = [NSURL URLWithString:imageURL];
     
     [self.imageView setImageWithURL:url
-                           placeholderImage:nil
+                           placeholderImage:[UIImage imageNamed:@"Placeholder.jpg"]
                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                                       if (image)
                                       {

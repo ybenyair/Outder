@@ -37,7 +37,6 @@
 		1885FF2C1965F0C5008E93A5 /* TemplatePromotedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1885FF2B1965F0C5008E93A5 /* TemplatePromotedCell.xib */; };
 		1885FF2F1965F1A7008E93A5 /* SubTemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885FF2E1965F1A7008E93A5 /* SubTemplateCell.m */; };
 		1885FF331967096D008E93A5 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885FF321967096D008E93A5 /* Feed.m */; };
-		1885FF3519670A24008E93A5 /* whatsapp.png in Resources */ = {isa = PBXBuildFile; fileRef = 1885FF3419670A24008E93A5 /* whatsapp.png */; };
 		1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A5194F74BE0065FFE0 /* blackArrow.png */; };
 		1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A6194F74BE0065FFE0 /* blackArrow@2x.png */; };
@@ -50,6 +49,7 @@
 		1889C0B7194F75430065FFE0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1889C0B6194F75430065FFE0 /* QuartzCore.framework */; };
 		188AB93B195EA12C0000106A /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AB93A195EA12C0000106A /* iCarousel.m */; };
 		188B8F1D194A158300A88D43 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 188B8F1F194A158300A88D43 /* Localizable.strings */; };
+		188CEEDD196AD15D00EA0BBD /* Placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188CEEDC196AD15D00EA0BBD /* Placeholder.jpg */; };
 		188DB1E3195F5ADD00EA404C /* Instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 188DB1E2195F5ADD00EA404C /* Instruction.m */; };
 		188DB1E6195F5ADE00EA404C /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = 188DB1E5195F5ADE00EA404C /* Template.m */; };
 		189413B6195ACCF50056907A /* TemplateCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 189413B5195ACCF50056907A /* TemplateCoreData.m */; };
@@ -84,6 +84,13 @@
 		18EC4FC5193D0E4B003E5335 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA9193D0E4B003E5335 /* CoreData.framework */; };
 		18EC4FCD193D0E4B003E5335 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4FCB193D0E4B003E5335 /* InfoPlist.strings */; };
 		18EC4FCF193D0E4B003E5335 /* OutderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4FCE193D0E4B003E5335 /* OutderTests.m */; };
+		18FB7C7A196754A4005C9ABA /* SharingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C79196754A4005C9ABA /* SharingInfo.m */; };
+		18FB7C7D19675A79005C9ABA /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C7C19675A79005C9ABA /* WhatsAppActivity.m */; };
+		18FB7C8219676267005C9ABA /* FBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C8119676267005C9ABA /* FBActivity.m */; };
+		18FB7C8419676408005C9ABA /* Icon_Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FB7C8319676408005C9ABA /* Icon_Facebook.png */; };
+		18FB7C8619676411005C9ABA /* Icon_Facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FB7C8519676411005C9ABA /* Icon_Facebook@2x.png */; };
+		18FB7C8819676455005C9ABA /* Icon_Whatsapp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FB7C8719676455005C9ABA /* Icon_Whatsapp@2x.png */; };
+		18FB7C8A196765A6005C9ABA /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FB7C89196765A6005C9ABA /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,7 +160,6 @@
 		1885FF301965F1EE008E93A5 /* SubTemplateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SubTemplateCell.h; path = Outder/SubTemplateCell.h; sourceTree = "<group>"; };
 		1885FF311967096D008E93A5 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		1885FF321967096D008E93A5 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
-		1885FF3419670A24008E93A5 /* whatsapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whatsapp.png; sourceTree = "<group>"; };
 		1889C0A2194F74BE0065FFE0 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		1889C0A5194F74BE0065FFE0 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -169,6 +175,7 @@
 		188AB93A195EA12C0000106A /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		188B8F1E194A158300A88D43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		188B8F20194A158800A88D43 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
+		188CEEDC196AD15D00EA0BBD /* Placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Placeholder.jpg; sourceTree = "<group>"; };
 		188DB1E1195F5ADD00EA404C /* Instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instruction.h; sourceTree = "<group>"; };
 		188DB1E2195F5ADD00EA404C /* Instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instruction.m; sourceTree = "<group>"; };
 		188DB1E4195F5ADE00EA404C /* Template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
@@ -218,6 +225,17 @@
 		18EC4FCA193D0E4B003E5335 /* OutderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OutderTests-Info.plist"; sourceTree = "<group>"; };
 		18EC4FCC193D0E4B003E5335 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		18EC4FCE193D0E4B003E5335 /* OutderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutderTests.m; sourceTree = "<group>"; };
+		18FB7C781967549D005C9ABA /* SharingInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharingInfo.h; sourceTree = "<group>"; };
+		18FB7C79196754A4005C9ABA /* SharingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharingInfo.m; sourceTree = "<group>"; };
+		18FB7C7B19675A71005C9ABA /* WhatsAppActivity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhatsAppActivity.h; sourceTree = "<group>"; };
+		18FB7C7C19675A79005C9ABA /* WhatsAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppActivity.m; sourceTree = "<group>"; };
+		18FB7C7F19676253005C9ABA /* SharingActivities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharingActivities.h; sourceTree = "<group>"; };
+		18FB7C8019676260005C9ABA /* FBActivity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBActivity.h; sourceTree = "<group>"; };
+		18FB7C8119676267005C9ABA /* FBActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBActivity.m; sourceTree = "<group>"; };
+		18FB7C8319676408005C9ABA /* Icon_Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Facebook.png; sourceTree = "<group>"; };
+		18FB7C8519676411005C9ABA /* Icon_Facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon_Facebook@2x.png"; sourceTree = "<group>"; };
+		18FB7C8719676455005C9ABA /* Icon_Whatsapp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon_Whatsapp@2x.png"; sourceTree = "<group>"; };
+		18FB7C89196765A6005C9ABA /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18FB7C8A196765A6005C9ABA /* Social.framework in Frameworks */,
 				1889C0B7194F75430065FFE0 /* QuartzCore.framework in Frameworks */,
 				183F8883194D8688006EDD8C /* ImageIO.framework in Frameworks */,
 				18DE960D194568E100021A5D /* MediaPlayer.framework in Frameworks */,
@@ -320,6 +339,23 @@
 				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		1837531919673E8C0080C85B /* Social Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				18FB7C781967549D005C9ABA /* SharingInfo.h */,
+				18FB7C79196754A4005C9ABA /* SharingInfo.m */,
+				18FB7C8019676260005C9ABA /* FBActivity.h */,
+				18FB7C8119676267005C9ABA /* FBActivity.m */,
+				18FB7C8319676408005C9ABA /* Icon_Facebook.png */,
+				18FB7C8519676411005C9ABA /* Icon_Facebook@2x.png */,
+				18FB7C7B19675A71005C9ABA /* WhatsAppActivity.h */,
+				18FB7C7C19675A79005C9ABA /* WhatsAppActivity.m */,
+				18FB7C8719676455005C9ABA /* Icon_Whatsapp@2x.png */,
+				18FB7C7F19676253005C9ABA /* SharingActivities.h */,
+			);
+			name = "Social Sharing";
 			sourceTree = "<group>";
 		};
 		183C14E81950959300DF8ABD /* Feed */ = {
@@ -429,10 +465,17 @@
 			name = iCarousel;
 			sourceTree = "<group>";
 		};
+		188CEEDE196B22CD00EA0BBD /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Instructions;
+			sourceTree = "<group>";
+		};
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
-				1885FF3419670A24008E93A5 /* whatsapp.png */,
+				188CEEDC196AD15D00EA0BBD /* Placeholder.jpg */,
 				1885FF261965E3A0008E93A5 /* DirectionsGradient.png */,
 				1885FF101965D2CA008E93A5 /* MakeOne.png */,
 				181BF038195FD55300BCBC05 /* splash.jpg */,
@@ -471,6 +514,7 @@
 		18EC4FA2193D0E4B003E5335 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18FB7C89196765A6005C9ABA /* Social.framework */,
 				18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */,
 				1889C0B6194F75430065FFE0 /* QuartzCore.framework */,
 				183F8882194D8688006EDD8C /* ImageIO.framework */,
@@ -498,7 +542,9 @@
 				1834BFA41948243500AE7332 /* Login */,
 				181043E9195A5CC50016B104 /* Template */,
 				188A64881961C799009310BB /* SubTemplate */,
+				188CEEDE196B22CD00EA0BBD /* Instructions */,
 				183C14E81950959300DF8ABD /* Feed */,
+				1837531919673E8C0080C85B /* Social Sharing */,
 				18EC4FAC193D0E4B003E5335 /* Supporting Files */,
 			);
 			path = Outder;
@@ -628,19 +674,21 @@
 				18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */,
 				188569EA194D1F3F00980F36 /* home.png in Resources */,
 				1885FF111965D2CA008E93A5 /* MakeOne.png in Resources */,
-				1885FF3519670A24008E93A5 /* whatsapp.png in Resources */,
 				1885FF271965E3A0008E93A5 /* DirectionsGradient.png in Resources */,
+				18FB7C8419676408005C9ABA /* Icon_Facebook.png in Resources */,
 				1889C0B3194F74BE0065FFE0 /* grayArrow@2x.png in Resources */,
 				18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */,
 				1889C0B2194F74BE0065FFE0 /* grayArrow.png in Resources */,
 				18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */,
 				1889C0B1194F74BE0065FFE0 /* blueArrow@2x.png in Resources */,
 				1889C0B0194F74BE0065FFE0 /* blueArrow.png in Resources */,
+				18FB7C8819676455005C9ABA /* Icon_Whatsapp@2x.png in Resources */,
 				1889C0B4194F74BE0065FFE0 /* whiteArrow.png in Resources */,
 				1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */,
 				188B8F1D194A158300A88D43 /* Localizable.strings in Resources */,
 				1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */,
 				18D457DD1956B27800C5932F /* mediaStopBtn.png in Resources */,
+				18FB7C8619676411005C9ABA /* Icon_Facebook@2x.png in Resources */,
 				1885FF2C1965F0C5008E93A5 /* TemplatePromotedCell.xib in Resources */,
 				180474BF1954691F00067AE0 /* share.png in Resources */,
 				1889C0B5194F74BE0065FFE0 /* whiteArrow@2x.png in Resources */,
@@ -649,6 +697,7 @@
 				188569EE194D210700980F36 /* myvideos.png in Resources */,
 				18DE95CF193D424000021A5D /* sample.png in Resources */,
 				18984AB61948F1EB001410B7 /* signOut.png in Resources */,
+				188CEEDD196AD15D00EA0BBD /* Placeholder.jpg in Resources */,
 				18D457D9195659F500C5932F /* VideoPlayerViewController.xib in Resources */,
 				183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */,
 				183F885F194D61BC006EDD8C /* FeedTableViewCell.xib in Resources */,
@@ -677,6 +726,7 @@
 				183C14EE1950DDBA00DF8ABD /* ServerCommunication.m in Sources */,
 				18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */,
 				183753181967317A0080C85B /* LoginInfo.m in Sources */,
+				18FB7C7D19675A79005C9ABA /* WhatsAppActivity.m in Sources */,
 				188DB1E6195F5ADE00EA404C /* Template.m in Sources */,
 				1877E1601950E6B10008D5A7 /* FeedCoreData.m in Sources */,
 				188AB93B195EA12C0000106A /* iCarousel.m in Sources */,
@@ -687,6 +737,7 @@
 				18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */,
 				1885FF2F1965F1A7008E93A5 /* SubTemplateCell.m in Sources */,
 				187A5757193D0F15009BA935 /* LoginViewController.m in Sources */,
+				18FB7C7A196754A4005C9ABA /* SharingInfo.m in Sources */,
 				1885FF1E1965D55B008E93A5 /* TemplatesVC.m in Sources */,
 				18EC4FB6193D0E4B003E5335 /* AppDelegate.m in Sources */,
 				184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */,
@@ -697,6 +748,7 @@
 				188DB1E3195F5ADD00EA404C /* Instruction.m in Sources */,
 				18E96431194F07F300A2A317 /* RootViewController.m in Sources */,
 				1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */,
+				18FB7C8219676267005C9ABA /* FBActivity.m in Sources */,
 				18EC4FB2193D0E4B003E5335 /* main.m in Sources */,
 				183C14E2194F9D4500DF8ABD /* FeedTableViewController.m in Sources */,
 			);

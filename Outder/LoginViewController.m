@@ -92,7 +92,7 @@
     NSLog(@"Fetching user information");
     
     LoginInfo *loginInfo = [LoginInfo getInstance];
-    if (!loginInfo) {
+    if (!loginInfo.isValid) {
         
         loginInfo.userName = [NSString stringWithFormat:@"%@",user.name];
         loginInfo.facebookID = [NSString stringWithFormat:@"%@",user.objectID];

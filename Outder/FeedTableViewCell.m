@@ -8,6 +8,8 @@
 
 #import "FeedTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "SharingInfo.h"
+#import "SharingActivities.h"
 
 @implementation FeedTableViewCell
 
@@ -124,14 +126,31 @@
         [[UIApplication sharedApplication] openURL: whatsappURL];
     }
     */
-    
+
+    /*
     NSString *msg = NSLocalizedString(@"Watch my movie from OUTDER:", nil);
     NSString *fullMsg = [NSString stringWithFormat:@"%@\n%@ \n", msg, feed.pageURL];
-    NSArray* dataToShare = @[fullMsg];  // ...or whatever pieces of data you want to share.
+    NSString *urlString = [fullMsg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSArray* dataToShare = @[urlString];  // ...or whatever pieces of data you want to share.
     
     UIActivityViewController* activityViewController =
     [[UIActivityViewController alloc] initWithActivityItems:dataToShare
                                       applicationActivities:nil];
+    
+    [self.superCtrl presentViewController:activityViewController animated:YES completion:^{}];
+    */
+    NSString *text = NSLocalizedString(@"Watch my movie from OUTDER:", nil);
+    NSString *fullMsg = [NSString stringWithFormat:@"%@\n%@\n", text, feed.pageURL];
+    
+    SharingInfo *message = [[SharingInfo alloc] init];
+    message.text = fullMsg;
+    
+    NSArray *applicationActivities = @[[[WhatsAppActivity alloc] init]];
+    NSArray *excludedActivities    = @[UIActivityTypePrint, UIActivityTypeAirDrop];
+    NSArray *activityItems         = @[message.text, message];
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
+    activityViewController.excludedActivityTypes = excludedActivities;
     
     [self.superCtrl presentViewController:activityViewController animated:YES completion:^{}];
 }

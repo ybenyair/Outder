@@ -74,6 +74,7 @@
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
 	NSLog(@"Received notification: %@", userInfo);
+    [[RootViewController getInstance] handleNotification:userInfo];
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken

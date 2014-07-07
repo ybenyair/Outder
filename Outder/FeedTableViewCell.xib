@@ -32,7 +32,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ar4-nq-XL3" userLabel="Button - Share">
                                 <rect key="frame" x="271" y="5" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="whatsapp.png">
+                                <state key="normal" image="share.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -65,6 +65,6 @@
     </objects>
     <resources>
         <image name="camera.png" width="16" height="10"/>
-        <image name="whatsapp.png" width="4096" height="4096"/>
+        <image name="share.png" width="14" height="16"/>
     </resources>
 </document>

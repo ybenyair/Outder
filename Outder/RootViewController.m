@@ -22,7 +22,7 @@
 @implementation RootViewController
 
 @synthesize managedObjectContext = _managedObjectContext;
-@synthesize tabController;
+@synthesize tabController, myVideoVC, featuredVideoVC;
 
 static RootViewController *instance = nil;
 
@@ -135,24 +135,24 @@ static RootViewController *instance = nil;
     [navhome pushViewController:homevc animated:NO];
     navhome.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
     
-    FeedTableViewController *myvideovc = [[FeedTableViewController alloc] init];
-    myvideovc.managedObjectContext = self.managedObjectContext;
-    myvideovc.tabBarItem.title = @"My Video";
-    myvideovc.feedType = @"MyVideo";
-    myvideovc.tabBarItem.image	 = [UIImage imageNamed:@"myvideos"];
-    [myvideovc loadData];
+    myVideoVC = [[FeedTableViewController alloc] init];
+    myVideoVC.managedObjectContext = self.managedObjectContext;
+    myVideoVC.tabBarItem.title = @"My Video";
+    myVideoVC.feedType = @"MyVideo";
+    myVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"myvideos"];
+    [myVideoVC loadData];
     UINavigationController *navmyvideo = [[UINavigationController alloc] init];
-    [navmyvideo pushViewController:myvideovc animated:NO];
+    [navmyvideo pushViewController:myVideoVC animated:NO];
     navmyvideo.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
 
-    FeedTableViewController *featuredvideovc = [[FeedTableViewController alloc] init];
-    featuredvideovc.managedObjectContext = self.managedObjectContext;
-    featuredvideovc.tabBarItem.title = @"Featured";
-    featuredvideovc.feedType = @"FeaturedVideo";
-    featuredvideovc.tabBarItem.image	 = [UIImage imageNamed:@"featured"];
-    [featuredvideovc loadData];
+    featuredVideoVC = [[FeedTableViewController alloc] init];
+    featuredVideoVC.managedObjectContext = self.managedObjectContext;
+    featuredVideoVC.tabBarItem.title = @"Featured";
+    featuredVideoVC.feedType = @"FeaturedVideo";
+    featuredVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"featured"];
+    [featuredVideoVC loadData];
     UINavigationController *navfeatured = [[UINavigationController alloc] init];
-    [navfeatured pushViewController:featuredvideovc animated:NO];
+    [navfeatured pushViewController:featuredVideoVC animated:NO];
     navfeatured.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
 
     [tabController setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];
@@ -171,9 +171,10 @@ static RootViewController *instance = nil;
         [TemplateCoreData clearDB:self.managedObjectContext];
         [TemplateCoreData fillTemplates:self.managedObjectContext data:json];
         [self setActiveView:tabController];
-    } else {
-        NSString *alertMessage = NSLocalizedString(@"Internet connection error", nil);
+    } else if (code == kCommErrorNetwork) {
+        NSString *alertMessage = NSLocalizedString(@"Internet connection error. Trying again...", nil);
         NSLog(@"%@", alertMessage);
+        [self getTemplates];
     }
 }
 
@@ -183,6 +184,15 @@ static RootViewController *instance = nil;
     templateComm.delegate = self;
     [templateComm setUserData:@"templates"];
     [templateComm getTemplates];
+}
+
+- (void)handleNotification: (NSDictionary*)ntfy
+{
+    NSString *value = myVideoVC.tabBarItem.badgeValue;
+    NSInteger intValue = [value intValue];
+    intValue++;
+    value = [NSString stringWithFormat:@"%ld", (long)intValue];
+    myVideoVC.tabBarItem.badgeValue = value;
 }
 
 @end

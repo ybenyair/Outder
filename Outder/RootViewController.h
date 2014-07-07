@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "ServerCommunication.h"
+#import "FeedTableViewController.h"
 
 @interface RootViewController : UIViewController <ServerCommunicationDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) UITabBarController *tabController;
+@property (strong, nonatomic) FeedTableViewController *myVideoVC;
+@property (strong, nonatomic) FeedTableViewController *featuredVideoVC;
 
 + (RootViewController *)getInstance;
 - (void)startLoginViewController:(BOOL)logOut;
 - (void)startDashboardViewController;
 - (void)start;
+- (void)handleNotification: (NSDictionary*)ntfy;
 
 @end
