@@ -10,10 +10,9 @@
 
 @interface CustomNavigationController : UINavigationController {
     NSUInteger supprtedOrientations;
-    NSManagedObjectContext *managedObjectContext;
+    BOOL shouldAutorotate;
 }
 
 @property NSUInteger supprtedOrientations;
-@property NSManagedObjectContext *managedObjectContext;
 
 @end

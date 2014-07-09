@@ -41,6 +41,9 @@
         
         self.btnMake = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.view addSubview:btnMake];
+        [self.btnMake addTarget:self
+                   action:@selector(btnMakeClicked:)
+         forControlEvents:UIControlEventTouchUpInside];
         
         self.imgMake =  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MakeOne.png"]];
         [self.view addSubview:imgMake];
@@ -85,6 +88,12 @@
         NSLog(@"Video is already playing...	");
     }
     
+}
+
+-(void) btnMakeClicked:(UIButton*)sender
+{
+    NSLog(@"btnMakeClicked for subTemplate: %@", subTemplate.title);
+    [self.delegate makeOneClicked:subTemplate];
 }
 
 #pragma mark - ScrollView Methods

@@ -10,6 +10,10 @@
 #import "SubTemplate.h"
 #import "VideoPlayerViewController.h"
 
+@protocol SubTemplateCellDelegate
+- (void)makeOneClicked:(SubTemplate *)subTemplate;
+@end
+
 @interface SubTemplateCell : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic,strong) UIImageView *videoImage;
@@ -24,6 +28,8 @@
 
 @property (nonatomic,strong) SubTemplate *subTemplate;
 @property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
+
+@property (nonatomic, weak) id <SubTemplateCellDelegate> delegate;
 
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view;
 

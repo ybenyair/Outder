@@ -13,6 +13,22 @@
 #import "LoginInfo.h"
 #import "RootViewController.h"
 
+//UITabBarController category to set the view rotations for ios 6
+@implementation UITabBarController (Background)
+
+-(BOOL)shouldAutorotate
+{
+    //I don't want to support auto rotate, but you can return any value you want here
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    //I want to only support portrait mode
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+@end
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -22,7 +38,7 @@
 
 -(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
-    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 }
 
 

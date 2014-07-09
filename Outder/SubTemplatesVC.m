@@ -10,6 +10,8 @@
 #import "SubTemplateCell.h"
 #import "Template.h"
 #import "SubTemplate.h"
+#import "AVCamInstructionsVC.h"
+#import "AVCamViewController.h"
 
 @interface SubTemplatesVC ()
 
@@ -62,6 +64,12 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
     
 }
 
@@ -122,6 +130,7 @@
         NSLog(@"Create a new view for index %ld",(long)index);
         subTemplateItem = [[SubTemplateCell alloc] init];
         subTemplateItem.view.frame = carousel.frame;
+        subTemplateItem.delegate = self;
         NSString *key = [NSString stringWithFormat:@"%p",subTemplateItem.view];
         [_reusedSubTemplateViews setObject:subTemplateItem forKey:key];
         view = subTemplateItem.view;
@@ -225,5 +234,22 @@
     NSLog(@"Tapped view number: %ld", (long)index);
 }
 
+#pragma mark -
+#pragma mark SubTemplateCellDelegate
+
+- (void)makeOneClicked:(SubTemplate *)subTemplate
+{
+    /*
+    InstructionsVC *instVC = [[InstructionsVC alloc] initWithInstructions:subTemplate.instructions];
+    [self presentViewController:instVC animated:YES completion:^{}];
+    */
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AVCamViewController" bundle:nil];
+    //AVCamInstructionsVC *vc = [[sb instantiateViewControllerWithIdentifier:@"AVCamViewController"] initWithInstructions:subTemplate.instructions];
+    AVCamInstructionsVC *vc = [sb instantiateViewControllerWithIdentifier:@"AVCamViewController"];
+    [vc setInstructions:subTemplate.instructions];
+    
+    [self presentViewController:vc animated:YES completion:^{}];
+}
 
 @end

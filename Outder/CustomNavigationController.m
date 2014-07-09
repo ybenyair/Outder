@@ -15,10 +15,8 @@
 @end
 
 @implementation CustomNavigationController
-static CustomNavigationController* instace = nil;
 
 @synthesize supprtedOrientations;
-@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,13 +25,7 @@ static CustomNavigationController* instace = nil;
         // Custom initialization
     }
 
-    instace = self;
     return self;
-}
-
-+ (CustomNavigationController *)getInstance
-{
-    return instace;
 }
 
 - (void)viewDidLoad
@@ -41,7 +33,7 @@ static CustomNavigationController* instace = nil;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationBar.BarTintColor = [UIColor whiteColor];
+    //self.navigationBar.BarTintColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,14 +44,16 @@ static CustomNavigationController* instace = nil;
 
 - (BOOL)shouldAutorotate
 {
-    NSLog(@"Should autorotate = %d",self.topViewController.shouldAutorotate);
+    NSLog(@"Should autorotate");
     //return self.topViewController.shouldAutorotate; //you are asking your current controller what it should do
     return NO;
 }
 
 -(NSUInteger)supportedInterfaceOrientations
 {
-    return [self.topViewController supportedInterfaceOrientations];
+    NSLog(@"supportedInterfaceOrientations");
+    return UIInterfaceOrientationMaskPortrait;
+    //return [self.topViewController supportedInterfaceOrientations];
 }
 
 /*

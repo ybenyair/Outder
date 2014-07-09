@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
 #import "CustomUIViewController.h"
+#import "SubTemplateCell.h"
 
-@interface SubTemplatesVC : CustomUIViewController <iCarouselDataSource, iCarouselDelegate>
+@interface SubTemplatesVC : CustomUIViewController <iCarouselDataSource, iCarouselDelegate, SubTemplateCellDelegate>
 
 - (id)initWithSubTemplates:(NSSet *)data;
 
