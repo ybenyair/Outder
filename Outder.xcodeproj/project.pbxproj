@@ -20,8 +20,8 @@
 		183F8881194D8360006EDD8C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F8880194D8360006EDD8C /* SDWebImage.framework */; };
 		183F8883194D8688006EDD8C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F8882194D8688006EDD8C /* ImageIO.framework */; };
 		1841971F196D192800B14558 /* AVCamInstructionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841971E196D192800B14558 /* AVCamInstructionsVC.m */; };
-		18419721196D22D400B14558 /* AVCamViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18419720196D22D400B14558 /* AVCamViewController.storyboard */; };
 		18419724196D22E300B14558 /* AVCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18419723196D22E300B14558 /* AVCamViewController.m */; };
+		1849D0F0196DE0450001B1EA /* InstructionsPortraitVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1849D0EF196DE0450001B1EA /* InstructionsPortraitVC.xib */; };
 		184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DDAE61948666000F22B2A /* CustomNavigationController.m */; };
 		1877E1601950E6B10008D5A7 /* FeedCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877E15F1950E6B10008D5A7 /* FeedCoreData.m */; };
 		187A5757193D0F15009BA935 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A5755193D0F15009BA935 /* LoginViewController.m */; };
@@ -60,6 +60,8 @@
 		18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AAE19486E37001410B7 /* CustomUIViewController.m */; };
 		18984AB219487B7C001410B7 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AB119487B7C001410B7 /* UserInfo.m */; };
 		18984AB61948F1EB001410B7 /* signOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 18984AB51948F1EB001410B7 /* signOut.png */; };
+		18ACD7F2196DE49D0001AC8B /* AVCamInstructionsPortraitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ACD7F1196DE49D0001AC8B /* AVCamInstructionsPortraitView.m */; };
+		18ACD7F4196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18ACD7F3196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib */; };
 		18D457D8195659F500C5932F /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D457D6195659F500C5932F /* VideoPlayerViewController.m */; };
 		18D457D9195659F500C5932F /* VideoPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D457D7195659F500C5932F /* VideoPlayerViewController.xib */; };
 		18D457DD1956B27800C5932F /* mediaStopBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D457DC1956B27800C5932F /* mediaStopBtn.png */; };
@@ -90,7 +92,17 @@
 		18EC4FCF193D0E4B003E5335 /* OutderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4FCE193D0E4B003E5335 /* OutderTests.m */; };
 		18F561AC196B58E8002EA1FD /* RecordPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F561AB196B58E8002EA1FD /* RecordPortrait.png */; };
 		18F821E6196C17620030374E /* InstructionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F821E4196C17620030374E /* InstructionCell.m */; };
-		18F821E7196C17620030374E /* InstructionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F821E5196C17620030374E /* InstructionCell.xib */; };
+		18F821E7196C17620030374E /* InstructionCell.iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F821E5196C17620030374E /* InstructionCell.iPhone4.xib */; };
+		18F8A91E196DEFCA001093E4 /* flip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A91D196DEFCA001093E4 /* flip@2x.png */; };
+		18F8A920196DF364001093E4 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A91F196DF364001093E4 /* back@2x.png */; };
+		18F8A925196E0903001093E4 /* recBtn1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A924196E0903001093E4 /* recBtn1@2x.png */; };
+		18F8A929196F452F001093E4 /* AVCamInstructionsVC.IPhone4.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A928196F452F001093E4 /* AVCamInstructionsVC.IPhone4.storyboard */; };
+		18F8A92B196F49D2001093E4 /* AVCamInstructionsPortraitView.iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A92A196F49D2001093E4 /* AVCamInstructionsPortraitView.iPhone4.xib */; };
+		18F8A92F196F5748001093E4 /* InstructionsBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A92E196F5748001093E4 /* InstructionsBG.png */; };
+		18F8A931196F71E5001093E4 /* recBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A930196F71E5001093E4 /* recBtn2@2x.png */; };
+		18F8A933196F71F1001093E4 /* recBtn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A932196F71F1001093E4 /* recBtn3@2x.png */; };
+		18F8A9351971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9341971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard */; };
+		18F8A9371971C90E001093E4 /* InstructionCell.iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */; };
 		18FB7C7A196754A4005C9ABA /* SharingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C79196754A4005C9ABA /* SharingInfo.m */; };
 		18FB7C7D19675A79005C9ABA /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C7C19675A79005C9ABA /* WhatsAppActivity.m */; };
 		18FB7C8219676267005C9ABA /* FBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C8119676267005C9ABA /* FBActivity.m */; };
@@ -142,9 +154,9 @@
 		183F8882194D8688006EDD8C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		1841971D196D192100B14558 /* AVCamInstructionsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCamInstructionsVC.h; sourceTree = "<group>"; };
 		1841971E196D192800B14558 /* AVCamInstructionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamInstructionsVC.m; sourceTree = "<group>"; };
-		18419720196D22D400B14558 /* AVCamViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AVCamViewController.storyboard; sourceTree = "<group>"; };
 		18419722196D22DB00B14558 /* AVCamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCamViewController.h; sourceTree = "<group>"; };
 		18419723196D22E300B14558 /* AVCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamViewController.m; sourceTree = "<group>"; };
+		1849D0EF196DE0450001B1EA /* InstructionsPortraitVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionsPortraitVC.xib; sourceTree = "<group>"; };
 		184DDAE51948665700F22B2A /* CustomNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		184DDAE61948666000F22B2A /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		1877E15E1950E6AB0008D5A7 /* FeedCoreData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedCoreData.h; path = Outder/FeedCoreData.h; sourceTree = "<group>"; };
@@ -201,6 +213,9 @@
 		18984AB019487B7C001410B7 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		18984AB119487B7C001410B7 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		18984AB51948F1EB001410B7 /* signOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signOut.png; sourceTree = "<group>"; };
+		18ACD7F0196DE4960001AC8B /* AVCamInstructionsPortraitView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCamInstructionsPortraitView.h; sourceTree = "<group>"; };
+		18ACD7F1196DE49D0001AC8B /* AVCamInstructionsPortraitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamInstructionsPortraitView.m; sourceTree = "<group>"; };
+		18ACD7F3196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AVCamInstructionsPortraitView.iPhone5.xib; sourceTree = "<group>"; };
 		18D457CF1955C7B400C5932F /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Outder/Defines.h; sourceTree = "<group>"; };
 		18D457D5195659F500C5932F /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoPlayerViewController.h; path = Outder/VideoPlayerViewController.h; sourceTree = "<group>"; };
 		18D457D6195659F500C5932F /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoPlayerViewController.m; path = Outder/VideoPlayerViewController.m; sourceTree = "<group>"; };
@@ -242,7 +257,17 @@
 		18F561AB196B58E8002EA1FD /* RecordPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RecordPortrait.png; sourceTree = "<group>"; };
 		18F821E3196C17620030374E /* InstructionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionCell.h; sourceTree = "<group>"; };
 		18F821E4196C17620030374E /* InstructionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionCell.m; sourceTree = "<group>"; };
-		18F821E5196C17620030374E /* InstructionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionCell.xib; sourceTree = "<group>"; };
+		18F821E5196C17620030374E /* InstructionCell.iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionCell.iPhone4.xib; sourceTree = "<group>"; };
+		18F8A91D196DEFCA001093E4 /* flip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flip@2x.png"; sourceTree = "<group>"; };
+		18F8A91F196DF364001093E4 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		18F8A924196E0903001093E4 /* recBtn1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recBtn1@2x.png"; sourceTree = "<group>"; };
+		18F8A928196F452F001093E4 /* AVCamInstructionsVC.IPhone4.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AVCamInstructionsVC.IPhone4.storyboard; sourceTree = "<group>"; };
+		18F8A92A196F49D2001093E4 /* AVCamInstructionsPortraitView.iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AVCamInstructionsPortraitView.iPhone4.xib; sourceTree = "<group>"; };
+		18F8A92E196F5748001093E4 /* InstructionsBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InstructionsBG.png; sourceTree = "<group>"; };
+		18F8A930196F71E5001093E4 /* recBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recBtn2@2x.png"; sourceTree = "<group>"; };
+		18F8A932196F71F1001093E4 /* recBtn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recBtn3@2x.png"; sourceTree = "<group>"; };
+		18F8A9341971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AVCamInstructionsVC.IPhone5.storyboard; sourceTree = "<group>"; };
+		18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionCell.iPhone5.xib; sourceTree = "<group>"; };
 		18FB7C781967549D005C9ABA /* SharingInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharingInfo.h; sourceTree = "<group>"; };
 		18FB7C79196754A4005C9ABA /* SharingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharingInfo.m; sourceTree = "<group>"; };
 		18FB7C7B19675A71005C9ABA /* WhatsAppActivity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhatsAppActivity.h; sourceTree = "<group>"; };
@@ -427,7 +452,6 @@
 				1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */,
 				18419722196D22DB00B14558 /* AVCamViewController.h */,
 				18419723196D22E300B14558 /* AVCamViewController.m */,
-				18419720196D22D400B14558 /* AVCamViewController.storyboard */,
 			);
 			name = AVCam;
 			sourceTree = "<group>";
@@ -501,9 +525,17 @@
 			children = (
 				1841971D196D192100B14558 /* AVCamInstructionsVC.h */,
 				1841971E196D192800B14558 /* AVCamInstructionsVC.m */,
+				18F8A9341971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard */,
+				18F8A928196F452F001093E4 /* AVCamInstructionsVC.IPhone4.storyboard */,
+				18ACD7F0196DE4960001AC8B /* AVCamInstructionsPortraitView.h */,
+				18ACD7F1196DE49D0001AC8B /* AVCamInstructionsPortraitView.m */,
+				18ACD7F3196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib */,
+				18F8A92A196F49D2001093E4 /* AVCamInstructionsPortraitView.iPhone4.xib */,
+				1849D0EF196DE0450001B1EA /* InstructionsPortraitVC.xib */,
 				18F821E3196C17620030374E /* InstructionCell.h */,
 				18F821E4196C17620030374E /* InstructionCell.m */,
-				18F821E5196C17620030374E /* InstructionCell.xib */,
+				18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */,
+				18F821E5196C17620030374E /* InstructionCell.iPhone4.xib */,
 			);
 			name = Instructions;
 			sourceTree = "<group>";
@@ -511,6 +543,12 @@
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				18F8A932196F71F1001093E4 /* recBtn3@2x.png */,
+				18F8A930196F71E5001093E4 /* recBtn2@2x.png */,
+				18F8A92E196F5748001093E4 /* InstructionsBG.png */,
+				18F8A924196E0903001093E4 /* recBtn1@2x.png */,
+				18F8A91F196DF364001093E4 /* back@2x.png */,
+				18F8A91D196DEFCA001093E4 /* flip@2x.png */,
 				188CEEDC196AD15D00EA0BBD /* Placeholder.jpg */,
 				18F561AB196B58E8002EA1FD /* RecordPortrait.png */,
 				1885FF261965E3A0008E93A5 /* DirectionsGradient.png */,
@@ -703,8 +741,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				181BF039195FD55300BCBC05 /* splash.jpg in Resources */,
+				18F8A9371971C90E001093E4 /* InstructionCell.iPhone5.xib in Resources */,
 				18F561AC196B58E8002EA1FD /* RecordPortrait.png in Resources */,
 				18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */,
+				18F8A92F196F5748001093E4 /* InstructionsBG.png in Resources */,
+				18ACD7F4196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib in Resources */,
+				18F8A9351971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard in Resources */,
 				1885FF201965D562008E93A5 /* TemplatesVC.xib in Resources */,
 				18DEDEC2195AABA2002DE2D2 /* TemplateCell.xib in Resources */,
 				1885FF251965D5D1008E93A5 /* SubTemplatesVC.xib in Resources */,
@@ -715,13 +757,13 @@
 				1885FF271965E3A0008E93A5 /* DirectionsGradient.png in Resources */,
 				18FB7C8419676408005C9ABA /* Icon_Facebook.png in Resources */,
 				1889C0B3194F74BE0065FFE0 /* grayArrow@2x.png in Resources */,
-				18419721196D22D400B14558 /* AVCamViewController.storyboard in Resources */,
 				18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */,
 				1889C0B2194F74BE0065FFE0 /* grayArrow.png in Resources */,
+				18F8A925196E0903001093E4 /* recBtn1@2x.png in Resources */,
 				18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */,
 				1889C0B1194F74BE0065FFE0 /* blueArrow@2x.png in Resources */,
 				1889C0B0194F74BE0065FFE0 /* blueArrow.png in Resources */,
-				18F821E7196C17620030374E /* InstructionCell.xib in Resources */,
+				18F821E7196C17620030374E /* InstructionCell.iPhone4.xib in Resources */,
 				18FB7C8819676455005C9ABA /* Icon_Whatsapp@2x.png in Resources */,
 				1889C0B4194F74BE0065FFE0 /* whiteArrow.png in Resources */,
 				1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */,
@@ -729,12 +771,18 @@
 				1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */,
 				18D457DD1956B27800C5932F /* mediaStopBtn.png in Resources */,
 				18FB7C8619676411005C9ABA /* Icon_Facebook@2x.png in Resources */,
+				18F8A933196F71F1001093E4 /* recBtn3@2x.png in Resources */,
+				18F8A92B196F49D2001093E4 /* AVCamInstructionsPortraitView.iPhone4.xib in Resources */,
+				1849D0F0196DE0450001B1EA /* InstructionsPortraitVC.xib in Resources */,
 				1885FF2C1965F0C5008E93A5 /* TemplatePromotedCell.xib in Resources */,
 				180474BF1954691F00067AE0 /* share.png in Resources */,
 				1889C0B5194F74BE0065FFE0 /* whiteArrow@2x.png in Resources */,
+				18F8A920196DF364001093E4 /* back@2x.png in Resources */,
 				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
 				188569F0194D21D700980F36 /* featured.png in Resources */,
 				188569EE194D210700980F36 /* myvideos.png in Resources */,
+				18F8A91E196DEFCA001093E4 /* flip@2x.png in Resources */,
+				18F8A929196F452F001093E4 /* AVCamInstructionsVC.IPhone4.storyboard in Resources */,
 				18DE95CF193D424000021A5D /* sample.png in Resources */,
 				18984AB61948F1EB001410B7 /* signOut.png in Resources */,
 				188CEEDD196AD15D00EA0BBD /* Placeholder.jpg in Resources */,
@@ -742,6 +790,7 @@
 				183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */,
 				183F885F194D61BC006EDD8C /* FeedTableViewCell.xib in Resources */,
 				180474C11954692800067AE0 /* camera.png in Resources */,
+				18F8A931196F71E5001093E4 /* recBtn2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,6 +816,7 @@
 				1886683E196B6BBD00B82A16 /* AVCamPreviewView.m in Sources */,
 				18984AAF19486E37001410B7 /* CustomUIViewController.m in Sources */,
 				183753181967317A0080C85B /* LoginInfo.m in Sources */,
+				18ACD7F2196DE49D0001AC8B /* AVCamInstructionsPortraitView.m in Sources */,
 				18FB7C7D19675A79005C9ABA /* WhatsAppActivity.m in Sources */,
 				188DB1E6195F5ADE00EA404C /* Template.m in Sources */,
 				1877E1601950E6B10008D5A7 /* FeedCoreData.m in Sources */,

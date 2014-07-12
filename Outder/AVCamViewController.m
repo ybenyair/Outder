@@ -62,11 +62,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 // For use in the storyboards.
 @property (nonatomic, weak) IBOutlet AVCamPreviewView *previewView;
-@property (nonatomic, weak) IBOutlet UIButton *recordButton;
 @property (nonatomic, weak) IBOutlet UIButton *cameraButton;
 @property (nonatomic, weak) IBOutlet UIButton *stillButton;
 
-- (IBAction)toggleMovieRecording:(id)sender;
 - (IBAction)changeCamera:(id)sender;
 - (IBAction)snapStillImage:(id)sender;
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer;
@@ -256,12 +254,14 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			{
 				[[self cameraButton] setEnabled:NO];
 				[[self recordButton] setTitle:NSLocalizedString(@"Stop", @"Recording button stop title") forState:UIControlStateNormal];
+                [self ntfyRecordStart];
 				[[self recordButton] setEnabled:YES];
 			}
 			else
 			{
 				[[self cameraButton] setEnabled:YES];
 				[[self recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
+                [self ntfyRecordEnd];
 				[[self recordButton] setEnabled:YES];
 			}
 		});
@@ -536,6 +536,18 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			});
 		}
 	}];
+}
+
+#pragma subClass methods to be overwriten
+
+- (void)ntfyRecordStart
+{
+    
+}
+
+- (void)ntfyRecordEnd
+{
+    
 }
 
 @end

@@ -16,19 +16,27 @@ typedef enum {
     kVideoClosed
 } eVideoPlayerState;
 
+@protocol VideoPlayerViewControllerDelegate
+- (void)videoClosed;
+@end
+
 @interface VideoPlayerViewController : UIViewController {
     eVideoPlayerState videoState;
+    BOOL enableAutoRotation;
 }
 
 -(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView;
 -(void) stopVideo;
+- (void)stopButtonClicked:(UIButton*)button;
 
+@property (nonatomic, weak) id <VideoPlayerViewControllerDelegate> delegate;
 @property (nonatomic,strong) MPMoviePlayerController *videoPlayer;
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIButton *stopButton;
 @property (nonatomic,strong) UILabel *playbackErrorLabel;
 
 @property  eVideoPlayerState videoState;
+@property  BOOL enableAutoRotation;
 
 
 @end

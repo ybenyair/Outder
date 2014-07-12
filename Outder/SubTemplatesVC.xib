@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubTemplateViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubTemplatesVC">
             <connections>
                 <outlet property="carousel" destination="AbB-FE-JaT" id="pz2-AR-zry"/>
                 <outlet property="pageControl" destination="7Zw-lK-8qq" id="HBf-kh-Duv"/>

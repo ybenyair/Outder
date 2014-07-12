@@ -8,13 +8,35 @@
 
 #import <UIKit/UIKit.h>
 #import "Instruction.h"
+#import "VideoPlayerViewController.h"
+#import "AVCamInstructionsVC.h"
 
-@interface InstructionCell : UIViewController
+@interface InstructionCell : UIViewController <VideoPlayerViewControllerDelegate>
+{
+    NSUInteger index;
+}
+
++ (InstructionCell *) loadInstance;
++ (CGFloat) getSpacingBetweenItems;
 
 @property (nonatomic,strong) Instruction *instruction;
+@property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
+@property (nonatomic,strong) AVCamInstructionsVC *superCtrl;
 
-- (void)configureItem: (Instruction *)data inView: (UIView *)view;
+@property NSUInteger index;
 
-@property (weak, nonatomic) IBOutlet UILabel *instructionFrame;
+- (void)configureItem: (Instruction *)data inView: (UIView *)view withIndex:(NSUInteger)indx;
+- (void)itemClicked;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageBG;
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabel *labelNumber;
+@property (weak, nonatomic) IBOutlet UILabel *labelFixedShot;
+@property (weak, nonatomic) IBOutlet UIImageView *imageFixedShot;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayFixedShot;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewVideo;
+
+- (IBAction)btnFixedShotClicked:(id)sender;
 
 @end

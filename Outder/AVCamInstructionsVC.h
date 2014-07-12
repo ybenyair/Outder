@@ -17,8 +17,11 @@
 @property (weak, nonatomic) IBOutlet iCarousel *carousel;
 @property (weak, nonatomic) IBOutlet UIView *landscapeView;
 @property (weak, nonatomic) IBOutlet UIView *portraitView;
-@property (weak, nonatomic) IBOutlet UILabel *labelRotate;
+@property (weak, nonatomic) IBOutlet UIView *viewRecordTimer;
 
 - (IBAction)btnBackClicked:(id)sender;
+- (void) btnRecordClicked;
+
++ (AVCamInstructionsVC *) loadInstance;
 
 @end

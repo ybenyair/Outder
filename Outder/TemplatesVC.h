@@ -10,7 +10,7 @@
 #import "iCarousel.h"
 #import "CustomUIViewController.h"
 
-@interface TemplateViewController : CustomUIViewController  <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, NSFetchedResultsControllerDelegate,iCarouselDataSource, iCarouselDelegate>
+@interface TemplatesVC : UIViewController  <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, NSFetchedResultsControllerDelegate,iCarouselDataSource, iCarouselDelegate>
 
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;

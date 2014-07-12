@@ -50,6 +50,10 @@
 
 @interface AVCamViewController : UIViewController
 
-//@property (weak, nonatomic) IBOutlet iCarousel *carousel;
+@property (nonatomic, weak) IBOutlet UIButton *recordButton;
+- (IBAction)toggleMovieRecording:(id)sender;
+
+- (void)ntfyRecordStart;
+- (void)ntfyRecordEnd;
 
 @end

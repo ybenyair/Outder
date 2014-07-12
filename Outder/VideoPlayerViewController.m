@@ -18,7 +18,7 @@
 @synthesize stopButton;
 @synthesize videoPlayer;
 @synthesize videoState;
-@synthesize playbackErrorLabel;
+@synthesize playbackErrorLabel, enableAutoRotation;
 
 #pragma mark - controller initialization
 
@@ -32,6 +32,7 @@
         self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.view.contentMode = UIViewContentModeScaleAspectFit;
         self.videoState = kVideoClosed;
+        self.enableAutoRotation = YES;
         [self initStopButton];
         [self initPlaybackErrorLabel];
     }
@@ -73,19 +74,24 @@
 
 - (void) registerToDeviceOrientationNotification
 {
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
+    if (self.enableAutoRotation) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(orientationChanged:)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:nil];
+        
+    }
 }
 
 - (void) deregisterToDeviceOrientationNotification
 {
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
+    if (self.enableAutoRotation) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:UIDeviceOrientationDidChangeNotification
+                                                      object:nil];
+    }
 }
 
 - (void) orientationChanged:(NSNotification *)note
@@ -281,6 +287,7 @@
     [self deregisterToDeviceOrientationNotification];
     stopButton.hidden = YES;
     videoState = kVideoClosed;
+    [self.delegate videoClosed];
     NSLog(@"Video is closed");
 }
 

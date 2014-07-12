@@ -28,11 +28,11 @@
 @end
 
 
-@interface TemplateViewController ()
+@interface TemplatesVC ()
 
 @end
 
-@implementation TemplateViewController
+@implementation TemplatesVC
 {
     NSMutableArray *_objectChanges;
     NSMutableArray *_sectionChanges;

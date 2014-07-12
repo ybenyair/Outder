@@ -38,7 +38,7 @@
 
 -(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
-    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown | UIInterfaceOrientationMaskLandscape;
 }
 
 

@@ -239,16 +239,8 @@
 
 - (void)makeOneClicked:(SubTemplate *)subTemplate
 {
-    /*
-    InstructionsVC *instVC = [[InstructionsVC alloc] initWithInstructions:subTemplate.instructions];
-    [self presentViewController:instVC animated:YES completion:^{}];
-    */
-    
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AVCamViewController" bundle:nil];
-    //AVCamInstructionsVC *vc = [[sb instantiateViewControllerWithIdentifier:@"AVCamViewController"] initWithInstructions:subTemplate.instructions];
-    AVCamInstructionsVC *vc = [sb instantiateViewControllerWithIdentifier:@"AVCamViewController"];
+    AVCamInstructionsVC *vc = [AVCamInstructionsVC loadInstance];
     [vc setInstructions:subTemplate.instructions];
-    
     [self presentViewController:vc animated:YES completion:^{}];
 }
 

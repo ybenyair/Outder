@@ -20,6 +20,25 @@
     NSInteger _currentPage;
 }
 
++ (AVCamInstructionsVC *) loadInstance
+{
+    UIStoryboard *sb = nil;
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        // code for 4-inch screen
+        sb = [UIStoryboard storyboardWithName:@"AVCamInstructionsVC.IPhone5" bundle:nil];
+    } else {
+        // code for 3.5-inch screen
+        sb = [UIStoryboard storyboardWithName:@"AVCamInstructionsVC.IPhone4" bundle:nil];
+    }
+    
+    AVCamInstructionsVC *vc = [sb instantiateViewControllerWithIdentifier:@"AVCamInstructionsVC"];
+    
+    [vc initFromSB];
+    
+    return vc;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,22 +55,25 @@
     _instructions = [NSMutableArray arrayWithArray:[[data allObjects] sortedArrayUsingDescriptors:sortDescriptors]];
 }
 
+- (void) initFromSB
+{
+    _reusedInstructionViews = [NSMutableDictionary dictionary];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.labelRotate.text = NSLocalizedString(@"Record in landscape mode", nil);
     self.carousel.type = iCarouselTypeCustom;
-    _reusedInstructionViews = [NSMutableDictionary dictionary];
     _currentPage = 0;
 
     [self registerToDeviceOrientationNotification];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    if (UIDeviceOrientationIsPortrait(orientation)) {
-        [self configureViewPortrait];
-    } else {
+    if (UIDeviceOrientationIsLandscape(orientation) ) {
         [self configureViewLandscape];
+    } else {
+        [self configureViewPortrait];
     }
 }
 
@@ -131,10 +153,21 @@
 - (void)carouselDidScroll:(iCarousel *)carousel
 {
     /*
-     NSLog(@"carousel.scrollOffset = %f", carousel.scrollOffset);
-     NSInteger maxOffest = [_promotedTemplates count] - 1;
-     if (carousel.scrollOffset > maxOffest) carousel.scrollOffset = maxOffest;
-     if (carousel.scrollOffset < 0.0f) carousel.scrollOffset = 0.0f;
+    CGFloat diff = carousel.scrollOffset - carousel.currentItemIndex;
+    NSLog(@"carousel.scrollOffset = %f diff = %f", carousel.scrollOffset, diff);
+    
+    if (diff > 0.02 && !carousel.scrolling)
+    {
+        NSLog(@"Move to index %ld", (long)carousel.currentItemIndex + 1);
+        [self.carousel scrollToOffset:(carousel.currentItemIndex + 1) duration:0.5];
+        //[self.carousel scrollByNumberOfItems:1 duration:0.1f];
+    }
+    
+    if (diff < -0.02 && !carousel.scrolling)
+    {
+        NSLog(@"Move to index %ld", (long)carousel.currentItemIndex - 1);
+        [self.carousel scrollToOffset:(carousel.currentItemIndex - 1) duration:0.5];
+    }
      */
 }
 
@@ -154,14 +187,16 @@
     if (view == nil)
     {
         NSLog(@"Create a new view for index %ld",(long)index);
-        instructionItem = [[InstructionCell alloc] init];
+        instructionItem = [InstructionCell loadInstance];
         NSString *key = [NSString stringWithFormat:@"%p",instructionItem.view];
         [_reusedInstructionViews setObject:instructionItem forKey:key];
+        NSLog(@"insert key %@", key);
         view = instructionItem.view;
     }
     else
     {
         NSString *key = [NSString stringWithFormat:@"%p",view];
+        NSLog(@"find key %@", key);
         instructionItem = [_reusedInstructionViews objectForKey:key];
         NSLog(@"Update the view for index %ld",(long)index);
     }
@@ -172,8 +207,8 @@
     //in the wrong place in the carousel
     //[promotedView setImage:promotedTemplate.imageURL];
     //instructionItem.view.frame = self.carousel.frame;
-    
-    [instructionItem configureItem:instruction inView:carousel];
+    instructionItem.superCtrl = self;
+    [instructionItem configureItem:instruction inView:carousel withIndex:index];
     return view;
 }
 
@@ -190,9 +225,41 @@
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
 {
-    //self.pageControl.currentPage = carousel.currentItemIndex;
+
 }
 
+- (void)carouselDidEndDecelerating:(iCarousel *)carousel
+{
+    
+}
+
+- (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
+{
+    Instruction *instruction = [_instructions objectAtIndex:carousel.currentItemIndex];
+    
+    if ([instruction.fixed boolValue] == YES)
+    {
+        self.recordButton.hidden = YES;
+        self.recordButton.enabled = NO;
+        
+        
+    } else {
+        self.recordButton.hidden = NO;
+        self.recordButton.enabled = YES;
+    }
+
+}
+
+- (void)carouselWillBeginDragging:(iCarousel *)carousel
+{
+    self.recordButton.hidden = YES;
+    self.recordButton.enabled = NO;
+}
+
+- (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
+{
+    
+}
 
 - (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
 {
@@ -200,10 +267,10 @@
     CGFloat spacing = [self carousel:self.carousel valueForOption:iCarouselOptionSpacing withDefault:1.0f];
     transform = CATransform3DTranslate(transform, offset * self.carousel.itemWidth * spacing, 0.0f, 0.0f);
     
-    CGFloat scaleFactor = 1.15f;
-    
+    CGFloat scaleFactor = 1.0f;
     CGFloat absOffest = ABS(offset);
-    if (absOffest > 0) scaleFactor = 1 - absOffest;
+    
+    scaleFactor = 1 - absOffest;
     if (scaleFactor < 0.9f) scaleFactor = 0.9f;
     
     transform = CATransform3DScale(transform, scaleFactor, scaleFactor, 1.0f);
@@ -219,7 +286,7 @@
         case iCarouselOptionWrap:
         {
             //YES you would hard-code this to YES or NO
-            return YES;
+            return NO;
         }
             
         case iCarouselOptionVisibleItems:
@@ -230,7 +297,7 @@
         case iCarouselOptionSpacing:
         {
             //add a bit of spacing between the item views
-            return value * 1.04f;
+            return value * [InstructionCell getSpacingBetweenItems];
         }
         case iCarouselOptionFadeMax:
         {
@@ -252,10 +319,19 @@
 #pragma mark -
 #pragma mark iCarousel taps
 
+- (InstructionCell *) getCurrentItem
+{
+    NSString *key = [NSString stringWithFormat:@"%p",self.carousel.currentItemView];
+    NSLog(@"find key %@", key);
+    InstructionCell *instructionItem = [_reusedInstructionViews objectForKey:key];
+    return instructionItem;
+}
+
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
-    //NSNumber *item = (self.items)[index];
     NSLog(@"Tapped view number: %ld", (long)index);
+    InstructionCell *instructionItem = [self getCurrentItem];
+    [instructionItem itemClicked];
 }
 
 
@@ -265,6 +341,99 @@
 - (IBAction)btnBackClicked:(id)sender
 {
     [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void) btnRecordClicked
+{
+    [self toggleMovieRecording:nil];
+}
+
+
+#pragma mark -
+#pragma mark Actions (recording)
+
+- (void)ntfyRecordStart
+{
+    // We were notified that the AVCam controller actualy started the recording
+    NSLog(@"ntfyRecordStart");
+    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn3.png"] forState:UIControlStateNormal];
+    self.recordButton.center = self.viewRecordTimer.center;
+    
+    [self.carousel setAlpha:1];
+    
+    [UIView animateWithDuration:0.5f
+                     animations:^{
+                         [self.carousel setAlpha:0];
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished)
+                         {
+                             self.carousel.hidden = YES;
+                             [self startRecordAnimation];
+                         }
+                     }];
+}
+
+- (void)ntfyRecordEnd
+{
+    // We were notified that the AVCam controller actualy ended the recording
+    NSLog(@"ntfyRecordEnd");
+    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn1.png"] forState:UIControlStateNormal];
+    CGPoint center = self.carousel.center;
+    center.y = center.y + 10;
+    self.recordButton.center = center;
+    [self stopRecordAnimation];
+
+    [self.carousel setAlpha:0];
+    self.carousel.hidden = NO;
+
+    [self.recordButton setAlpha:0];
+
+    [UIView animateWithDuration:1.5f
+                     animations:^{
+                         [self.carousel setAlpha:1];
+                         [self.recordButton setAlpha:1];
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished)
+                         {
+                             
+                         }
+                     }];
+}
+
+#define kLineWidth 6
+
+-(void)startRecordAnimation
+{
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.viewRecordTimer.bounds.size.width/2.0, self.viewRecordTimer.bounds.size.height/2.0)  radius:self.viewRecordTimer.bounds.size.width/2.0 - kLineWidth/2 startAngle:-M_PI_2 endAngle:M_PI+M_PI_2 clockwise:YES];
+    
+    CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+    
+    shapeLayer.strokeStart = 0.0;
+    shapeLayer.strokeEnd = 1.0;
+    shapeLayer.path = [path CGPath];
+    shapeLayer.strokeColor = [[UIColor whiteColor] CGColor];
+    shapeLayer.lineWidth = kLineWidth;
+    shapeLayer.fillColor = [[UIColor clearColor] CGColor];
+    
+    [self.viewRecordTimer.layer addSublayer:shapeLayer];
+    
+    float duration = 5;
+    
+    CABasicAnimation *animateStrokeEnd = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animateStrokeEnd.duration  = duration;
+    animateStrokeEnd.fromValue = [NSNumber numberWithFloat:0.0f];
+    animateStrokeEnd.toValue   = [NSNumber numberWithFloat:1.0f];
+    animateStrokeEnd.removedOnCompletion = YES;
+    animateStrokeEnd.fillMode = kCAFillModeForwards;
+    [shapeLayer addAnimation:animateStrokeEnd forKey:@"strokeEndAnimation"];
+}
+
+-(void) stopRecordAnimation
+{
+    [[[self.viewRecordTimer.layer sublayers] lastObject] removeAllAnimations];
+    [[[self.viewRecordTimer.layer sublayers] lastObject] removeFromSuperlayer];
 }
 
 @end

@@ -26,6 +26,17 @@
 
 static RootViewController *instance = nil;
 
+-(BOOL)shouldAutorotate
+{
+    //I don't want to support auto rotate, but you can return any value you want here
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    //I want to only support portrait mode
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -127,7 +138,7 @@ static RootViewController *instance = nil;
 {
     tabController = [[UITabBarController alloc] init];
     
-    TemplateViewController *homevc = [[TemplateViewController alloc] init];
+    TemplatesVC *homevc = [[TemplatesVC alloc] init];
     homevc.managedObjectContext = self.managedObjectContext;
     homevc.tabBarItem.title = @"Home";
     homevc.tabBarItem.image	 = [UIImage imageNamed:@"home"];
