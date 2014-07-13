@@ -18,6 +18,8 @@
     NSMutableArray *_instructions;
     NSMutableDictionary *_reusedInstructionViews;
     NSInteger _currentPage;
+    CGFloat beginOffset;
+    CGFloat endOffset;
 }
 
 + (AVCamInstructionsVC *) loadInstance
@@ -65,6 +67,7 @@
     [super viewDidLoad];
     
     self.carousel.type = iCarouselTypeCustom;
+    [self.carousel setScrollToItemBoundary:NO];
     _currentPage = 0;
 
     [self registerToDeviceOrientationNotification];
@@ -247,18 +250,23 @@
         self.recordButton.hidden = NO;
         self.recordButton.enabled = YES;
     }
-
 }
 
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
 {
     self.recordButton.hidden = YES;
     self.recordButton.enabled = NO;
+    beginOffset = carousel.scrollOffset;
 }
 
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
-    
+    endOffset = carousel.scrollOffset;
+    if (endOffset > beginOffset) {
+        [self.carousel scrollByNumberOfItems:1 duration:0.5f];
+    } else {
+        [self.carousel scrollByNumberOfItems:-1 duration:0.5f];
+    }
 }
 
 - (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
