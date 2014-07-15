@@ -8,6 +8,7 @@
 
 #import "AVCamInstructionsVC.h"
 #import "InstructionCell.h"
+#import "TemplateCoreData.h"
 
 @interface AVCamInstructionsVC ()
 
@@ -20,6 +21,7 @@
     NSInteger _currentPage;
     CGFloat beginOffset;
     CGFloat endOffset;
+    BOOL isRecording;
 }
 
 + (AVCamInstructionsVC *) loadInstance
@@ -60,6 +62,7 @@
 - (void) initFromSB
 {
     _reusedInstructionViews = [NSMutableDictionary dictionary];
+    isRecording = NO;
 }
 
 - (void)viewDidLoad
@@ -67,7 +70,7 @@
     [super viewDidLoad];
     
     self.carousel.type = iCarouselTypeCustom;
-    [self.carousel setScrollToItemBoundary:NO];
+    [self.carousel setScrollToItemBoundary:YES];
     _currentPage = 0;
 
     [self registerToDeviceOrientationNotification];
@@ -210,8 +213,10 @@
     //in the wrong place in the carousel
     //[promotedView setImage:promotedTemplate.imageURL];
     //instructionItem.view.frame = self.carousel.frame;
-    instructionItem.superCtrl = self;
-    [instructionItem configureItem:instruction inView:carousel withIndex:index];
+    if (instructionItem.state == kInstructionUnknown) {
+        instructionItem.superCtrl = self;
+        [instructionItem configureItem:instruction inView:carousel withIndex:index];
+    }
     return view;
 }
 
@@ -238,18 +243,32 @@
 
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
 {
-    Instruction *instruction = [_instructions objectAtIndex:carousel.currentItemIndex];
+    InstructionCell *instruction = [self getCurrentItem];
     
-    if ([instruction.fixed boolValue] == YES)
-    {
-        self.recordButton.hidden = YES;
-        self.recordButton.enabled = NO;
+    switch (instruction.state) {
         
-        
-    } else {
-        self.recordButton.hidden = NO;
-        self.recordButton.enabled = YES;
+        case kInstructionFixed:
+            self.recordButton.hidden = YES;
+            self.recordButton.enabled = NO;
+            break;
+
+        case kInstructionRetake:
+            self.recordButton.hidden = NO;
+            self.recordButton.enabled = YES;
+            [self setRecordButtonStateRetake];
+            break;
+
+        case kInstructionRecord:
+        case kInstructionUnknown:
+            self.recordButton.hidden = NO;
+            self.recordButton.enabled = YES;
+            [self setRecordButtonStateRecord];
+            break;
+
+        default:
+            break;
     }
+    
 }
 
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
@@ -257,16 +276,23 @@
     self.recordButton.hidden = YES;
     self.recordButton.enabled = NO;
     beginOffset = carousel.scrollOffset;
+    carousel.forceScrollDirection = 0;
 }
 
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
     endOffset = carousel.scrollOffset;
-    if (endOffset > beginOffset) {
-        [self.carousel scrollByNumberOfItems:1 duration:0.5f];
-    } else {
-        [self.carousel scrollByNumberOfItems:-1 duration:0.5f];
+    CGFloat diff = endOffset - beginOffset;
+    
+    if (fabs(diff) < 0.5) {
+        
+        if (diff > 0.1) {
+            if (carousel.currentItemIndex < carousel.numberOfItems - 1) carousel.forceScrollDirection = 1;
+        } else {
+            if (carousel.currentItemIndex > 0) carousel.forceScrollDirection = -1;
+        }
     }
+    
 }
 
 - (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
@@ -330,7 +356,7 @@
 - (InstructionCell *) getCurrentItem
 {
     NSString *key = [NSString stringWithFormat:@"%p",self.carousel.currentItemView];
-    NSLog(@"find key %@", key);
+    NSLog(@"find key %@", key);			
     InstructionCell *instructionItem = [_reusedInstructionViews objectForKey:key];
     return instructionItem;
 }
@@ -342,20 +368,14 @@
     [instructionItem itemClicked];
 }
 
-
 #pragma mark -
 #pragma mark Actions
 
 - (IBAction)btnBackClicked:(id)sender
 {
+    [TemplateCoreData saveDB];
     [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
 }
-
-- (void) btnRecordClicked
-{
-    [self toggleMovieRecording:nil];
-}
-
 
 #pragma mark -
 #pragma mark Actions (recording)
@@ -364,9 +384,8 @@
 {
     // We were notified that the AVCam controller actualy started the recording
     NSLog(@"ntfyRecordStart");
-    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn3.png"] forState:UIControlStateNormal];
-    self.recordButton.center = self.viewRecordTimer.center;
-    
+    isRecording = YES;
+    [self setRecordButtonStateRecording];
     [self.carousel setAlpha:1];
     
     [UIView animateWithDuration:0.5f
@@ -386,10 +405,8 @@
 {
     // We were notified that the AVCam controller actualy ended the recording
     NSLog(@"ntfyRecordEnd");
-    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn1.png"] forState:UIControlStateNormal];
-    CGPoint center = self.carousel.center;
-    center.y = center.y + 10;
-    self.recordButton.center = center;
+    isRecording = NO;
+    [self setRecordButtonStateRetake];
     [self stopRecordAnimation];
 
     [self.carousel setAlpha:0];
@@ -401,13 +418,128 @@
                      animations:^{
                          [self.carousel setAlpha:1];
                          [self.recordButton setAlpha:1];
-                     }
-                     completion:^(BOOL finished) {
-                         if (finished)
-                         {
-                             
-                         }
                      }];
+}
+
+
+- (void) setRecordButtonStateRecord
+{
+    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn1.png"] forState:UIControlStateNormal];
+    CGPoint center = self.carousel.center;
+    center.y = center.y + 10;
+    self.recordButton.frame = CGRectMake(0, 0, 38, 38);
+    self.recordButton.center = center;
+}
+
+- (void) setRecordButtonStateRecording
+{
+    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn3.png"] forState:UIControlStateNormal];
+    self.recordButton.frame = CGRectMake(0, 0, 38, 38);
+    self.recordButton.center = self.viewRecordTimer.center;
+}
+
+- (void) setRecordButtonStateRetake
+{
+    [[self recordButton] setImage:[UIImage imageNamed:@"icon_retake_off.png"] forState:UIControlStateNormal];
+    CGPoint center = self.carousel.center;
+    center.y = center.y + 80;
+    self.recordButton.frame = CGRectMake(0, 0, 27, 22);
+    self.recordButton.bounds = CGRectMake(0, 0, 27, 22);
+    self.recordButton.center = center;
+}
+
+#pragma mark -
+#pragma mark Save recorded file
+
+// Returns the URL to the application's Documents directory.
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)ntfyFileSaved: (NSURL *)outputFileURL
+{
+    dispatch_queue_t myQueue = dispatch_queue_create("com.outder.camerafiles",NULL);
+    dispatch_async(myQueue, ^{
+        
+        NSString *fileGuid = [[NSUUID new] UUIDString];
+        
+        // Perform long running process
+        NSURL *movieURL =  [self copyFileToAppDomain:outputFileURL in:fileGuid];
+        
+        NSString *thumbImageFile = nil;
+        if (movieURL) {
+            thumbImageFile = [self extractThumbnailImage:movieURL in:fileGuid];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            InstructionCell *cell = [self getCurrentItem];
+            [cell configureUserShot:thumbImageFile withVideo:[movieURL absoluteString]];
+
+            if (!thumbImageFile) {
+                NSString *title = NSLocalizedString(@"CAMERA ERROR", nil);
+                NSString *message = NSLocalizedString(@"RETAKE THE SHOT", nil);
+                NSString *btn = NSLocalizedString(@"OK", @"OK button title");
+
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                                    message:message
+                                                                   delegate:nil
+                                                          cancelButtonTitle:btn
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            }
+           
+        });
+    });
+    
+    
+}
+
+- (NSURL *) copyFileToAppDomain: (NSURL *)outputFileURL in:(NSString *) fileGuid
+{
+    if (!outputFileURL) return nil;
+    
+    NSURL *homeDir = [self applicationDocumentsDirectory];
+    NSString *fullPath = [NSString stringWithFormat:@"%@/%@.mov", homeDir, fileGuid];
+    NSURL *fileURL = [NSURL URLWithString:fullPath];
+    NSError* error = nil;
+    
+    [[NSFileManager defaultManager] copyItemAtURL:outputFileURL toURL:fileURL error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+        fileURL = nil;
+    }
+    [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:&error];
+    if (error) NSLog(@"%@", error);
+    
+    NSLog(@"Saved new recording file %@", fullPath);
+    return fileURL;
+}
+
+- (NSString *) extractThumbnailImage: (NSURL *)movieURL in:(NSString *) fileGuid
+{
+    if (!movieURL) return nil;
+    
+    NSString *fileName = [NSString stringWithFormat:@"Documents/%@.jpg", fileGuid];
+    NSString  *fullPath = [NSHomeDirectory() stringByAppendingPathComponent:fileName];
+
+    MPMoviePlayerController *movie = [[MPMoviePlayerController alloc]
+                                      initWithContentURL:movieURL];
+    UIImage *singleFrameImage = [movie thumbnailImageAtTime:0
+                                                 timeOption:MPMovieTimeOptionExact];
+    
+    [UIImageJPEGRepresentation(singleFrameImage, 0.2f) writeToFile:fullPath atomically:YES];
+    
+    NSLog(@"Saved new image file %@", fullPath);
+    
+    NSError *error;
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSLog(@"Documents directory: %@", [fileMgr contentsOfDirectoryAtPath:documentsDirectory error:&error]);
+    
+    if (!singleFrameImage) fullPath = nil;
+    
+    return fullPath;
 }
 
 #define kLineWidth 6
@@ -426,8 +558,8 @@
     shapeLayer.fillColor = [[UIColor clearColor] CGColor];
     
     [self.viewRecordTimer.layer addSublayer:shapeLayer];
-    
-    float duration = 5;
+    InstructionCell *cell = [self getCurrentItem];
+    float duration = [cell.instruction.length intValue];
     
     CABasicAnimation *animateStrokeEnd = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     animateStrokeEnd.duration  = duration;
@@ -435,13 +567,35 @@
     animateStrokeEnd.toValue   = [NSNumber numberWithFloat:1.0f];
     animateStrokeEnd.removedOnCompletion = YES;
     animateStrokeEnd.fillMode = kCAFillModeForwards;
-    [shapeLayer addAnimation:animateStrokeEnd forKey:@"strokeEndAnimation"];
+    animateStrokeEnd.delegate = self;
+    [animateStrokeEnd setValue:@"RecordTimerEnd" forKey:@"RecordTimerAnimation"];
+    [shapeLayer addAnimation:animateStrokeEnd forKey:nil];
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    NSString* value = [anim valueForKey:@"RecordTimerAnimation"];
+    if ([value isEqualToString:@"RecordTimerEnd"])
+    {
+        NSLog(@"Record animation ended");
+        if (isRecording) {
+            // Animation stoped on a timer
+            NSLog(@"Record animation ended on a timer");
+            [self toggleMovieRecording:nil];
+        }
+        return;
+    }
 }
 
 -(void) stopRecordAnimation
 {
     [[[self.viewRecordTimer.layer sublayers] lastObject] removeAllAnimations];
     [[[self.viewRecordTimer.layer sublayers] lastObject] removeFromSuperlayer];
+}
+
+- (void)setRecordButtonHidden: (BOOL) hidden
+{
+    self.recordButton.hidden = hidden;
 }
 
 @end

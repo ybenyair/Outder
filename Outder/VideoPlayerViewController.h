@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import "AVPlayerPlaybackView.h"
 
 typedef enum {
     kVideoOpening,
@@ -30,7 +32,6 @@ typedef enum {
 - (void)stopButtonClicked:(UIButton*)button;
 
 @property (nonatomic, weak) id <VideoPlayerViewControllerDelegate> delegate;
-@property (nonatomic,strong) MPMoviePlayerController *videoPlayer;
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIButton *stopButton;
 @property (nonatomic,strong) UILabel *playbackErrorLabel;
@@ -38,5 +39,6 @@ typedef enum {
 @property  eVideoPlayerState videoState;
 @property  BOOL enableAutoRotation;
 
+@property (strong, nonatomic) AVPlayerPlaybackView *mPlaybackView;
 
 @end

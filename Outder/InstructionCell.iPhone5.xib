@@ -7,14 +7,20 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InstructionCell">
             <connections>
-                <outlet property="btnPlayFixedShot" destination="9z0-96-xV6" id="lYm-v9-p7a"/>
+                <outlet property="btnEditTitle" destination="X9c-UF-OJ0" id="OLU-si-oWy"/>
+                <outlet property="btnPlayFixedShot" destination="9z0-96-xV6" id="uDC-6r-GaP"/>
+                <outlet property="btnPlayPreview" destination="HlY-A3-R51" id="sKS-Dv-I2u"/>
                 <outlet property="imageBG" destination="pcu-Ut-kQJ" id="WGS-O6-sna"/>
-                <outlet property="imageFixedShot" destination="XGX-tl-HpJ" id="HRD-DF-r7N"/>
+                <outlet property="imageShot" destination="XGX-tl-HpJ" id="fuF-g3-EX0"/>
                 <outlet property="imageViewVideo" destination="9lc-9s-P3j" id="kjd-XC-MgI"/>
                 <outlet property="labelFixedShot" destination="S9l-EP-3hA" id="MJ8-yt-Rcw"/>
                 <outlet property="labelName" destination="8dM-fP-VC7" id="4Ps-BX-r1F"/>
                 <outlet property="labelNumber" destination="8rY-rW-wvq" id="3wB-ho-Yl6"/>
+                <outlet property="textEditPlaceholder" destination="Mg7-s0-ZXl" id="8tJ-si-GPH"/>
+                <outlet property="textEditTitle" destination="fLm-kq-ook" id="9gl-sI-zPN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewEditText" destination="6Pq-z4-qKe" id="uOB-5d-7ka"/>
+                <outlet property="viewInstructions" destination="rV8-bq-9Iu" id="KkP-qY-drc"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -22,6 +28,29 @@
             <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Pq-z4-qKe" userLabel="View - edit title">
+                    <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fLm-kq-ook" userLabel="Edit Title">
+                            <rect key="frame" x="173" y="65" width="221" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Heavy" family="Avenir Next Condensed" pointSize="27"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="hqE-RY-Ab3"/>
+                            </connections>
+                        </textField>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TYPE YOUR MESSAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mg7-s0-ZXl" userLabel="Label - placeholder">
+                            <rect key="frame" x="164" y="65" width="241" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Heavy" family="Avenir Next Condensed" pointSize="27"/>
+                            <color key="textColor" red="0.68529211956521741" green="0.68529211956521741" blue="0.68529211956521741" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rV8-bq-9Iu" userLabel="View - intructions">
                     <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -59,13 +88,33 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z0-96-xV6" userLabel="Button - play fixed">
-                            <rect key="frame" x="250" y="152" width="69" height="50"/>
+                            <rect key="frame" x="265" y="156" width="40" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="Play_btn">
+                            <state key="normal" image="icon_play_off.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnFixedShotClicked:" destination="-1" eventType="touchUpInside" id="Op4-ET-Fnn"/>
+                                <action selector="btnFixedShotClicked:" destination="-1" eventType="touchUpInside" id="yK6-IC-U6U"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlY-A3-R51" userLabel="Button - play preview">
+                            <rect key="frame" x="221" y="156" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_play_off.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnPreviewClicked:" destination="-1" eventType="touchUpInside" id="7kA-jp-Ro3"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9c-UF-OJ0" userLabel="Button - edit title">
+                            <rect key="frame" x="306" y="156" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_edit_off.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnEditTitleClicked:" destination="-1" eventType="touchUpInside" id="Y4t-Md-QSB"/>
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-9s-P3j" userLabel="Image View - video">
@@ -81,6 +130,7 @@
     </objects>
     <resources>
         <image name="InstructionsBG.png" width="400" height="225"/>
-        <image name="Play_btn" width="50" height="50"/>
+        <image name="icon_edit_off.png" width="211" height="211"/>
+        <image name="icon_play_off.png" width="211" height="211"/>
     </resources>
 </document>

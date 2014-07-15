@@ -10,11 +10,18 @@
 #import "Template.h"
 #import "SubTemplate.h"
 #import "Instruction.h"
+#import "AppDelegate.h"
 
 @implementation TemplateCoreData
 
-+ (void)saveDB:(NSManagedObjectContext *)context
++ (void)saveDB
 {
+    AppDelegate *app = [AppDelegate getInstance];
+    NSManagedObjectContext *context = app.managedObjectContext;
+    if ([context hasChanges]) {
+        NSLog(@"DB changed");
+    }
+    
     NSError *error = nil;
     if (context != nil) {
         if ([context hasChanges] && ![context save:&error]) {
@@ -37,7 +44,7 @@
         for (NSManagedObject *object in objects) {
             [context deleteObject:object];
         }
-        [TemplateCoreData saveDB:context];
+        [TemplateCoreData saveDB];
     }
 }
 

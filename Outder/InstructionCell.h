@@ -11,9 +11,17 @@
 #import "VideoPlayerViewController.h"
 #import "AVCamInstructionsVC.h"
 
-@interface InstructionCell : UIViewController <VideoPlayerViewControllerDelegate>
+typedef enum {
+    kInstructionUnknown,
+    kInstructionRecord,
+    kInstructionFixed,
+    kInstructionRetake
+} eInstructionState;
+
+@interface InstructionCell : UIViewController <VideoPlayerViewControllerDelegate, UITextFieldDelegate>
 {
     NSUInteger index;
+    eInstructionState state;
 }
 
 + (InstructionCell *) loadInstance;
@@ -24,19 +32,32 @@
 @property (nonatomic,strong) AVCamInstructionsVC *superCtrl;
 
 @property NSUInteger index;
+@property eInstructionState state;
 
 - (void)configureItem: (Instruction *)data inView: (UIView *)view withIndex:(NSUInteger)indx;
 - (void)itemClicked;
+- (void)setImage:(NSString *)imageURL;
+- (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath;
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBG;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelNumber;
 @property (weak, nonatomic) IBOutlet UILabel *labelFixedShot;
-@property (weak, nonatomic) IBOutlet UIImageView *imageFixedShot;
-@property (weak, nonatomic) IBOutlet UIButton *btnPlayFixedShot;
+@property (weak, nonatomic) IBOutlet UIImageView *imageShot;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewVideo;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditTitle;
+@property (weak, nonatomic) IBOutlet UIView *viewEditText;
+@property (weak, nonatomic) IBOutlet UIView *viewInstructions;
+@property (weak, nonatomic) IBOutlet UITextField *textEditTitle;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayPreview;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayFixedShot;
+@property (weak, nonatomic) IBOutlet UILabel *textEditPlaceholder;
 
+
+
+- (IBAction)btnEditTitleClicked:(id)sender;
+- (IBAction)btnPreviewClicked:(id)sender;
 - (IBAction)btnFixedShotClicked:(id)sender;
 
 @end

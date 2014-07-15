@@ -54,7 +54,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIR-Kr-b4h" userLabel="iCarousel" customClass="iCarousel">
-                                                <rect key="frame" x="85" y="47" width="398" height="226"/>
+                                                <rect key="frame" x="49" y="54" width="470" height="212"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="3CP-BY-4fX"/>

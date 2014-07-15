@@ -13,12 +13,18 @@
 @end
 
 @implementation VideoPlayerViewController
+{
+    NSMutableArray *videoItems;
+    AVQueuePlayer *queuePlayer;
+}
+
+static VideoPlayerViewController *activePlayer = nil;
 
 @synthesize activityIndicator;
 @synthesize stopButton;
-@synthesize videoPlayer;
+//@synthesize videoPlayer;
 @synthesize videoState;
-@synthesize playbackErrorLabel, enableAutoRotation;
+@synthesize playbackErrorLabel, enableAutoRotation, mPlaybackView;
 
 #pragma mark - controller initialization
 
@@ -36,6 +42,7 @@
         [self initStopButton];
         [self initPlaybackErrorLabel];
     }
+    
     return self;
 }
 
@@ -131,7 +138,7 @@
 {
     [UIView animateWithDuration:0.2f
                      animations:^{
-                         [videoPlayer.view setTransform:CGAffineTransformMakeRotation(angle)];
+                         [self.mPlaybackView setTransform:CGAffineTransformMakeRotation(angle)];
                      }];
     
     CGFloat width = self.view.frame.size.width;
@@ -140,30 +147,29 @@
     CGFloat x = self.view.center.x;
     CGFloat y = self.view.center.y;
     
-    [videoPlayer.view setBounds:CGRectMake(0, 0, width, height)];
-    [videoPlayer.view setCenter:CGPointMake(x, y)];
+    [self.mPlaybackView setBounds:CGRectMake(0, 0, width, height)];
+    [self.mPlaybackView setCenter:CGPointMake(x, y)];
     
-    [videoPlayer.view removeFromSuperview];
-    [self.view addSubview:videoPlayer.view];
+    [self.mPlaybackView removeFromSuperview];
+    [self.view addSubview:self.mPlaybackView];
     [self positionItemsOnPlayerView];
 }
 
 - (void)configurePlayerViewPortrait:(UIView *)videoView
 {
     // Set the whole view frame
-    self.view.frame = videoView.bounds;
     // Set the video player frame
-    videoPlayer.view.frame = videoView.bounds;
+    self.mPlaybackView.frame = videoView.bounds;
+    self.view.frame = videoView.bounds;
     
     [self positionItemsOnPlayerView];
-    
-    [self.view addSubview: videoPlayer.view];
+    [self.view addSubview: self.mPlaybackView];
     [videoView addSubview:self.view];
 }
 
 - (void)configurePlayerViewLandscape:(CGFloat)angle
 {
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
+    //[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
     UIView *videoView = [UIApplication sharedApplication].windows.firstObject;
     CGFloat width = videoView.frame.size.height;
     CGFloat height = videoView.frame.size.width;
@@ -171,36 +177,46 @@
     CGFloat x = videoView.center.x;
     CGFloat y = videoView.center.y;
     
-    [videoPlayer.view setBounds:CGRectMake(0, 0, width, height)];
-    [videoPlayer.view setCenter:CGPointMake(x, y)];
+    [self.mPlaybackView setBounds:CGRectMake(0, 0, width, height)];
+    [self.mPlaybackView setCenter:CGPointMake(x, y)];
     [self positionItemsOnPlayerView];
 
-    [videoPlayer.view removeFromSuperview];
-    [videoView addSubview:videoPlayer.view];
+    [self.mPlaybackView removeFromSuperview];
+    [videoView addSubview:self.mPlaybackView];
     
     [UIView animateWithDuration:0.2f
                      animations:^{
-                         [videoPlayer.view setTransform:CGAffineTransformMakeRotation(angle)];
+                         [self.mPlaybackView setTransform:CGAffineTransformMakeRotation(angle)];
                      }];
 }
 
 #pragma mark - allocating and configure positions of view items
 
-- (void) allocVideoPlayer:(NSString *)videoURL
+- (void) allocVideoPlayer:(NSArray *)videoURLs
 {
-    NSURL *url;
-    url = [NSURL URLWithString:videoURL];
+    videoItems = [[NSMutableArray alloc] init];
+
+    for (id dataElement in videoURLs) {
+        NSURL *url;
+        NSString *videoURL = (NSString *)dataElement;
+        url = [NSURL URLWithString:videoURL];
+        AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:url];
+        [videoItems addObject:videoItem];
+    }
     
-    videoPlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [videoPlayer setScalingMode:MPMovieScalingModeAspectFill];
-    [videoPlayer prepareToPlay];
-    [videoPlayer setFullscreen:YES animated:YES];
-    [videoPlayer setControlStyle:MPMovieControlStyleNone];
+    mPlaybackView = [[AVPlayerPlaybackView alloc] init];
+    self.mPlaybackView.backgroundColor = [UIColor blackColor];
+
+    queuePlayer = [AVQueuePlayer queuePlayerWithItems:videoItems];
+	[self.mPlaybackView setPlayer:queuePlayer];
 }
 
 - (void) releaseVideoPlayer
 {
-    videoPlayer = nil;
+    queuePlayer = nil;
+    self.mPlaybackView = nil;
+    [videoItems removeAllObjects];
+    videoItems = nil;
 }
 
 - (void) allocActivityIndicator
@@ -219,68 +235,68 @@
 - (void)positionItemsOnPlayerView
 {
     // Set the stopButton location
-    CGFloat x = videoPlayer.view.frame.size.width - 40;
-    CGFloat y = videoPlayer.view.frame.size.height - 40;
+    CGFloat x = self.mPlaybackView.frame.size.width - 40;
+    CGFloat y = self.mPlaybackView.frame.size.height - 40;
     stopButton.frame = CGRectMake(x, y, 35.0, 35.0);
     stopButton.hidden = NO;
     
     // Set the playbackError location
-    playbackErrorLabel.center = videoPlayer.view.center;
+    playbackErrorLabel.center = self.mPlaybackView.center;
     playbackErrorLabel.hidden = YES;
     
     // Set the activityIndicator location
-    activityIndicator.center = videoPlayer.view.center;
+    activityIndicator.center = self.mPlaybackView.center;
 }
 
 - (void)addItemsOnPlayerView
 {
-    [videoPlayer.view addSubview: activityIndicator];
-    [videoPlayer.view addSubview: stopButton];
-    [videoPlayer.view addSubview: playbackErrorLabel];
+    [self.mPlaybackView  addSubview: activityIndicator];
+    [self.mPlaybackView addSubview: stopButton];
+    [self.mPlaybackView addSubview: playbackErrorLabel];
 }
 
 #pragma mark - Video Player (notifications)
 
 - (void) registerPlayerCallbacks
 {
-    // Register this class as an observer instead
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(movieFinishedCallback:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:videoPlayer];
+    [[videoItems lastObject] addObserver:self forKeyPath:@"status" options:0 context:nil];
+    [[videoItems lastObject] addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(movieStateCallback:)
-                                                 name:MPMoviePlayerLoadStateDidChangeNotification
-                                               object:videoPlayer];
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[videoItems lastObject]];
+    
 }
 
 - (void) deregisterPlayerCallbacks
-{
-    // Remove this class from the observers
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:MPMoviePlayerPlaybackDidFinishNotification
-                                                  object:videoPlayer];
+{    
+    [[videoItems lastObject]  removeObserver:self forKeyPath:@"status"];
+    [[videoItems lastObject]  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:MPMoviePlayerLoadStateDidChangeNotification
-                                                  object:videoPlayer];
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[videoItems lastObject]];
+    
 }
 
 #pragma mark - Video Player functions (open/close/play/stop)
 
 - (void)openVideo: (UIView *)videoView
 {
+    [self.mPlaybackView setAlpha:1];
     [activityIndicator startAnimating];
     [self registerToDeviceOrientationNotification];
-    [videoPlayer play];
+    [queuePlayer play];
 }
 
 - (void) closeVideo
 {
+    [self deregisterPlayerCallbacks];
     [self.playbackErrorLabel removeFromSuperview];
     [self.stopButton removeFromSuperview];
-    [videoPlayer.view removeFromSuperview];
+    [self.mPlaybackView removeFromSuperview];
+    [self.mPlaybackView setPlayer:nil];
     [self.view removeFromSuperview];
     [self releaseVideoPlayer];
     [self releaseActivityIndicator];
@@ -288,26 +304,43 @@
     stopButton.hidden = YES;
     videoState = kVideoClosed;
     [self.delegate videoClosed];
+    if (activePlayer == self) activePlayer = nil;
     NSLog(@"Video is closed");
 }
 
 -(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView
 {
+    if (!videoURL) return;
+    
+    NSArray *videoURLs = [NSArray arrayWithObject:videoURL];
+    [self playVideoList:videoURLs inView:videoView];
+}
+
+-(void) playVideoList:(NSArray *)videoURLs inView:(UIView *)videoView
+{
     if (videoState != kVideoClosed)
     {
-        NSLog(@"Video is already playing...");
+        NSLog(@"Video is already playing...stoping it...");
+        [self movieFinishedOK];
         return;
     }
-        
+    
+    if (activePlayer) {
+        NSLog(@"Another video is already playing...stoping it...");
+        [activePlayer stopVideo];
+    }
+
+    activePlayer = self;
+
     videoState = kVideoOpening;
     NSLog(@"Video is opening");
     
     // Alloc various objects
-    [self allocVideoPlayer:videoURL];
+    [self allocVideoPlayer:videoURLs];
     [self allocActivityIndicator];
     [self addItemsOnPlayerView];
     [self registerPlayerCallbacks];
-
+    
     // Configure view
     [self configurePlayerViewPortrait:videoView];
     
@@ -320,20 +353,53 @@
     if (videoState == kVideoOpened || videoState == kVideoOpening) {
         
         NSLog(@"Video is closing");
-        videoState = kVideoClosing;
-        [videoPlayer stop];
+        [self movieFinishedOK];
     }
 }
 
 #pragma mark - Video Player (callbacks)
 
-- (void)movieStateCallback:(NSNotification *)notification
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    // Do stuff here
+    NSLog(@"playbackFinished. Reason: OK");
+    [self movieFinishedOK];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ((videoState == kVideoOpening) &&
-        (videoPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable) {
-        videoState = kVideoOpened;
-        [self.activityIndicator stopAnimating];
-        NSLog(@"Video is opened");
+    if ([object isKindOfClass:[AVPlayerItem class]])
+    {
+        AVPlayerItem *item = (AVPlayerItem *)object;
+        //playerItem status value changed?
+        if ([keyPath isEqualToString:@"status"])
+        {   //yes->check it...
+            
+            switch(item.status)
+            {
+                case AVPlayerItemStatusFailed:
+                    NSLog(@"playbackFinished. Reason: Playback Error");
+                    [self movieFinishedError];
+                    break;
+                case AVPlayerItemStatusReadyToPlay:
+                    NSLog(@"player item status is ready to play");
+                    if (videoState == kVideoOpening)  {
+                        videoState = kVideoOpened;
+                        [self.activityIndicator stopAnimating];
+                        NSLog(@"Video is opened");
+                    }
+                    break;
+                case AVPlayerItemStatusUnknown:
+                    NSLog(@"player item status is unknown");
+                    break;
+            }
+        }
+        else if ([keyPath isEqualToString:@"playbackBufferEmpty"])
+        {
+            if (item.playbackBufferEmpty)
+            {
+                NSLog(@"player item playback buffer is empty");
+            }
+        }
     }
 }
 
@@ -345,11 +411,11 @@
     playbackErrorLabel.hidden = NO;
     [activityIndicator stopAnimating];
     
-    [self.videoPlayer.view setAlpha:1];
+    [self.mPlaybackView setAlpha:1];
     
     [UIView animateWithDuration:3.0f
                      animations:^{
-                         [self.videoPlayer.view setAlpha:0];
+                         [self.self.mPlaybackView setAlpha:0];
                      }
                      completion:^(BOOL finished) {
                          if (finished)
@@ -365,11 +431,11 @@
         
         videoState = kVideoClosing;
         NSLog(@"Video is closing");
-        [self.videoPlayer.view setAlpha:1];
+        [self.mPlaybackView setAlpha:1];
         
         [UIView animateWithDuration:1.0f
                          animations:^{
-                             [self.videoPlayer.view setAlpha:0];
+                             [self.mPlaybackView setAlpha:0];
                          }
                          completion:^(BOOL finished) {
                              if (finished)
@@ -383,22 +449,6 @@
     }
 }
 
-- (void)movieFinishedCallback:(NSNotification*)aNotification
-{
-    NSNumber* reason = [[aNotification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
-    
-    [self deregisterPlayerCallbacks];
-    
-    if ([reason intValue] == MPMovieFinishReasonPlaybackError) {
-        NSLog(@"playbackFinished. Reason: Playback Error");
-        [self movieFinishedError];
-    } else {
-        NSLog(@"playbackFinished. Reason: OK");
-        [self movieFinishedOK];
-    }
-    
-}
-
 #pragma mark - Video Player user interactions
 
 - (void)stopButtonClicked:(UIButton*)button
@@ -408,16 +458,16 @@
         NSLog(@"Video is closing");
         videoState = kVideoClosing;
         
-        [self.videoPlayer.view setAlpha:1];
+        [self.mPlaybackView setAlpha:1];
         
         [UIView animateWithDuration:1.0f
                          animations:^{
-                             [self.videoPlayer.view setAlpha:0];
+                             [self.mPlaybackView setAlpha:0];
                          }
                          completion:^(BOOL finished) {
                              if (finished)
                              {
-                                 [videoPlayer stop];
+                                 [self movieFinishedOK];
                              }
                          }];
     }

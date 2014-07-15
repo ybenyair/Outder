@@ -20,7 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIView *viewRecordTimer;
 
 - (IBAction)btnBackClicked:(id)sender;
-- (void) btnRecordClicked;
+
+- (void)setRecordButtonHidden: (BOOL) hidden;
 
 + (AVCamInstructionsVC *) loadInstance;
 

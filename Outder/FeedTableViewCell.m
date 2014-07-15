@@ -92,11 +92,7 @@
         videoCtrl = [[VideoPlayerViewController alloc] init];
     }
     
-    if (videoCtrl.videoState == kVideoClosed) {
-        [videoCtrl playVideo:feed.videoURL inView:self.feedContentView];
-    } else {
-        NSLog(@"Video is already playing...	");
-    }
+    [videoCtrl playVideo:feed.videoURL inView:self.feedContentView];
     
  }
 

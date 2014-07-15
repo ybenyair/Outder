@@ -135,6 +135,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     _scrollToItemBoundary = YES;
     _ignorePerpendicularSwipes = YES;
     _centerItemWhenSelected = YES;
+    _forceScrollDirection = 0;
     
     _contentView = [[UIView alloc] initWithFrame:self.bounds];
     
@@ -2072,6 +2073,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                 
                 [self pushAnimationState:YES];
                 [_delegate carouselDidEndDragging:self willDecelerate:_decelerating];
+                
                 [self popAnimationState];
                 
                 if (!_decelerating)
@@ -2084,9 +2086,10 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                             //even though technically we don't need to scroll at all
                             [self scrollToItemAtIndex:self.currentItemIndex duration:0.01];
                         }
-                        else if ([self shouldScroll])
+                        else if ([self shouldScroll] || _forceScrollDirection)
                         {
                             NSInteger direction = (int)(_startVelocity / fabsf(_startVelocity));
+                            if (_forceScrollDirection) direction = _forceScrollDirection;
                             [self scrollToItemAtIndex:self.currentItemIndex + direction animated:YES];
                         }
                         else
