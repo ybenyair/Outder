@@ -103,6 +103,11 @@
 		18F8A933196F71F1001093E4 /* recBtn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A932196F71F1001093E4 /* recBtn3@2x.png */; };
 		18F8A9351971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9341971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard */; };
 		18F8A9371971C90E001093E4 /* InstructionCell.iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */; };
+		18F8A93919722872001093E4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F8A93819722872001093E4 /* AVFoundation.framework */; };
+		18F8A9421972B1C1001093E4 /* AVPlayerPlaybackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8A9411972B1C1001093E4 /* AVPlayerPlaybackView.m */; };
+		18F8A9441972E845001093E4 /* icon_retake_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9431972E845001093E4 /* icon_retake_off.png */; };
+		18F8A9461972EE15001093E4 /* icon_edit_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9451972EE15001093E4 /* icon_edit_off.png */; };
+		18F8A9481972EEC2001093E4 /* icon_play_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9471972EEC2001093E4 /* icon_play_off.png */; };
 		18FB7C7A196754A4005C9ABA /* SharingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C79196754A4005C9ABA /* SharingInfo.m */; };
 		18FB7C7D19675A79005C9ABA /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C7C19675A79005C9ABA /* WhatsAppActivity.m */; };
 		18FB7C8219676267005C9ABA /* FBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C8119676267005C9ABA /* FBActivity.m */; };
@@ -268,6 +273,12 @@
 		18F8A932196F71F1001093E4 /* recBtn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recBtn3@2x.png"; sourceTree = "<group>"; };
 		18F8A9341971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AVCamInstructionsVC.IPhone5.storyboard; sourceTree = "<group>"; };
 		18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionCell.iPhone5.xib; sourceTree = "<group>"; };
+		18F8A93819722872001093E4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		18F8A9401972B1B7001093E4 /* AVPlayerPlaybackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AVPlayerPlaybackView.h; path = Outder/AVPlayerPlaybackView.h; sourceTree = "<group>"; };
+		18F8A9411972B1C1001093E4 /* AVPlayerPlaybackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVPlayerPlaybackView.m; path = Outder/AVPlayerPlaybackView.m; sourceTree = "<group>"; };
+		18F8A9431972E845001093E4 /* icon_retake_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_retake_off.png; sourceTree = "<group>"; };
+		18F8A9451972EE15001093E4 /* icon_edit_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_edit_off.png; sourceTree = "<group>"; };
+		18F8A9471972EEC2001093E4 /* icon_play_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_play_off.png; sourceTree = "<group>"; };
 		18FB7C781967549D005C9ABA /* SharingInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharingInfo.h; sourceTree = "<group>"; };
 		18FB7C79196754A4005C9ABA /* SharingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharingInfo.m; sourceTree = "<group>"; };
 		18FB7C7B19675A71005C9ABA /* WhatsAppActivity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhatsAppActivity.h; sourceTree = "<group>"; };
@@ -286,6 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18F8A93919722872001093E4 /* AVFoundation.framework in Frameworks */,
 				18FB7C8A196765A6005C9ABA /* Social.framework in Frameworks */,
 				1889C0B7194F75430065FFE0 /* QuartzCore.framework in Frameworks */,
 				183F8883194D8688006EDD8C /* ImageIO.framework in Frameworks */,
@@ -427,6 +439,8 @@
 				18D457D5195659F500C5932F /* VideoPlayerViewController.h */,
 				18D457D6195659F500C5932F /* VideoPlayerViewController.m */,
 				18D457D7195659F500C5932F /* VideoPlayerViewController.xib */,
+				18F8A9401972B1B7001093E4 /* AVPlayerPlaybackView.h */,
+				18F8A9411972B1C1001093E4 /* AVPlayerPlaybackView.m */,
 				18E96430194F07F300A2A317 /* RootViewController.m */,
 				18E9642F194F07E500A2A317 /* RootViewController.h */,
 			);
@@ -543,6 +557,9 @@
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				18F8A9471972EEC2001093E4 /* icon_play_off.png */,
+				18F8A9451972EE15001093E4 /* icon_edit_off.png */,
+				18F8A9431972E845001093E4 /* icon_retake_off.png */,
 				18F8A932196F71F1001093E4 /* recBtn3@2x.png */,
 				18F8A930196F71E5001093E4 /* recBtn2@2x.png */,
 				18F8A92E196F5748001093E4 /* InstructionsBG.png */,
@@ -589,6 +606,7 @@
 		18EC4FA2193D0E4B003E5335 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18F8A93819722872001093E4 /* AVFoundation.framework */,
 				18FB7C89196765A6005C9ABA /* Social.framework */,
 				18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */,
 				1889C0B6194F75430065FFE0 /* QuartzCore.framework */,
@@ -752,7 +770,9 @@
 				1885FF251965D5D1008E93A5 /* SubTemplatesVC.xib in Resources */,
 				18EC4FB0193D0E4B003E5335 /* InfoPlist.strings in Resources */,
 				18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */,
+				18F8A9441972E845001093E4 /* icon_retake_off.png in Resources */,
 				188569EA194D1F3F00980F36 /* home.png in Resources */,
+				18F8A9481972EEC2001093E4 /* icon_play_off.png in Resources */,
 				1885FF111965D2CA008E93A5 /* MakeOne.png in Resources */,
 				1885FF271965E3A0008E93A5 /* DirectionsGradient.png in Resources */,
 				18FB7C8419676408005C9ABA /* Icon_Facebook.png in Resources */,
@@ -781,6 +801,7 @@
 				18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */,
 				188569F0194D21D700980F36 /* featured.png in Resources */,
 				188569EE194D210700980F36 /* myvideos.png in Resources */,
+				18F8A9461972EE15001093E4 /* icon_edit_off.png in Resources */,
 				18F8A91E196DEFCA001093E4 /* flip@2x.png in Resources */,
 				18F8A929196F452F001093E4 /* AVCamInstructionsVC.IPhone4.storyboard in Resources */,
 				18DE95CF193D424000021A5D /* sample.png in Resources */,
@@ -835,6 +856,7 @@
 				1885FF2A1965F0BD008E93A5 /* TemplatePromotedCell.m in Sources */,
 				18419724196D22E300B14558 /* AVCamViewController.m in Sources */,
 				18EC4FB9193D0E4B003E5335 /* Outder.xcdatamodeld in Sources */,
+				18F8A9421972B1C1001093E4 /* AVPlayerPlaybackView.m in Sources */,
 				18DEDEC0195AAAF6002DE2D2 /* TemplateCell.m in Sources */,
 				18984AB219487B7C001410B7 /* UserInfo.m in Sources */,
 				188DB1E3195F5ADD00EA404C /* Instruction.m in Sources */,

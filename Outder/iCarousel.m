@@ -2089,8 +2089,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                         else if ([self shouldScroll] || _forceScrollDirection)
                         {
                             NSInteger direction = (int)(_startVelocity / fabsf(_startVelocity));
-                            if (_forceScrollDirection) direction = _forceScrollDirection;
-                            [self scrollToItemAtIndex:self.currentItemIndex + direction animated:YES];
+                            if (_forceScrollDirection) {
+                                [self scrollToItemAtIndex:self.currentItemIndex + _forceScrollDirection duration:1.0f];
+                            } else {
+                                [self scrollToItemAtIndex:self.currentItemIndex + direction animated:YES];
+                            }
                         }
                         else
                         {

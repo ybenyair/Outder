@@ -295,8 +295,22 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (IBAction)toggleMovieRecording:(id)sender
 {
+    /*
+    static BOOL start = NO;
+    if (start == NO) {
+        [self ntfyRecordStart];
+        start = YES;
+    } else {
+        [self ntfyRecordEnd];
+        [self ntfyFileSaved:nil];
+        start = NO;
+    }
+    
+    return;
+    */
+    
 	[[self recordButton] setEnabled:NO];
-	
+    
 	dispatch_async([self sessionQueue], ^{
 		if (![[self movieFileOutput] isRecording])
 		{
@@ -423,8 +437,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 	
 	[self setLockInterfaceRotation:NO];
 	
+    [self ntfyFileSaved: outputFileURL];
 	// Note the backgroundRecordingID for use in the ALAssetsLibrary completion handler to end the background task associated with this recording. This allows a new recording to be started, associated with a new UIBackgroundTaskIdentifier, once the movie file output's -isRecording is back to NO — which happens sometime after this method returns.
-	UIBackgroundTaskIdentifier backgroundRecordingID = [self backgroundRecordingID];
+	/*
+    UIBackgroundTaskIdentifier backgroundRecordingID = [self backgroundRecordingID];
 	[self setBackgroundRecordingID:UIBackgroundTaskInvalid];
 	
 	[[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error) {
@@ -436,6 +452,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 		if (backgroundRecordingID != UIBackgroundTaskInvalid)
 			[[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
 	}];
+     */
 }
 
 #pragma mark Device Configuration
@@ -546,6 +563,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 - (void)ntfyRecordEnd
+{
+    
+}
+
+- (void)ntfyFileSaved: (NSURL *)outputFileURL
 {
     
 }

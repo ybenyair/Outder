@@ -158,23 +158,17 @@
 
 - (void)carouselDidScroll:(iCarousel *)carousel
 {
-    /*
-    CGFloat diff = carousel.scrollOffset - carousel.currentItemIndex;
-    NSLog(@"carousel.scrollOffset = %f diff = %f", carousel.scrollOffset, diff);
-    
-    if (diff > 0.02 && !carousel.scrolling)
-    {
-        NSLog(@"Move to index %ld", (long)carousel.currentItemIndex + 1);
-        [self.carousel scrollToOffset:(carousel.currentItemIndex + 1) duration:0.5];
-        //[self.carousel scrollByNumberOfItems:1 duration:0.1f];
+    CGFloat minOffset = -0.1f;
+    CGFloat maxOffest = [_instructions count] - 1 + 0.1f;
+    //NSLog(@"carousel.scrollOffset = %f", carousel.scrollOffset);
+    if (carousel.scrollOffset > maxOffest) {
+        carousel.scrollOffset = maxOffest;
+        [self.carousel scrollToItemAtIndex:self.carousel.currentItemIndex animated:YES];
     }
-    
-    if (diff < -0.02 && !carousel.scrolling)
-    {
-        NSLog(@"Move to index %ld", (long)carousel.currentItemIndex - 1);
-        [self.carousel scrollToOffset:(carousel.currentItemIndex - 1) duration:0.5];
+    if (carousel.scrollOffset < minOffset) {
+        carousel.scrollOffset = minOffset;
+        [self.carousel scrollToItemAtIndex:self.carousel.currentItemIndex animated:YES];
     }
-     */
 }
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
@@ -244,24 +238,22 @@
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
 {
     InstructionCell *instruction = [self getCurrentItem];
-    
+    NSLog(@"carouselDidEndScrollingAnimation");
+
     switch (instruction.state) {
         
         case kInstructionFixed:
-            self.recordButton.hidden = YES;
-            self.recordButton.enabled = NO;
+            [self enableRecodring:NO];
             break;
 
         case kInstructionRetake:
-            self.recordButton.hidden = NO;
-            self.recordButton.enabled = YES;
+            [self enableRecodring:YES];
             [self setRecordButtonStateRetake];
             break;
 
         case kInstructionRecord:
         case kInstructionUnknown:
-            self.recordButton.hidden = NO;
-            self.recordButton.enabled = YES;
+            [self enableRecodring:YES];
             [self setRecordButtonStateRecord];
             break;
 
@@ -271,10 +263,19 @@
     
 }
 
+- (void) enableRecodring: (BOOL) enabled
+{
+    if (enabled) {
+        self.recordButton.hidden = NO;
+        self.recordButton.enabled = YES;
+    } else {
+        self.recordButton.hidden = YES;
+        self.recordButton.enabled = NO;
+    }
+}
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
 {
-    self.recordButton.hidden = YES;
-    self.recordButton.enabled = NO;
+    [self enableRecodring:NO];
     beginOffset = carousel.scrollOffset;
     carousel.forceScrollDirection = 0;
 }
@@ -283,10 +284,12 @@
 {
     endOffset = carousel.scrollOffset;
     CGFloat diff = endOffset - beginOffset;
-    
-    if (fabs(diff) < 0.5) {
+    NSLog(@"carouselDidEndDragging: offset-diff %f  offset %f", diff, carousel.scrollOffset);
+
+    // Dragging within bounds
+    if (fabs(diff) < 0.5 && fabs(diff) > 0.05) {
         
-        if (diff > 0.1) {
+        if (diff > 0) {
             if (carousel.currentItemIndex < carousel.numberOfItems - 1) carousel.forceScrollDirection = 1;
         } else {
             if (carousel.currentItemIndex > 0) carousel.forceScrollDirection = -1;
