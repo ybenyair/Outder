@@ -84,13 +84,20 @@
 
 - (void) restoreState
 {
-    if ([currentInstruction.fixed boolValue] == NO)
+    if (currentInstruction == nil) {
+        self.state = kInstructionDone;
+        NSLog(@"Restore instruction to state: kInstructionDone");
+    }
+    
+    if (currentInstruction && [currentInstruction.fixed boolValue] == NO)
     {
         if (currentInstruction.imageURL) {
-            NSLog(@"Restore start to kInstructionRetake");
+            NSLog(@"Restore instruction to state: kInstructionRetake");
             self.state = kInstructionRetake;
+        } else {
+            NSLog(@"Restore instruction to state: kInstructionRecord");
+            self.state = kInstructionRecord;
         }
-        
     }
 }
 

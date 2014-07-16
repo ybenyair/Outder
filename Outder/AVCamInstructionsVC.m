@@ -84,7 +84,8 @@
         [self configureViewPortrait];
     }
     
-    if ([self wereInstructionsCompleted]) {
+    isDone = [self wereInstructionsCompleted];
+    if (isDone) {
         [self insertDoneInstruction];
     }
 }
