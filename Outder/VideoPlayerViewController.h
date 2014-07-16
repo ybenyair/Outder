@@ -28,6 +28,8 @@ typedef enum {
 }
 
 -(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView;
+-(void) playVideoList:(NSArray *)videoURLs inView:(UIView *)videoView;
+
 -(void) stopVideo;
 - (void)stopButtonClicked:(UIButton*)button;
 

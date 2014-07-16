@@ -259,24 +259,30 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void) registerPlayerCallbacks
 {
-    [[videoItems lastObject] addObserver:self forKeyPath:@"status" options:0 context:nil];
-    [[videoItems lastObject] addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerItemDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[videoItems lastObject]];
+     for (id dataElement in videoItems) {
+         
+         [dataElement addObserver:self forKeyPath:@"status" options:0 context:nil];
+         [dataElement addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
+         
+         [[NSNotificationCenter defaultCenter] addObserver:self
+                                                  selector:@selector(playerItemDidReachEnd:)
+                                                      name:AVPlayerItemDidPlayToEndTimeNotification
+                                                    object:dataElement];
+     }
     
 }
 
 - (void) deregisterPlayerCallbacks
-{    
-    [[videoItems lastObject]  removeObserver:self forKeyPath:@"status"];
-    [[videoItems lastObject]  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[videoItems lastObject]];
+{
+    for (id dataElement in videoItems) {
+        
+        [dataElement  removeObserver:self forKeyPath:@"status"];
+        [dataElement  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:AVPlayerItemDidPlayToEndTimeNotification
+                                                      object:dataElement];
+    }
     
 }
 
@@ -361,8 +367,10 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     // Do stuff here
-    NSLog(@"playbackFinished. Reason: OK");
-    [self movieFinishedOK];
+    if (notification.object == [videoItems lastObject]) {
+        NSLog(@"playbackFinished. Reason: OK");
+        [self movieFinishedOK];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

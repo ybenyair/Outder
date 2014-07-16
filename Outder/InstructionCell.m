@@ -16,7 +16,8 @@
 
 @implementation InstructionCell
 
-@synthesize instruction, index, videoCtrl, state;
+
+@synthesize instructions, currentInstruction, index, videoCtrl, state;
 
 + (CGFloat) getSpacingBetweenItems
 {
@@ -70,6 +71,9 @@
     self.textEditTitle.layer.shadowRadius = 0.0;
     self.textEditTitle.layer.shadowColor = [UIColor blackColor].CGColor;
     self.textEditTitle.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+    
+    self.textEditPlaceholder.text = NSLocalizedString(@"TYPE YOUR MESSAGE", nil);
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,9 +84,9 @@
 
 - (void) restoreState
 {
-    if ([instruction.fixed boolValue] == NO)
+    if ([currentInstruction.fixed boolValue] == NO)
     {
-        if (self.instruction.imageURL) {
+        if (currentInstruction.imageURL) {
             NSLog(@"Restore start to kInstructionRetake");
             self.state = kInstructionRetake;
         }
@@ -93,14 +97,18 @@
 #pragma mark -
 #pragma mark configure current view
 
-- (void)configureItem: (Instruction *)data inView: (UIView *)view withIndex:(NSUInteger)indx
+- (void)configureItem: (UIView *)view
 {
-    instruction = data;
-    self.labelName.text = instruction.name;
-    self.index = indx;
+    if (index < [instructions count]) {
+        currentInstruction = [instructions objectAtIndex:index];
+    } else {
+        currentInstruction = nil;
+    }
+    
+    self.labelName.text = currentInstruction.name;
     self.labelNumber.text = [NSString stringWithFormat:@"%lu", (unsigned long)index + 1];
     
-    if ([instruction.fixed boolValue] == YES) self.state = kInstructionFixed;
+    if ([currentInstruction.fixed boolValue] == YES) self.state = kInstructionFixed;
     
     [self restoreState];
     
@@ -118,69 +126,147 @@
         case kInstructionUnknown:
             [self setBeforeUserShotLayer];
             break;
-            
+        case kInstructionDone:
+            [self setDoneLayer];
+            break;
         default:
             break;
     }
 
 }
 
-- (void) setFixedShotLayer
+- (void) hideFixedShotItems
 {
+    self.labelFixedShot.hidden = YES;
+    self.btnPlayFixedShot.hidden = YES;
+    self.btnPlayFixedShot.enabled = NO;
+}
+
+- (void) setFixedShotLayer	
+{
+    [self hideBeforeUserShotItems];
+    [self hideAfterUserShotItems];
+    [self hideEditTextItems];
+    [self hideDoneItems];
+    
     self.viewInstructions.hidden = NO;
     self.viewEditText.hidden = YES;
-    [self setImage:instruction.imageURL];
+    
+    [self setImage:currentInstruction.imageURL];
     self.labelFixedShot.hidden = NO;
     
     self.btnPlayFixedShot.hidden = NO;
     self.btnPlayFixedShot.enabled = YES;
-    self.btnPlayPreview.hidden = YES;
-    self.btnPlayPreview.enabled = NO;
     
-    self.btnEditTitle.hidden = YES;
+    self.labelNumber.hidden = NO;
+    self.labelName.text = self.currentInstruction.name;
+    
     [self.superCtrl setRecordButtonHidden:YES];
     self.state = kInstructionFixed;
 }
 
-- (void) setBeforeUserShotLayer
+- (void) hideBeforeUserShotItems
 {
-    self.viewInstructions.hidden = NO;
-    self.viewEditText.hidden = YES;
-    [self setImage:nil];
-    self.labelFixedShot.hidden = YES;
-    
-    self.btnPlayFixedShot.hidden = YES;
-    self.btnPlayFixedShot.enabled = NO;
     self.btnPlayPreview.hidden = YES;
     self.btnPlayPreview.enabled = NO;
+}
+
+- (void) setBeforeUserShotLayer
+{
+    [self hideEditTextItems];
+    [self hideAfterUserShotItems];
+    [self hideFixedShotItems];
+    [self hideDoneItems];
     
-    self.btnEditTitle.hidden = YES;
+    self.viewEditText.hidden = YES;
+    self.viewInstructions.hidden = NO;
+
+    [self setImage:nil];
+    
+    self.btnPlayPreview.hidden = YES;
+    self.btnPlayPreview.enabled = NO;
+
+    self.labelNumber.hidden = NO;
+    self.labelName.text = self.currentInstruction.name;
+    
     [self.superCtrl setRecordButtonHidden:NO];
     self.state = kInstructionRecord;
 }
 
+- (void) hideAfterUserShotItems
+{
+    self.btnEditTitle.hidden = YES;
+    self.btnEditTitle.enabled = NO;
+}
+
 - (void) setAfterUserShotLayer
 {
+    [self hideEditTextItems];
+    [self hideBeforeUserShotItems];
+    [self hideFixedShotItems];
+    [self hideDoneItems];
+    
     self.viewInstructions.hidden = NO;
     self.viewEditText.hidden = YES;
-    [self setImageUserShot:instruction.imageURL];
-    self.labelFixedShot.hidden = YES;
-    
-    self.btnPlayFixedShot.hidden = YES;
-    self.btnPlayFixedShot.enabled = NO;
-    self.btnPlayPreview.hidden = NO;
-    self.btnPlayPreview.enabled = YES;
+
+    [self setImageUserShot:currentInstruction.imageURL];
     
     self.btnEditTitle.hidden = NO;
+    self.btnEditTitle.enabled = YES;
+    self.btnPlayPreview.hidden = NO;
+    self.btnPlayPreview.enabled = YES;
+
+    self.labelNumber.hidden = NO;
+    self.labelName.text = self.currentInstruction.name;
+    
     self.state = kInstructionRetake;
+}
+
+
+- (void) hideEditTextItems
+{
+    
 }
 
 - (void) setEditTextLayer
 {
+    [self hideAfterUserShotItems];
+    [self hideBeforeUserShotItems];
+    [self hideFixedShotItems];
+    [self hideDoneItems];
+
     self.viewInstructions.hidden = YES;
     self.viewEditText.hidden = NO;
 }
 
+- (void) hideDoneItems
+{
+    self.btnPlayDone.hidden = YES;
+    self.btnPlayDone.enabled = NO;
+    self.btnMakeVideo.hidden = YES;
+    self.btnMakeVideo.enabled = NO;
+}
+
+- (void) setDoneLayer
+{
+    [self hideAfterUserShotItems];
+    [self hideBeforeUserShotItems];
+    [self hideFixedShotItems];
+    [self hideEditTextItems];
+    
+    self.viewInstructions.hidden = NO;
+    self.viewEditText.hidden = YES;
+    
+    self.btnPlayDone.hidden = NO;
+    self.btnPlayDone.enabled = YES;
+    self.btnMakeVideo.hidden = NO;
+    self.btnMakeVideo.enabled = YES;
+    
+    self.labelNumber.hidden = YES;
+    self.labelName.text = NSLocalizedString(@"Great! all shots were recorded", nil);
+    
+    [self setImage:nil];
+}
 
 - (void)setImage:(NSString *)imageURL
 {
@@ -216,7 +302,7 @@
                              [self.imageShot setAlpha:1];
                          }];
         
-        NSLog(@"Update user shot for instruction '%@'", instruction.name);
+        NSLog(@"Update user shot for instruction '%@'", currentInstruction.name);
         
     } else {
         NSLog(@"Cannot load user shot image from URL");
@@ -225,8 +311,8 @@
 
 - (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath
 {
-    self.instruction.imageURL = imagePath;
-    self.instruction.videoURL = videoPath;
+    currentInstruction.imageURL = imagePath;
+    currentInstruction.videoURL = videoPath;
     [self setAfterUserShotLayer];
 }
 
@@ -243,7 +329,7 @@
     
     if (videoCtrl.videoState == kVideoClosed) {
         self.imageViewVideo.hidden = NO;
-        [videoCtrl playVideo:self.instruction.videoURL inView:self.imageViewVideo];
+        [videoCtrl playVideo:currentInstruction.videoURL inView:self.imageViewVideo];
     } else {
         NSLog(@"Video is already playing...	");
     }
@@ -259,8 +345,6 @@
 {
     if (videoCtrl && videoCtrl.videoState == kVideoOpened) {
         [self.videoCtrl stopButtonClicked:nil];
-    } else {
-        NSLog(@"Video is already playing...	");
     }
 }
 
@@ -271,6 +355,34 @@
 {
     self.textEditPlaceholder.hidden = NO;
     self.textEditTitle.text = @"";
+}
+
+
+
+- (IBAction)btnPlayListClicked:(id)sender {
+    
+    NSMutableArray *videoURLs = [[NSMutableArray alloc] init];
+    Instruction *inst = nil;
+    for (id dataElement in instructions) {
+        inst = (Instruction *)dataElement;
+        [videoURLs addObject:inst.videoURL];
+        NSLog(@"Insert to the play list: %@", inst.videoURL);
+    }
+    
+    
+    if (!videoCtrl) {
+        videoCtrl = [[VideoPlayerViewController alloc] init];
+        videoCtrl.delegate = self;
+        videoCtrl.enableAutoRotation = NO;
+    }
+    
+    if (videoCtrl.videoState == kVideoClosed) {
+        self.imageViewVideo.hidden = NO;
+        [videoCtrl playVideoList:videoURLs inView:self.imageViewVideo];
+    } else {
+        NSLog(@"Video is already playing...	");
+    }
+
 }
 
 - (IBAction)btnEditTitleClicked:(id)sender {

@@ -22,6 +22,7 @@
     CGFloat beginOffset;
     CGFloat endOffset;
     BOOL isRecording;
+    BOOL isDone;
 }
 
 + (AVCamInstructionsVC *) loadInstance
@@ -63,6 +64,7 @@
 {
     _reusedInstructionViews = [NSMutableDictionary dictionary];
     isRecording = NO;
+    isDone = NO;
 }
 
 - (void)viewDidLoad
@@ -80,6 +82,10 @@
         [self configureViewLandscape];
     } else {
         [self configureViewPortrait];
+    }
+    
+    if ([self wereInstructionsCompleted]) {
+        [self insertDoneInstruction];
     }
 }
 
@@ -159,7 +165,7 @@
 - (void)carouselDidScroll:(iCarousel *)carousel
 {
     CGFloat minOffset = -0.1f;
-    CGFloat maxOffest = [_instructions count] - 1 + 0.1f;
+    CGFloat maxOffest = self.carousel.numberOfItems - 1 + 0.1f;
     //NSLog(@"carousel.scrollOffset = %f", carousel.scrollOffset);
     if (carousel.scrollOffset > maxOffest) {
         carousel.scrollOffset = maxOffest;
@@ -174,6 +180,9 @@
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     NSInteger count = [_instructions count];
+    
+    if (isDone) count++;
+    
     NSLog(@"Number of instructions = %ld", (long)count);
     return count;
 }
@@ -181,7 +190,6 @@
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
     InstructionCell *instructionItem = nil;
-    Instruction *instruction = [_instructions objectAtIndex:index];
     NSLog(@"viewForItemAtIndex %ld", (long)index);
     //create new view if no view is available for recycling
     if (view == nil)
@@ -207,10 +215,16 @@
     //in the wrong place in the carousel
     //[promotedView setImage:promotedTemplate.imageURL];
     //instructionItem.view.frame = self.carousel.frame;
-    if (instructionItem.state == kInstructionUnknown) {
-        instructionItem.superCtrl = self;
-        [instructionItem configureItem:instruction inView:carousel withIndex:index];
+    if (index == [_instructions count]) {
+        NSLog(@"Insert DONE instruction");
+        instructionItem.state = kInstructionDone;
     }
+    
+    instructionItem.superCtrl = self;
+    instructionItem.instructions = _instructions;
+    instructionItem.index = index;
+    [instructionItem configureItem: carousel];
+
     return view;
 }
 
@@ -364,6 +378,11 @@
     return instructionItem;
 }
 
+- (Instruction *) getCurrentInstruction
+{
+    return [_instructions objectAtIndex:self.carousel.currentItemIndex];
+}
+
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"Tapped view number: %ld", (long)index);
@@ -451,6 +470,32 @@
     self.recordButton.center = center;
 }
 
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    NSString* value = [anim valueForKey:@"RecordTimerAnimation"];
+    if ([value isEqualToString:@"RecordTimerEnd"])
+    {
+        NSLog(@"Record animation ended");
+        if (isRecording) {
+            // Animation stoped on a timer
+            NSLog(@"Record animation ended on a timer");
+            [self toggleMovieRecording:nil];
+        }
+        return;
+    }
+}
+
+-(void) stopRecordAnimation
+{
+    [[[self.viewRecordTimer.layer sublayers] lastObject] removeAllAnimations];
+    [[[self.viewRecordTimer.layer sublayers] lastObject] removeFromSuperlayer];
+}
+
+- (void)setRecordButtonHidden: (BOOL) hidden
+{
+    self.recordButton.hidden = hidden;
+}
+
 #pragma mark -
 #pragma mark Save recorded file
 
@@ -478,6 +523,13 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             InstructionCell *cell = [self getCurrentItem];
             [cell configureUserShot:thumbImageFile withVideo:[movieURL absoluteString]];
+            
+            if (isDone == NO) {
+                isDone = [self wereInstructionsCompleted];
+                if (isDone) {
+                    [self insertDoneInstruction];
+                }
+            }
 
             if (!thumbImageFile) {
                 NSString *title = NSLocalizedString(@"CAMERA ERROR", nil);
@@ -528,6 +580,7 @@
 
     MPMoviePlayerController *movie = [[MPMoviePlayerController alloc]
                                       initWithContentURL:movieURL];
+    movie.shouldAutoplay = NO;
     UIImage *singleFrameImage = [movie thumbnailImageAtTime:0
                                                  timeOption:MPMovieTimeOptionExact];
     
@@ -561,8 +614,8 @@
     shapeLayer.fillColor = [[UIColor clearColor] CGColor];
     
     [self.viewRecordTimer.layer addSublayer:shapeLayer];
-    InstructionCell *cell = [self getCurrentItem];
-    float duration = [cell.instruction.length intValue];
+    Instruction *inst = [self getCurrentInstruction];
+    float duration = [inst.length intValue];
     
     CABasicAnimation *animateStrokeEnd = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     animateStrokeEnd.duration  = duration;
@@ -575,30 +628,41 @@
     [shapeLayer addAnimation:animateStrokeEnd forKey:nil];
 }
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+
+- (void) insertDoneInstruction
 {
-    NSString* value = [anim valueForKey:@"RecordTimerAnimation"];
-    if ([value isEqualToString:@"RecordTimerEnd"])
-    {
-        NSLog(@"Record animation ended");
-        if (isRecording) {
-            // Animation stoped on a timer
-            NSLog(@"Record animation ended on a timer");
-            [self toggleMovieRecording:nil];
+    [self.carousel insertItemAtIndex:self.carousel.numberOfItems animated:NO];
+}
+
+#pragma mark -
+#pragma mark DONE with instructions
+
+- (BOOL) wereInstructionsCompleted
+{
+    if (isDone) return YES;
+    
+    BOOL completed = YES;
+    
+    Instruction *inst = nil;
+    for (id dataElement in _instructions) {
+        inst = (Instruction *)dataElement;
+        if ([inst.fixed boolValue] == NO) {
+            NSLog(@"Checking completion of instruction: %d", [inst.id intValue]);
+            if (inst.imageURL == nil) {
+                NSLog(@"NOT completed");
+                completed = NO;
+                break;
+            } else {
+                NSLog(@"Completed");
+            }
         }
-        return;
     }
-}
+    
+    if (completed) {
+        NSLog(@"All instructions were completed");
+    }
 
--(void) stopRecordAnimation
-{
-    [[[self.viewRecordTimer.layer sublayers] lastObject] removeAllAnimations];
-    [[[self.viewRecordTimer.layer sublayers] lastObject] removeFromSuperlayer];
-}
-
-- (void)setRecordButtonHidden: (BOOL) hidden
-{
-    self.recordButton.hidden = hidden;
+    return completed;
 }
 
 @end

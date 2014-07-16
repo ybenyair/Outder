@@ -41,6 +41,7 @@
 		1885FF2F1965F1A7008E93A5 /* SubTemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885FF2E1965F1A7008E93A5 /* SubTemplateCell.m */; };
 		1885FF331967096D008E93A5 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885FF321967096D008E93A5 /* Feed.m */; };
 		1886683E196B6BBD00B82A16 /* AVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */; };
+		188770F61975BAEA00EB6D29 /* icon_publish_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 188770F51975BAEA00EB6D29 /* icon_publish_off.png */; };
 		1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A5194F74BE0065FFE0 /* blackArrow.png */; };
 		1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A6194F74BE0065FFE0 /* blackArrow@2x.png */; };
@@ -191,6 +192,7 @@
 		1885FF321967096D008E93A5 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		1886683C196B6BB600B82A16 /* AVCamPreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCamPreviewView.h; sourceTree = "<group>"; };
 		1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
+		188770F51975BAEA00EB6D29 /* icon_publish_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_publish_off.png; sourceTree = "<group>"; };
 		1889C0A2194F74BE0065FFE0 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		1889C0A5194F74BE0065FFE0 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 		18DE95D0193D424800021A5D /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				188770F51975BAEA00EB6D29 /* icon_publish_off.png */,
 				18F8A9471972EEC2001093E4 /* icon_play_off.png */,
 				18F8A9451972EE15001093E4 /* icon_edit_off.png */,
 				18F8A9431972E845001093E4 /* icon_retake_off.png */,
@@ -762,6 +765,7 @@
 				18F8A9371971C90E001093E4 /* InstructionCell.iPhone5.xib in Resources */,
 				18F561AC196B58E8002EA1FD /* RecordPortrait.png in Resources */,
 				18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */,
+				188770F61975BAEA00EB6D29 /* icon_publish_off.png in Resources */,
 				18F8A92F196F5748001093E4 /* InstructionsBG.png in Resources */,
 				18ACD7F4196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib in Resources */,
 				18F8A9351971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard in Resources */,

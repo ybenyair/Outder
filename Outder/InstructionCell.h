@@ -15,7 +15,8 @@ typedef enum {
     kInstructionUnknown,
     kInstructionRecord,
     kInstructionFixed,
-    kInstructionRetake
+    kInstructionRetake,
+    kInstructionDone
 } eInstructionState;
 
 @interface InstructionCell : UIViewController <VideoPlayerViewControllerDelegate, UITextFieldDelegate>
@@ -27,14 +28,16 @@ typedef enum {
 + (InstructionCell *) loadInstance;
 + (CGFloat) getSpacingBetweenItems;
 
-@property (nonatomic,strong) Instruction *instruction;
+@property (nonatomic,strong) NSMutableArray *instructions;
+@property (nonatomic,strong) Instruction *currentInstruction;
+
 @property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
 @property (nonatomic,strong) AVCamInstructionsVC *superCtrl;
 
 @property NSUInteger index;
 @property eInstructionState state;
 
-- (void)configureItem: (Instruction *)data inView: (UIView *)view withIndex:(NSUInteger)indx;
+- (void)configureItem: (UIView *)view;
 - (void)itemClicked;
 - (void)setImage:(NSString *)imageURL;
 - (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath;
@@ -53,9 +56,10 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayPreview;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayFixedShot;
 @property (weak, nonatomic) IBOutlet UILabel *textEditPlaceholder;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayDone;
+@property (weak, nonatomic) IBOutlet UIButton *btnMakeVideo;
 
-
-
+- (IBAction)btnPlayListClicked:(id)sender;
 - (IBAction)btnEditTitleClicked:(id)sender;
 - (IBAction)btnPreviewClicked:(id)sender;
 - (IBAction)btnFixedShotClicked:(id)sender;

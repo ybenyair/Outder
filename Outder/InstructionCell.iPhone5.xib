@@ -8,6 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InstructionCell">
             <connections>
                 <outlet property="btnEditTitle" destination="X9c-UF-OJ0" id="OLU-si-oWy"/>
+                <outlet property="btnMakeVideo" destination="ccD-ko-h1Z" id="aoS-Ue-4Aq"/>
+                <outlet property="btnPlayDone" destination="PXP-rd-ruu" id="zjq-jw-8wX"/>
                 <outlet property="btnPlayFixedShot" destination="9z0-96-xV6" id="uDC-6r-GaP"/>
                 <outlet property="btnPlayPreview" destination="HlY-A3-R51" id="sKS-Dv-I2u"/>
                 <outlet property="imageBG" destination="pcu-Ut-kQJ" id="WGS-O6-sna"/>
@@ -117,6 +119,23 @@
                                 <action selector="btnEditTitleClicked:" destination="-1" eventType="touchUpInside" id="Y4t-Md-QSB"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXP-rd-ruu" userLabel="Button - PlayList">
+                            <rect key="frame" x="306" y="156" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_play_off.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnPlayListClicked:" destination="-1" eventType="touchUpInside" id="0mM-0J-tfh"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccD-ko-h1Z" userLabel="Button - MakeOne">
+                            <rect key="frame" x="221" y="156" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_publish_off.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-9s-P3j" userLabel="Image View - video">
                             <rect key="frame" x="71" y="43" width="426" height="235"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -132,5 +151,6 @@
         <image name="InstructionsBG.png" width="400" height="225"/>
         <image name="icon_edit_off.png" width="211" height="211"/>
         <image name="icon_play_off.png" width="211" height="211"/>
+        <image name="icon_publish_off.png" width="211" height="211"/>
     </resources>
 </document>
