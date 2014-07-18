@@ -73,6 +73,8 @@
     //  update the last update date
     [_refreshHeaderView refreshLastUpdatedDate];
     
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
+
     //[DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Loading...", nil)];
     //[self reloadTableViewDataSourceStart];
 }
@@ -321,6 +323,8 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [NSFetchedResultsController deleteCacheWithName:feedType];
+    
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"type = %@", feedType];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"Feed" inManagedObjectContext:managedObjectContext];

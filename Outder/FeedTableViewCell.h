@@ -10,13 +10,27 @@
 #import "Feed.h"
 #import "VideoPlayerViewController.h"
 
-@interface FeedTableViewCell : UITableViewCell
+typedef enum {
+    kFeedUnknown,
+    kFeedLoading,
+    kFeedProcessing,
+    kFeedReady
+} eFeedState;
 
+@interface FeedTableViewCell : UITableViewCell
+{
+    eFeedState state;
+}
+
+@property eFeedState state;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIButton *sharedButton;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet UIView *feedContentView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
+@property (weak, nonatomic) IBOutlet UILabel *labelProgress;
 
 
 - (IBAction)sharedButtonClicked:(id)sender;

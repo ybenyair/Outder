@@ -14,12 +14,18 @@
 #import "LoginInfo.h"
 #import "TemplateCoreData.h"
 #import "DejalActivityView.h"
+#import "Defines.h"
+#import "UploadManager.h"
+#import "CoreData.h"
 
 @interface RootViewController ()
 
 @end
 
 @implementation RootViewController
+{
+    UploadManager *_uploadManager;
+}
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize tabController, myVideoVC, featuredVideoVC;
@@ -53,7 +59,8 @@ static RootViewController *instance = nil;
         [[UITabBar appearance] setBarTintColor:[UIColor viewFlipsideBackgroundColor]];
         [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
         [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
-
+        
+        _uploadManager = [[UploadManager alloc] initWithContext:app.managedObjectContext];
     }
     
     return self;
@@ -72,10 +79,11 @@ static RootViewController *instance = nil;
     LoginInfo *loginInfo = [LoginInfo getInstance];
     if (loginInfo.isValid) {
         [self setSplashView];
-        [self startDashboardViewController];
+        [self startDashboardViewController:YES withTab:1];
     } else {
         [self startLoginViewController:YES];
     }
+    [_uploadManager resumePendingUploads];
 }
 
 - (void)viewDidLoad
@@ -104,7 +112,6 @@ static RootViewController *instance = nil;
     [splash setImage:imageDefault];
     [self.view addSubview:splash];
     [self.view sendSubviewToBack:splash];
-    
 }
 
 - (void)setActiveView: (UIViewController *)viewController
@@ -134,7 +141,7 @@ static RootViewController *instance = nil;
     [self setActiveView:navcon];
 }
 
-- (void)startDashboardViewController
+- (void)startDashboardViewController: (BOOL)refreshData withTab:(NSUInteger)index
 {
     tabController = [[UITabBarController alloc] init];
     
@@ -149,7 +156,7 @@ static RootViewController *instance = nil;
     myVideoVC = [[FeedTableViewController alloc] init];
     myVideoVC.managedObjectContext = self.managedObjectContext;
     myVideoVC.tabBarItem.title = @"My Video";
-    myVideoVC.feedType = @"MyVideo";
+    myVideoVC.feedType = kMyVideoType;
     myVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"myvideos"];
     [myVideoVC loadData];
     UINavigationController *navmyvideo = [[UINavigationController alloc] init];
@@ -159,7 +166,7 @@ static RootViewController *instance = nil;
     featuredVideoVC = [[FeedTableViewController alloc] init];
     featuredVideoVC.managedObjectContext = self.managedObjectContext;
     featuredVideoVC.tabBarItem.title = @"Featured";
-    featuredVideoVC.feedType = @"FeaturedVideo";
+    featuredVideoVC.feedType = kFeaturedVideoType;
     featuredVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"featured"];
     [featuredVideoVC loadData];
     UINavigationController *navfeatured = [[UINavigationController alloc] init];
@@ -168,10 +175,14 @@ static RootViewController *instance = nil;
 
     [tabController setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];
     
-    tabController.selectedViewController=[tabController.viewControllers objectAtIndex:1];
+    tabController.selectedViewController=[tabController.viewControllers objectAtIndex:index];
     tabController.tabBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
     
-    [self getTemplates];
+    if (refreshData) {
+        [self getTemplates];
+    } else {
+        [self setActiveView:tabController];
+    }
 }
 
 - (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data
@@ -179,7 +190,7 @@ static RootViewController *instance = nil;
     NSString *response = (NSString *)data;
     NSLog(@"Response for %@", response);
     if (code == kCommOK) {
-        [TemplateCoreData clearDB:self.managedObjectContext];
+        //[TemplateCoreData clearDB:self.managedObjectContext];
         [TemplateCoreData fillTemplates:self.managedObjectContext data:json];
         [self setActiveView:tabController];
     } else if (code == kCommErrorNetwork) {

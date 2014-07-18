@@ -19,7 +19,7 @@
 
 + (RootViewController *)getInstance;
 - (void)startLoginViewController:(BOOL)logOut;
-- (void)startDashboardViewController;
+- (void)startDashboardViewController: (BOOL)refreshData withTab:(NSUInteger)index;
 - (void)start;
 - (void)handleNotification: (NSDictionary*)ntfy;
 

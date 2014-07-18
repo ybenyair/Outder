@@ -17,9 +17,11 @@
                 <outlet property="imageViewVideo" destination="9lc-9s-P3j" id="kjd-XC-MgI"/>
                 <outlet property="labelFixedShot" destination="S9l-EP-3hA" id="MJ8-yt-Rcw"/>
                 <outlet property="labelName" destination="8dM-fP-VC7" id="4Ps-BX-r1F"/>
+                <outlet property="labelNumOfMakeOne" destination="K9e-1x-JEQ" id="Yaw-gW-dIE"/>
                 <outlet property="labelNumber" destination="8rY-rW-wvq" id="3wB-ho-Yl6"/>
                 <outlet property="textEditPlaceholder" destination="Mg7-s0-ZXl" id="8tJ-si-GPH"/>
                 <outlet property="textEditTitle" destination="fLm-kq-ook" id="9gl-sI-zPN"/>
+                <outlet property="uploadActivity" destination="xAX-s0-uW6" id="UZH-K3-19m"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewEditText" destination="6Pq-z4-qKe" id="uOB-5d-7ka"/>
                 <outlet property="viewInstructions" destination="rV8-bq-9Iu" id="KkP-qY-drc"/>
@@ -135,7 +137,24 @@
                             <state key="normal" image="icon_publish_off.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnMakeOneClicked:" destination="-1" eventType="touchUpInside" id="Neo-t9-EN0"/>
+                            </connections>
                         </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9e-1x-JEQ" userLabel="Label - numOfMakeOne">
+                            <rect key="frame" x="462" y="44" width="36" height="27"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Heavy" family="Avenir Next Condensed" pointSize="18"/>
+                            <color key="textColor" red="0.087498815440000002" green="0.79239213409999998" blue="0.97843070649999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xAX-s0-uW6">
+                            <rect key="frame" x="436" y="53" width="37" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" red="0.087498815440000002" green="0.79239213409999998" blue="0.97843070649999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="color" red="0.087498815440000002" green="0.79239213409999998" blue="0.97843070649999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-9s-P3j" userLabel="Image View - video">
                             <rect key="frame" x="71" y="43" width="426" height="235"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

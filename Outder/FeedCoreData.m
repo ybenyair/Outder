@@ -8,6 +8,7 @@
 
 #import "FeedCoreData.h"
 #import "Feed.h"
+#import "AppDelegate.h"
 
 @implementation FeedCoreData
 
@@ -34,7 +35,10 @@
         // handle error
     } else {
         for (NSManagedObject *object in objects) {
-            [context deleteObject:object];
+            Feed *feed = (Feed *)object;
+            if ([feed.feedID integerValue] != 0) {
+                [context deleteObject:object];
+            }
         }
         [FeedCoreData saveDB:context];
     }
@@ -98,6 +102,27 @@
             feed.feedID = [NSNumber numberWithInt:[feedID intValue]];
         }
     }
+}
+
++ (Feed *)createFeed:(NSString *)type
+{
+    AppDelegate *app = [AppDelegate getInstance];
+    NSManagedObjectContext *context = app.managedObjectContext;
+    Feed *feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:context];
+    feed.feedID = [NSNumber numberWithInt:0];
+    feed.type = type;
+    return feed;
+}
+
++ (NSArray *)getUploadingFeeds:(NSString *)type
+{
+    AppDelegate *app = [AppDelegate getInstance];
+    NSManagedObjectContext *context = app.managedObjectContext;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
+    request.predicate = [NSPredicate predicateWithFormat:@"type = %@ AND feedID = 0 AND progress < 100", type];
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    return  objects;
 }
 
 @end

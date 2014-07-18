@@ -59,7 +59,7 @@
 
 - (void)pushDashboard
 {
-    [[RootViewController getInstance] startDashboardViewController];
+    [[RootViewController getInstance] startDashboardViewController:YES withTab:1];
 }
 
 - (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data

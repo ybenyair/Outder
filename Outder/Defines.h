@@ -14,6 +14,11 @@ typedef enum {
     kPUT
 } eRequestMethod;
 
+
+#define kMyVideoType @"MyVideo"
+#define kFeaturedVideoType @"FeaturedVideo"
+
+
 #define kServerTimeout 30
 #define kNumberOfFails 3
 

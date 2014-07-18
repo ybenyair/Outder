@@ -9,13 +9,18 @@
 #import "InstructionCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "FeedCoreData.h"
+#import "Defines.h"
+#import "UploadManager.h"
 
 @interface InstructionCell ()
 
 @end
 
 @implementation InstructionCell
-
+{
+    
+}
 
 @synthesize instructions, currentInstruction, index, videoCtrl, state;
 
@@ -122,157 +127,232 @@
     switch (self.state) {
             
         case kInstructionFixed:
-            [self setFixedShotLayer];
+            [self setInstructionFixedLayer];
             break;
             
         case kInstructionRetake:
-            [self setAfterUserShotLayer];
+            [self setInstructionRetakeLayer];
             break;
             
         case kInstructionRecord:
         case kInstructionUnknown:
-            [self setBeforeUserShotLayer];
+            [self setInstructionRecordLayer];
             break;
+            
         case kInstructionDone:
-            [self setDoneLayer];
+            [self setInstructionDoneLayer];
             break;
+
         default:
             break;
     }
 
 }
 
-- (void) hideFixedShotItems
+#pragma mark -
+#pragma mark contorl the visibale views
+
+- (void) hideEditTextView
+{
+    self.viewEditText.hidden = YES;
+    self.viewEditText.userInteractionEnabled = NO;
+}
+
+- (void) unhideEditTextView
+{
+    self.viewEditText.hidden = NO;
+    self.viewEditText.userInteractionEnabled = YES;
+}
+
+- (void) hideInstructionsView
+{
+    self.viewInstructions.hidden = YES;
+    self.viewInstructions.userInteractionEnabled = NO;
+}
+
+- (void) unhideInstructionsView
+{
+    self.viewInstructions.hidden = NO;
+    self.viewInstructions.userInteractionEnabled = YES;
+}
+
+- (void) setInstructionsViewActive
+{
+    [self hideEditTextView];
+    [self unhideInstructionsView];
+}
+
+- (void) setEditTextViewActive
+{
+    [self hideInstructionsView];
+    [self unhideEditTextView];
+}
+
+#pragma mark -
+#pragma mark contorl the visibale items in kInstructionRecord state
+
+- (void) hideInstructionRecordItems
+{
+   
+}
+
+- (void) unhideInstructionRecordItems
+{
+    [self setInstructionsViewActive];
+    self.labelNumber.hidden = NO;
+}
+
+- (void) setInstructionRecordLayer
+{
+    // Hide layers
+    [self hideInstructionFixedItems];
+    [self hideInstructionRetakeItems];
+    [self hideInstructionDoneItems];
+    
+    // Unhide layers
+    [self unhideInstructionRecordItems];
+    
+    // Set parameters
+    [self setImage:nil];
+    self.labelName.text = self.currentInstruction.name;
+    self.state = kInstructionRecord;
+}
+
+#pragma mark -
+#pragma mark contorl the visibale items in kInstructionFixed state
+
+- (void) hideInstructionFixedItems
 {
     self.labelFixedShot.hidden = YES;
     self.btnPlayFixedShot.hidden = YES;
     self.btnPlayFixedShot.enabled = NO;
 }
 
-- (void) setFixedShotLayer	
+- (void) unhideInstructionFixedItems
 {
-    [self hideBeforeUserShotItems];
-    [self hideAfterUserShotItems];
-    [self hideEditTextItems];
-    [self hideDoneItems];
-    
-    self.viewInstructions.hidden = NO;
-    self.viewEditText.hidden = YES;
-    
-    [self setImage:currentInstruction.imageURL];
+    [self setInstructionsViewActive];
     self.labelFixedShot.hidden = NO;
-    
     self.btnPlayFixedShot.hidden = NO;
     self.btnPlayFixedShot.enabled = YES;
-    
     self.labelNumber.hidden = NO;
-    self.labelName.text = self.currentInstruction.name;
+}
+
+- (void) setInstructionFixedLayer
+{
+    // Hide layers
+    [self hideInstructionRecordItems];
+    [self hideInstructionRetakeItems];
+    [self hideInstructionDoneItems];
     
-    [self.superCtrl setRecordButtonHidden:YES];
+    // Unhide layers
+    [self unhideInstructionFixedItems];
+    
+    // Set parameters
+    [self setImage:currentInstruction.imageURL];
+    self.labelName.text = self.currentInstruction.name;
     self.state = kInstructionFixed;
 }
 
-- (void) hideBeforeUserShotItems
-{
-    self.btnPlayPreview.hidden = YES;
-    self.btnPlayPreview.enabled = NO;
-}
+#pragma mark -
+#pragma mark contorl the visibale items in kInstructionRetake state
 
-- (void) setBeforeUserShotLayer
-{
-    [self hideEditTextItems];
-    [self hideAfterUserShotItems];
-    [self hideFixedShotItems];
-    [self hideDoneItems];
-    
-    self.viewEditText.hidden = YES;
-    self.viewInstructions.hidden = NO;
-
-    [self setImage:nil];
-    
-    self.btnPlayPreview.hidden = YES;
-    self.btnPlayPreview.enabled = NO;
-
-    self.labelNumber.hidden = NO;
-    self.labelName.text = self.currentInstruction.name;
-    
-    [self.superCtrl setRecordButtonHidden:NO];
-    self.state = kInstructionRecord;
-}
-
-- (void) hideAfterUserShotItems
+- (void) hideInstructionRetakeItems
 {
     self.btnEditTitle.hidden = YES;
     self.btnEditTitle.enabled = NO;
+    self.btnPlayPreview.hidden = YES;
+    self.btnPlayPreview.enabled = NO;
 }
 
-- (void) setAfterUserShotLayer
-{
-    [self hideEditTextItems];
-    [self hideBeforeUserShotItems];
-    [self hideFixedShotItems];
-    [self hideDoneItems];
-    
-    self.viewInstructions.hidden = NO;
-    self.viewEditText.hidden = YES;
 
-    [self setImageUserShot:currentInstruction.imageURL];
-    
+- (void) unhideInstructionRetakeItems
+{
+    [self setInstructionsViewActive];
     self.btnEditTitle.hidden = NO;
     self.btnEditTitle.enabled = YES;
     self.btnPlayPreview.hidden = NO;
     self.btnPlayPreview.enabled = YES;
-
     self.labelNumber.hidden = NO;
-    self.labelName.text = self.currentInstruction.name;
+}
+
+- (void) setInstructionRetakeLayer
+{
+    // Hide layers
+    [self hideInstructionRecordItems];
+    [self hideInstructionFixedItems];
+    [self hideInstructionDoneItems];
     
+    // Unhide layers
+    [self unhideInstructionRetakeItems];
+    
+    // Set parameters
+    [self setImageUserShot:currentInstruction.imageURL];
+    
+    self.labelName.text = self.currentInstruction.name;
     self.state = kInstructionRetake;
 }
 
 
-- (void) hideEditTextItems
+#pragma mark -
+#pragma mark contorl the visibale items in kInstructionDone state
+
+- (void) processUploadIndicator
 {
+    Instruction *inst = [instructions firstObject];
+    SubTemplate *subTemplate = inst.subTemplate;
+    NSInteger numOfMakeOne = [[UploadManager getInstance] getNumOfMakeOne:subTemplate];
     
+    NSLog(@"Numbet of MakeOne = %ld", (long)numOfMakeOne);
+    
+    if (numOfMakeOne > 0) {
+        self.uploadActivity.hidden = NO;
+        [self.uploadActivity startAnimating];
+        self.labelNumOfMakeOne.text = [NSString stringWithFormat:@"%ld", (long)numOfMakeOne];
+        self.labelNumOfMakeOne.hidden = NO;
+    } else {
+        self.uploadActivity.hidden = YES;
+        self.labelNumOfMakeOne.hidden = YES;
+    }
 }
 
-- (void) setEditTextLayer
-{
-    [self hideAfterUserShotItems];
-    [self hideBeforeUserShotItems];
-    [self hideFixedShotItems];
-    [self hideDoneItems];
-
-    self.viewInstructions.hidden = YES;
-    self.viewEditText.hidden = NO;
-}
-
-- (void) hideDoneItems
+- (void) hideInstructionDoneItems
 {
     self.btnPlayDone.hidden = YES;
     self.btnPlayDone.enabled = NO;
     self.btnMakeVideo.hidden = YES;
     self.btnMakeVideo.enabled = NO;
+    self.uploadActivity.hidden = YES;
+    self.labelNumOfMakeOne.hidden = YES;
 }
 
-- (void) setDoneLayer
+- (void) unhideInstructionDoneItems
 {
-    [self hideAfterUserShotItems];
-    [self hideBeforeUserShotItems];
-    [self hideFixedShotItems];
-    [self hideEditTextItems];
-    
-    self.viewInstructions.hidden = NO;
-    self.viewEditText.hidden = YES;
-    
+    [self setInstructionsViewActive];
     self.btnPlayDone.hidden = NO;
     self.btnPlayDone.enabled = YES;
+    
     self.btnMakeVideo.hidden = NO;
     self.btnMakeVideo.enabled = YES;
     
+    [self processUploadIndicator];
+}
+
+- (void) setInstructionDoneLayer
+{
+    // Hide layers
+    [self hideInstructionRecordItems];
+    [self hideInstructionFixedItems];
+    [self hideInstructionRetakeItems];
+    
+    // Unhide layers
+    [self unhideInstructionDoneItems];
+
+    // Set parameters
     self.labelNumber.hidden = YES;
     self.labelName.text = NSLocalizedString(@"Great! all shots were recorded", nil);
-    
     [self setImage:nil];
+    self.imageShot.backgroundColor = [UIColor clearColor];
+    self.imageShot.alpha = 0.5f;
 }
 
 - (void)setImage:(NSString *)imageURL
@@ -320,7 +400,7 @@
 {
     currentInstruction.imageURL = imagePath;
     currentInstruction.videoURL = videoPath;
-    [self setAfterUserShotLayer];
+    [self setInstructionRetakeLayer];
 }
 
 #pragma mark -
@@ -400,7 +480,7 @@
                                                  name:@"UITextFieldTextDidChangeNotification"
                                                object:self.textEditTitle];
     
-    [self setEditTextLayer];
+    [self setEditTextViewActive];
     [self.textEditTitle becomeFirstResponder];
 }
 
@@ -432,11 +512,9 @@
                                                  name:@"UITextFieldTextDidChangeNotification"
                                                object:self.textEditTitle];
     [textField resignFirstResponder];
-    [self setAfterUserShotLayer];
+    [self setInstructionsViewActive];
     return YES;
 }
-
-
 
 #pragma mark -
 #pragma mark Play video
@@ -451,5 +529,35 @@
     [self playVideo];
 }
 
+- (IBAction)btnMakeOneClicked:(id)sender {
+    NSLog(@"btnMakeOneClicked");
+    Feed *feed = [FeedCoreData createFeed:kMyVideoType];
+    Instruction *inst = [instructions firstObject];
+    SubTemplate *subTemplate = inst.subTemplate;
+    // A new feed
+    feed.title = subTemplate.title;
+    feed.videoURL = nil;
+    feed.imageURL = inst.imageURL;
+    feed.pageURL = nil;
+    NSDateFormatter *formatter;
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    feed.time = [formatter stringFromDate:[NSDate date]];
+    feed.subTemplate = subTemplate;
+    self.btnMakeVideo.enabled = NO;
+    //[subTemplate addFeedsObject:feed];
+    NSLog(@"Post MakeOne notification %p", feed);
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName:@"MakeOne"
+                                      object:feed
+                                    userInfo:nil];
+    
+}
+
+- (void)updateMakeOneCount
+{
+    [self processUploadIndicator];
+}
 
 @end

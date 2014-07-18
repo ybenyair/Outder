@@ -18,8 +18,11 @@
 @property (weak, nonatomic) IBOutlet UIView *landscapeView;
 @property (weak, nonatomic) IBOutlet UIView *portraitView;
 @property (weak, nonatomic) IBOutlet UIView *viewRecordTimer;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UIButton *btnRestart;
 
 - (IBAction)btnBackClicked:(id)sender;
+- (IBAction)btnRestartClicked:(id)sender;
 
 - (void)setRecordButtonHidden: (BOOL) hidden;
 

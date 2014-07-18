@@ -76,6 +76,23 @@
                                                     <action selector="toggleMovieRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="d0A-LS-VbE"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZW-HI-8V9" userLabel="Button - restart">
+                                                <rect key="frame" x="271" y="220" width="27" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" image="icon_restart_off.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnRestartClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MrD-KZ-VTL"/>
+                                                </connections>
+                                            </button>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="WEh-5N-dhq">
+                                                <rect key="frame" x="265" y="282" width="39" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="pageIndicatorTintColor" red="0.17764213849999999" green="0.70035260160000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="currentPageIndicatorTintColor" red="0.93499490490000003" green="0.12546871170000001" blue="0.13511399369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </pageControl>
                                         </subviews>
                                     </view>
                                 </subviews>
@@ -100,9 +117,11 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="btnRestart" destination="AZW-HI-8V9" id="gI7-cy-BjA"/>
                         <outlet property="cameraButton" destination="f4y-iM-g40" id="UG1-1g-xMf"/>
                         <outlet property="carousel" destination="mIR-Kr-b4h" id="Kqr-SY-zlL"/>
                         <outlet property="landscapeView" destination="Vbb-wp-Rag" id="8DC-0r-iaG"/>
+                        <outlet property="pageControl" destination="WEh-5N-dhq" id="Jis-N6-zjN"/>
                         <outlet property="portraitView" destination="aEA-Ti-KWX" id="cL0-ox-62A"/>
                         <outlet property="previewView" destination="sVI-mX-69Q" id="UGh-um-teZ"/>
                         <outlet property="recordButton" destination="YMe-OU-aTZ" id="cbc-TW-22p"/>
@@ -121,6 +140,7 @@
     <resources>
         <image name="back.png" width="11" height="19"/>
         <image name="flip.png" width="25" height="18"/>
+        <image name="icon_restart_off.png" width="54" height="43"/>
         <image name="recBtn1.png" width="38" height="38"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

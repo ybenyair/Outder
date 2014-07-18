@@ -53,6 +53,7 @@
     self.pageControl.numberOfPages = [_subTemplates count];
     [self setBackNavigationBarItems];
     self.tabBarController.tabBar.hidden = YES;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,10 +62,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) dealloc
+{
+
+}
+
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
 }
 
 - (void) viewDidDisappear:(BOOL)animated

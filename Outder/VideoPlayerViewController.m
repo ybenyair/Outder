@@ -423,7 +423,7 @@ static VideoPlayerViewController *activePlayer = nil;
     
     [UIView animateWithDuration:3.0f
                      animations:^{
-                         [self.self.mPlaybackView setAlpha:0];
+                         [self.mPlaybackView setAlpha:0];
                      }
                      completion:^(BOOL finished) {
                          if (finished)

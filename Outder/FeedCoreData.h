@@ -15,5 +15,7 @@
 + (void)setFeedTestData:(NSManagedObjectContext *)context feedType:(NSString *)type;
 + (void)clearDB:(NSManagedObjectContext *)context feedType:(NSString *)type;
 + (void)fillFeeds:(NSManagedObjectContext *)context data:(NSDictionary *)json feedType:(NSString *)type;
++ (Feed *)createFeed:(NSString *)type;
++ (NSArray *)getUploadingFeeds:(NSString *)type;
 
 @end

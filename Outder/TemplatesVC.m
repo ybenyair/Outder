@@ -86,6 +86,8 @@ static NSString *CellIdentifier = @"templateCell";
     
     self.carousel.type = iCarouselTypeCustom;
     self.carousel.centerItemWhenSelected = NO;
+    
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
 }
 
 - (void) setPromotedTemplates
@@ -172,6 +174,8 @@ static NSString *CellIdentifier = @"templateCell";
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [NSFetchedResultsController deleteCacheWithName:@"Template"];
+    
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"promoted = 0"];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"Template" inManagedObjectContext:managedObjectContext];

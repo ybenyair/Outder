@@ -8,7 +8,9 @@
 
 #import "AVCamInstructionsVC.h"
 #import "InstructionCell.h"
-#import "TemplateCoreData.h"
+#import "CoreData.h"
+#import "Feed.h"
+#import "Instruction.h"
 
 @interface AVCamInstructionsVC ()
 
@@ -74,8 +76,6 @@
     self.carousel.type = iCarouselTypeCustom;
     [self.carousel setScrollToItemBoundary:YES];
     _currentPage = 0;
-
-    [self registerToDeviceOrientationNotification];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if (UIDeviceOrientationIsLandscape(orientation) ) {
@@ -83,27 +83,61 @@
     } else {
         [self configureViewPortrait];
     }
-    
+
+    self.pageControl.numberOfPages = [self numberOfItemsInCarousel:self.carousel];
+
     isDone = [self wereInstructionsCompleted];
+    
     if (isDone) {
         [self insertDoneInstruction];
     }
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    NSLog(@"AVCamInstructionsVC: viewDidAppear");
     [super viewDidAppear:animated];
+    [self registerToDeviceOrientationNotification];
+    
+    // Adding observer
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(FeedMakeOneNtfy:)
+                                                 name:@"FeedMakeOneStart"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(FeedMakeOneNtfy:)
+                                                 name:@"FeedMakeOneDone"
+                                               object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    NSLog(@"AVCamInstructionsVC: viewDidDisappear");
     [super viewDidDisappear:animated];
+    [self deregisterToDeviceOrientationNotification];
+    // Removig observer
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:@"FeedMakeOneStart"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:@"FeedMakeOneDone"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (SubTemplate *) getSubTemplate
+{
+    Instruction *inst = [_instructions firstObject];
+    return inst.subTemplate;
 }
 
 #pragma mark - device orientation handling
@@ -242,7 +276,13 @@
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
 {
-
+    self.pageControl.currentPage = carousel.currentItemIndex;
+    
+    InstructionCell *item = [self getCurrentItem];
+    if (item.state == kInstructionDone) {
+        SubTemplate *sub = [self getSubTemplate];
+        item.btnMakeVideo.enabled = (![sub.makeOneDisable boolValue]);
+    }
 }
 
 - (void)carouselDidEndDecelerating:(iCarousel *)carousel
@@ -257,19 +297,21 @@
 
     switch (instruction.state) {
         
+        case kInstructionRecord:
+        case kInstructionUnknown:
+            [self setRecordButtonStateRecord];
+            break;
+            
         case kInstructionFixed:
-            [self enableRecodring:NO];
+            [self setRecordButtonStateFixed];
             break;
 
         case kInstructionRetake:
-            [self enableRecodring:YES];
             [self setRecordButtonStateRetake];
             break;
 
-        case kInstructionRecord:
-        case kInstructionUnknown:
-            [self enableRecodring:YES];
-            [self setRecordButtonStateRecord];
+        case kInstructionDone:
+            [self setRecordButtonStateDone];
             break;
 
         default:
@@ -290,7 +332,7 @@
 }
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
 {
-    [self enableRecodring:NO];
+    [self setRecordButtonStateDragging];
     beginOffset = carousel.scrollOffset;
     carousel.forceScrollDirection = 0;
 }
@@ -396,8 +438,84 @@
 
 - (IBAction)btnBackClicked:(id)sender
 {
-    [TemplateCoreData saveDB];
+    [CoreData saveDB];
     [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (IBAction)btnRestartClicked:(id)sender {
+
+    [self deleteFiles];
+
+    Instruction *inst = nil;
+    for (id dataElement in _instructions) {
+        
+        inst = (Instruction *)dataElement;
+        if ([inst.fixed boolValue] == NO) {
+            inst.imageURL = nil;
+            inst.videoURL = nil;
+        }
+    }
+    
+    [self deleteDoneInstruction];
+    
+    isDone = NO;
+    inst.subTemplate.makeOneDisable = [NSNumber numberWithBool:NO];
+}
+
+- (void) deleteFiles
+{
+    NSMutableArray *imageFiles = [[NSMutableArray alloc] init];
+    NSMutableArray *videoFiles = [[NSMutableArray alloc] init];
+
+    for (id dataElement in _instructions) {
+        Instruction *inst = (Instruction *)dataElement;
+        if ([inst.fixed boolValue] == NO)
+        {
+            if (inst.videoURL) [videoFiles addObject:inst.videoURL];
+            if (inst.imageURL) [imageFiles addObject:inst.imageURL];
+        }
+    }
+    
+    [self deleteVideoFiles:videoFiles];
+    [self deleteImageFiles:imageFiles];
+}
+
+- (void) deleteVideoFiles: (NSMutableArray *)files
+{
+    NSLog(@"Video files to delete: %ld", (long)[files count]);
+    
+    dispatch_queue_t myQueue = dispatch_queue_create("com.outder.deletevideofiles",NULL);
+    dispatch_async(myQueue, ^{
+        
+        for (id dataElement in files) {
+            NSString *file = (NSString *)dataElement;
+            NSError* error = nil;
+            NSURL *url = [NSURL URLWithString:file];
+            [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+            if (error) {
+                NSLog(@"%@", error);
+            }
+        }
+    });
+}
+
+- (void) deleteImageFiles: (NSMutableArray *)files
+{
+    NSLog(@"Image files to delete: %ld", (long)[files count]);
+    
+    dispatch_queue_t myQueue = dispatch_queue_create("com.outder.deleteimagefiles",NULL);
+    dispatch_async(myQueue, ^{
+        
+        for (id dataElement in files) {
+            NSString *file = (NSString *)dataElement;
+            NSError* error = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:file error:&error];
+            
+            if (error) {
+                NSLog(@"%@", error);
+            }
+        }
+    });
 }
 
 #pragma mark -
@@ -422,6 +540,10 @@
                              [self startRecordAnimation];
                          }
                      }];
+    
+    SubTemplate *sub = [self getSubTemplate];
+
+    sub.makeOneDisable = [NSNumber numberWithBool:NO];
 }
 
 - (void)ntfyRecordEnd
@@ -447,6 +569,8 @@
 
 - (void) setRecordButtonStateRecord
 {
+    [self enableRecodring:YES];
+    self.btnRestart.hidden = YES;
     [[self recordButton] setImage:[UIImage imageNamed:@"recBtn1.png"] forState:UIControlStateNormal];
     CGPoint center = self.carousel.center;
     center.y = center.y + 10;
@@ -456,19 +580,41 @@
 
 - (void) setRecordButtonStateRecording
 {
+    self.btnRestart.hidden = YES;
     [[self recordButton] setImage:[UIImage imageNamed:@"recBtn3.png"] forState:UIControlStateNormal];
     self.recordButton.frame = CGRectMake(0, 0, 38, 38);
     self.recordButton.center = self.viewRecordTimer.center;
 }
 
+- (void) setRecordButtonStateFixed
+{
+    [self enableRecodring:NO];
+    self.btnRestart.hidden = YES;
+}
+
 - (void) setRecordButtonStateRetake
 {
+    [self enableRecodring:YES];
+    self.btnRestart.hidden = YES;
     [[self recordButton] setImage:[UIImage imageNamed:@"icon_retake_off.png"] forState:UIControlStateNormal];
     CGPoint center = self.carousel.center;
     center.y = center.y + 80;
     self.recordButton.frame = CGRectMake(0, 0, 27, 22);
     self.recordButton.bounds = CGRectMake(0, 0, 27, 22);
     self.recordButton.center = center;
+}
+
+- (void) setRecordButtonStateDone
+{
+    [self enableRecodring:NO];
+    self.btnRestart.hidden = NO;
+    
+}
+
+- (void) setRecordButtonStateDragging
+{
+    [self enableRecodring:NO];
+    self.btnRestart.hidden = YES;
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
@@ -632,7 +778,15 @@
 
 - (void) insertDoneInstruction
 {
+    self.pageControl.numberOfPages = self.pageControl.numberOfPages + 1;
     [self.carousel insertItemAtIndex:self.carousel.numberOfItems animated:NO];
+}
+
+- (void) deleteDoneInstruction
+{
+    self.pageControl.numberOfPages = self.pageControl.numberOfPages - 1;
+    [self.carousel removeItemAtIndex:self.carousel.numberOfItems animated:NO];
+    [self.carousel scrollToItemAtIndex:0 animated:YES];
 }
 
 #pragma mark -
@@ -664,6 +818,22 @@
     }
 
     return completed;
+}
+
+- (void)FeedMakeOneNtfy:(NSNotification *)notification
+{
+    Feed *ntfyFeed = notification.object;
+    SubTemplate *ntfySubTemplate = ntfyFeed.subTemplate;
+    Instruction *inst = [_instructions firstObject];
+    SubTemplate *subTemplate = inst.subTemplate;
+    
+    if (ntfySubTemplate == subTemplate) {
+        InstructionCell *item = [self getCurrentItem];
+        if ([ntfyFeed.progress intValue] == 0) {
+            ntfySubTemplate.makeOneDisable = [NSNumber numberWithBool:YES];
+        }
+        [item updateMakeOneCount];
+    }
 }
 
 @end

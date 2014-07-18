@@ -2,11 +2,12 @@
 //  SubTemplate.m
 //  Outder
 //
-//  Created by Yossi on 7/3/14.
+//  Created by Yossi on 7/18/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
 #import "SubTemplate.h"
+#import "Feed.h"
 #import "Instruction.h"
 #import "Template.h"
 
@@ -18,6 +19,8 @@
 @dynamic order;
 @dynamic title;
 @dynamic videoURL;
+@dynamic makeOneDisable;
+@dynamic feeds;
 @dynamic instructions;
 @dynamic template;
 

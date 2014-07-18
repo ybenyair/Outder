@@ -4,10 +4,12 @@
         <attribute name="feedID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="progress" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="subTemplate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubTemplate" inverseName="feeds" inverseEntity="SubTemplate" syncable="YES"/>
     </entity>
     <entity name="Instruction" representedClassName="Instruction" syncable="YES">
         <attribute name="fixed" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -24,9 +26,11 @@
     <entity name="SubTemplate" representedClassName="SubTemplate" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="makeOneDisable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feed" inverseName="subTemplate" inverseEntity="Feed" syncable="YES"/>
         <relationship name="instructions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Instruction" inverseName="subTemplate" inverseEntity="Instruction" syncable="YES"/>
         <relationship name="template" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Template" inverseName="subTemplates" inverseEntity="Template" syncable="YES"/>
     </entity>
@@ -45,9 +49,9 @@
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="-459" positionY="99" width="128" height="150"/>
+        <element name="Feed" positionX="-459" positionY="99" width="128" height="178"/>
         <element name="Instruction" positionX="70" positionY="135" width="128" height="193"/>
-        <element name="SubTemplate" positionX="-108" positionY="-0" width="128" height="148"/>
+        <element name="SubTemplate" positionX="-108" positionY="-0" width="128" height="178"/>
         <element name="Template" positionX="-279" positionY="-18" width="128" height="133"/>
         <element name="UserInfo" positionX="-468" positionY="-45" width="128" height="105"/>
     </elements>

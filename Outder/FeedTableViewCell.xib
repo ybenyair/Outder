@@ -21,6 +21,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kaF-ef-nXa">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ob5-hE-vbg">
                                 <rect key="frame" x="10" y="78" width="301" height="114"/>
@@ -49,15 +50,31 @@
                                     <action selector="cameraButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="s6y-HE-Euy"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ejv-hc-C5o">
+                                <rect key="frame" x="142" y="72" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="Skb-xI-DCY" userLabel="Label - progress">
+                                <rect key="frame" x="278" y="140" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="activityIndicator" destination="Ejv-hc-C5o" id="J07-nM-w3p"/>
                 <outlet property="cameraButton" destination="GNc-qa-5hy" id="1Vh-aa-yDr"/>
                 <outlet property="feedContentView" destination="7le-BZ-dtQ" id="vzm-4k-RBj"/>
                 <outlet property="image" destination="kaF-ef-nXa" id="ieW-AG-Uty"/>
+                <outlet property="labelProgress" destination="Skb-xI-DCY" id="aoY-UH-oVP"/>
                 <outlet property="sharedButton" destination="Ar4-nq-XL3" id="EpS-ZU-Obv"/>
                 <outlet property="title" destination="ob5-hE-vbg" id="qAu-I2-Yvj"/>
             </connections>

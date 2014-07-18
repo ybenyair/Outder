@@ -15,6 +15,5 @@
 + (void)fillTemplates:(NSManagedObjectContext *)context data:(NSDictionary *)json;
 + (void)clearDB:(NSManagedObjectContext *)context;
 + (Template *) getTemplate: (NSManagedObjectContext *)context byId:(NSInteger)id;
-+ (void)saveDB;
 
 @end

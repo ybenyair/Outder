@@ -39,6 +39,7 @@ typedef enum {
 
 - (void)configureItem: (UIView *)view;
 - (void)itemClicked;
+- (void)updateMakeOneCount;
 - (void)setImage:(NSString *)imageURL;
 - (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath;
 
@@ -58,10 +59,13 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *textEditPlaceholder;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayDone;
 @property (weak, nonatomic) IBOutlet UIButton *btnMakeVideo;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *uploadActivity;
+@property (weak, nonatomic) IBOutlet UILabel *labelNumOfMakeOne;
 
 - (IBAction)btnPlayListClicked:(id)sender;
 - (IBAction)btnEditTitleClicked:(id)sender;
 - (IBAction)btnPreviewClicked:(id)sender;
 - (IBAction)btnFixedShotClicked:(id)sender;
+- (IBAction)btnMakeOneClicked:(id)sender;
 
 @end

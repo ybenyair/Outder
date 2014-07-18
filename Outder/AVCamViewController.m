@@ -302,7 +302,15 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         start = YES;
     } else {
         [self ntfyRecordEnd];
-        [self ntfyFileSaved:nil];
+        NSString *pathFile = [[NSBundle mainBundle] pathForResource:@"Outder" ofType:@"mp4"];
+        NSString *pathDir = [[NSBundle mainBundle] resourcePath];
+        NSString *tmpFile = [NSString stringWithFormat:@"%@/movie.mp4", pathDir];
+        
+        NSError* error = nil;
+        [[NSFileManager defaultManager] copyItemAtPath:pathFile toPath:tmpFile error:&error];
+        
+        NSURL *url = [NSURL fileURLWithPath:tmpFile];
+        [self ntfyFileSaved:url];
         start = NO;
     }
     
