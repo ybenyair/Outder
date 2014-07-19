@@ -309,11 +309,10 @@
     self.btnMake.alpha = 0.0f;
     self.imgMake.alpha = 0.0f;
     [self setMakeOneSmaller];
-    
     [UIView animateWithDuration:1.0
                      animations:^{
-                         self.btnMake.alpha = 1.0f;
-                         self.imgMake.alpha = 1.0f;
+                         [self relocateMakeOne];
+                         
                      }];
 }
 
@@ -325,23 +324,33 @@
     self.tableDirections.frame= frame;
 }
 
+#define kMakeScale 0.6
+
 - (void) setMakeOneSmaller
 {
     CGRect frameBtn = self.btnMake.frame;
-    frameBtn.size.height = frameBtn.size.height*0.75;
-    frameBtn.size.width = frameBtn.size.width*0.75;
+    frameBtn.size.height = frameBtn.size.height*kMakeScale;
+    frameBtn.size.width = frameBtn.size.width*kMakeScale;
+    frameBtn.origin.x = self.view.frame.size.width/2 - frameBtn.size.width/2;
     
     CGRect frameImage = self.imgMake.frame;
-    frameImage.size.height = frameImage.size.height*0.75;
-    frameImage.size.width = frameImage.size.width*0.75;
-    
+    frameImage.size.height = frameImage.size.height*kMakeScale;
+    frameImage.size.width = frameImage.size.width*kMakeScale;
+    frameImage.origin.x = self.view.frame.size.width/2 - frameImage.size.width/2;
     [self.btnMake.titleLabel setFont:[UIFont systemFontOfSize:14]];
     
     self.btnMake.frame = frameBtn;
     self.imgMake.frame= frameImage;
-    
+ 
+}
+
+- (void) relocateMakeOne
+{
     self.btnMake.center = self.labelMakePlace.center;
     self.imgMake.center = self.labelMakePlace.center;
+    
+    self.btnMake.alpha = 1.0f;
+    self.imgMake.alpha = 1.0f;
 }
 
 #pragma mark - Actions (Hide directions)
