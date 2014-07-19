@@ -16,15 +16,20 @@
 
 @interface SubTemplateCell : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic,strong) UIImageView *videoImage;
-@property (nonatomic,strong) UILabel *labelTitle;
-@property (nonatomic,strong) UILabel *labelTitleDirection;
-@property (nonatomic,strong) UIButton *btnMake;
-@property (nonatomic,strong) UIImageView *imgMake;
++ (SubTemplateCell *) loadInstance;
 
-@property (nonatomic,strong) UIButton *btnDirection;
-@property (nonatomic,strong) CAShapeLayer *lineLayer;
-@property (nonatomic,strong) UITableView *tableDirections;
+@property (weak, nonatomic) IBOutlet UIImageView *videoImage;
+@property (weak, nonatomic) IBOutlet UILabel *labelTitle;
+@property (weak, nonatomic) IBOutlet UIButton *btnMake;
+@property (weak, nonatomic) IBOutlet UIImageView *imgMake;
+@property (weak, nonatomic) IBOutlet UITableView *tableDirections;
+@property (weak, nonatomic) IBOutlet UIButton *btnHideDirections;
+@property (weak, nonatomic) IBOutlet UIButton *btnShowDirections;
+@property (weak, nonatomic) IBOutlet UILabel *labelMakePlace;
+
+- (IBAction)btnHideDirectionsClicked:(id)sender;
+- (IBAction)btnShowDirectionsClicked:(id)sender;
+- (IBAction)btnMakeOneClicked:(id)sender;
 
 @property (nonatomic,strong) SubTemplate *subTemplate;
 @property (nonatomic,strong) VideoPlayerViewController *videoCtrl;

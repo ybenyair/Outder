@@ -133,7 +133,7 @@
     if (view == nil)
     {
         NSLog(@"Create a new view for index %ld",(long)index);
-        subTemplateItem = [[SubTemplateCell alloc] init];
+        subTemplateItem = [SubTemplateCell loadInstance];
         subTemplateItem.view.frame = carousel.frame;
         subTemplateItem.delegate = self;
         NSString *key = [NSString stringWithFormat:@"%p",subTemplateItem.view];
