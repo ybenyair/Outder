@@ -13,17 +13,8 @@
 #import "SubTemplate.h"
 #import "Instruction.h"
 #import "Defines.h"
-
-@interface UploadServerCommunication : ServerCommunication
-
-@property (nonatomic, strong) Feed *feed;
-
-@end
-
-@implementation UploadServerCommunication
-
-@end
-
+#import "FeedUploader.h"
+#import "InstructionUploader.h"
 
 static UploadManager *instance;
 
@@ -49,6 +40,7 @@ static UploadManager *instance;
                                                  selector:@selector(MakeOne:)
                                                      name:@"MakeOne"
                                                    object:nil];
+        
         instance = self;
     }
     return self;
@@ -79,13 +71,18 @@ static UploadManager *instance;
 
 - (void) uploadFeed: (Feed *)feed
 {
-    UploadServerCommunication *comm = [[UploadServerCommunication alloc] init];
-    comm.uploadDelegate = self;
-    comm.userData = comm;
-    comm.feed = feed;
+    FeedUploader *uploader = [[FeedUploader alloc] init];
+    uploader.feed = feed;
+    uploader.feedUploadDelegate = self;
     
-    [self addActiveUploader: comm];
-    [comm uploadFeed:feed];
+    [self addActiveUploader: uploader];
+    
+    for (id dataElement in feed.subTemplate.instructions) {
+        Instruction *inst = (Instruction *)dataElement;
+        if ([inst.fixed boolValue] == NO) {
+            [self uploadInstruction:inst withUploader:uploader];
+        }
+    }
     
     NSLog(@"Post UPLOAD START notification: %@", feed.title);
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -109,22 +106,14 @@ static UploadManager *instance;
     NSLog(@"Remove uploader. Number of uploaders = %lu", (unsigned long)[_activeUploaders count]);
 }
 
-- (void) processStateInProgress: (UploadServerCommunication *)uploader withProgress:(NSInteger) progress
-{
-    NSLog(@"FEED UPLOAD PROGRESS [%ld]: %@", (long)progress, uploader.feed.title);
-    uploader.feed.progress = [NSNumber numberWithInteger:progress];
-}
-
-- (void) processStateOK: (UploadServerCommunication *)uploader
+- (void) uploadStateDone: (FeedUploader *)uploader
 {
     NSLog(@"FEED UPLOAD DONE: %@", uploader.feed.title);
     [self removeActiveUploader:uploader];
 
     // This is for a tests
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(aFeedReady:) userInfo:uploader.feed repeats:NO];
-
 }
-
 
 -(void)aFeedReady: (NSTimer *)timer
 {
@@ -144,7 +133,7 @@ static UploadManager *instance;
     [CoreData saveDB];
 }
 
-- (void) processStateError: (UploadServerCommunication *)uploader
+- (void) uploadStateError: (FeedUploader *)uploader
 {
     NSLog(@"FEED UPLOAD ERROR: %@", uploader.feed.title);
     [self removeActiveUploader:uploader];
@@ -154,7 +143,7 @@ static UploadManager *instance;
                                       object:uploader.feed
                                     userInfo:nil];
     
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(aTime:) userInfo:uploader.feed repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(aTime:) userInfo:uploader.feed repeats:NO];
 }
 
 -(void)aTime: (NSTimer *)timer
@@ -164,31 +153,23 @@ static UploadManager *instance;
     [self uploadFeed:feed];
 }
 
-- (void)uploadResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code progress:(NSInteger)progress userData:(NSObject *)data;
+- (void)uploadResponse:(eFeedUploadCode)code progress:(NSNumber *)progress uploader:(FeedUploader *)instance
 {
-    UploadServerCommunication *uploader = (UploadServerCommunication *)data;
-    
     switch (code) {
-        case kCommInProgress:
-            [self processStateInProgress:uploader withProgress:progress];
+        case kFeedUploadDone:
+            [self uploadStateDone:instance];
             break;
-        case kCommOK:
-            [self processStateOK:uploader];
+        case kFeedUploadError:
+            [self uploadStateError:instance];
             break;
-        case kCommErrorNetwork:
-        case kCommErrorServer:
-            [self processStateError:uploader];
-            break;
-
     }
 }
-
 
 - (NSInteger)getNumOfMakeOne: (SubTemplate *)subTemplate
 {
     NSInteger num = 0;
     for(id key in _activeUploaders) {
-        UploadServerCommunication *comm = [_activeUploaders objectForKey:key];
+        FeedUploader *comm = [_activeUploaders objectForKey:key];
         if (comm.feed.subTemplate == subTemplate) {
             num++;
         }
@@ -196,5 +177,36 @@ static UploadManager *instance;
     
     return num;
 }
+
+
+
+- (void)uploadInstruction:(Instruction *)instruction withUploader: (FeedUploader *)uploader
+{
+    NSString *fileURL = instruction.videoURL;
+    NSString *filename = [fileURL lastPathComponent];
+    NSString *key = [NSString stringWithFormat:@"media_test/%@",filename];
+    NSURL *url = [NSURL URLWithString:fileURL];
+    NSString *filePath = [url path];
+    
+    NSLog(@"Uploading %@ to %@", fileURL, key);
+    
+    InstructionUploader *instUploader = [InstructionUploader PUTRequestForFile:filePath withBucket:VIDEO_BUCKET key:key];
+    [ASIS3Request setSharedSecretAccessKey:SECRET_KEY];
+    [ASIS3Request setSharedAccessKey:ACCESS_KEY_ID];
+
+    [instUploader setDelegate:instUploader];
+    [instUploader setShouldContinueWhenAppEntersBackground:YES];
+    [instUploader setTimeOutSeconds:kServerTimeout];
+    [instUploader setUploadProgressDelegate:instUploader];
+    instUploader.showAccurateProgress = YES;
+    
+    instUploader.feedUploader = uploader;
+    instUploader.filePath = filePath;
+    instUploader.instruction = instruction;
+    
+    [uploader addOperation:instUploader];
+    [uploader go];
+}
+
 
 @end

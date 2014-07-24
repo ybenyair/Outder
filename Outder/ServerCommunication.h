@@ -21,10 +21,6 @@ typedef enum {
 - (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data;
 @end
 
-@protocol ServerUploadDelegate
-- (void)uploadResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code progress:(NSInteger)progress userData:(NSObject *)data;
-@end
-
 @interface ServerCommunication : NSObject <NSURLConnectionDelegate>
 {
     NSMutableData *_responseData;
@@ -32,7 +28,6 @@ typedef enum {
 
 @property (nonatomic,strong) NSObject* userData;
 @property (nonatomic, weak) id <ServerCommunicationDelegate> delegate;
-@property (nonatomic, weak) id <ServerUploadDelegate> uploadDelegate;
 
 - (void)getFeeds: (NSString *)time feedType:(NSString *)type;
 - (void)refreshFeeds:(NSString *)type;
@@ -40,6 +35,5 @@ typedef enum {
 - (void)sendLogin:(LoginInfo *)loginInfo;
 - (void)getTemplates;
 - (void)setUserData: (NSObject *)obj;
-- (void)uploadFeed:(Feed *)feed;
 
 @end

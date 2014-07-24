@@ -10,8 +10,9 @@
 #import "Feed.h"
 #import "ServerCommunication.h"
 #import "SubTemplate.h"
+#import "FeedUploader.h"
 
-@interface UploadManager : NSObject <ServerUploadDelegate>
+@interface UploadManager : NSObject <FeedUploaderDelegate>
 
 + (UploadManager *) getInstance;
 

@@ -107,28 +107,6 @@
 
 }
 
-- (void)uploadFeed:(Feed *)feed
-{
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(aTime:) userInfo:feed repeats:YES];
-}
-
--(void)aTime: (NSTimer *)timer
-{
-    progress = progress + 5;
-    
-    if (progress <= 100) {
-        [self.uploadDelegate uploadResponse:nil responseCode:kCommInProgress progress:progress userData:self.userData];
-    }
-    
-    NSLog(@"Timer progress %ld", (long)progress);
-
-    if (progress == 100) {
-        progress = 0;
-        [timer invalidate];
-        [self.uploadDelegate uploadResponse:nil responseCode:kCommOK progress:progress userData:self.userData];
-    }
-}
-
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
     // so that we can append data to it in the didReceiveData method
