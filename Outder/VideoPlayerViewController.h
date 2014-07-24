@@ -11,6 +11,20 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AVPlayerPlaybackView.h"
 
+#pragma mark - VideoOverlays
+
+@interface  VideoOverlay : NSObject
+
+@property (nonatomic) CGFloat overlayPeriod;
+@property (nonatomic,strong) NSMutableArray *overlayImagesURL;
+@property (nonatomic,strong) NSString *backgroundTrack;
+
+@end
+
+
+
+#pragma mark - VideoPlayerViewController
+
 typedef enum {
     kVideoOpening,
     kVideoOpened,
