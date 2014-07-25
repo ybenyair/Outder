@@ -252,7 +252,7 @@
     [self configureBtnMake];
     
     if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
-        [videoCtrl stopVideo];
+        [videoCtrl stopVideo:NO];
         videoCtrl = nil;
     }    
 }

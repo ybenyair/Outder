@@ -68,23 +68,77 @@
     return  template;
 }
 
++ (Instruction *)getInstruction:(NSManagedObjectContext *)context withId:(NSNumber *)InstructionID
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Instruction"];
+    request.predicate = [NSPredicate predicateWithFormat:@"id = %@", InstructionID];
+    NSError *error;
+    Instruction *instruction = nil;
+    instruction = [[context executeFetchRequest:request error:&error] lastObject];
+    
+    if (!error && !instruction) {
+        // Create the initial userInfo entity in the DB
+        instruction = [NSEntityDescription insertNewObjectForEntityForName:@"Instruction" inManagedObjectContext:context];
+        instruction.id = 0;
+        NSLog(@"New Instruction = %ld", (long)[InstructionID integerValue]);
+	} else {
+        NSLog(@"Update Instruction = %ld", (long)[InstructionID integerValue]);
+    }
+    
+    return instruction;
+}
+
 + (void)fillInstructions: (NSArray *)instructions inSubTemplate:(SubTemplate *)subTemplate atContext:(NSManagedObjectContext *)context
 {
     Instruction *instruction = nil;
     for (id dataElement in instructions) {
         NSDictionary *instructionData = (NSDictionary *)dataElement;
-        instruction = [NSEntityDescription insertNewObjectForEntityForName:@"Instruction" inManagedObjectContext:context];
-        instruction.id = [instructionData objectForKey:@"id"];
+        NSNumber *numID = [instructionData objectForKey:@"id"];
+        NSInteger intID = [numID integerValue] + [subTemplate.id integerValue] * 10000;
+        numID = [NSNumber numberWithInteger:intID];
+        instruction = [TemplateCoreData getInstruction:context withId:numID];
+        
+        instruction.id = numID;
         instruction.fixed = [instructionData objectForKey:@"fixed"];
-        instruction.imageURL = [instructionData objectForKey:@"image"];
-        instruction.videoURL = [instructionData objectForKey:@"video_url"];
+        
+        if ([instruction.fixed boolValue] == YES) {
+            instruction.imageURL = [instructionData objectForKey:@"image"];
+            instruction.videoURL = [instructionData objectForKey:@"video_url"];
+        }
+        
         instruction.usertexthint = [instructionData objectForKey:@"usertexthint"];
         instruction.usertext = [instructionData objectForKey:@"usertext"];
         instruction.name = [instructionData objectForKey:@"name"];
         instruction.minlength = [instructionData objectForKey:@"minlength"];
         instruction.length = [instructionData objectForKey:@"length"];
+        
+        instruction.overlayImagePrefixURL = [instructionData objectForKey:@"overlay_prefix_url"];
+        instruction.overlayImageFirstIndex = [instructionData objectForKey:@"overlay_first_index"];
+        instruction.overlayTrackURL = [instructionData objectForKey:@"overlay_track"];
+        
         [subTemplate addInstructionsObject:instruction];
     }
+}
+
+
++ (SubTemplate *)getSubTemplate:(NSManagedObjectContext *)context withId:(NSNumber *)subTemplateID
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"SubTemplate"];
+    request.predicate = [NSPredicate predicateWithFormat:@"id = %ld", (long)[subTemplateID integerValue]];
+    NSError *error;
+    SubTemplate *subTemplate = nil;
+    subTemplate = [[context executeFetchRequest:request error:&error] lastObject];
+    
+    if (!error && !subTemplate) {
+        // Create the initial userInfo entity in the DB
+        subTemplate = [NSEntityDescription insertNewObjectForEntityForName:@"SubTemplate" inManagedObjectContext:context];
+        subTemplate.id = 0;
+        NSLog(@"New subTemplate = %ld", (long)[subTemplateID integerValue]);
+	} else {
+        NSLog(@"Update subTemplate = %ld", (long)[subTemplateID integerValue]);
+    }
+    
+    return  subTemplate;
 }
 
 + (void)fillSubTemplates: (NSArray *)subTemplates inTemplate:(Template *)template atContext:(NSManagedObjectContext *)context
@@ -92,7 +146,8 @@
     SubTemplate *subTemplate = nil;
     for (id dataElement in subTemplates) {
         NSDictionary *subTemplateData = (NSDictionary *)dataElement;
-        subTemplate = [NSEntityDescription insertNewObjectForEntityForName:@"SubTemplate" inManagedObjectContext:context];
+        NSNumber *numID = [subTemplateData objectForKey:@"id"];
+        subTemplate = [TemplateCoreData getSubTemplate:context withId:numID];
         subTemplate.id = [subTemplateData objectForKey:@"id"];
         subTemplate.order = [subTemplateData objectForKey:@"order"];
         subTemplate.imageURL = [subTemplateData objectForKey:@"image"];
@@ -116,16 +171,13 @@
         NSInteger numId = [templateID intValue];
         Template *template = [TemplateCoreData getTemplate:context withId:numId atAutoCreate:YES];
         
-        if (template.id == 0) {
-            // A new template
-            template.id = [templateData objectForKey:@"id"];
-            template.order = [templateData objectForKey:@"order"];
-            template.imageURL = [templateData objectForKey:@"image"];
-            template.title = [templateData objectForKey:@"title"];
-            template.promoted = [templateData objectForKey:@"promoted"];
-            NSArray *subTemplates = [templateData objectForKey:@"subtemplate"];
-            [TemplateCoreData fillSubTemplates:subTemplates inTemplate:template atContext:context];
-        }
+        template.id = [templateData objectForKey:@"id"];
+        template.order = [templateData objectForKey:@"order"];
+        template.imageURL = [templateData objectForKey:@"image"];
+        template.title = [templateData objectForKey:@"title"];
+        template.promoted = [templateData objectForKey:@"promoted"];
+        NSArray *subTemplates = [templateData objectForKey:@"subtemplate"];
+        [TemplateCoreData fillSubTemplates:subTemplates inTemplate:template atContext:context];
     }
 }
 

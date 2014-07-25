@@ -222,7 +222,7 @@
     }
 
     if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
-        [videoCtrl stopVideo];
+        [videoCtrl stopVideo:YES];
         videoCtrl = nil;
     }
     

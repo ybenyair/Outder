@@ -302,7 +302,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         start = YES;
     } else {
         [self ntfyRecordEnd];
-        NSString *pathFile = [[NSBundle mainBundle] pathForResource:@"Outder" ofType:@"mp4"];
+        NSString *pathFile = [[NSBundle mainBundle] pathForResource:@"p3" ofType:@"mp4"];
         NSString *pathDir = [[NSBundle mainBundle] resourcePath];
         NSString *tmpFile = [NSString stringWithFormat:@"%@/movie.mp4", pathDir];
         

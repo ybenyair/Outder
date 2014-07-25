@@ -17,39 +17,49 @@
 
 
 #pragma mark - VideoOverlayHandler
-
+/*
 @interface  VideoOverlayHandler : NSObject
 
 @property (nonatomic) NSUInteger currentOverlayIndex;
 @property (nonatomic,strong) NSMutableArray *overlayImages;
 @property (nonatomic,strong) VideoOverlay *videoOverlay;
-@property (nonatomic,strong) AVPlayer *audioStreamer;
-@property (nonatomic,strong) NSTimer *overlayTimer;
 
 @end
 
 @implementation VideoOverlayHandler
 
 @end
+*/
 
 @interface VideoPlayerViewController ()
+{
+
+}
 
 @end
 
 @implementation VideoPlayerViewController
 {
-    NSMutableArray *videoItems;
-    NSMutableArray *videoOverlayHandlerArray;
+    id <VideoPlayerViewControllerDelegate> delegate;
+    id delegateInfo;
+    CGFloat fadingDuration;
+    AVPlayerItem *videoItem;
     AVQueuePlayer *queuePlayer;
     UIImageView *overlayView;
-    NSUInteger currentPlayingVideo;
+    VideoOverlay *overlayItems;
+    AVPlayer *overlayAudioStreamer;
+    AVPlayerItem *overlayAudioItem;
+    NSMutableArray *overlayImages;
+    NSUInteger overlayCurrentImage;
+    NSTimer *overlayTimer;
+    BOOL getReadyOnly;
+    UIDeviceOrientation requestedOrientation;
 }
 
 static VideoPlayerViewController *activePlayer = nil;
 
 @synthesize activityIndicator;
 @synthesize stopButton;
-//@synthesize videoPlayer;
 @synthesize videoState;
 @synthesize playbackErrorLabel, enableAutoRotation, mPlaybackView;
 
@@ -69,9 +79,26 @@ static VideoPlayerViewController *activePlayer = nil;
         
         [self initStopButton];
         [self initPlaybackErrorLabel];
+        fadingDuration = 1.0f;
     }
     
     return self;
+}
+
+- (void) setFadingDuration: (CGFloat) duration
+{
+    fadingDuration = duration;
+}
+
+- (void) setDelegate:(id)obj withInfo: (id) info
+{
+    delegate = obj;
+    delegateInfo = info;
+}
+
+- (void) dealloc {
+    playbackErrorLabel = nil;
+    stopButton = nil;
 }
 
 - (void)viewDidLoad
@@ -137,22 +164,25 @@ static VideoPlayerViewController *activePlayer = nil;
         case UIDeviceOrientationLandscapeLeft:
             /* start special animation */
             NSLog(@"Landscape left");
-            [self configurePlayerViewLandscape:(M_PI / 2)];
+            requestedOrientation = UIDeviceOrientationLandscapeLeft;
+            [self configurePlayerViewLandscape:(M_PI / 2) withAnimation:YES];
             break;
         
         case UIDeviceOrientationLandscapeRight:
             /* start special animation */
             NSLog(@"Landscape right");
-            [self configurePlayerViewLandscape:(3 * M_PI / 2)];
+            requestedOrientation = UIDeviceOrientationLandscapeRight;
+            [self configurePlayerViewLandscape:(3 * M_PI / 2) withAnimation:YES];
             break;
             
         case UIDeviceOrientationPortrait:
+            requestedOrientation = UIDeviceOrientationPortrait;
             [self configurePlayerViewBackToPortrait:(0)];
             NSLog(@"Portrait");
             break;
             
         case UIDeviceOrientationPortraitUpsideDown:
-            /* start special animation */
+            requestedOrientation = UIDeviceOrientationPortrait;
             [self configurePlayerViewBackToPortrait:(0)];
             NSLog(@"Portrait UpsideDown");
             break;
@@ -193,6 +223,8 @@ static VideoPlayerViewController *activePlayer = nil;
 {
     // Set the whole view frame
     // Set the video player frame
+    requestedOrientation = UIDeviceOrientationPortrait;
+    
     self.mPlaybackView.frame = videoView.bounds;
     overlayView.frame = videoView.bounds;
 
@@ -201,11 +233,16 @@ static VideoPlayerViewController *activePlayer = nil;
     [self positionItemsOnPlayerView];
     [self.view addSubview: self.mPlaybackView];
     [self.view addSubview:overlayView];
-    [videoView addSubview:self.view];
+    
+    if (!getReadyOnly) {
+        [videoView addSubview:self.view];
+    }
 }
 
-- (void)configurePlayerViewLandscape:(CGFloat)angle
+- (void)configurePlayerViewLandscape:(CGFloat)angle withAnimation:(BOOL)animate
 {
+    if (getReadyOnly) return;
+    
     //[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
     UIView *videoView = [UIApplication sharedApplication].windows.firstObject;
     CGFloat width = videoView.frame.size.height;
@@ -228,7 +265,10 @@ static VideoPlayerViewController *activePlayer = nil;
     [videoView addSubview:self.mPlaybackView];
     [videoView addSubview:overlayView];
 
-    [UIView animateWithDuration:0.2f
+    CGFloat animationDuration = 0.2f;
+    if (!animate) animationDuration = 0.0f;
+        
+    [UIView animateWithDuration:animationDuration
                      animations:^{
                          [self.mPlaybackView setTransform:CGAffineTransformMakeRotation(angle)];
                          [overlayView setTransform:CGAffineTransformMakeRotation(angle)];
@@ -237,35 +277,23 @@ static VideoPlayerViewController *activePlayer = nil;
 
 #pragma mark - allocating and configure positions of view items
 
-- (void) allocVideoPlayer:(NSArray *)videoURLs
+- (void) allocVideoPlayer:(NSString *)videoURL
 {
-    videoItems = [[NSMutableArray alloc] init];
-
-    for (id dataElement in videoURLs) {
-        NSURL *url;
-        NSString *videoURL = (NSString *)dataElement;
-        url = [NSURL URLWithString:videoURL];
-        AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:url];
-        
-        [videoItems addObject:videoItem];
-    }
+    NSURL *url;
+    url = [NSURL URLWithString:videoURL];
+    videoItem = [AVPlayerItem playerItemWithURL:url];
     
     overlayView = [[UIImageView alloc] init];
     overlayView.contentMode = UIViewContentModeScaleAspectFit;
     overlayView.backgroundColor = [UIColor clearColor];
 
-    currentPlayingVideo = 0;
-    
-    NSUInteger index = 0;
-    for (index = 0; index < [videoOverlayHandlerArray count]; index++) {
-        [self prepareOverlayImages:index];
-        [self prepareBackgroundTrack:index];
-    }
-    
+    [self prepareOverlayImages];
+    [self prepareOverlayTrack];
+
     mPlaybackView = [[AVPlayerPlaybackView alloc] init];
     self.mPlaybackView.backgroundColor = [UIColor blackColor];
 
-    queuePlayer = [AVQueuePlayer queuePlayerWithItems:videoItems];
+    queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObject:videoItem]];
 	[self.mPlaybackView setPlayer:queuePlayer];
 }
 
@@ -274,8 +302,19 @@ static VideoPlayerViewController *activePlayer = nil;
     queuePlayer = nil;
     self.mPlaybackView = nil;
     overlayView = nil;
-    [videoItems removeAllObjects];
-    videoItems = nil;
+    videoItem = nil;;
+}
+
+- (void) releaseVideoOverlay
+{
+    [overlayItems.overlayImagesURL removeAllObjects];
+    overlayItems.overlayImagesURL = nil;
+    overlayItems.overlayTrack = nil;
+    overlayItems = nil;
+    [overlayTimer invalidate];
+    overlayTimer = nil;
+    [overlayImages removeAllObjects];
+    overlayImages = nil;
 }
 
 - (void) allocActivityIndicator
@@ -318,36 +357,28 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void) registerPlayerCallbacks
 {
-     for (id dataElement in videoItems) {
-         
-         [dataElement addObserver:self forKeyPath:@"status" options:0 context:nil];
-         [dataElement addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                  selector:@selector(playerItemDidReachEnd:)
-                                                      name:AVPlayerItemDidPlayToEndTimeNotification
-                                                    object:dataElement];
-     }
+    [videoItem addObserver:self forKeyPath:@"status" options:0 context:nil];
+    [videoItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:videoItem];
 }
 
 - (void) deregisterPlayerCallbacks
 {
-    for (id dataElement in videoItems) {
-        
-        [dataElement  removeObserver:self forKeyPath:@"status"];
-        [dataElement  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:AVPlayerItemDidPlayToEndTimeNotification
-                                                      object:dataElement];
-    }
+    [videoItem  removeObserver:self forKeyPath:@"status"];
+    [videoItem  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AVPlayerItemDidPlayToEndTimeNotification
+                                                    object:videoItem];
     
 }
 
 #pragma mark - Video Player functions (open/close/play/stop)
 
-- (void)openVideo: (UIView *)videoView
+- (void)openVideo
 {
     [self.mPlaybackView setAlpha:1];
     [overlayView setAlpha:1];
@@ -358,11 +389,15 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void) closeVideo
 {
+    NSLog(@"closeVideo...");
     [self deregisterPlayerCallbacks];
     [self.playbackErrorLabel removeFromSuperview];
     [self.stopButton removeFromSuperview];
     [self.mPlaybackView removeFromSuperview];
     [self.mPlaybackView setPlayer:nil];
+    
+    [self stopOverlayTrack];
+    [self stopOverlayAnimation:YES];
     
     [overlayView removeFromSuperview];
     overlayView.image = nil;
@@ -371,27 +406,18 @@ static VideoPlayerViewController *activePlayer = nil;
     [self releaseVideoPlayer];
     [self releaseActivityIndicator];
     [self deregisterToDeviceOrientationNotification];
-    
-    [self releaseVideoOverlayHandler:currentPlayingVideo];
+    [self releaseVideoOverlay];
 
     stopButton.hidden = YES;
     videoState = kVideoClosed;
-    [self.delegate videoClosed];
+    [delegate videoClosed:delegateInfo];
     if (activePlayer == self) activePlayer = nil;
     NSLog(@"Video is closed");
 }
 
 -(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView
 {
-    if (!videoURL) return;
-    
-    NSArray *videoURLs = [NSArray arrayWithObject:videoURL];
-    [self playVideoList:videoURLs inView:videoView];
-}
-
--(void) playVideoList:(NSArray *)videoURLs inView:(UIView *)videoView
-{
-    [self setDemoOverlay];
+    //[self setDemoOverlay: videoView];
 
     if (videoState != kVideoClosed)
     {
@@ -402,7 +428,9 @@ static VideoPlayerViewController *activePlayer = nil;
     
     if (activePlayer) {
         NSLog(@"Another video is already playing...stoping it...");
-        [activePlayer stopVideo];
+        if (![delegate keepActivePlayers]) {
+            [activePlayer stopVideo: YES];
+        }
     }
 
     activePlayer = self;
@@ -411,7 +439,7 @@ static VideoPlayerViewController *activePlayer = nil;
     NSLog(@"Video is opening");
     
     // Alloc various objects
-    [self allocVideoPlayer:videoURLs];
+    [self allocVideoPlayer:videoURL];
     [self allocActivityIndicator];
     [self addItemsOnPlayerView];
     [self registerPlayerCallbacks];
@@ -419,49 +447,148 @@ static VideoPlayerViewController *activePlayer = nil;
     // Configure view
     [self configurePlayerViewPortrait:videoView];
     
-    // Play video (add subviews)
-    [self openVideo: videoView];
+    // Play video
+    [self openVideo];
 }
 
--(void) stopVideo
+- (void) prepareVideo:(NSString *)videoURL inView:(UIView *)videoView
 {
-    if (videoState == kVideoOpened || videoState == kVideoOpening) {
-        
-        NSLog(@"Video is closing");
-        [self movieFinishedOK];
+    [self setPrepareAndWaitMode];
+    [self playVideo:videoURL inView:videoView];
+}
+
+- (void) setPrepareAndWaitMode
+{
+    getReadyOnly = YES;
+}
+
+- (void) playWhenPrepared: (UIView *)videoView
+{
+    getReadyOnly = NO;
+    
+    NSLog(@"VIDEO & AUDIO: GO");
+
+    [videoView addSubview:self.view];
+
+    switch (requestedOrientation) {
+        case UIDeviceOrientationLandscapeLeft:
+            [self configurePlayerViewLandscape:(M_PI / 2) withAnimation:NO];
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            [self configurePlayerViewLandscape:(3 * M_PI / 2) withAnimation:NO];
+            break;
+        default:
+            break;
     }
+    
+    if (videoItem.status == AVPlayerItemStatusReadyToPlay)
+    {
+        [queuePlayer play];
+        [self startOverlayAnimation];
+    }
+    
+    if (overlayAudioStreamer && overlayAudioStreamer.status == AVPlayerItemStatusReadyToPlay)
+    {
+        [self playOverlayTrack];
+    }
+}
+
+-(void) stopVideo:(BOOL) animated
+{
+    if (animated)
+    {
+        if (videoState == kVideoOpened || videoState == kVideoOpening) {
+            
+            NSLog(@"Video is closing");
+            [self movieFinishedOK];
+        }
+    } else
+    {
+        [self closeVideo];
+    }
+    
 }
 
 #pragma mark - Video Player (callbacks)
 
-- (NSUInteger) getVideoIndex: (id) item
-{
-    NSUInteger index = 0;
-    for (id dataElement in videoItems) {
-        if (item == dataElement) {
-            break;
-        }
-        index++;
-    }
-    return index;
-}
-
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
-    // Do stuff here
-    NSUInteger index = [self getVideoIndex:notification.object];
-    [self stopOverlayAnimation: index andHide:YES];
-    [self stopBackgroundTrack: index];
-    [self releaseVideoOverlayHandler:index];
     
-    currentPlayingVideo++;
-    if (currentPlayingVideo < [videoOverlayHandlerArray count]) {
-        [self startOverlayAnimation: currentPlayingVideo];
-        [self playBackgroundTrack: currentPlayingVideo];
-    }
-    
-    if (notification.object == [videoItems lastObject]) {
+    if (notification.object == videoItem) {
+        // Do stuff here
+        [self stopOverlayAnimation:YES];
+        [self stopOverlayTrack];
+        
         NSLog(@"playbackFinished. Reason: OK");
         [self movieFinishedOK];
+    }
+}
+
+
+- (void) handleVideoCallbacks
+{
+    switch(videoItem.status)
+    {
+        case AVPlayerItemStatusFailed:
+            NSLog(@"playbackFinished. Reason: Playback Error");
+            [self movieFinishedError];
+            break;
+        case AVPlayerItemStatusReadyToPlay:
+            NSLog(@"player item status is ready to play");
+            if (videoState == kVideoOpening)  {
+                videoState = kVideoOpened;
+                NSLog(@"Video is opened");
+                if (overlayAudioStreamer &&
+                    overlayAudioStreamer.status != AVPlayerItemStatusReadyToPlay) {
+                    NSLog(@"Waiting for audio to be ready");
+                    [queuePlayer pause];
+                } else {
+                    NSLog(@"VIDEO: Video & Audio are ready");
+                    [self.activityIndicator stopAnimating];
+                    if (!getReadyOnly) {
+                        [self startOverlayAnimation];
+                        [self playOverlayTrack];
+                    } else {
+                        NSLog(@"VIDEO & AUDIO waiting from GO");
+                        [queuePlayer pause];
+                    }
+                    
+                }
+            }
+            break;
+        case AVPlayerItemStatusUnknown:
+            NSLog(@"player item status is unknown");
+            break;
+    }
+}
+
+- (void) handleAudioCallbacks
+{
+    switch(overlayAudioItem.status)
+    {
+        case AVPlayerItemStatusFailed:
+            NSLog(@" Audio playbackFinished. Reason: Playback Error");
+            break;
+        case AVPlayerItemStatusReadyToPlay:
+            NSLog(@"Audio player item status is ready to play");
+            if (videoItem.status != AVPlayerItemStatusReadyToPlay) {
+                NSLog(@"Waiting for video to be ready");
+                [overlayAudioStreamer pause];
+            } else {
+                NSLog(@"AUDIO: Video & Audio are ready");
+                [self.activityIndicator stopAnimating];
+                if (!getReadyOnly) {
+                    [queuePlayer play];
+                    [self startOverlayAnimation];
+                    [self playOverlayTrack];
+                } else {
+                    NSLog(@"VIDEO & AUDIO waiting from GO");
+                    [overlayAudioStreamer pause];
+                }
+            }
+            break;
+        case AVPlayerItemStatusUnknown:
+            NSLog(@"Audio player item status is unknown");
+            break;
     }
 }
 
@@ -472,31 +599,13 @@ static VideoPlayerViewController *activePlayer = nil;
         AVPlayerItem *item = (AVPlayerItem *)object;
         //playerItem status value changed?
         if ([keyPath isEqualToString:@"status"])
-        {   //yes->check it...
-            
-            switch(item.status)
-            {
-                case AVPlayerItemStatusFailed:
-                    NSLog(@"playbackFinished. Reason: Playback Error");
-                    [self movieFinishedError];
-                    break;
-                case AVPlayerItemStatusReadyToPlay:
-                    NSLog(@"player item status is ready to play");
-                    if (videoState == kVideoOpening)  {
-                        videoState = kVideoOpened;
-                        [self.activityIndicator stopAnimating];
-                        NSLog(@"Video is opened");
-                    
-                        NSUInteger index = [self getVideoIndex:item];
-                        [self startOverlayAnimation:index];
-                        [self playBackgroundTrack:index];
-                        currentPlayingVideo = index;
-                    }
-                    break;
-                case AVPlayerItemStatusUnknown:
-                    NSLog(@"player item status is unknown");
-                    break;
+        {
+            if (item == videoItem) {
+                [self handleVideoCallbacks];
+            } else {
+                [self handleAudioCallbacks];
             }
+            
         }
         else if ([keyPath isEqualToString:@"playbackBufferEmpty"])
         {
@@ -540,8 +649,10 @@ static VideoPlayerViewController *activePlayer = nil;
         NSLog(@"Video is closing");
         [self.mPlaybackView setAlpha:1];
         [overlayView setAlpha:1];
+        
+        NSLog(@"movieFinishedOK: close with fadingDuration %f", fadingDuration);
 
-        [UIView animateWithDuration:1.0f
+        [UIView animateWithDuration:fadingDuration
                          animations:^{
                              [self.mPlaybackView setAlpha:0];
                              [overlayView setAlpha:0];
@@ -554,6 +665,7 @@ static VideoPlayerViewController *activePlayer = nil;
                          }];
         
     } else {
+        NSLog(@"movieFinishedOK: close now");
         [self closeVideo];
     }
 }
@@ -569,7 +681,7 @@ static VideoPlayerViewController *activePlayer = nil;
         
         [self.mPlaybackView setAlpha:1];
         [overlayView setAlpha:1];
-
+        
         [UIView animateWithDuration:1.0f
                          animations:^{
                              [self.mPlaybackView setAlpha:0];
@@ -587,61 +699,22 @@ static VideoPlayerViewController *activePlayer = nil;
 
 #pragma mark - Video Effects
 
-- (void) releaseVideoOverlayHandler: (NSUInteger) index
+- (void) setVideoOverlay: (VideoOverlay *) videoOverlay
 {
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    if (!hndl) return;
-    
-    [hndl.videoOverlay.overlayImagesURL removeAllObjects];
-    hndl.videoOverlay.overlayImagesURL = nil;
-    hndl.videoOverlay = nil;
-    
-    [hndl.overlayImages removeAllObjects];
-    hndl.overlayImages = nil;
-    
-    hndl.overlayTimer = nil;
-    hndl.audioStreamer = nil;
-    
-    if (hndl == [videoOverlayHandlerArray lastObject]) {
-        [videoOverlayHandlerArray removeAllObjects];
-        videoOverlayHandlerArray = nil;
-    }
-        
-    hndl = nil;
+    overlayItems = videoOverlay;
 }
 
-- (VideoOverlayHandler *) getVideoOverlayHandler: (NSUInteger) index
+- (void) prepareOverlayImages
 {
-    if (!videoOverlayHandlerArray) return nil;
+    if (!overlayItems) return;
     
-    if (index >= [videoOverlayHandlerArray count]) return nil;
+    overlayImages = [[NSMutableArray alloc] init];
     
-    return [videoOverlayHandlerArray objectAtIndex:index];
-}
-
-- (void) setVideoEffects: (NSArray *) videoOverlaysArray
-{
-    videoOverlayHandlerArray = [[NSMutableArray alloc] init];
-    
-    for (id dataElement in videoOverlaysArray) {
-        VideoOverlay *videoOverlay = (VideoOverlay *)dataElement;
-        VideoOverlayHandler *obj = [[VideoOverlayHandler alloc] init];
-        obj.videoOverlay = videoOverlay;
-        [videoOverlayHandlerArray addObject:obj];
-    }
-}
-
-- (void) prepareOverlayImages: (NSUInteger) index
-{
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    
-    if (!hndl) return;
-    
-    hndl.overlayImages = [[NSMutableArray alloc] init];
-
     dispatch_async(dispatch_get_global_queue(0,0), ^{
-    
-        for (id dataElement in hndl.videoOverlay.overlayImagesURL) {
+        
+        NSArray *imagesURL = [overlayItems.overlayImagesURL copy];
+        
+        for (id dataElement in imagesURL) {
             NSString *imageURL = (NSString *)dataElement;
             NSURL *url = [NSURL URLWithString:imageURL];
             NSData * data = [[NSData alloc] initWithContentsOfURL: url];
@@ -649,72 +722,75 @@ static VideoPlayerViewController *activePlayer = nil;
                 return;
             
             UIImage *image = [UIImage imageWithData: data];
-            [hndl.overlayImages addObject:image];
+            [overlayImages addObject:image];
         }
     });
 }
 
-- (void) startOverlayAnimation: (NSUInteger) index
+- (void) startOverlayAnimation
 {
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    if (!hndl) return;
+    if (!overlayItems) return;
     
-    if (!hndl.videoOverlay.overlayImagesURL) return;
+    if (!overlayItems.overlayImagesURL) return;
     
-    if (hndl.overlayTimer) {
-        [self stopOverlayAnimation: index andHide:NO];
+    if (overlayTimer) {
+        [self stopOverlayAnimation:NO];
     }
     
     overlayView.hidden = NO;
     
-    NSLog(@"OVERLAY: start animating index %lu", (unsigned long)index);
+    NSLog(@"OVERLAY: start animating");
 
-    hndl.currentOverlayIndex = 0;
-    NSNumber *num = [NSNumber numberWithUnsignedInteger:index];
-    hndl.overlayTimer = [NSTimer scheduledTimerWithTimeInterval:hndl.videoOverlay.overlayPeriod target:self selector:@selector(aPresentOverlay:) userInfo:num repeats:YES];
+    overlayCurrentImage = 0;
+    
+    overlayTimer = [NSTimer scheduledTimerWithTimeInterval:overlayItems.overlayPeriod target:self selector:@selector(aPresentOverlay:) userInfo:nil repeats:YES];
 }
 
-- (void) stopOverlayAnimation: (NSUInteger) index andHide:(BOOL) hide
+- (void) stopOverlayAnimation: (BOOL) hide
 {
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    if (!hndl) return;
+    if (!overlayItems) return;
     
-    if (hide) overlayView.hidden = YES;
+    if (hide) {
+        overlayView.hidden = YES;
+        overlayView.image = nil;
+    }
     
-    overlayView.image = nil;
+    NSLog(@"OVERLAY: stop animating");
     
-    NSLog(@"OVERLAY: stop animating index %lu", (unsigned long)index);
-    
-    if (hndl.overlayTimer) {
-        [hndl.overlayTimer invalidate];
-        hndl.overlayTimer = nil;
+    if (overlayTimer) {
+        [overlayTimer invalidate];
+        overlayTimer = nil;
     }
 }
 
 -(void)aPresentOverlay: (NSTimer *)timer
 {
-    NSNumber *num = (NSNumber *)[timer userInfo];
-    NSUInteger index = [num unsignedIntValue];
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    if (!hndl) return;
+    if (!overlayItems) return;
     
-    if (hndl.currentOverlayIndex == [hndl.videoOverlay.overlayImagesURL count]) {
-        [self stopOverlayAnimation: index andHide:NO];
+    if (overlayCurrentImage == [overlayItems.overlayImagesURL count]) {
+        [self stopOverlayAnimation: NO];
         NSLog(@"OVERLAY: stop animation");
         return;
     }
     
-    if (hndl.currentOverlayIndex < [hndl.overlayImages count]) {
-        UIImage *image = [hndl.overlayImages objectAtIndex:hndl.currentOverlayIndex];
+    if (overlayCurrentImage < [overlayImages count]) {
+        UIImage *image = [overlayImages objectAtIndex:overlayCurrentImage];
         overlayView.image = image;
-        hndl.currentOverlayIndex++;
+        overlayCurrentImage++;
     }
 }
 
-- (void) setDemoOverlay
+
+-(void)aDemoTimer: (NSTimer *)timer
 {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    
+    UIView * view = timer.userInfo;
+    [self playWhenPrepared:view];
+}
+
+- (void) setDemoOverlay:(UIView *) view
+{
+    //[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(aDemoTimer:) userInfo:view repeats:NO];
+
     VideoOverlay *overlay = [[VideoOverlay alloc] init];
     overlay.overlayImagesURL = [[NSMutableArray alloc] init];
     
@@ -725,62 +801,68 @@ static VideoPlayerViewController *activePlayer = nil;
     }
     
     overlay.overlayPeriod = 0.5f;
-    overlay.backgroundTrack = @"https://s3.amazonaws.com/outder/C5/alone/sound.m4a";
-    [array addObject:overlay];
+    overlay.overlayTrack = @"https://s3.amazonaws.com/outder/C5/alone/sound.m4a";
+    
+    [self setVideoOverlay:overlay];
+}
 
-    overlay = [[VideoOverlay alloc] init];
-    [array addObject:overlay];
-    
-    overlay = [[VideoOverlay alloc] init];
-    overlay.overlayImagesURL = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < 7; i++) {
-        NSString *url = [NSString stringWithFormat:@"%@%d.png", baseURL, i];
-        [overlay.overlayImagesURL addObject:url];
-    }
-    
-    overlay.overlayPeriod = 0.5f;
-    overlay.backgroundTrack = @"https://s3.amazonaws.com/outder/C5/alone/sound.m4a";
-    [array addObject:overlay];
+#pragma mark - Video overlay track
 
-    [self setVideoEffects:array];
+- (void) registerAudioCallbacks
+{
+    [overlayAudioItem addObserver:self forKeyPath:@"status" options:0 context:nil];
+    [overlayAudioItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:overlayAudioItem];
+}
+
+- (void) deregisterAudioCallbacks
+{
+    [overlayAudioItem  removeObserver:self forKeyPath:@"status"];
+    [videoItem  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AVPlayerItemDidPlayToEndTimeNotification
+                                                  object:videoItem];
+    
 }
 
 
-- (void)playBackgroundTrack: (NSUInteger) index
+- (void)playOverlayTrack
 {
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    if (!hndl) return;
+    if (!overlayItems) return;
     
-    if (hndl.audioStreamer) {
-        [hndl.audioStreamer play];
+    if (overlayAudioStreamer) {
+        [overlayAudioStreamer play];
     }
 }
 
-- (void)prepareBackgroundTrack: (NSUInteger) index
+- (void)prepareOverlayTrack
 {
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    if (!hndl) return;
+    if (!overlayItems) return;
     
-    if (!hndl.videoOverlay.backgroundTrack) return;
+    if (!overlayItems.overlayTrack) return;
     
-    if (hndl.audioStreamer) {
-        [self stopBackgroundTrack: index];
+    if (overlayAudioStreamer) {
+        [self stopOverlayTrack];
     }
     
-    AVPlayerItem *aPlayerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:hndl.videoOverlay.backgroundTrack]];
-    hndl.audioStreamer = [[AVPlayer alloc] initWithPlayerItem:aPlayerItem];
-    [hndl.audioStreamer pause];
+    overlayAudioItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:overlayItems.overlayTrack]];
+    overlayAudioStreamer = [[AVPlayer alloc] initWithPlayerItem:overlayAudioItem];
+    [self registerAudioCallbacks];
 }
 
-- (void)stopBackgroundTrack: (NSUInteger) index
+- (void)stopOverlayTrack
 {
-    VideoOverlayHandler *hndl = [self getVideoOverlayHandler:index];
-    if (!hndl) return;
+    if (!overlayItems) return;
     
-    if (hndl.audioStreamer) {
-        [hndl.audioStreamer pause];
-        hndl.audioStreamer = nil;
+    if (overlayAudioStreamer) {
+        [overlayAudioStreamer pause];
+        [self registerAudioCallbacks];
+        overlayAudioStreamer = nil;
+        overlayAudioItem = nil;
     }
 }
     

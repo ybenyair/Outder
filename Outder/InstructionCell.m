@@ -12,6 +12,8 @@
 #import "FeedCoreData.h"
 #import "Defines.h"
 #import "UploadManager.h"
+#import "VideoOverlayHelpers.h"
+#import "CoreData.h"
 
 @interface InstructionCell ()
 
@@ -19,10 +21,11 @@
 
 @implementation InstructionCell
 {
-    
+    NSMutableArray *playerList;
+    NSUInteger currentPlaying;
 }
 
-@synthesize instructions, currentInstruction, index, videoCtrl, state;
+@synthesize instructions, currentInstruction, index, state;
 
 + (CGFloat) getSpacingBetweenItems
 {
@@ -66,6 +69,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     self.imageBG.contentMode = UIViewContentModeScaleAspectFit;
     self.labelFixedShot.contentMode = UIViewContentModeScaleAspectFit;
@@ -79,6 +83,11 @@
     
     self.textEditPlaceholder.text = NSLocalizedString(@"TYPE YOUR MESSAGE", nil);
     
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [self closeVideo:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,6 +115,33 @@
     }
 }
 
+
+- (void) restoreLayout: (BOOL) updateImages
+{
+    switch (self.state) {
+            
+        case kInstructionFixed:
+            [self setInstructionFixedLayer: updateImages];
+            break;
+            
+        case kInstructionRetake:
+            [self setInstructionRetakeLayer: updateImages];
+            break;
+            
+        case kInstructionRecord:
+        case kInstructionUnknown:
+            [self setInstructionRecordLayer];
+            break;
+            
+        case kInstructionDone:
+            [self setInstructionDoneLayer];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 #pragma mark -
 #pragma mark configure current view
 
@@ -123,30 +159,8 @@
     if ([currentInstruction.fixed boolValue] == YES) self.state = kInstructionFixed;
     
     [self restoreState];
-    
-    switch (self.state) {
-            
-        case kInstructionFixed:
-            [self setInstructionFixedLayer];
-            break;
-            
-        case kInstructionRetake:
-            [self setInstructionRetakeLayer];
-            break;
-            
-        case kInstructionRecord:
-        case kInstructionUnknown:
-            [self setInstructionRecordLayer];
-            break;
-            
-        case kInstructionDone:
-            [self setInstructionDoneLayer];
-            break;
 
-        default:
-            break;
-    }
-
+    [self restoreLayout: YES];
 }
 
 #pragma mark -
@@ -193,7 +207,7 @@
 
 - (void) hideInstructionRecordItems
 {
-   
+
 }
 
 - (void) unhideInstructionRecordItems
@@ -237,7 +251,7 @@
     self.labelNumber.hidden = NO;
 }
 
-- (void) setInstructionFixedLayer
+- (void) setInstructionFixedLayer: (BOOL) updateImages
 {
     // Hide layers
     [self hideInstructionRecordItems];
@@ -248,7 +262,7 @@
     [self unhideInstructionFixedItems];
     
     // Set parameters
-    [self setImage:currentInstruction.imageURL];
+    if (updateImages) [self setImage:currentInstruction.imageURL];
     self.labelName.text = self.currentInstruction.name;
     self.state = kInstructionFixed;
 }
@@ -275,7 +289,7 @@
     self.labelNumber.hidden = NO;
 }
 
-- (void) setInstructionRetakeLayer
+- (void) setInstructionRetakeLayer: (BOOL) updateImages
 {
     // Hide layers
     [self hideInstructionRecordItems];
@@ -286,7 +300,7 @@
     [self unhideInstructionRetakeItems];
     
     // Set parameters
-    [self setImageUserShot:currentInstruction.imageURL];
+    if (updateImages) [self setImageUserShot:currentInstruction.imageURL];
     
     self.labelName.text = self.currentInstruction.name;
     self.state = kInstructionRetake;
@@ -332,8 +346,9 @@
     self.btnPlayDone.enabled = YES;
     
     self.btnMakeVideo.hidden = NO;
-    self.btnMakeVideo.enabled = YES;
-    
+    Instruction *inst = [instructions firstObject];
+    self.btnMakeVideo.enabled = (![inst.subTemplate.makeOneDisable boolValue]);
+
     [self processUploadIndicator];
 }
 
@@ -400,21 +415,67 @@
 {
     currentInstruction.imageURL = imagePath;
     currentInstruction.videoURL = videoPath;
-    [self setInstructionRetakeLayer];
+    [self setInstructionRetakeLayer: YES];
+    [CoreData saveDB];
 }
 
 #pragma mark -
-#pragma mark play fixed video shot
+#pragma mark play video (helpers)
+
+- (NSUInteger) getPlayerIndex: (id) player {
+    NSUInteger indexPlayer = 0;
+    for (id dataElement in playerList) {
+        if (player == dataElement) {
+            return indexPlayer;
+        }
+        indexPlayer++;
+    }
+    
+    return 0;
+}
+
+- (void) disableButtons
+{
+    self.btnEditTitle.enabled = NO;
+    self.btnPlayDone.enabled = NO;
+    self.btnPlayPreview.enabled = NO;
+    self.btnPlayFixedShot.enabled = NO;
+    self.btnMakeVideo.enabled = NO;
+    [self.superCtrl setRecordButtonHidden:YES];
+    [self.superCtrl setRestartButtonHidden:YES];
+}
+
+- (void) enableButtons
+{
+    [self restoreLayout: NO];
+    [self.superCtrl updateInstructionState];
+}
+
+#pragma mark -
+#pragma mark play video (a single video)
 
 - (void)playVideo {
+    
+    [self disableButtons];
+    
+    currentPlaying = 0;
+    
+    playerList = [[NSMutableArray alloc] init];
 
+    VideoPlayerViewController *videoCtrl = [playerList firstObject];
+    
+    self.imageViewVideo.backgroundColor = [UIColor clearColor];
+    
     if (!videoCtrl) {
         videoCtrl = [[VideoPlayerViewController alloc] init];
-        videoCtrl.delegate = self;
+        [videoCtrl setDelegate:self withInfo:videoCtrl];
         videoCtrl.enableAutoRotation = NO;
+        [playerList addObject:videoCtrl];
     }
     
     if (videoCtrl.videoState == kVideoClosed) {
+        VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:currentInstruction];
+        [videoCtrl setVideoOverlay:overlay];
         self.imageViewVideo.hidden = NO;
         [videoCtrl playVideo:currentInstruction.videoURL inView:self.imageViewVideo];
     } else {
@@ -423,15 +484,127 @@
 
 }
 
-- (void) videoClosed
-{
-    self.imageViewVideo.hidden = YES;
+#pragma mark -
+#pragma mark play video (a list of videos)
+
+- (void) playVideoList {
+    
+    [self disableButtons];
+    
+    self.imageViewVideo.backgroundColor = [UIColor blackColor];
+    
+    currentPlaying = 0;
+    
+    playerList = [[NSMutableArray alloc] init];
+    
+    self.imageViewVideo.hidden = NO;
+    
+    Instruction *inst = nil;
+    
+    for (id dataElement in instructions) {
+        inst = (Instruction *)dataElement;
+        VideoPlayerViewController *player = [[VideoPlayerViewController alloc] init];
+        player.enableAutoRotation = NO;
+        [player setDelegate:self withInfo:player];
+        [player setFadingDuration:0.0f];
+        [playerList addObject:player];
+        NSLog(@"Insert to the play list: %@", inst.videoURL);
+    }
+    
+    VideoPlayerViewController *firstPlayer = [playerList objectAtIndex:0];
+    inst = [instructions objectAtIndex:0];
+    VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:inst];
+    [firstPlayer setVideoOverlay:overlay];
+    [firstPlayer playVideo:inst.videoURL inView:self.imageViewVideo];
+    
+    if ([playerList count] > 1) {
+        VideoPlayerViewController *secondPlayer = [playerList objectAtIndex:1];
+        inst = [instructions objectAtIndex:1];
+        VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:inst];
+        [secondPlayer setVideoOverlay:overlay];
+        [secondPlayer prepareVideo:inst.videoURL inView:self.imageViewVideo];
+    }
 }
+
+#pragma mark -
+#pragma mark play video (close video)
+
+- (void) closeVideo: (VideoPlayerViewController *)videoCtrl {
+    
+    while ([playerList lastObject] != videoCtrl) {
+        VideoPlayerViewController *obj = [playerList lastObject];
+        [obj setDelegate:nil withInfo:nil];
+        [obj stopVideo:NO];
+        [playerList removeObject:obj];
+        obj = nil;
+    }
+    
+    [videoCtrl stopButtonClicked:nil];
+}
+
+#pragma mark -
+#pragma mark play video (delegate VideoPlayerViewController)
+
+- (BOOL) keepActivePlayers {
+    if ([playerList count] > 1) {
+        // Playing a list of files
+        return YES;
+    } else {
+        // Playing a single file
+        return NO;
+    }
+    
+}
+
+- (void) videoClosed:(id)userInfo
+{
+    NSUInteger indexClosed = [self getPlayerIndex:userInfo];
+    if (indexClosed == [playerList count] - 1) {
+        NSLog(@"PLAY LIST: last video was closed");
+        [playerList removeAllObjects];
+        self.imageViewVideo.hidden = YES;
+        playerList = nil;
+        [self enableButtons];
+        
+    } else {
+        
+        NSUInteger nextToPlay = indexClosed + 1;
+        VideoPlayerViewController *player = [playerList objectAtIndex:nextToPlay];
+        [player playWhenPrepared:self.imageViewVideo];
+        
+        currentPlaying = nextToPlay;
+
+        NSLog(@"PLAY LIST: more to play - %lu", (unsigned long)nextToPlay);
+        
+        NSUInteger nextToPrepare = indexClosed + 2;
+        if (nextToPrepare < [playerList count]) {
+            VideoPlayerViewController *player = [playerList objectAtIndex:nextToPrepare];
+            Instruction *inst = [instructions objectAtIndex:nextToPrepare];
+            VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:inst];
+            [player setVideoOverlay:overlay];
+            [player prepareVideo:inst.videoURL inView:self.imageViewVideo];
+            NSLog(@"PLAY LIST: more to prepare - %lu", (unsigned long)nextToPrepare);
+            
+            if (player == [playerList lastObject]) {
+                [player setFadingDuration:1.0f];
+            }
+        }
+
+    }
+}
+
+#pragma mark -
+#pragma mark play video (call back from iCarousel)
 
 - (void)itemClicked
 {
+    self.imageViewVideo.backgroundColor = [UIColor clearColor];
+    
+    VideoPlayerViewController *videoCtrl = [playerList objectAtIndex:currentPlaying];
+    
     if (videoCtrl && videoCtrl.videoState == kVideoOpened) {
-        [self.videoCtrl stopButtonClicked:nil];
+        [videoCtrl setFadingDuration:1.0f];
+        [self closeVideo: videoCtrl];
     }
 }
 
@@ -445,31 +618,8 @@
 }
 
 
-
 - (IBAction)btnPlayListClicked:(id)sender {
-    
-    NSMutableArray *videoURLs = [[NSMutableArray alloc] init];
-    Instruction *inst = nil;
-    for (id dataElement in instructions) {
-        inst = (Instruction *)dataElement;
-        [videoURLs addObject:inst.videoURL];
-        NSLog(@"Insert to the play list: %@", inst.videoURL);
-    }
-    
-    
-    if (!videoCtrl) {
-        videoCtrl = [[VideoPlayerViewController alloc] init];
-        videoCtrl.delegate = self;
-        videoCtrl.enableAutoRotation = NO;
-    }
-    
-    if (videoCtrl.videoState == kVideoClosed) {
-        self.imageViewVideo.hidden = NO;
-        [videoCtrl playVideoList:videoURLs inView:self.imageViewVideo];
-    } else {
-        NSLog(@"Video is already playing...	");
-    }
-
+    [self playVideoList];
 }
 
 - (IBAction)btnEditTitleClicked:(id)sender {
@@ -517,7 +667,7 @@
 }
 
 #pragma mark -
-#pragma mark Play video
+#pragma mark Actions
 
 - (IBAction)btnPreviewClicked:(id)sender {
     NSLog(@"btnPreviewClicked");

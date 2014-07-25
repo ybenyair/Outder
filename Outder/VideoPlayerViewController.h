@@ -17,10 +17,9 @@
 
 @property (nonatomic) CGFloat overlayPeriod;
 @property (nonatomic,strong) NSMutableArray *overlayImagesURL;
-@property (nonatomic,strong) NSString *backgroundTrack;
+@property (nonatomic,strong) NSString *overlayTrack;
 
 @end
-
 
 
 #pragma mark - VideoPlayerViewController
@@ -33,7 +32,8 @@ typedef enum {
 } eVideoPlayerState;
 
 @protocol VideoPlayerViewControllerDelegate
-- (void)videoClosed;
+- (void)videoClosed: (id)userInfo;
+- (BOOL)keepActivePlayers;
 @end
 
 @interface VideoPlayerViewController : UIViewController {
@@ -41,13 +41,17 @@ typedef enum {
     BOOL enableAutoRotation;
 }
 
--(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView;
--(void) playVideoList:(NSArray *)videoURLs inView:(UIView *)videoView;
+- (void) setDelegate:(id)obj withInfo: (id) info;
+- (void) setFadingDuration: (CGFloat) duration;
+- (void) setVideoOverlay: (VideoOverlay *) videoOverlay;
+- (void) playVideo:(NSString *)videoURL inView:(UIView *)videoView;
+- (void) prepareVideo:(NSString *)videoURL inView:(UIView *)videoView;
+- (void) playWhenPrepared: (UIView *)videoView;
 
--(void) stopVideo;
+-(void) stopVideo:(BOOL) animated;
+
 - (void)stopButtonClicked:(UIButton*)button;
 
-@property (nonatomic, weak) id <VideoPlayerViewControllerDelegate> delegate;
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIButton *stopButton;
 @property (nonatomic,strong) UILabel *playbackErrorLabel;

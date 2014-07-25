@@ -192,6 +192,7 @@ static RootViewController *instance = nil;
     if (code == kCommOK) {
         //[TemplateCoreData clearDB:self.managedObjectContext];
         [TemplateCoreData fillTemplates:self.managedObjectContext data:json];
+        [CoreData saveDB];
         [self setActiveView:tabController];
     } else if (code == kCommErrorNetwork) {
         NSString *alertMessage = NSLocalizedString(@"Internet connection error. Trying again...", nil);

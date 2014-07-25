@@ -85,7 +85,10 @@
     }
 
     self.pageControl.numberOfPages = [self numberOfItemsInCarousel:self.carousel];
-
+    
+    [self setRecordButtonHidden:YES];
+    [self setRestartButtonHidden:YES];
+    
     isDone = [self wereInstructionsCompleted];
     
     if (isDone) {
@@ -320,6 +323,11 @@
     
 }
 
+- (void)updateInstructionState
+{
+    [self carouselDidEndScrollingAnimation:self.carousel];
+}
+
 - (void) enableRecodring: (BOOL) enabled
 {
     if (enabled) {
@@ -462,6 +470,31 @@
     inst.subTemplate.makeOneDisable = [NSNumber numberWithBool:NO];
 }
 
+
+- (void) deletePreviousRecordedFiles
+{
+    Instruction *inst = [self getCurrentInstruction];
+    
+    NSMutableArray *imageFiles = nil;
+    NSMutableArray *videoFiles = nil;
+    
+    if ([inst.fixed boolValue] == NO)
+    {
+        if (inst.videoURL) {
+            videoFiles = [[NSMutableArray alloc] init];
+            [videoFiles addObject:inst.videoURL];
+        }
+        
+        if (inst.imageURL) {
+            imageFiles = [[NSMutableArray alloc] init];
+            [imageFiles addObject:inst.imageURL];
+        }
+    }
+
+    if (videoFiles) [self deleteVideoFiles:videoFiles];
+    if (imageFiles) [self deleteImageFiles:imageFiles];
+}
+
 - (void) deleteFiles
 {
     NSMutableArray *imageFiles = [[NSMutableArray alloc] init];
@@ -491,11 +524,19 @@
             NSString *file = (NSString *)dataElement;
             NSError* error = nil;
             NSURL *url = [NSURL URLWithString:file];
+            NSLog(@"Delete video file %@", url);
             [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
             if (error) {
                 NSLog(@"%@", error);
             }
         }
+        
+        NSLog(@"Done removinging video files");
+        NSError *error;
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSLog(@"Documents directory: %@", [fileMgr contentsOfDirectoryAtPath:documentsDirectory error:&error]);
+        
     });
 }
 
@@ -509,12 +550,21 @@
         for (id dataElement in files) {
             NSString *file = (NSString *)dataElement;
             NSError* error = nil;
+            NSLog(@"Delete image file %@", file);
             [[NSFileManager defaultManager] removeItemAtPath:file error:&error];
             
             if (error) {
                 NSLog(@"%@", error);
             }
         }
+        
+        NSLog(@"Done removinging images files");
+
+        NSError *error;
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSLog(@"Documents directory: %@", [fileMgr contentsOfDirectoryAtPath:documentsDirectory error:&error]);
+
     });
 }
 
@@ -643,6 +693,11 @@
     self.recordButton.hidden = hidden;
 }
 
+- (void)setRestartButtonHidden: (BOOL) hidden
+{
+    self.btnRestart.hidden = hidden;
+}
+
 #pragma mark -
 #pragma mark Save recorded file
 
@@ -667,6 +722,8 @@
             thumbImageFile = [self extractThumbnailImage:movieURL in:fileGuid];
         }
         
+        [self deletePreviousRecordedFiles];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             InstructionCell *cell = [self getCurrentItem];
             [cell configureUserShot:thumbImageFile withVideo:[movieURL absoluteString]];

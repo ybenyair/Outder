@@ -25,6 +25,8 @@
 - (IBAction)btnRestartClicked:(id)sender;
 
 - (void)setRecordButtonHidden: (BOOL) hidden;
+- (void)setRestartButtonHidden: (BOOL) hidden;
+- (void)updateInstructionState;
 
 + (AVCamInstructionsVC *) loadInstance;
 

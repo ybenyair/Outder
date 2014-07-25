@@ -18,6 +18,9 @@
         <attribute name="length" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="minlength" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="overlayImageFirstIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="overlayImagePrefixURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="overlayTrackURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usertext" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="usertexthint" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,7 +53,7 @@
     </entity>
     <elements>
         <element name="Feed" positionX="-459" positionY="99" width="128" height="178"/>
-        <element name="Instruction" positionX="70" positionY="135" width="128" height="193"/>
+        <element name="Instruction" positionX="70" positionY="135" width="128" height="240"/>
         <element name="SubTemplate" positionX="-108" positionY="-0" width="128" height="178"/>
         <element name="Template" positionX="-279" positionY="-18" width="128" height="133"/>
         <element name="UserInfo" positionX="-468" positionY="-45" width="128" height="105"/>

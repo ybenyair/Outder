@@ -30,8 +30,6 @@ typedef enum {
 
 @property (nonatomic,strong) NSMutableArray *instructions;
 @property (nonatomic,strong) Instruction *currentInstruction;
-
-@property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
 @property (nonatomic,strong) AVCamInstructionsVC *superCtrl;
 
 @property NSUInteger index;

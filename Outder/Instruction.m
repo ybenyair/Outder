@@ -2,7 +2,7 @@
 //  Instruction.m
 //  Outder
 //
-//  Created by Yossi on 7/24/14.
+//  Created by Yossi on 7/25/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
@@ -21,6 +21,9 @@
 @dynamic usertext;
 @dynamic usertexthint;
 @dynamic videoURL;
+@dynamic overlayImagePrefixURL;
+@dynamic overlayImageFirstIndex;
+@dynamic overlayTrackURL;
 @dynamic subTemplate;
 
 @end
