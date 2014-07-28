@@ -52,6 +52,7 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *recordButton;
 - (IBAction)toggleMovieRecording:(id)sender;
+- (IBAction)changeCamera:(id)sender;
 
 - (void)ntfyRecordStart;
 - (void)ntfyRecordEnd;

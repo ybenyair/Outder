@@ -40,6 +40,11 @@
 
 @implementation VideoPlayerViewController
 {
+    BOOL isMute;
+    BOOL isRepeat;
+
+    UITapGestureRecognizer *tapRecognizer;
+    
     id <VideoPlayerViewControllerDelegate> delegate;
     id delegateInfo;
     CGFloat fadingDuration;
@@ -85,6 +90,25 @@ static VideoPlayerViewController *activePlayer = nil;
     return self;
 }
 
+- (id)initWithView:(UIView *)view
+{
+    if (self = [super init]) {
+        // Custom initialization
+        // Do any additional setup after loading the view from its nib.
+        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.view.contentMode = UIViewContentModeScaleAspectFit;
+        self.videoState = kVideoClosed;
+        self.enableAutoRotation = YES;
+        
+        [self initStopButton];
+        [self initPlaybackErrorLabel];
+        fadingDuration = 1.0f;
+        //[self enableTapGesture:view];
+    }
+    
+    return self;
+}
+
 - (void) setFadingDuration: (CGFloat) duration
 {
     fadingDuration = duration;
@@ -99,6 +123,7 @@ static VideoPlayerViewController *activePlayer = nil;
 - (void) dealloc {
     playbackErrorLabel = nil;
     stopButton = nil;
+    //[self disableTapGesture];
 }
 
 - (void)viewDidLoad
@@ -295,6 +320,8 @@ static VideoPlayerViewController *activePlayer = nil;
 
     queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObject:videoItem]];
 	[self.mPlaybackView setPlayer:queuePlayer];
+    
+    queuePlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
 }
 
 - (void) releaseVideoPlayer
@@ -389,6 +416,8 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void) closeVideo
 {
+    if (videoState == kVideoClosed) return;
+    
     NSLog(@"closeVideo...");
     [self deregisterPlayerCallbacks];
     [self.playbackErrorLabel removeFromSuperview];
@@ -509,17 +538,66 @@ static VideoPlayerViewController *activePlayer = nil;
     
 }
 
+- (void) muteVideo: (BOOL) mute {
+    isMute = mute;
+    NSArray * myTracks = videoItem.tracks;
+    for(int i = 0; i < [myTracks count]; i++)
+    {
+        if([[[myTracks objectAtIndex:i] assetTrack].mediaType
+            isEqualToString:AVMediaTypeAudio] == YES)
+        {
+            ((AVPlayerItemTrack *)[myTracks
+                                   objectAtIndex:i]).enabled = !mute;
+        }
+    }
+    return;
+}
+
+- (void) repeatVideo: (BOOL) repeat
+{
+    isRepeat = repeat;
+}
+
+- (void) pauseVideo: (BOOL) pasue
+{
+    if (pasue) {
+        [queuePlayer pause];
+        [overlayAudioStreamer pause];
+    } else {
+        [queuePlayer play];
+        [overlayAudioStreamer play];
+    }
+}
+
 #pragma mark - Video Player (callbacks)
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
-    
+
     if (notification.object == videoItem) {
-        // Do stuff here
-        [self stopOverlayAnimation:YES];
-        [self stopOverlayTrack];
         
-        NSLog(@"playbackFinished. Reason: OK");
-        [self movieFinishedOK];
+        if (isRepeat) {
+            
+            AVPlayerItem *playerItem = [queuePlayer currentItem];
+            [playerItem seekToTime: kCMTimeZero];
+            queuePlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+            [queuePlayer play];
+            
+            AVPlayerItem *audioItem = [overlayAudioStreamer currentItem];
+            [audioItem seekToTime: kCMTimeZero];
+            overlayAudioStreamer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+            [overlayAudioStreamer play];
+            
+            [self startOverlayAnimation];
+            
+        } else {
+            // Do stuff here
+            [self stopOverlayAnimation:YES];
+            [self stopOverlayTrack];
+            
+            NSLog(@"playbackFinished. Reason: OK");
+            [self movieFinishedOK];
+        }
+        
     }
 }
 
@@ -536,6 +614,7 @@ static VideoPlayerViewController *activePlayer = nil;
             NSLog(@"player item status is ready to play");
             if (videoState == kVideoOpening)  {
                 videoState = kVideoOpened;
+                [self muteVideo:isMute];
                 NSLog(@"Video is opened");
                 if (overlayAudioStreamer &&
                     overlayAudioStreamer.status != AVPlayerItemStatusReadyToPlay) {
@@ -552,6 +631,7 @@ static VideoPlayerViewController *activePlayer = nil;
                         [queuePlayer pause];
                     }
                     
+                    [delegate videoReady:delegateInfo];
                 }
             }
             break;
@@ -584,6 +664,8 @@ static VideoPlayerViewController *activePlayer = nil;
                     NSLog(@"VIDEO & AUDIO waiting from GO");
                     [overlayAudioStreamer pause];
                 }
+                
+                [delegate videoReady:delegateInfo];
             }
             break;
         case AVPlayerItemStatusUnknown:
@@ -612,6 +694,7 @@ static VideoPlayerViewController *activePlayer = nil;
             if (item.playbackBufferEmpty)
             {
                 NSLog(@"player item playback buffer is empty");
+                [queuePlayer play];
             }
         }
     }
@@ -865,5 +948,28 @@ static VideoPlayerViewController *activePlayer = nil;
         overlayAudioItem = nil;
     }
 }
-    
+
+#pragma mark - Tap recognizer
+
+- (void)enableTapGesture: (UIView *)view
+{
+    view.userInteractionEnabled = YES;
+    tapRecognizer = [[UITapGestureRecognizer alloc]
+                     initWithTarget:self action:@selector(videoImageTap:)];
+    [view addGestureRecognizer:tapRecognizer];
+}
+
+- (void)disableTapGesture
+{
+    UIView *videoView = tapRecognizer.view;
+    [videoView removeGestureRecognizer:tapRecognizer];
+    tapRecognizer = nil;
+}
+
+- (void)videoImageTap:(UIGestureRecognizer *)sender
+{
+    NSLog(@"videoImageTap");
+}
+
+
 @end

@@ -11,22 +11,23 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "ServerCommunication.h"
 #import "VideoPlayerViewController.h"
-#import "CustomUIViewController.h"
+#import "AVCamViewController.h"
 
-@interface LoginViewController : CustomUIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
+@interface LoginViewController : UIViewController <FBLoginViewDelegate, ServerCommunicationDelegate> {
 
 }
+
++ (LoginViewController *) loadInstance;
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
 
-@property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;
-
+@property (weak, nonatomic) IBOutlet UIView *viewVideo;
+@property (weak, nonatomic) IBOutlet UIImageView *viewImageBG;
 
 - (IBAction)termOfUseClicked:(UIButton *)sender;
 - (IBAction)guestLoginClicked:(UIButton *)sender;
-- (IBAction)playVideoClicked:(UIButton *)sender;
 
 + (void)signOutFacebook;
 

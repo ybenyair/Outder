@@ -33,6 +33,7 @@ typedef enum {
 
 @protocol VideoPlayerViewControllerDelegate
 - (void)videoClosed: (id)userInfo;
+- (void)videoReady: (id)userInfo;
 - (BOOL)keepActivePlayers;
 @end
 
@@ -41,12 +42,19 @@ typedef enum {
     BOOL enableAutoRotation;
 }
 
+- (id)initWithView:(UIView *)view;
+
 - (void) setDelegate:(id)obj withInfo: (id) info;
 - (void) setFadingDuration: (CGFloat) duration;
 - (void) setVideoOverlay: (VideoOverlay *) videoOverlay;
 - (void) playVideo:(NSString *)videoURL inView:(UIView *)videoView;
 - (void) prepareVideo:(NSString *)videoURL inView:(UIView *)videoView;
 - (void) playWhenPrepared: (UIView *)videoView;
+- (void) pauseVideo: (BOOL) pasue;
+- (void) muteVideo: (BOOL) mute;
+- (void) repeatVideo: (BOOL) repeat;
+- (void) enableTapGesture: (UIView *)view;
+
 
 -(void) stopVideo:(BOOL) animated;
 

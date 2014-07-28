@@ -556,6 +556,11 @@
     
 }
 
+- (void) videoReady:(id)userInfo
+{
+    
+}
+
 - (void) videoClosed:(id)userInfo
 {
     NSUInteger indexClosed = [self getPlayerIndex:userInfo];

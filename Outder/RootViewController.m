@@ -98,20 +98,27 @@ static RootViewController *instance = nil;
 
 - (void) initSplashView
 {
-
-    UIImage* imageDefault = [UIImage imageNamed:@"splash.jpg"];
     CGRect frame;
     frame.origin.x = 0;
     frame.origin.y = 0;
     frame.size.width = [AppDelegate getInstance].window.frame.size.width;
     frame.size.height = [AppDelegate getInstance].window.frame.size.height;
     
-    UIImageView *splash = [[UIImageView alloc] initWithFrame:frame];
-    splash.contentMode = UIViewContentModeScaleAspectFit;
+    UIView *splashView = [[UIView alloc] initWithFrame:frame];
+    UIImage* imageLogo = [UIImage imageNamed:@"logo.png"];
+    UIImageView *splashImage = [[UIImageView alloc] initWithImage:imageLogo];
+    splashImage.contentMode = UIViewContentModeScaleAspectFit;
+    frame.size.height = 40;
+    frame.size.width = 144;
+    splashImage.frame = frame;
     
-    [splash setImage:imageDefault];
-    [self.view addSubview:splash];
-    [self.view sendSubviewToBack:splash];
+    [splashView addSubview:splashImage];
+    splashImage.center = splashView.center;
+    
+    splashView.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    splashImage.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    
+    [self.view addSubview:splashView];
 }
 
 - (void)setActiveView: (UIViewController *)viewController
@@ -134,11 +141,9 @@ static RootViewController *instance = nil;
     if (logOut) {
         [LoginViewController signOutFacebook];
     }
-    LoginViewController *lvc = [[LoginViewController alloc] init];
+    LoginViewController *lvc = [LoginViewController loadInstance];
     lvc.managedObjectContext = self.managedObjectContext;
-    UINavigationController *navcon = [[UINavigationController alloc] init];
-    [navcon pushViewController:lvc animated:YES];
-    [self setActiveView:navcon];
+    [self setActiveView:lvc];
 }
 
 - (void)startDashboardViewController: (BOOL)refreshData withTab:(NSUInteger)index

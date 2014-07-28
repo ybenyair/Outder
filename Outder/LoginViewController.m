@@ -24,6 +24,23 @@
 @synthesize managedObjectContext;
 @synthesize videoCtrl;
 
++ (LoginViewController *) loadInstance
+{
+    UIStoryboard *sb = nil;
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        // code for 4-inch screen
+        sb = [UIStoryboard storyboardWithName:@"LoginViewController.iPhone5" bundle:nil];
+    } else {
+        // code for 3.5-inch screen
+        sb = [UIStoryboard storyboardWithName:@"LoginViewController.iPhone4" bundle:nil];
+    }
+    
+    LoginViewController *vc = [sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        
+    return vc;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,11 +55,15 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSLog(@"LoginViewController: viewDidAppear");
+    [self getVideoReady];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
 {
     [DejalBezelActivityView removeViewAnimated:YES];
+    NSLog(@"LoginViewController: viewDidDisappear");
+    [videoCtrl stopVideo:NO];
 }
 
 + (void)signOutFacebook
@@ -55,6 +76,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.fbLoginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    self.fbLoginView.loginBehavior = FBSessionLoginBehaviorForcingSafari;
+    
+    self.viewImageBG.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+}
+
+-(BOOL)shouldAutorotate
+{
+    //I don't want to support auto rotate, but you can return any value you want here
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    //I want to only support portrait mode
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)pushDashboard
@@ -90,10 +125,9 @@
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
     NSLog(@"Fetching user information");
-    
     LoginInfo *loginInfo = [LoginInfo getInstance];
+    [self.videoCtrl pauseVideo:NO];
     if (!loginInfo.isValid) {
-        
         loginInfo.userName = [NSString stringWithFormat:@"%@",user.name];
         loginInfo.facebookID = [NSString stringWithFormat:@"%@",user.objectID];
         loginInfo.emailAddress =[user objectForKey:@"email"];
@@ -170,8 +204,10 @@
 
 - (IBAction)termOfUseClicked:(UIButton *)sender
 {
+    UINavigationController *nav = [[UINavigationController alloc] init];
     TermOfUseViewController *touvc = [[TermOfUseViewController alloc]init];
-    [self.navigationController pushViewController:touvc animated: YES];
+    [nav pushViewController:touvc animated:YES];
+    [self presentViewController:nav animated:YES completion:^{[videoCtrl stopVideo:NO];}];
 }
 
 - (IBAction)guestLoginClicked:(UIButton *)sender
@@ -183,15 +219,38 @@
     [self login:loginInfo];
 }
 
-- (IBAction)playVideoClicked:(UIButton *)sender
+
+- (void) getVideoReady
 {
+    if (videoCtrl) {
+        [videoCtrl stopVideo:NO];
+    }
     // Release the previous video player and allocate a new one
     videoCtrl = nil;
     videoCtrl = [[VideoPlayerViewController alloc] init];
-    
+    videoCtrl.enableAutoRotation = NO;
+    [videoCtrl setDelegate:self withInfo:nil];
     // PLay the video
-    NSString *url = @"http://d167cgw0so9a1a.cloudfront.net/media/loginsamplevideo.mp4";
-    [videoCtrl playVideo:url inView:self.videoView];
+    NSString *url = @"http://d167cgw0so9a1a.cloudfront.net/C1/Feed/LoginClip.mp4";
+    [videoCtrl prepareVideo:url inView:self.viewVideo];
+    [videoCtrl muteVideo:YES];
+    [videoCtrl repeatVideo:YES];
+}
+
+- (void) videoReady:(id)userInfo
+{
+    self.viewVideo.alpha = 0.0f;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         self.viewVideo.alpha = 1.0f;
+                     }];
+    
+    [videoCtrl playWhenPrepared:self.viewVideo];
+}
+
+- (void) videoClosed:(id)userInfo
+{
+    
 }
 
 @end

@@ -61,6 +61,8 @@
 		188569EA194D1F3F00980F36 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 188569E9194D1F3F00980F36 /* home.png */; };
 		188569EE194D210700980F36 /* myvideos.png in Resources */ = {isa = PBXBuildFile; fileRef = 188569ED194D210700980F36 /* myvideos.png */; };
 		188569F0194D21D700980F36 /* featured.png in Resources */ = {isa = PBXBuildFile; fileRef = 188569EF194D21D700980F36 /* featured.png */; };
+		18859FBC19865B3F00246765 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 18859FBB19865B3F00246765 /* logo.png */; };
+		18859FBE1986622A00246765 /* LoginViewController.iPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18859FBD1986622A00246765 /* LoginViewController.iPhone5.storyboard */; };
 		1885FF111965D2CA008E93A5 /* MakeOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 1885FF101965D2CA008E93A5 /* MakeOne.png */; };
 		1885FF1E1965D55B008E93A5 /* TemplatesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885FF1D1965D55B008E93A5 /* TemplatesVC.m */; };
 		1885FF201965D562008E93A5 /* TemplatesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1885FF1F1965D562008E93A5 /* TemplatesVC.xib */; };
@@ -101,7 +103,6 @@
 		18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE95CA193D310C00021A5D /* TermOfUseViewController.m */; };
 		18DE95CF193D424000021A5D /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95CE193D424000021A5D /* sample.png */; };
 		18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */; };
-		18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DE96031944FF0D00021A5D /* LoginViewController.xib */; };
 		18DE960919450CEF00021A5D /* FacebookSDKOverrides.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */; };
 		18DE960D194568E100021A5D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DE960C194568E100021A5D /* MediaPlayer.framework */; };
 		18DEDEC0195AAAF6002DE2D2 /* TemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DEDEBF195AAAF6002DE2D2 /* TemplateCell.m */; };
@@ -261,6 +262,8 @@
 		188569E9194D1F3F00980F36 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		188569ED194D210700980F36 /* myvideos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myvideos.png; sourceTree = "<group>"; };
 		188569EF194D21D700980F36 /* featured.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = featured.png; sourceTree = "<group>"; };
+		18859FBB19865B3F00246765 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		18859FBD1986622A00246765 /* LoginViewController.iPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViewController.iPhone5.storyboard; sourceTree = "<group>"; };
 		1885FF101965D2CA008E93A5 /* MakeOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MakeOne.png; sourceTree = "<group>"; };
 		1885FF1C1965D554008E93A5 /* TemplatesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TemplatesVC.h; path = Outder/TemplatesVC.h; sourceTree = "<group>"; };
 		1885FF1D1965D55B008E93A5 /* TemplatesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TemplatesVC.m; path = Outder/TemplatesVC.m; sourceTree = "<group>"; };
@@ -319,8 +322,6 @@
 		18DE95CE193D424000021A5D /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 		18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermOfUseViewController.xib; sourceTree = "<group>"; };
 		18DE96051944FF5500021A5D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		18DE96061944FF8300021A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginViewController.xib; sourceTree = "<group>"; };
-		18DE96071944FFA100021A5D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/LoginViewController.strings; sourceTree = "<group>"; };
 		18DE960819450CEF00021A5D /* FacebookSDKOverrides.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKOverrides.bundle; path = Outder/FacebookSDKOverrides.bundle; sourceTree = "<group>"; };
 		18DE960C194568E100021A5D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		18DEDEBE195AAAF0002DE2D2 /* TemplateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TemplateCell.h; path = Outder/TemplateCell.h; sourceTree = "<group>"; };
@@ -479,7 +480,7 @@
 				183753171967317A0080C85B /* LoginInfo.m */,
 				187A5754193D0F15009BA935 /* LoginViewController.h */,
 				187A5755193D0F15009BA935 /* LoginViewController.m */,
-				18DE96031944FF0D00021A5D /* LoginViewController.xib */,
+				18859FBD1986622A00246765 /* LoginViewController.iPhone5.storyboard */,
 				18DE95C9193D310B00021A5D /* TermOfUseViewController.h */,
 				18DE95CA193D310C00021A5D /* TermOfUseViewController.m */,
 				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
@@ -713,6 +714,7 @@
 			isa = PBXGroup;
 			children = (
 				185CDD5D1980B0C00082B856 /* Fish.png */,
+				18859FBB19865B3F00246765 /* logo.png */,
 				1869904A197A1AE10004C44F /* directions_separator_shadow.png */,
 				186990481979E9860004C44F /* button_show_directions_off.png */,
 				186990461979C9540004C44F /* button_makeone_off.png */,
@@ -926,6 +928,7 @@
 			files = (
 				188B883E1982559000283573 /* p3.mp4 in Resources */,
 				181BF039195FD55300BCBC05 /* splash.jpg in Resources */,
+				18859FBC19865B3F00246765 /* logo.png in Resources */,
 				18F8A9371971C90E001093E4 /* InstructionCell.iPhone5.xib in Resources */,
 				18F561AC196B58E8002EA1FD /* RecordPortrait.png in Resources */,
 				18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */,
@@ -933,6 +936,7 @@
 				185CDD5E1980B0C00082B856 /* Fish.png in Resources */,
 				186990451979C70D0004C44F /* SubTemplateCell.iPhone5.storyboard in Resources */,
 				186990471979C9540004C44F /* button_makeone_off.png in Resources */,
+				18859FBE1986622A00246765 /* LoginViewController.iPhone5.storyboard in Resources */,
 				18F8A92F196F5748001093E4 /* InstructionsBG.png in Resources */,
 				1829ED231977F2710090A62D /* TemplateCell.xib in Resources */,
 				18ACD7F4196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib in Resources */,
@@ -950,7 +954,6 @@
 				18FB7C8419676408005C9ABA /* Icon_Facebook.png in Resources */,
 				186990491979E9860004C44F /* button_show_directions_off.png in Resources */,
 				1889C0B3194F74BE0065FFE0 /* grayArrow@2x.png in Resources */,
-				18DE96011944FF0D00021A5D /* LoginViewController.xib in Resources */,
 				1889C0B2194F74BE0065FFE0 /* grayArrow.png in Resources */,
 				18F8A925196E0903001093E4 /* recBtn1@2x.png in Resources */,
 				18DE95FE1944FDDB00021A5D /* TermOfUseViewController.xib in Resources */,
@@ -1092,15 +1095,6 @@
 				188B8F20194A158800A88D43 /* he */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		18DE96031944FF0D00021A5D /* LoginViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18DE96061944FF8300021A5D /* Base */,
-				18DE96071944FFA100021A5D /* he */,
-			);
-			name = LoginViewController.xib;
 			sourceTree = "<group>";
 		};
 		18EC4FAE193D0E4B003E5335 /* InfoPlist.strings */ = {
