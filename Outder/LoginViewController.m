@@ -248,19 +248,22 @@
     if (videoCtrl) {
         [videoCtrl stopVideo:NO];
     }
+    NSString *url = @"http://d167cgw0so9a1a.cloudfront.net/C1/Feed/LoginClip.mp4";
+
     // Release the previous video player and allocate a new one
     videoCtrl = nil;
-    videoCtrl = [[VideoPlayerViewController alloc] init];
+    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.viewVideo andURL:url];
     videoCtrl.enableAutoRotation = NO;
     [videoCtrl setDelegate:self withInfo:nil];
+    [videoCtrl setTapGesture:YES];
+
     // PLay the video
-    NSString *url = @"http://d167cgw0so9a1a.cloudfront.net/C1/Feed/LoginClip.mp4";
-    [videoCtrl prepareVideo:url inView:self.viewVideo];
+    [videoCtrl prepareVideo];
     [videoCtrl muteVideo:YES];
     [videoCtrl repeatVideo:YES];
 }
 
-- (void) videoReady:(id)userInfo
+- (void) videoIsReady:(id)userInfo
 {
     self.viewVideo.alpha = 0.0f;
     [UIView animateWithDuration:1.0
@@ -268,12 +271,7 @@
                          self.viewVideo.alpha = 1.0f;
                      }];
     
-    [videoCtrl playWhenPrepared:self.viewVideo];
-}
-
-- (void) videoClosed:(id)userInfo
-{
-    
+    [videoCtrl playWhenPrepared];
 }
 
 @end

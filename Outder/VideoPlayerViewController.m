@@ -17,19 +17,6 @@
 
 
 #pragma mark - VideoOverlayHandler
-/*
-@interface  VideoOverlayHandler : NSObject
-
-@property (nonatomic) NSUInteger currentOverlayIndex;
-@property (nonatomic,strong) NSMutableArray *overlayImages;
-@property (nonatomic,strong) VideoOverlay *videoOverlay;
-
-@end
-
-@implementation VideoOverlayHandler
-
-@end
-*/
 
 @interface VideoPlayerViewController ()
 {
@@ -44,6 +31,8 @@
     BOOL isRepeat;
 
     UITapGestureRecognizer *tapRecognizer;
+    NSString *fileURL;
+    UIView *playView;
     
     id <VideoPlayerViewControllerDelegate> delegate;
     id delegateInfo;
@@ -70,40 +59,38 @@ static VideoPlayerViewController *activePlayer = nil;
 
 #pragma mark - controller initialization
 
+- (void) initParameters
+{
+    // Custom initialization
+    // Do any additional setup after loading the view from its nib.
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.view.contentMode = UIViewContentModeScaleAspectFit;
+    self.videoState = kVideoClosed;
+    self.enableAutoRotation = YES;
+    
+    [self initStopButton];
+    [self initPlaybackErrorLabel];
+    fadingDuration = 1.0f;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:@"VideoPlayerViewController" bundle:nibBundleOrNil];
     
     if (self) {
-        // Custom initialization
-        // Do any additional setup after loading the view from its nib.
-        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.view.contentMode = UIViewContentModeScaleAspectFit;
-        self.videoState = kVideoClosed;
-        self.enableAutoRotation = YES;
-        
-        [self initStopButton];
-        [self initPlaybackErrorLabel];
-        fadingDuration = 1.0f;
+        [self initParameters];
     }
     
     return self;
 }
 
-- (id)initWithView:(UIView *)view
+- (id)initWithView:(UIView *)view andURL:(NSString *) url
 {
     if (self = [super init]) {
         // Custom initialization
         // Do any additional setup after loading the view from its nib.
-        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.view.contentMode = UIViewContentModeScaleAspectFit;
-        self.videoState = kVideoClosed;
-        self.enableAutoRotation = YES;
-        
-        [self initStopButton];
-        [self initPlaybackErrorLabel];
-        fadingDuration = 1.0f;
-        //[self enableTapGesture:view];
+        fileURL = url;
+        playView = view;
     }
     
     return self;
@@ -120,10 +107,18 @@ static VideoPlayerViewController *activePlayer = nil;
     delegateInfo = info;
 }
 
+- (void) setVideoURL: (NSString *)videoURL
+{
+    fileURL = videoURL;
+}
+
 - (void) dealloc {
+    NSLog(@"dealloc video player");
     playbackErrorLabel = nil;
     stopButton = nil;
-    //[self disableTapGesture];
+    [self setTapGesture:NO];
+    playView = nil;
+    fileURL = nil;
 }
 
 - (void)viewDidLoad
@@ -376,7 +371,7 @@ static VideoPlayerViewController *activePlayer = nil;
 - (void)addItemsOnPlayerView
 {
     [self.mPlaybackView  addSubview: activityIndicator];
-    [self.mPlaybackView addSubview: stopButton];
+    if (!tapRecognizer) [self.mPlaybackView addSubview: stopButton];
     [self.mPlaybackView addSubview: playbackErrorLabel];
 }
 
@@ -405,6 +400,52 @@ static VideoPlayerViewController *activePlayer = nil;
 
 #pragma mark - Video Player functions (open/close/play/stop)
 
+
+#pragma mark - Video Player functions (PLAY)
+
+-(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView
+{
+    //[self setDemoOverlay: videoView];
+    
+    if (videoState != kVideoClosed)
+    {
+        NSLog(@"Video is already playing...stoping it...");
+        [self movieFinishedOK];
+        return;
+    }
+    
+    if (activePlayer) {
+        NSLog(@"Another video is already playing...stoping it...");
+        if ([delegate respondsToSelector:@selector(videoShouldKeepActivePlayers:)]) {
+            if (![delegate videoShouldKeepActivePlayers:delegateInfo]) {
+                [activePlayer stopVideo: YES];
+            }
+        }
+    }
+    
+    activePlayer = self;
+    
+    videoState = kVideoOpening;
+    NSLog(@"Video is opening");
+    
+    // Alloc various objects
+    [self allocVideoPlayer:videoURL];
+    [self allocActivityIndicator];
+    [self addItemsOnPlayerView];
+    [self registerPlayerCallbacks];
+    
+    // Configure view
+    [self configurePlayerViewPortrait:videoView];
+    
+    // Play video
+    [self openVideo];
+}
+
+- (void) playVideo
+{
+    [self playVideo:fileURL inView:playView];
+}
+
 - (void)openVideo
 {
     [self.mPlaybackView setAlpha:1];
@@ -412,6 +453,93 @@ static VideoPlayerViewController *activePlayer = nil;
     [activityIndicator startAnimating];
     [self registerToDeviceOrientationNotification];
     [queuePlayer play];
+}
+
+#pragma mark - Video Player functions (PREPARE)
+
+- (void) prepareVideo:(NSString *)videoURL inView:(UIView *)videoView
+{
+    [self setPrepareAndWaitMode];
+    [self playVideo:videoURL inView:videoView];
+}
+
+- (void) prepareVideo
+{
+    [self prepareVideo:fileURL inView:playView];
+}
+
+#pragma mark - Video Player functions (PLAY WHEN PREPARED)
+
+- (void) playWhenPrepared: (UIView *)videoView
+{
+    getReadyOnly = NO;
+    
+    NSLog(@"VIDEO & AUDIO: GO");
+    
+    [videoView addSubview:self.view];
+    
+    switch (requestedOrientation) {
+        case UIDeviceOrientationLandscapeLeft:
+            [self configurePlayerViewLandscape:(M_PI / 2) withAnimation:NO];
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            [self configurePlayerViewLandscape:(3 * M_PI / 2) withAnimation:NO];
+            break;
+        default:
+            break;
+    }
+    
+    if (videoItem.status == AVPlayerItemStatusReadyToPlay)
+    {
+        [queuePlayer play];
+        [self startOverlayAnimation];
+    }
+    
+    if (overlayAudioStreamer && overlayAudioStreamer.status == AVPlayerItemStatusReadyToPlay)
+    {
+        [self playOverlayTrack];
+    }
+}
+
+- (void) playWhenPrepared
+{
+    [self playWhenPrepared:playView];
+}
+
+- (void) setPrepareAndWaitMode
+{
+    getReadyOnly = YES;
+}
+
+#pragma mark - Video Player functions (PAUSE)
+
+- (void) pauseVideo: (BOOL) pasue
+{
+    if (pasue) {
+        [queuePlayer pause];
+        [overlayAudioStreamer pause];
+    } else {
+        [queuePlayer play];
+        [overlayAudioStreamer play];
+    }
+}
+
+#pragma mark - Video Player functions (STOP)
+
+-(void) stopVideo:(BOOL) animated
+{
+    if (animated)
+    {
+        if (videoState == kVideoOpened || videoState == kVideoOpening) {
+            
+            NSLog(@"Video is closing");
+            [self movieFinishedOK];
+        }
+    } else
+    {
+        [self closeVideo];
+    }
+    
 }
 
 - (void) closeVideo
@@ -439,104 +567,23 @@ static VideoPlayerViewController *activePlayer = nil;
 
     stopButton.hidden = YES;
     videoState = kVideoClosed;
-    [delegate videoClosed:delegateInfo];
+    
+    if ([delegate respondsToSelector:@selector(videoDidClose:)]) {
+        [delegate videoDidClose:delegateInfo];
+    }
+    
     if (activePlayer == self) activePlayer = nil;
     NSLog(@"Video is closed");
 }
 
--(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView
+#pragma mark - Video Player functions (REPEAT)
+
+- (void) repeatVideo: (BOOL) repeat
 {
-    //[self setDemoOverlay: videoView];
-
-    if (videoState != kVideoClosed)
-    {
-        NSLog(@"Video is already playing...stoping it...");
-        [self movieFinishedOK];
-        return;
-    }
-    
-    if (activePlayer) {
-        NSLog(@"Another video is already playing...stoping it...");
-        if (![delegate keepActivePlayers]) {
-            [activePlayer stopVideo: YES];
-        }
-    }
-
-    activePlayer = self;
-
-    videoState = kVideoOpening;
-    NSLog(@"Video is opening");
-    
-    // Alloc various objects
-    [self allocVideoPlayer:videoURL];
-    [self allocActivityIndicator];
-    [self addItemsOnPlayerView];
-    [self registerPlayerCallbacks];
-    
-    // Configure view
-    [self configurePlayerViewPortrait:videoView];
-    
-    // Play video
-    [self openVideo];
+    isRepeat = repeat;
 }
 
-- (void) prepareVideo:(NSString *)videoURL inView:(UIView *)videoView
-{
-    [self setPrepareAndWaitMode];
-    [self playVideo:videoURL inView:videoView];
-}
-
-- (void) setPrepareAndWaitMode
-{
-    getReadyOnly = YES;
-}
-
-- (void) playWhenPrepared: (UIView *)videoView
-{
-    getReadyOnly = NO;
-    
-    NSLog(@"VIDEO & AUDIO: GO");
-
-    [videoView addSubview:self.view];
-
-    switch (requestedOrientation) {
-        case UIDeviceOrientationLandscapeLeft:
-            [self configurePlayerViewLandscape:(M_PI / 2) withAnimation:NO];
-            break;
-        case UIDeviceOrientationLandscapeRight:
-            [self configurePlayerViewLandscape:(3 * M_PI / 2) withAnimation:NO];
-            break;
-        default:
-            break;
-    }
-    
-    if (videoItem.status == AVPlayerItemStatusReadyToPlay)
-    {
-        [queuePlayer play];
-        [self startOverlayAnimation];
-    }
-    
-    if (overlayAudioStreamer && overlayAudioStreamer.status == AVPlayerItemStatusReadyToPlay)
-    {
-        [self playOverlayTrack];
-    }
-}
-
--(void) stopVideo:(BOOL) animated
-{
-    if (animated)
-    {
-        if (videoState == kVideoOpened || videoState == kVideoOpening) {
-            
-            NSLog(@"Video is closing");
-            [self movieFinishedOK];
-        }
-    } else
-    {
-        [self closeVideo];
-    }
-    
-}
+#pragma mark - Video Player functions (MUTE)
 
 - (void) muteVideo: (BOOL) mute {
     isMute = mute;
@@ -551,22 +598,6 @@ static VideoPlayerViewController *activePlayer = nil;
         }
     }
     return;
-}
-
-- (void) repeatVideo: (BOOL) repeat
-{
-    isRepeat = repeat;
-}
-
-- (void) pauseVideo: (BOOL) pasue
-{
-    if (pasue) {
-        [queuePlayer pause];
-        [overlayAudioStreamer pause];
-    } else {
-        [queuePlayer play];
-        [overlayAudioStreamer play];
-    }
 }
 
 #pragma mark - Video Player (callbacks)
@@ -631,7 +662,10 @@ static VideoPlayerViewController *activePlayer = nil;
                         [queuePlayer pause];
                     }
                     
-                    [delegate videoReady:delegateInfo];
+                    if ([delegate respondsToSelector:@selector(videoIsReady:)]) {
+                        [delegate videoIsReady:delegateInfo];
+                    }
+                    
                 }
             }
             break;
@@ -664,8 +698,9 @@ static VideoPlayerViewController *activePlayer = nil;
                     NSLog(@"VIDEO & AUDIO waiting from GO");
                     [overlayAudioStreamer pause];
                 }
-                
-                [delegate videoReady:delegateInfo];
+                if ([delegate respondsToSelector:@selector(videoIsReady:)]) {
+                    [delegate videoIsReady:delegateInfo];
+                }
             }
             break;
         case AVPlayerItemStatusUnknown:
@@ -951,24 +986,50 @@ static VideoPlayerViewController *activePlayer = nil;
 
 #pragma mark - Tap recognizer
 
-- (void)enableTapGesture: (UIView *)view
+- (void)setTapGesture: (BOOL) enable
 {
-    view.userInteractionEnabled = YES;
-    tapRecognizer = [[UITapGestureRecognizer alloc]
-                     initWithTarget:self action:@selector(videoImageTap:)];
-    [view addGestureRecognizer:tapRecognizer];
-}
-
-- (void)disableTapGesture
-{
-    UIView *videoView = tapRecognizer.view;
-    [videoView removeGestureRecognizer:tapRecognizer];
-    tapRecognizer = nil;
+    if (enable) {
+        playView.userInteractionEnabled = YES;
+        tapRecognizer = [[UITapGestureRecognizer alloc]
+                         initWithTarget:self action:@selector(videoImageTap:)];
+        [playView addGestureRecognizer:tapRecognizer];
+        [stopButton removeFromSuperview];
+        
+    } else {
+        UIView *videoView = playView;
+        [videoView removeGestureRecognizer:tapRecognizer];
+        tapRecognizer = nil;
+        [self.mPlaybackView addSubview: stopButton];
+    }
 }
 
 - (void)videoImageTap:(UIGestureRecognizer *)sender
 {
     NSLog(@"videoImageTap");
+    
+    BOOL shouldAct = NO;
+    
+    switch (videoState) {
+        case kVideoClosed:
+            if ([delegate respondsToSelector:@selector(videoShouldPlay:)]) {
+                shouldAct = [delegate videoShouldPlay:delegateInfo];
+            }
+            if (shouldAct) {
+                [self playVideo:fileURL inView:playView];
+            }
+            break;
+        case kVideoOpened:
+        case kVideoOpening:
+            if ([delegate respondsToSelector:@selector(videoShouldClose:)]) {
+                shouldAct = [delegate videoShouldClose:delegateInfo];
+            }
+            if (shouldAct) {
+                [self stopVideo:YES];
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 

@@ -81,30 +81,6 @@
     self.btnHideDirections.hidden = YES;
     self.btnHideDirections.enabled = NO;
     
-    [self setTapGesture];
-}
-
-- (void)setTapGesture
-{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self action:@selector(videoImageTap:)];
-    [self.videoImage addGestureRecognizer:tap];
-}
-
-- (void)videoImageTap:(UIGestureRecognizer *)sender
-{
-    NSLog(@"Video image tapped");
-    
-    if (!videoCtrl) {
-        videoCtrl = [[VideoPlayerViewController alloc] init];
-    }
-    
-    if (videoCtrl.videoState == kVideoClosed) {
-        [videoCtrl playVideo:subTemplate.videoURL inView:self.videoImage];
-    } else {
-        NSLog(@"Video is already playing...	");
-    }
-    
 }
 
 #pragma mark - ScrollView Methods
@@ -254,7 +230,11 @@
     if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
         [videoCtrl stopVideo:NO];
         videoCtrl = nil;
-    }    
+    }
+    
+    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.videoImage andURL:subTemplate.videoURL];
+    [videoCtrl setDelegate:self withInfo:nil];
+    [videoCtrl setTapGesture:YES];
 }
 
 - (void)setImage:(NSString *)imageURL
@@ -398,6 +378,38 @@
     self.imgMake.frame = imgMakeDirectionHideFrame;
     self.btnMake.alpha = 1.0f;
     self.imgMake.alpha = 1.0f;
+}
+
+#pragma mark - Video player delegate
+
+// The user tapped on the Video view
+- (BOOL)videoShouldPlay: (id)userInfo
+{
+    return YES;
+}
+
+// The user tapped on the Video view
+- (BOOL)videoShouldClose: (id)userInfo
+{
+    return YES;
+}
+
+// The video is ready to be played
+- (void)videoIsReady: (id)userInfo
+{
+    
+}
+
+// The video was just closed
+- (void)videoDidClose: (id)userInfo
+{
+    
+}
+
+// Do we support in one than one video instance
+- (BOOL)videoShouldKeepActivePlayers: (id)userInfo
+{
+    return NO;
 }
 
 @end

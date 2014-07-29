@@ -47,7 +47,7 @@
     self.title.textAlignment = NSTextAlignmentNatural;
     self.activityIndicator.hidden = YES;
     
-    [self setTapGesture];
+    //[self setTapGesture];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -226,8 +226,12 @@
         videoCtrl = nil;
     }
     
+    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.feedContentView andURL:feed.videoURL];
+    [videoCtrl setDelegate:self withInfo:nil];
+    [videoCtrl setTapGesture:YES];
 }
 
+/*
 - (void)setTapGesture
 {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -248,6 +252,39 @@
     [videoCtrl playVideo:feed.videoURL inView:self.feedContentView];
     
  }
+*/
+
+#pragma mark - Video player delegate
+
+// The user tapped on the Video view
+- (BOOL)videoShouldPlay: (id)userInfo
+{
+    return YES;
+}
+
+// The user tapped on the Video view
+- (BOOL)videoShouldClose: (id)userInfo
+{
+    return YES;
+}
+
+// The video is ready to be played
+- (void)videoIsReady: (id)userInfo
+{
+    
+}
+
+// The video was just closed
+- (void)videoDidClose: (id)userInfo
+{
+    
+}
+
+// Do we support in one than one video instance
+- (BOOL)videoShouldKeepActivePlayers: (id)userInfo
+{
+    return NO;
+}
 
 
 - (void) imageClicked {

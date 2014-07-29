@@ -467,8 +467,9 @@
     self.imageViewVideo.backgroundColor = [UIColor clearColor];
     
     if (!videoCtrl) {
-        videoCtrl = [[VideoPlayerViewController alloc] init];
+        videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.imageViewVideo andURL:currentInstruction.videoURL];
         [videoCtrl setDelegate:self withInfo:videoCtrl];
+        [videoCtrl setTapGesture:YES];
         videoCtrl.enableAutoRotation = NO;
         [playerList addObject:videoCtrl];
     }
@@ -477,7 +478,7 @@
         VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:currentInstruction];
         [videoCtrl setVideoOverlay:overlay];
         self.imageViewVideo.hidden = NO;
-        [videoCtrl playVideo:currentInstruction.videoURL inView:self.imageViewVideo];
+        [videoCtrl playVideo];
     } else {
         NSLog(@"Video is already playing...	");
     }
@@ -503,7 +504,7 @@
     
     for (id dataElement in instructions) {
         inst = (Instruction *)dataElement;
-        VideoPlayerViewController *player = [[VideoPlayerViewController alloc] init];
+        VideoPlayerViewController *player = [[VideoPlayerViewController alloc] initWithView:self.imageViewVideo andURL:inst.videoURL];
         player.enableAutoRotation = NO;
         [player setDelegate:self withInfo:player];
         [player setFadingDuration:0.0f];
@@ -514,15 +515,16 @@
     VideoPlayerViewController *firstPlayer = [playerList objectAtIndex:0];
     inst = [instructions objectAtIndex:0];
     VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:inst];
+    [firstPlayer setTapGesture:YES];
     [firstPlayer setVideoOverlay:overlay];
-    [firstPlayer playVideo:inst.videoURL inView:self.imageViewVideo];
+    [firstPlayer playVideo];
     
     if ([playerList count] > 1) {
         VideoPlayerViewController *secondPlayer = [playerList objectAtIndex:1];
         inst = [instructions objectAtIndex:1];
         VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:inst];
         [secondPlayer setVideoOverlay:overlay];
-        [secondPlayer prepareVideo:inst.videoURL inView:self.imageViewVideo];
+        [secondPlayer prepareVideo];
     }
 }
 
@@ -539,7 +541,7 @@
         obj = nil;
     }
     
-    [videoCtrl stopButtonClicked:nil];
+    [videoCtrl stopVideo:YES];
 }
 
 #pragma mark -
@@ -556,14 +558,10 @@
     
 }
 
-- (void) videoReady:(id)userInfo
-{
-    
-}
-
-- (void) videoClosed:(id)userInfo
+- (void) videoDidClose:(id)userInfo
 {
     NSUInteger indexClosed = [self getPlayerIndex:userInfo];
+    [userInfo setTapGesture:NO];
     if (indexClosed == [playerList count] - 1) {
         NSLog(@"PLAY LIST: last video was closed");
         [playerList removeAllObjects];
@@ -575,7 +573,8 @@
         
         NSUInteger nextToPlay = indexClosed + 1;
         VideoPlayerViewController *player = [playerList objectAtIndex:nextToPlay];
-        [player playWhenPrepared:self.imageViewVideo];
+        [player setTapGesture:YES];
+        [player playWhenPrepared];
         
         currentPlaying = nextToPlay;
 
@@ -587,7 +586,7 @@
             Instruction *inst = [instructions objectAtIndex:nextToPrepare];
             VideoOverlay *overlay = [VideoOverlayHelpers getVideoOverlay:inst];
             [player setVideoOverlay:overlay];
-            [player prepareVideo:inst.videoURL inView:self.imageViewVideo];
+            [player prepareVideo];
             NSLog(@"PLAY LIST: more to prepare - %lu", (unsigned long)nextToPrepare);
             
             if (player == [playerList lastObject]) {
@@ -598,19 +597,23 @@
     }
 }
 
+- (BOOL) videoShouldClose:(id)userInfo
+{
+    self.imageViewVideo.backgroundColor = [UIColor clearColor];
+    VideoPlayerViewController *videoCtrl = userInfo;
+    [videoCtrl setFadingDuration:1.0f];
+    
+    [self closeVideo:userInfo];
+    
+    return NO;
+}
+
 #pragma mark -
 #pragma mark play video (call back from iCarousel)
 
 - (void)itemClicked
 {
-    self.imageViewVideo.backgroundColor = [UIColor clearColor];
-    
-    VideoPlayerViewController *videoCtrl = [playerList objectAtIndex:currentPlaying];
-    
-    if (videoCtrl && videoCtrl.videoState == kVideoOpened) {
-        [videoCtrl setFadingDuration:1.0f];
-        [self closeVideo: videoCtrl];
-    }
+    NSLog(@"itemClicked");
 }
 
 #pragma mark -

@@ -19,7 +19,7 @@ typedef enum {
     kInstructionDone
 } eInstructionState;
 
-@interface InstructionCell : UIViewController <VideoPlayerViewControllerDelegate, UITextFieldDelegate>
+@interface InstructionCell : UIViewController <UITextFieldDelegate>
 {
     NSUInteger index;
     eInstructionState state;
