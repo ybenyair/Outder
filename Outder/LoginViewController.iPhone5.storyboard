@@ -108,7 +108,7 @@
     </scenes>
     <resources>
         <image name="Video_text_bg" width="272" height="75"/>
-        <image name="logo.png" width="257" height="72"/>
+        <image name="logo.png" width="152" height="42"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

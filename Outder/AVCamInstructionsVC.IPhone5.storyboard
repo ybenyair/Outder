@@ -140,7 +140,7 @@
     <resources>
         <image name="back.png" width="11" height="19"/>
         <image name="flip.png" width="25" height="18"/>
-        <image name="icon_restart_off.png" width="54" height="43"/>
+        <image name="icon_restart_off.png" width="32" height="25"/>
         <image name="recBtn1.png" width="38" height="38"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

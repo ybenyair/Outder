@@ -17,14 +17,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="270" height="450"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bK-dL-puq" userLabel="Image View - Video">
+                            <imageView userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bK-dL-puq" userLabel="Image View - Video">
                                 <rect key="frame" x="0.0" y="-1" width="270" height="152"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="button_makeone_off.png" translatesAutoresizingMaskIntoConstraints="NO" id="bJl-gk-xZY" userLabel="Image View - MakeOne">
-                                <rect key="frame" x="63" y="216" width="145" height="145"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="258" translatesAutoresizingMaskIntoConstraints="NO" id="p6g-9S-1Wy" userLabel="Label - name">
+                                <rect key="frame" x="6" y="81" width="258" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMS-QN-3HX" userLabel="View - videoPlay">
+                                <rect key="frame" x="0.0" y="-1" width="270" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="y0t-Bm-38s" userLabel="Table View - directions">
                                 <rect key="frame" x="0.0" y="450" width="270" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,24 +51,23 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBb-E6-ai8" userLabel="Label - title">
-                                <rect key="frame" x="11" y="153" width="244" height="23"/>
+                                <rect key="frame" x="6" y="153" width="244" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-mW-n4n" userLabel="Label - line">
-                                <rect key="frame" x="6" y="175" width="255" height="1"/>
+                                <rect key="frame" x="0.0" y="175" width="270" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.78844684103260865" green="0.78844684103260865" blue="0.78844684103260865" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jya-F7-vob" userLabel="Button - MakeOne">
-                                <rect key="frame" x="99" y="267" width="73" height="43"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jya-F7-vob" userLabel="Button - MakeOne">
+                                <rect key="frame" x="56" y="210" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <state key="normal" title="Make">
+                                <state key="normal" title="Make" backgroundImage="button_makeone_off.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -68,7 +75,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Make" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyI-7M-ESP" userLabel="Label - Make direction unhide">
-                                <rect key="frame" x="114" y="227" width="42" height="21"/>
+                                <rect key="frame" x="85" y="188" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <nil key="highlightedColor"/>
@@ -85,6 +92,17 @@
                                     <action selector="btnShowDirectionsClicked:" destination="cUE-68-oYP" eventType="touchUpInside" id="lgf-ds-U82"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons_shots_number.png" translatesAutoresizingMaskIntoConstraints="NO" id="eNQ-wF-bCm">
+                                <rect key="frame" x="238" y="154" width="37" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNU-Fk-0t1" userLabel="Label - instruction number">
+                                <rect key="frame" x="220" y="153" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -94,11 +112,13 @@
                         <outlet property="btnHideDirections" destination="56j-u2-Mry" id="zJj-bN-szG"/>
                         <outlet property="btnMake" destination="jya-F7-vob" id="LRx-zX-ahz"/>
                         <outlet property="btnShowDirections" destination="xKv-pe-LNg" id="eJm-c2-p0x"/>
-                        <outlet property="imgMake" destination="bJl-gk-xZY" id="aMw-sn-xrc"/>
                         <outlet property="labelMakePlace" destination="oyI-7M-ESP" id="5z6-Yo-uYi"/>
+                        <outlet property="labelName" destination="p6g-9S-1Wy" id="ogP-Jh-Yrp"/>
                         <outlet property="labelTitle" destination="ZBb-E6-ai8" id="dZX-qH-ldf"/>
+                        <outlet property="lableInstructionNum" destination="ZNU-Fk-0t1" id="HP8-He-v4R"/>
                         <outlet property="tableDirections" destination="y0t-Bm-38s" id="bvO-US-vFf"/>
                         <outlet property="videoImage" destination="5bK-dL-puq" id="JNs-5j-y4I"/>
+                        <outlet property="videoView" destination="aMS-QN-3HX" id="uif-Wx-osg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iok-bg-yf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -107,8 +127,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="button_makeone_off.png" width="248" height="248"/>
-        <image name="button_show_directions_off.png" width="197" height="51"/>
+        <image name="button_makeone_off.png" width="329" height="329"/>
+        <image name="button_show_directions_off.png" width="262" height="67"/>
+        <image name="icons_shots_number.png" width="22" height="27"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

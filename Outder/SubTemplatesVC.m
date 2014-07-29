@@ -12,6 +12,7 @@
 #import "SubTemplate.h"
 #import "AVCamInstructionsVC.h"
 #import "AVCamViewController.h"
+#import "Defines.h"
 
 @interface SubTemplatesVC ()
 
@@ -52,6 +53,7 @@
     _currentPage = 0;
     self.pageControl.numberOfPages = [_subTemplates count];
     [self setBackNavigationBarItems];
+    [self setNavigationBarTitle];
     self.tabBarController.tabBar.hidden = YES;
 
 }
@@ -78,24 +80,46 @@
     
 }
 
-- (void) backClicked
+- (void) backClicked: (id) sender
 {
     [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (void) setNavigationBarTitle
+{
+    SubTemplate *sub = [_subTemplates firstObject];
+    
+    UILabel *titleView = (UILabel *)self.navigationItem.titleView;
+    if (!titleView) {
+        titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.font = [UIFont fontWithName:kFontBlack size:24];
+        titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        
+        titleView.textColor = [UIColor whiteColor]; // Change to desired color
+        
+        self.navigationItem.titleView = titleView;
+    
+    }
+    titleView.text = [sub.template.title uppercaseString];
+    [titleView sizeToFit];
 }
 
 - (void) setBackNavigationBarItems
 {
     //create the image for your button, and set the frame for its size
-    UIImage *image = [UIImage imageNamed:@"signOut"];
-    CGRect frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIImage *imageOff = [UIImage imageNamed:@"back_off"];
+    UIImage *imagePress = [UIImage imageNamed:@"back_press"];
+    CGRect frame = CGRectMake(0, 0, 20, 20);
     
     //init a normal UIButton using that image
     UIButton* button = [[UIButton alloc] initWithFrame:frame];
-    [button setBackgroundImage:image forState:UIControlStateNormal];
+    [button setBackgroundImage:imageOff forState:UIControlStateNormal];
+    [button setBackgroundImage:imagePress forState:UIControlStateHighlighted];
     [button setShowsTouchWhenHighlighted:YES];
     
     //set the button to handle clicks - this one calls a method called 'downloadClicked'
-    [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchDown];
     
     //finally, create your UIBarButtonItem using that button
     UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -106,6 +130,12 @@
 
 #pragma mark -
 #pragma mark iCarousel methods
+
+- (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
+{
+    SubTemplateCell *item = [self getCurrentItem];
+    [item currentlyPresented];
+}
 
 - (void)carouselDidScroll:(iCarousel *)carousel
 {
@@ -135,6 +165,8 @@
         NSLog(@"Create a new view for index %ld",(long)index);
         subTemplateItem = [SubTemplateCell loadInstance];
         subTemplateItem.view.frame = carousel.frame;
+        subTemplateItem.view.bounds = carousel.bounds;
+        
         subTemplateItem.delegate = self;
         NSString *key = [NSString stringWithFormat:@"%p",subTemplateItem.view];
         [_reusedSubTemplateViews setObject:subTemplateItem forKey:key];
@@ -165,6 +197,14 @@
 - (UIView *)carousel:(iCarousel *)carousel placeholderViewAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
     return nil;
+}
+
+- (SubTemplateCell *) getCurrentItem
+{
+    NSString *key = [NSString stringWithFormat:@"%p",self.carousel.currentItemView];
+    NSLog(@"find key %@", key);
+    SubTemplateCell *subTemplateItem = [_reusedSubTemplateViews objectForKey:key];
+    return subTemplateItem;
 }
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel

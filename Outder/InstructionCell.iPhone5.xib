@@ -169,8 +169,8 @@
     </objects>
     <resources>
         <image name="InstructionsBG.png" width="400" height="225"/>
-        <image name="icon_edit_off.png" width="211" height="211"/>
-        <image name="icon_play_off.png" width="211" height="211"/>
-        <image name="icon_publish_off.png" width="211" height="211"/>
+        <image name="icon_edit_off.png" width="124" height="124"/>
+        <image name="icon_play_off.png" width="124" height="124"/>
+        <image name="icon_publish_off.png" width="124" height="124"/>
     </resources>
 </document>

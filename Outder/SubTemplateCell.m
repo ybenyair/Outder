@@ -9,8 +9,7 @@
 #import "SubTemplateCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Instruction.h"
-
-#define kLineHeight 35.0f
+#import "Defines.h"
 
 @interface SubTemplateCell ()
 
@@ -21,7 +20,7 @@
 {
     NSMutableArray *directions;
     CGRect btnMakeDirectionHideFrame;
-    CGRect imgMakeDirectionHideFrame;
+    NSTimer *autoPlayTimer;
 }
 
 @synthesize videoCtrl;
@@ -62,26 +61,60 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     btnMakeDirectionHideFrame = self.btnMake.frame;
-    imgMakeDirectionHideFrame = self.imgMake.frame;
 
     self.videoImage.contentMode = UIViewContentModeScaleAspectFit;
     self.videoImage.userInteractionEnabled = YES;
     
     self.tableDirections.dataSource = self;
     self.tableDirections.delegate = self;
-    
+
+    UIColor *color = [FontHelpers colorFromHexString:@"#41beb1"];
+
     NSString *text = NSLocalizedString(@"HIDE", nil);
     [self.btnHideDirections setTitle: text forState: UIControlStateNormal];
+    self.btnHideDirections.titleLabel.font = [UIFont fontWithName:kFontRegular size:14];
+    [self.btnHideDirections setTitleColor:color forState: UIControlStateNormal];
     
     text = NSLocalizedString(@"SHOW DIRECTIONS", nil);
+    self.btnShowDirections.titleLabel.font = [UIFont fontWithName:kFontBold size:14];
     [self.btnShowDirections setTitle: text forState: UIControlStateNormal];
+    [self.btnShowDirections setTitleColor:color forState: UIControlStateNormal];
+    UIImage *imageOff = [UIImage imageNamed:@"button_show_directions_off"];
+    UIImage *imagePress = [UIImage imageNamed:@"button_show_directions_press"];
+    
+    //init a normal UIButton using that image
+    [self.btnShowDirections setBackgroundImage:imageOff forState:UIControlStateNormal];
+    [self.btnShowDirections setBackgroundImage:imagePress forState:UIControlStateHighlighted];
+    
+    // Button MakeOne
+    imagePress = [UIImage imageNamed:@"button_makeone_press"];
+    imageOff = [UIImage imageNamed:@"button_makeone_press_off"];
+    [self.btnMake setBackgroundImage:imagePress forState:UIControlStateHighlighted];
     
     self.labelMakePlace.hidden = YES;
     self.tableDirections.hidden = YES;
     self.btnHideDirections.hidden = YES;
     self.btnHideDirections.enabled = NO;
     
+    self.labelTitle.font = [UIFont fontWithName:kFontBold size:16];
+    self.labelTitle.textColor = [FontHelpers colorFromHexString:@"#545454"];
+    
+    self.lableInstructionNum.font = [UIFont fontWithName:kFontBlack size:18];
+    self.lableInstructionNum.textColor = [FontHelpers colorFromHexString:@"#545454"];
+    
+    self.labelName.font = [UIFont fontWithName:kFontBlack size:48];
+    self.labelName.textColor = [UIColor whiteColor];
 }
+
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    NSLog(@"Cancel autoPlay timer: %@", subTemplate.title);
+    [autoPlayTimer invalidate];
+    autoPlayTimer = nil;
+    if (videoCtrl.videoState != kVideoClosed) [videoCtrl stopVideo:NO];
+}
+
 
 #pragma mark - ScrollView Methods
 
@@ -117,7 +150,10 @@
     textLabel.text = data.name;
     textLabel.adjustsFontSizeToFitWidth = NO;
     textLabel.minimumScaleFactor = 0.1;
-    [textLabel setFont:[UIFont systemFontOfSize:12]];
+    
+    textLabel.font = [UIFont fontWithName:kFontRegular size:14];
+    textLabel.textColor = [FontHelpers colorFromHexString:@"#606060"];
+
     textLabel.lineBreakMode = NSLineBreakByCharWrapping;
     textLabel.textAlignment = NSTextAlignmentNatural;
     textLabel.numberOfLines = 0;
@@ -147,7 +183,8 @@
     frame.origin.x += 10;
     label.frame = frame;
     label.text = NSLocalizedString(@"Directions:", nil);
-    [label setFont:[UIFont systemFontOfSize:14]];
+    
+    label.font = [UIFont fontWithName:kFontBlack size:16];
     label.textColor = self.btnHideDirections.titleLabel.textColor;
     
     [view addSubview:imageView];
@@ -183,14 +220,16 @@
 {
     // Set the text inside the image
     NSString *text = NSLocalizedString(@"MAKE\nONE", nil);
+    
+    self.btnMake.titleLabel.font = [UIFont fontWithName:kFontBlack size:28];
+    UIColor *color = [FontHelpers colorFromHexString:@"#ee3322"];
     [self.btnMake setTitle: text forState: UIControlStateNormal];
-    [self.btnMake setTitleColor: [UIColor redColor] forState: UIControlStateNormal];
+    [self.btnMake setTitleColor:color forState: UIControlStateNormal];
     
     // Adjust text to fit the frame
     self.btnMake.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.btnMake.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
     self.btnMake.titleLabel.numberOfLines = 2;
-    [self.btnMake.titleLabel setFont:[UIFont systemFontOfSize:22]];
 }
 
 - (void) configureTableDirections
@@ -204,12 +243,14 @@
 
 - (void) configureVideoImage
 {
+    self.labelName.text = @"Today i feel";
     [self setImage:subTemplate.imageURL];
 }
 
 - (void) configureTitle
 {
     self.labelTitle.text = subTemplate.title;
+    self.lableInstructionNum.text = [NSString stringWithFormat:@"%ld",(long)[subTemplate.instructions count]];
 }
 
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view
@@ -232,7 +273,7 @@
         videoCtrl = nil;
     }
     
-    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.videoImage andURL:subTemplate.videoURL];
+    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.videoView andURL:subTemplate.videoURL];
     [videoCtrl setDelegate:self withInfo:nil];
     [videoCtrl setTapGesture:YES];
 }
@@ -256,6 +297,20 @@
                           }];
 }
 
+- (void)currentlyPresented
+{
+    autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
+
+    NSLog(@"currentlyPresented %@", subTemplate.title);
+}
+
+-(void)aAutoPlay: (NSTimer *)timer
+{
+    NSLog(@"aAutoPlay %@", subTemplate.title);
+    autoPlayTimer = nil;
+    [videoCtrl muteVideo:YES];
+    [videoCtrl playVideo];
+}
 
 #pragma mark - Actions (MakeOne)
 
@@ -287,12 +342,9 @@
      ];
     
     self.btnMake.alpha = 0.0f;
-    self.imgMake.alpha = 0.0f;
-    [self setMakeOneSmaller];
     [UIView animateWithDuration:1.0
                      animations:^{
-                         [self relocateMakeOne];
-                         
+                         [self setMakeOneSmaller];
                      }];
 }
 
@@ -308,29 +360,11 @@
 
 - (void) setMakeOneSmaller
 {
-    CGRect frameBtn = self.btnMake.frame;
-    frameBtn.size.height = frameBtn.size.height*kMakeScale;
-    frameBtn.size.width = frameBtn.size.width*kMakeScale;
-    frameBtn.origin.x = self.view.frame.size.width/2 - frameBtn.size.width/2;
-    
-    CGRect frameImage = self.imgMake.frame;
-    frameImage.size.height = frameImage.size.height*kMakeScale;
-    frameImage.size.width = frameImage.size.width*kMakeScale;
-    frameImage.origin.x = self.view.frame.size.width/2 - frameImage.size.width/2;
-    [self.btnMake.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    
-    self.btnMake.frame = frameBtn;
-    self.imgMake.frame= frameImage;
- 
-}
-
-- (void) relocateMakeOne
-{
+    self.btnMake.titleLabel.font = [UIFont fontWithName:kFontBlack size:18];
+    self.btnMake.frame = self.labelMakePlace.frame;
+    self.btnMake.bounds = self.labelMakePlace.bounds;
     self.btnMake.center = self.labelMakePlace.center;
-    self.imgMake.center = self.labelMakePlace.center;
-    
     self.btnMake.alpha = 1.0f;
-    self.imgMake.alpha = 1.0f;
 }
 
 #pragma mark - Actions (Hide directions)
@@ -355,8 +389,6 @@
      ];
     
     self.btnMake.alpha = 0.0f;
-    self.imgMake.alpha = 0.0f;
-    
     [UIView animateWithDuration:1.0
                      animations:^{
                          [self setMakeOneBigger];
@@ -373,11 +405,9 @@
 
 - (void) setMakeOneBigger
 {
-    [self.btnMake.titleLabel setFont:[UIFont systemFontOfSize:22]];
+    self.btnMake.titleLabel.font = [UIFont fontWithName:kFontBlack size:28];
     self.btnMake.frame= btnMakeDirectionHideFrame;
-    self.imgMake.frame = imgMakeDirectionHideFrame;
     self.btnMake.alpha = 1.0f;
-    self.imgMake.alpha = 1.0f;
 }
 
 #pragma mark - Video player delegate
@@ -385,6 +415,8 @@
 // The user tapped on the Video view
 - (BOOL)videoShouldPlay: (id)userInfo
 {
+    [autoPlayTimer invalidate];
+    autoPlayTimer = nil;
     return YES;
 }
 
@@ -397,13 +429,13 @@
 // The video is ready to be played
 - (void)videoIsReady: (id)userInfo
 {
-    
+
 }
 
 // The video was just closed
 - (void)videoDidClose: (id)userInfo
 {
-    
+    [videoCtrl muteVideo:NO];
 }
 
 // Do we support in one than one video instance

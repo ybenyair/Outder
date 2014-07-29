@@ -21,11 +21,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *videoImage;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btnMake;
-@property (weak, nonatomic) IBOutlet UIImageView *imgMake;
 @property (weak, nonatomic) IBOutlet UITableView *tableDirections;
 @property (weak, nonatomic) IBOutlet UIButton *btnHideDirections;
 @property (weak, nonatomic) IBOutlet UIButton *btnShowDirections;
 @property (weak, nonatomic) IBOutlet UILabel *labelMakePlace;
+@property (weak, nonatomic) IBOutlet UILabel *lableInstructionNum;
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UIView *videoView;
 
 - (IBAction)btnHideDirectionsClicked:(id)sender;
 - (IBAction)btnShowDirectionsClicked:(id)sender;
@@ -37,5 +39,6 @@
 @property (nonatomic, weak) id <SubTemplateCellDelegate> delegate;
 
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view;
+- (void)currentlyPresented;
 
 @end

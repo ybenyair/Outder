@@ -54,5 +54,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>almoni-dl-aaa-black.otf</string>
+		<string>almoni-dl-aaa-bold.otf</string>
+		<string>almoni-dl-aaa-regular.otf</string>
+	</array>
 </dict>
 </plist>
