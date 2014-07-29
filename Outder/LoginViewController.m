@@ -20,6 +20,9 @@
 @end
 
 @implementation LoginViewController
+{
+    DejalActivityView *dejalActivityView;
+}
 
 @synthesize managedObjectContext;
 @synthesize videoCtrl;
@@ -57,13 +60,30 @@
     [super viewDidAppear:animated];
     NSLog(@"LoginViewController: viewDidAppear");
     [self getVideoReady];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
 {
-    [DejalBezelActivityView removeViewAnimated:YES];
+    [dejalActivityView animateRemove];
+    dejalActivityView = nil;
     NSLog(@"LoginViewController: viewDidDisappear");
     [videoCtrl stopVideo:NO];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                                  object:nil];
+
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    NSLog(@"LoginViewController: applicationDidBecomeActive");
+    [self.videoCtrl pauseVideo:NO];
 }
 
 + (void)signOutFacebook
@@ -100,6 +120,7 @@
 - (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data
 {
     if (code == kCommOK) {
+        NSLog(@"Login...[OK]");
         LoginInfo *info = (LoginInfo *)data;
         [info storeLoggedIn];
         [self pushDashboard];
@@ -112,8 +133,10 @@
 
 - (void)login:(LoginInfo *)loginInfo
 {
-    [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Login...", nil)];
-
+    NSLog(@"Login...");
+    dejalActivityView = [DejalBezelActivityView activityViewForView:self.view withLabel:NSLocalizedString(@"Login...", nil)];
+    [dejalActivityView animateShow];
+    
     ServerCommunication *loginComm = [[ServerCommunication alloc] init];
     loginComm.delegate = self;
     [loginComm setUserData:loginInfo];
