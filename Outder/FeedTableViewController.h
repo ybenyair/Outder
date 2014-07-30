@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
 #import "ServerCommunication.h"
-#import "CustomUIViewController.h"
+#import "TitleNavBarVC.h"
 
-@interface FeedTableViewController : CustomUIViewController <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, ServerCommunicationDelegate>
+@interface FeedTableViewController : TitleNavBarVC <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, ServerCommunicationDelegate>
 {
     EGORefreshTableHeaderView *_refreshHeaderView;
     // First time to load data

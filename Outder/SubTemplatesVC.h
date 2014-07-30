@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
-#import "CustomUIViewController.h"
+#import "TitleNavBarVC.h"
 #import "SubTemplateCell.h"
 
-@interface SubTemplatesVC : CustomUIViewController <iCarouselDataSource, iCarouselDelegate, SubTemplateCellDelegate>
+@interface SubTemplatesVC : TitleNavBarVC <iCarouselDataSource, iCarouselDelegate, SubTemplateCellDelegate>
 
 - (id)initWithSubTemplates:(NSSet *)data;
 

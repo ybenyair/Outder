@@ -152,17 +152,18 @@ static RootViewController *instance = nil;
     
     TemplatesVC *homevc = [[TemplatesVC alloc] init];
     homevc.managedObjectContext = self.managedObjectContext;
-    homevc.tabBarItem.title = @"Home";
-    homevc.tabBarItem.image	 = [UIImage imageNamed:@"home"];
+    homevc.tabBarItem.title = NSLocalizedString(@"Create", nil);
+    homevc.tabBarItem.image	 = [UIImage imageNamed:@"tabs_create_on"];
+    
     UINavigationController *navhome = [[UINavigationController alloc] init];
     [navhome pushViewController:homevc animated:NO];
     navhome.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
     
     myVideoVC = [[FeedTableViewController alloc] init];
     myVideoVC.managedObjectContext = self.managedObjectContext;
-    myVideoVC.tabBarItem.title = @"My Video";
+    myVideoVC.tabBarItem.title = NSLocalizedString(@"My Video", nil);
     myVideoVC.feedType = kMyVideoType;
-    myVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"myvideos"];
+    myVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"tabs_myvideos_on"];
     [myVideoVC loadData];
     UINavigationController *navmyvideo = [[UINavigationController alloc] init];
     [navmyvideo pushViewController:myVideoVC animated:NO];
@@ -170,24 +171,37 @@ static RootViewController *instance = nil;
 
     featuredVideoVC = [[FeedTableViewController alloc] init];
     featuredVideoVC.managedObjectContext = self.managedObjectContext;
-    featuredVideoVC.tabBarItem.title = @"Featured";
+    featuredVideoVC.tabBarItem.title = NSLocalizedString(@"Popular", nil);
     featuredVideoVC.feedType = kFeaturedVideoType;
-    featuredVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"featured"];
+    featuredVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"tabs_popular_on"];
     [featuredVideoVC loadData];
     UINavigationController *navfeatured = [[UINavigationController alloc] init];
     [navfeatured pushViewController:featuredVideoVC animated:NO];
     navfeatured.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
 
-    [tabController setViewControllers:[NSArray arrayWithObjects:navmyvideo,navhome, navfeatured, nil] animated:YES];
+    [tabController setViewControllers:[NSArray arrayWithObjects:navfeatured ,navhome, navmyvideo, nil] animated:YES];
     
     tabController.selectedViewController=[tabController.viewControllers objectAtIndex:index];
     tabController.tabBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
+    
+    [self setBarItemColors];
     
     if (refreshData) {
         [self getTemplates];
     } else {
         [self setActiveView:tabController];
     }
+}
+
+- (void) setBarItemColors
+{
+    UIColor *colorPress = [FontHelpers colorFromHexString:@"#41beb1"];
+    
+    [[UITabBar appearance] setTintColor:colorPress];
+    
+    [UITabBarItem.appearance setTitleTextAttributes:@{ UITextAttributeTextColor : [UIColor whiteColor] } forState:UIControlStateNormal];
+    
+    [UITabBarItem.appearance setTitleTextAttributes:@{UITextAttributeTextColor : colorPress } forState:UIControlStateSelected];
 }
 
 - (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data

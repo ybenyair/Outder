@@ -51,8 +51,8 @@
     // Do any additional setup after loading the view from its nib.
     _reusedSubTemplateViews = [NSMutableDictionary dictionary];
     self.pageControl.numberOfPages = [_subTemplates count];
-    [self setBackNavigationBarItems];
-    [self setNavigationBarTitle];
+    //[self setBackNavigationBarItems];
+    //[self setNavigationBarTitle];
     self.tabBarController.tabBar.hidden = YES;
 
 }
@@ -95,22 +95,16 @@
 
 }
 
-- (void) setNavigationBarTitle
+- (void) setNavBarView
 {
     SubTemplate *sub = [_subTemplates firstObject];
-    
-    UILabel *titleView = (UILabel *)self.navigationItem.titleView;
-    if (!titleView) {
-        titleView = [[UILabel alloc] initWithFrame:CGRectZero];
-        titleView.backgroundColor = [UIColor clearColor];
-        titleView.font = [UIFont fontWithName:kFontBlack size:24];
-        titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-        
-        titleView.textColor = [UIColor whiteColor]; // Change to desired color
-        
-        self.navigationItem.titleView = titleView;
-    
-    }
+    self.navigationItem.titleView = nil;
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont fontWithName:kFontBlack size:24];
+    titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    titleView.textColor = [UIColor whiteColor]; // Change to desired color
+    self.navigationItem.titleView = titleView;
     titleView.text = [sub.template.title uppercaseString];
     [titleView sizeToFit];
 }

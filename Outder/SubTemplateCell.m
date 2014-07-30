@@ -344,7 +344,7 @@
     if (videoCtrl.videoState == kVideoOpened) {
         NSLog(@"Video is already playing: do not set timer");
     } else {
-        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
+        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
     }
 }
 

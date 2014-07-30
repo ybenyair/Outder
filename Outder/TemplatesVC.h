@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
-#import "CustomUIViewController.h"
+#import "TitleNavBarVC.h"
 
-@interface TemplatesVC : UIViewController  <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, NSFetchedResultsControllerDelegate,iCarouselDataSource, iCarouselDelegate>
+@interface TemplatesVC : TitleNavBarVC  <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, NSFetchedResultsControllerDelegate,iCarouselDataSource, iCarouselDelegate>
 
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
