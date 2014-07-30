@@ -13,5 +13,7 @@
 - (void) backClicked: (id) sender;
 - (void) settingsClicked: (id) sender;
 - (void) setNavBarView;
+- (void) setBarItemRight;
+- (void) setBarItemLeft;
 
 @end

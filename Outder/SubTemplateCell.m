@@ -331,7 +331,7 @@
                                   _imageView.alpha = 0.0;
                                   [UIView animateWithDuration:0.5
                                                    animations:^{
-                                                       _imageView.alpha = 0.8;
+                                                       _imageView.alpha = 1.0;
                                                    }];
                               }
                           }];

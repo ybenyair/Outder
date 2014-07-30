@@ -90,6 +90,17 @@ static NSString *CellIdentifier = @"templateCell";
     [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
 }
 
+- (void) setBarItemRight
+{
+    CGRect frame = CGRectMake(0, 0, 20, 20);
+    //init a normal UIButton using that image
+    UIButton* button = [[UIButton alloc] initWithFrame:frame];
+    //finally, create your UIBarButtonItem using that button
+    UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    //then set it.  phew.
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+}
+
 - (void) setPromotedTemplates
 {
     NSArray *promotedTemplates = [TemplateCoreData getPromotedTemplates:managedObjectContext];
@@ -409,12 +420,12 @@ static NSString *CellIdentifier = @"templateCell";
         }
         case iCarouselOptionFadeMax:
         {
-           return 0.4f;
+           return 0.8f;
         }
             
         case iCarouselOptionFadeMin:
         {
-            return -0.4f;
+            return -0.8f;
         }
             
         default:

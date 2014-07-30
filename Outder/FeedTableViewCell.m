@@ -10,6 +10,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SharingInfo.h"
 #import "SharingActivities.h"
+#import "Defines.h"
 
 @implementation FeedTableViewCell
 {
@@ -47,7 +48,11 @@
     self.title.textAlignment = NSTextAlignmentNatural;
     self.activityIndicator.hidden = YES;
     
-    //[self setTapGesture];
+    UIImage *imagePress = [UIImage imageNamed:@"icon_share_press"];
+    [self.sharedButton setBackgroundImage:imagePress forState:UIControlStateHighlighted];
+    
+    imagePress = [UIImage imageNamed:@"icon_makeit_press"];
+    [self.cameraButton setBackgroundImage:imagePress forState:UIControlStateHighlighted];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -201,11 +206,34 @@
     
 }
 
+- (void)setImageTitle
+{
+    self.title.adjustsFontSizeToFitWidth = NO;
+    self.title.numberOfLines = 0;
+    
+    CGFloat fontSize = 54;
+    while (fontSize > 0.0)
+    {
+        UIFont *font = [UIFont fontWithName:kFontBlack size:fontSize];
+        CGSize size = [self.title.text sizeWithFont:font constrainedToSize:CGSizeMake(self.title.frame.size.width, 10000) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        if (size.height <= self.title.frame.size.height) break;
+        
+        fontSize -= 1.0;
+    }
+    
+    NSLog(@"Set font size %f", fontSize);
+    self.title.font = [UIFont fontWithName:kFontBlack size:fontSize];
+    self.title.textColor = [UIColor whiteColor];
+}
+
 - (void)configureCell:(Feed *)feedInfo
 {
     feed = feedInfo;
     self.title.text = feed.title;
     
+    [self setImageTitle];
+
     [self restoreState];
     
     switch (self.state) {

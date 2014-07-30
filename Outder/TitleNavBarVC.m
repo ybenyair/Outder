@@ -42,8 +42,8 @@
 - (void) setBarItemLeft
 {
     //create the image for your button, and set the frame for its size
-    UIImage *imageOff = [UIImage imageNamed:@"back_off"];
-    UIImage *imagePress = [UIImage imageNamed:@"back_press"];
+    UIImage *imageOff = [UIImage imageNamed:@"back_press"];
+    UIImage *imagePress = [UIImage imageNamed:@"back_off"];
     CGRect frame = CGRectMake(0, 0, 20, 20);
     
     //init a normal UIButton using that image
@@ -65,8 +65,8 @@
 - (void) setBarItemRight
 {
     //create the image for your button, and set the frame for its size
-    UIImage *imageOff = [UIImage imageNamed:@"settings_off"];
-    UIImage *imagePress = [UIImage imageNamed:@"settings_press"];
+    UIImage *imageOff = [UIImage imageNamed:@"settings_press"];
+    UIImage *imagePress = [UIImage imageNamed:@"settings_off"];
     CGRect frame = CGRectMake(0, 0, 25, 25);
     
     //init a normal UIButton using that image

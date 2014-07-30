@@ -78,6 +78,19 @@
     //[self reloadTableViewDataSourceStart];
 }
 
+#pragma mark - override Navigation bar settiog
+
+- (void) setBarItemLeft
+{
+    CGRect frame = CGRectMake(0, 0, 20, 20);
+    //init a normal UIButton using that image
+    UIButton* button = [[UIButton alloc] initWithFrame:frame];
+    //finally, create your UIBarButtonItem using that button
+    UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    //then set it.  phew.
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
 - (void)loadData
 {
     loading = YES;
@@ -373,5 +386,6 @@
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
 }
+
 
 @end

@@ -109,26 +109,17 @@
     [titleView sizeToFit];
 }
 
-- (void) setBackNavigationBarItems
+- (void) setBarItemRight
 {
-    //create the image for your button, and set the frame for its size
-    UIImage *imageOff = [UIImage imageNamed:@"back_off"];
-    UIImage *imagePress = [UIImage imageNamed:@"back_press"];
     CGRect frame = CGRectMake(0, 0, 20, 20);
-    
     //init a normal UIButton using that image
     UIButton* button = [[UIButton alloc] initWithFrame:frame];
-    [button setBackgroundImage:imageOff forState:UIControlStateNormal];
-    [button setBackgroundImage:imagePress forState:UIControlStateHighlighted];
-    //set the button to handle clicks - this one calls a method called 'downloadClicked'
-    [button addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchDown];
-    
     //finally, create your UIBarButtonItem using that button
     UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
     //then set it.  phew.
-    self.navigationItem.leftBarButtonItem = barButtonItem;
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
+
 
 #pragma mark -
 #pragma mark iCarousel methods

@@ -141,6 +141,7 @@
 		188770F61975BAEA00EB6D29 /* icon_publish_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 188770F51975BAEA00EB6D29 /* icon_publish_off.png */; };
 		1888B39819893FA800957213 /* icon_audio_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39619893FA800957213 /* icon_audio_off.png */; };
 		1888B39919893FA800957213 /* icon_audio_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39719893FA800957213 /* icon_audio_press.png */; };
+		1888B39B1989926700957213 /* App icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39A1989926700957213 /* App icon.png */; };
 		1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A5194F74BE0065FFE0 /* blackArrow.png */; };
 		1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A6194F74BE0065FFE0 /* blackArrow@2x.png */; };
@@ -414,6 +415,7 @@
 		188770F51975BAEA00EB6D29 /* icon_publish_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_publish_off.png; sourceTree = "<group>"; };
 		1888B39619893FA800957213 /* icon_audio_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_audio_off.png; sourceTree = "<group>"; };
 		1888B39719893FA800957213 /* icon_audio_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_audio_press.png; sourceTree = "<group>"; };
+		1888B39A1989926700957213 /* App icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App icon.png"; sourceTree = "<group>"; };
 		1889C0A2194F74BE0065FFE0 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		1889C0A5194F74BE0065FFE0 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -752,6 +754,7 @@
 		18859FC119878BE600246765 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1888B39A1989926700957213 /* App icon.png */,
 				1888B39619893FA800957213 /* icon_audio_off.png */,
 				1888B39719893FA800957213 /* icon_audio_press.png */,
 				18859FC219878BE600246765 /* alert_bg.png */,
@@ -1218,6 +1221,7 @@
 				1885A02C19878BE600246765 /* icon_share_off.png in Resources */,
 				18FB7C8819676455005C9ABA /* Icon_Whatsapp@2x.png in Resources */,
 				1889C0B4194F74BE0065FFE0 /* whiteArrow.png in Resources */,
+				1888B39B1989926700957213 /* App icon.png in Resources */,
 				1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */,
 				1885A03919878BE600246765 /* tabs_create_on@2x.png in Resources */,
 				1885A01B19878BE600246765 /* icon_edit_off.png in Resources */,
