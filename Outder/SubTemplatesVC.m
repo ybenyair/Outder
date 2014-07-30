@@ -255,12 +255,12 @@
         }
         case iCarouselOptionFadeMax:
         {
-            return 0.4f;
+            return 0.8f;
         }
             
         case iCarouselOptionFadeMin:
         {
-            return -0.4f;
+            return -0.8f;
         }
             
         default:

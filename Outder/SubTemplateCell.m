@@ -102,17 +102,26 @@
     self.lableInstructionNum.font = [UIFont fontWithName:kFontBlack size:18];
     self.lableInstructionNum.textColor = [FontHelpers colorFromHexString:@"#545454"];
     
-    self.labelName.font = [UIFont fontWithName:kFontBlack size:48];
+    self.labelName.font = [UIFont fontWithName:kFontBlack size:42];
     self.labelName.textColor = [UIColor whiteColor];
 }
 
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    NSLog(@"Cancel autoPlay timer: %@", subTemplate.title);
-    [autoPlayTimer invalidate];
-    autoPlayTimer = nil;
-    if (videoCtrl.videoState != kVideoClosed) [videoCtrl stopVideo:NO];
+    NSLog(@"viewDidDisappear: %@", subTemplate.title);
+
+    if (autoPlayTimer) {
+        NSLog(@"Cancel autoPlay timer: %@", subTemplate.title);
+        [autoPlayTimer invalidate];
+        autoPlayTimer = nil;
+    }
+    
+    if (videoCtrl.videoState != kVideoClosed)
+    {
+        NSLog(@"Close video: %@", subTemplate.title);
+        [videoCtrl stopVideo:NO];
+    }
 }
 
 
@@ -172,6 +181,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor whiteColor];
+    
     view.frame = CGRectMake(0,0,tableView.frame.size.width,20);
 
     UIImage *myImage = [UIImage imageNamed:@"directions_separator_shadow.png"];
@@ -243,7 +254,26 @@
 
 - (void) configureVideoImage
 {
+    //self.labelName.text = @"Today i feel very lucky";
+    
     self.labelName.text = @"Today i feel";
+    
+    self.labelName.adjustsFontSizeToFitWidth = NO;
+    self.labelName.numberOfLines = 0;
+    
+    CGFloat fontSize = 42;
+    while (fontSize > 0.0)
+    {
+        UIFont *font = [UIFont fontWithName:kFontBlack size:fontSize];
+        CGSize size = [self.labelName.text sizeWithFont:font constrainedToSize:CGSizeMake(self.labelName.frame.size.width, 10000) lineBreakMode:NSLineBreakByWordWrapping];
+
+        if (size.height <= self.labelName.frame.size.height) break;
+        
+        fontSize -= 1.0;
+    }
+    
+    NSLog(@"Set font size %f", fontSize);
+    self.labelName.font = [UIFont fontWithName:kFontBlack size:fontSize];
     [self setImage:subTemplate.imageURL];
 }
 
@@ -291,7 +321,7 @@
                                   _imageView.alpha = 0.0;
                                   [UIView animateWithDuration:0.5
                                                    animations:^{
-                                                       _imageView.alpha = 1.0;
+                                                       _imageView.alpha = 0.8;
                                                    }];
                               }
                           }];
@@ -299,9 +329,13 @@
 
 - (void)currentlyPresented
 {
-    autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
-
     NSLog(@"currentlyPresented %@", subTemplate.title);
+
+    if (videoCtrl.videoState == kVideoOpened) {
+        NSLog(@"Video is already playing: do not set timer");
+    } else {
+        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
+    }
 }
 
 -(void)aAutoPlay: (NSTimer *)timer
