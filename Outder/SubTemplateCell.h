@@ -28,10 +28,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *lableInstructionNum;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UIView *videoView;
+@property (weak, nonatomic) IBOutlet UIButton *btnMute;
 
 - (IBAction)btnHideDirectionsClicked:(id)sender;
 - (IBAction)btnShowDirectionsClicked:(id)sender;
 - (IBAction)btnMakeOneClicked:(id)sender;
+- (IBAction)btnMuteClicked:(id)sender;
 
 @property (nonatomic,strong) SubTemplate *subTemplate;
 @property (nonatomic,strong) VideoPlayerViewController *videoCtrl;

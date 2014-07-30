@@ -22,7 +22,7 @@
 {
     NSMutableArray *_subTemplates;
     NSMutableDictionary *_reusedSubTemplateViews;
-    NSInteger _currentPage;
+    NSInteger _previousPage;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,7 +50,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _reusedSubTemplateViews = [NSMutableDictionary dictionary];
-    _currentPage = 0;
     self.pageControl.numberOfPages = [_subTemplates count];
     [self setBackNavigationBarItems];
     [self setNavigationBarTitle];
@@ -143,7 +142,11 @@
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
 {
     SubTemplateCell *item = [self getCurrentItem];
-    [item currentlyPresented];
+    
+    if (_previousPage != carousel.currentItemIndex) {
+        _previousPage = carousel.currentItemIndex;
+        [item currentlyPresented];
+    }
 }
 
 - (void)carouselDidScroll:(iCarousel *)carousel
@@ -160,6 +163,7 @@
 {
     NSInteger count = [_subTemplates count];
     NSLog(@"Number of sub templates = %ld", (long)count);
+    _previousPage = count;
     return count;
 }
 

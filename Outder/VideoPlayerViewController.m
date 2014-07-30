@@ -54,7 +54,7 @@ static VideoPlayerViewController *activePlayer = nil;
 
 @synthesize activityIndicator;
 @synthesize stopButton;
-@synthesize videoState;
+@synthesize videoState, isMute;
 @synthesize playbackErrorLabel, enableAutoRotation, mPlaybackView;
 
 #pragma mark - controller initialization

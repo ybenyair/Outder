@@ -2930,11 +2930,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplatesVC.m"
-            timestampString = "428421955.208556"
+            timestampString = "428426927.274205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "-makeOneClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3058,11 +3058,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplatesVC.m"
-            timestampString = "428319400.44975"
+            timestampString = "428426927.274205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3074,11 +3074,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplatesVC.m"
-            timestampString = "428319400.44975"
+            timestampString = "428426927.274205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-viewDidDisappear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5342,11 +5342,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplatesVC.m"
-            timestampString = "428421955.208556"
+            timestampString = "428426927.274205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-carousel:viewForItemAtIndex:reusingView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5390,11 +5390,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428425859.769765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "-tableView:titleForHeaderInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5406,11 +5406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428425859.769765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5422,11 +5422,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplatesVC.m"
-            timestampString = "428421955.208556"
+            timestampString = "428426927.274205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "-numberOfPlaceholdersInCarousel:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6334,11 +6334,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428425859.769765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -6638,11 +6638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplatesVC.m"
-            timestampString = "428421955.208556"
+            timestampString = "428426927.274205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "-setNavigationBarTitle"
             landmarkType = "5">
          </BreakpointContent>
@@ -6654,11 +6654,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428425859.769765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "-configureBtnMake"
             landmarkType = "5">
          </BreakpointContent>
@@ -6670,11 +6670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428425859.769765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
             landmarkName = "-currentlyPresented"
             landmarkType = "5">
          </BreakpointContent>
@@ -6686,11 +6686,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428425859.769765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
             landmarkName = "-configureItem:inView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6702,11 +6702,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428427028.501361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
+            startingLineNumber = "486"
+            endingLineNumber = "486"
             landmarkName = "-videoIsReady:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6718,12 +6718,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/SubTemplateCell.m"
-            timestampString = "428411219.654764"
+            timestampString = "428425859.769765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "-viewDidDisappear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Outder/SubTemplateCell.m"
+            timestampString = "428427028.501361"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
+            landmarkName = "-btnMuteClicked:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Outder/SubTemplatesVC.m"
+            timestampString = "428426927.274205"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "-carouselDidEndScrollingAnimation:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

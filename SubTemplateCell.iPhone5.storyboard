@@ -34,6 +34,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="270" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyd-g6-CaH" userLabel="Button - mute">
+                                <rect key="frame" x="240" y="137" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="icon_audio_off.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnMuteClicked:" destination="cUE-68-oYP" eventType="touchUpInside" id="N0i-oS-0It"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="y0t-Bm-38s" userLabel="Table View - directions">
                                 <rect key="frame" x="0.0" y="450" width="270" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -112,6 +122,7 @@
                     <connections>
                         <outlet property="btnHideDirections" destination="56j-u2-Mry" id="zJj-bN-szG"/>
                         <outlet property="btnMake" destination="jya-F7-vob" id="LRx-zX-ahz"/>
+                        <outlet property="btnMute" destination="gyd-g6-CaH" id="LoB-gt-6Mm"/>
                         <outlet property="btnShowDirections" destination="xKv-pe-LNg" id="eJm-c2-p0x"/>
                         <outlet property="labelMakePlace" destination="oyI-7M-ESP" id="5z6-Yo-uYi"/>
                         <outlet property="labelName" destination="p6g-9S-1Wy" id="ogP-Jh-Yrp"/>
@@ -130,6 +141,7 @@
     <resources>
         <image name="button_makeone_off.png" width="329" height="329"/>
         <image name="button_show_directions_off.png" width="262" height="67"/>
+        <image name="icon_audio_off.png" width="48" height="48"/>
         <image name="icons_shots_number.png" width="22" height="27"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

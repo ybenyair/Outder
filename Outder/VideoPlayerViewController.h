@@ -55,6 +55,8 @@ typedef enum {
 @property (nonatomic,strong) UILabel *playbackErrorLabel;
 @property  eVideoPlayerState videoState;
 @property  BOOL enableAutoRotation;
+@property  (readonly) BOOL isMute;
+
 @property (strong, nonatomic) AVPlayerPlaybackView *mPlaybackView;
 
 // Configuration methods

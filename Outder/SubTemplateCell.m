@@ -88,8 +88,11 @@
     
     // Button MakeOne
     imagePress = [UIImage imageNamed:@"button_makeone_press"];
-    imageOff = [UIImage imageNamed:@"button_makeone_press_off"];
     [self.btnMake setBackgroundImage:imagePress forState:UIControlStateHighlighted];
+    
+    // Mute button
+    imagePress = [UIImage imageNamed:@"icon_audio_press"];
+    [self.btnMute setBackgroundImage:imagePress forState:UIControlStateHighlighted];
     
     self.labelMakePlace.hidden = YES;
     self.tableDirections.hidden = YES;
@@ -283,6 +286,12 @@
     self.lableInstructionNum.text = [NSString stringWithFormat:@"%ld",(long)[subTemplate.instructions count]];
 }
 
+- (void) configureBtnMute
+{
+    self.btnMute.hidden = YES;
+    self.btnMute.enabled = NO;
+}
+
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view
 {
     subTemplate = data;
@@ -297,6 +306,7 @@
     [self configureTitle];
     [self configureTableDirections];
     [self configureBtnMake];
+    [self configureBtnMute];
     
     if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
         [videoCtrl stopVideo:NO];
@@ -341,6 +351,8 @@
 -(void)aAutoPlay: (NSTimer *)timer
 {
     NSLog(@"aAutoPlay %@", subTemplate.title);
+    self.btnMute.hidden = NO;
+    self.btnMute.enabled = YES;
     autoPlayTimer = nil;
     [videoCtrl muteVideo:YES];
     [videoCtrl playVideo];
@@ -351,6 +363,13 @@
 - (IBAction)btnMakeOneClicked:(id)sender {
     NSLog(@"btnMakeClicked for subTemplate: %@", subTemplate.title);
     [self.delegate makeOneClicked:subTemplate];
+}
+
+- (IBAction)btnMuteClicked:(id)sender {
+    NSLog(@"btnMuteClicked for subTemplate: %@", subTemplate.title);
+    [videoCtrl muteVideo:!videoCtrl.isMute];
+    self.btnMute.hidden = YES;
+    self.btnMute.enabled = NO;
 }
 
 #pragma mark - Actions (Show directions)
@@ -469,6 +488,8 @@
 // The video was just closed
 - (void)videoDidClose: (id)userInfo
 {
+    self.btnMute.hidden = YES;
+    self.btnMute.enabled = NO;
     [videoCtrl muteVideo:NO];
 }
 
