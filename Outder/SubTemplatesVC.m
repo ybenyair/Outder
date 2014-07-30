@@ -82,7 +82,18 @@
 
 - (void) backClicked: (id) sender
 {
-    [self.navigationController popViewControllerAnimated:NO];
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.view.alpha = 0.9f;
+                     }
+                     completion:^(BOOL finished){
+                         if (finished) {
+                             [self.navigationController popViewControllerAnimated:NO];
+                             self.view.alpha = 1.0f;
+                         }
+                     }
+     ];
+
 }
 
 - (void) setNavigationBarTitle
@@ -116,8 +127,6 @@
     UIButton* button = [[UIButton alloc] initWithFrame:frame];
     [button setBackgroundImage:imageOff forState:UIControlStateNormal];
     [button setBackgroundImage:imagePress forState:UIControlStateHighlighted];
-    [button setShowsTouchWhenHighlighted:YES];
-    
     //set the button to handle clicks - this one calls a method called 'downloadClicked'
     [button addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchDown];
     

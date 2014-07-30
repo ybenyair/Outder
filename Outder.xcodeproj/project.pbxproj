@@ -29,8 +29,6 @@
 		184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DDAE61948666000F22B2A /* CustomNavigationController.m */; };
 		185CDD4E198054640082B856 /* InstructionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185CDD4D198054640082B856 /* InstructionUploader.m */; };
 		185CDD50198054700082B856 /* FeedUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185CDD4F198054700082B856 /* FeedUploader.m */; };
-		185CDD5A19809EB50082B856 /* overlay.converted.mov in Resources */ = {isa = PBXBuildFile; fileRef = 185CDD5919809EB50082B856 /* overlay.converted.mov */; };
-		185CDD5C1980A1240082B856 /* overlay.mov in Resources */ = {isa = PBXBuildFile; fileRef = 185CDD5B1980A1240082B856 /* overlay.mov */; };
 		185CDD5E1980B0C00082B856 /* Fish.png in Resources */ = {isa = PBXBuildFile; fileRef = 185CDD5D1980B0C00082B856 /* Fish.png */; };
 		18699037197872070004C44F /* UploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18699036197872070004C44F /* UploadManager.m */; };
 		1869903A197955A50004C44F /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 18699039197955A50004C44F /* Feed.m */; };
@@ -272,8 +270,6 @@
 		185CDD4D198054640082B856 /* InstructionUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstructionUploader.m; path = Outder/InstructionUploader.m; sourceTree = "<group>"; };
 		185CDD4F198054700082B856 /* FeedUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedUploader.m; path = Outder/FeedUploader.m; sourceTree = "<group>"; };
 		185CDD511980547A0082B856 /* FeedUploader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedUploader.h; path = Outder/FeedUploader.h; sourceTree = "<group>"; };
-		185CDD5919809EB50082B856 /* overlay.converted.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = overlay.converted.mov; sourceTree = "<group>"; };
-		185CDD5B1980A1240082B856 /* overlay.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = overlay.mov; sourceTree = "<group>"; };
 		185CDD5D1980B0C00082B856 /* Fish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fish.png; sourceTree = "<group>"; };
 		18699035197871F50004C44F /* UploadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UploadManager.h; path = Outder/UploadManager.h; sourceTree = "<group>"; };
 		18699036197872070004C44F /* UploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploadManager.m; path = Outder/UploadManager.m; sourceTree = "<group>"; };
@@ -1029,8 +1025,6 @@
 				1885A04019879F6A00246765 /* Fonts */,
 				18859FC119878BE600246765 /* Images */,
 				188B883D1982559000283573 /* p3.mp4 */,
-				185CDD5B1980A1240082B856 /* overlay.mov */,
-				185CDD5919809EB50082B856 /* overlay.converted.mov */,
 				18EC4FBA193D0E4B003E5335 /* Images.xcassets */,
 				188B8F1F194A158300A88D43 /* Localizable.strings */,
 				18EC4FB1193D0E4B003E5335 /* main.m */,
@@ -1226,7 +1220,6 @@
 				1885A01319878BE600246765 /* camera_frame_4.png in Resources */,
 				1885A02719878BE600246765 /* icon_retake_off.png in Resources */,
 				1885A00219878BE600246765 /* alert_icon.png in Resources */,
-				185CDD5A19809EB50082B856 /* overlay.converted.mov in Resources */,
 				1885A03019878BE600246765 /* icons_shots_number.png in Resources */,
 				18FB7C8619676411005C9ABA /* Icon_Facebook@2x.png in Resources */,
 				18F8A933196F71F1001093E4 /* recBtn3@2x.png in Resources */,
@@ -1244,7 +1237,6 @@
 				1885A04519879F6A00246765 /* almoni-dl-aaa-bold.otf in Resources */,
 				180474BF1954691F00067AE0 /* share.png in Resources */,
 				1885A02A19878BE600246765 /* icon_rotate_camera_press.png in Resources */,
-				185CDD5C1980A1240082B856 /* overlay.mov in Resources */,
 				1885A01019878BE600246765 /* camera_frame_1.png in Resources */,
 				1889C0B5194F74BE0065FFE0 /* whiteArrow@2x.png in Resources */,
 				18F8A920196DF364001093E4 /* back@2x.png in Resources */,
