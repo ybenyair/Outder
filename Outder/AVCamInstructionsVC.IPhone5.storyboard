@@ -27,26 +27,26 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-wp-Rag" userLabel="View - overlay.landscape">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-wp-Rag" userLabel="View - overlay.landscape">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OI-h8-svc" userLabel="Button - back">
-                                                <rect key="frame" x="10" y="10" width="40" height="40"/>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OI-h8-svc" userLabel="Button - back">
+                                                <rect key="frame" x="24" y="26" width="20" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <state key="normal" image="back.png">
+                                                <state key="normal" image="back_off.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="btnBackClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="whA-Fq-269"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4y-iM-g40" userLabel="Button - flip">
-                                                <rect key="frame" x="518" y="10" width="40" height="40"/>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4y-iM-g40" userLabel="Button - flip">
+                                                <rect key="frame" x="515" y="16" width="37" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <state key="normal" image="flip.png">
+                                                <state key="normal" image="icon_rotate_camera_off.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -62,14 +62,14 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nf0-fB-78Q" userLabel="View - record timer">
-                                                <rect key="frame" x="265" y="211" width="38" height="38"/>
+                                                <rect key="frame" x="264" y="210" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-OU-aTZ" userLabel="Button - Record">
-                                                <rect key="frame" x="265" y="151" width="38" height="38"/>
+                                                <rect key="frame" x="253" y="139" width="62" height="62"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <state key="normal" image="recBtn1.png">
+                                                <state key="normal" image="icon_record_off.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -77,7 +77,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZW-HI-8V9" userLabel="Button - restart">
-                                                <rect key="frame" x="271" y="220" width="27" height="22"/>
+                                                <rect key="frame" x="268" y="229" width="32" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" image="icon_restart_off.png">
@@ -94,6 +94,12 @@
                                                 <color key="currentPageIndicatorTintColor" red="0.93499490490000003" green="0.12546871170000001" blue="0.13511399369999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </pageControl>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="f4y-iM-g40" secondAttribute="trailing" constant="10" id="R0x-ee-Nao"/>
+                                            <constraint firstItem="5OI-h8-svc" firstAttribute="leading" secondItem="Vbb-wp-Rag" secondAttribute="leading" constant="24" id="b6y-ze-Dge"/>
+                                            <constraint firstItem="f4y-iM-g40" firstAttribute="top" secondItem="Vbb-wp-Rag" secondAttribute="top" constant="22" id="dPZ-Dh-y64"/>
+                                            <constraint firstItem="5OI-h8-svc" firstAttribute="top" secondItem="Vbb-wp-Rag" secondAttribute="top" constant="26" id="pIL-ip-kzW"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -138,10 +144,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back.png" width="11" height="19"/>
-        <image name="flip.png" width="25" height="18"/>
-        <image name="icon_restart_off.png" width="54" height="43"/>
-        <image name="recBtn1.png" width="38" height="38"/>
+        <image name="back_off.png" width="12" height="15"/>
+        <image name="icon_record_off.png" width="62" height="62"/>
+        <image name="icon_restart_off.png" width="35" height="27"/>
+        <image name="icon_rotate_camera_off.png" width="37" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

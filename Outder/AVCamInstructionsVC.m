@@ -124,8 +124,8 @@
     if (isDone) {
         [self insertDoneInstruction];
     }
-    
-    
+
+    self.recordButton.showsTouchWhenHighlighted = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -658,18 +658,21 @@
 {
     [self enableRecodring:YES];
     self.btnRestart.hidden = YES;
-    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn1.png"] forState:UIControlStateNormal];
+    [[self recordButton] setImage:[UIImage imageNamed:@"icon_record_off.png"] forState:UIControlStateNormal];
+    [[self recordButton] setImage:[UIImage imageNamed:@"icon_record_press.png"] forState:UIControlStateHighlighted];
     CGPoint center = self.carousel.center;
     center.y = center.y + 10;
-    self.recordButton.frame = CGRectMake(0, 0, 38, 38);
+    self.recordButton.frame = CGRectMake(0, 0, 62, 62);
     self.recordButton.center = center;
 }
 
 - (void) setRecordButtonStateRecording
 {
     self.btnRestart.hidden = YES;
-    [[self recordButton] setImage:[UIImage imageNamed:@"recBtn3.png"] forState:UIControlStateNormal];
-    self.recordButton.frame = CGRectMake(0, 0, 38, 38);
+    [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_off.png"] forState:UIControlStateNormal];
+    [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_press.png"] forState:UIControlStateHighlighted];
+    
+    self.recordButton.frame = CGRectMake(0, 0, 50, 50);
     self.recordButton.center = self.viewRecordTimer.center;
 }
 
@@ -683,11 +686,14 @@
 {
     [self enableRecodring:YES];
     self.btnRestart.hidden = YES;
+
     [[self recordButton] setImage:[UIImage imageNamed:@"icon_retake_off.png"] forState:UIControlStateNormal];
+    [[self recordButton] setImage:[UIImage imageNamed:@"icon_retake_press.png"] forState:UIControlStateHighlighted];
+
     CGPoint center = self.carousel.center;
     center.y = center.y + 80;
-    self.recordButton.frame = CGRectMake(0, 0, 27, 22);
-    self.recordButton.bounds = CGRectMake(0, 0, 27, 22);
+    self.recordButton.frame = CGRectMake(0, 0, 32, 25);
+    self.recordButton.bounds = CGRectMake(0, 0, 32, 25);
     self.recordButton.center = center;
 }
 
@@ -850,7 +856,7 @@
     shapeLayer.strokeStart = 0.0;
     shapeLayer.strokeEnd = 1.0;
     shapeLayer.path = [path CGPath];
-    shapeLayer.strokeColor = [[UIColor whiteColor] CGColor];
+    shapeLayer.strokeColor = [[UIColor redColor] CGColor];
     shapeLayer.lineWidth = kLineWidth;
     shapeLayer.fillColor = [[UIColor clearColor] CGColor];
     

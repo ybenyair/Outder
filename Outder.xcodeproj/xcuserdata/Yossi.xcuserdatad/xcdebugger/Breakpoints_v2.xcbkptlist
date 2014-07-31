@@ -4030,11 +4030,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428001316.882816"
+            timestampString = "428482904.014559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "-initWithNibName:bundle:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4062,11 +4062,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "608"
-            endingLineNumber = "608"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
             landmarkName = "-itemClicked"
             landmarkType = "5">
          </BreakpointContent>
@@ -4350,11 +4350,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428473135.111601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "806"
+            endingLineNumber = "806"
             landmarkName = "-copyFileToAppDomain:in:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4366,11 +4366,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "-setImageUserShot:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4382,23 +4382,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "822"
-            endingLineNumber = "822"
-            landmarkName = "-extractThumbnailImage:in:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428473135.111601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "828"
@@ -4414,11 +4398,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428473135.111601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "689"
-            endingLineNumber = "689"
+            startingLineNumber = "834"
+            endingLineNumber = "834"
+            landmarkName = "-extractThumbnailImage:in:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Outder/AVCamInstructionsVC.m"
+            timestampString = "428473135.111601"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
             landmarkName = "-setRecordButtonStateRetake"
             landmarkType = "5">
          </BreakpointContent>
@@ -4430,11 +4430,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428473135.111601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "752"
-            endingLineNumber = "752"
+            startingLineNumber = "758"
+            endingLineNumber = "758"
             landmarkName = "-ntfyFileSaved:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4446,11 +4446,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428001316.882816"
+            timestampString = "428482904.014559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -4462,11 +4462,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "474"
-            endingLineNumber = "474"
+            startingLineNumber = "524"
+            endingLineNumber = "524"
             landmarkName = "-playVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -4478,11 +4478,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "-setInstructionRetakeLayer:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4542,11 +4542,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
             landmarkName = "-disableButtons"
             landmarkType = "5">
          </BreakpointContent>
@@ -4558,11 +4558,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "-setImageUserShot:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4574,27 +4574,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428001316.882816"
+            timestampString = "428482904.014559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Outder/InstructionCell.m"
-            timestampString = "428001316.882816"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "+loadInstance"
             landmarkType = "5">
          </BreakpointContent>
@@ -4638,11 +4622,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "-configureItem:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4654,11 +4638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "653"
-            endingLineNumber = "653"
+            startingLineNumber = "703"
+            endingLineNumber = "703"
             landmarkName = "@implementation InstructionCell"
             landmarkType = "3">
          </BreakpointContent>
@@ -4766,11 +4750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "480"
-            endingLineNumber = "480"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
             landmarkName = "-playVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -4782,11 +4766,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615"
+            startingLineNumber = "665"
+            endingLineNumber = "665"
             landmarkName = "@implementation InstructionCell"
             landmarkType = "3">
          </BreakpointContent>
@@ -4814,11 +4798,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
+            startingLineNumber = "680"
+            endingLineNumber = "680"
             landmarkName = "-btnEditTitleClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4830,11 +4814,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
+            startingLineNumber = "679"
+            endingLineNumber = "679"
             landmarkName = "-btnEditTitleClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4846,11 +4830,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
+            startingLineNumber = "725"
+            endingLineNumber = "725"
             landmarkName = "-btnPreviewClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4862,11 +4846,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "680"
-            endingLineNumber = "680"
+            startingLineNumber = "730"
+            endingLineNumber = "730"
             landmarkName = "-btnFixedShotClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4878,11 +4862,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "697"
-            endingLineNumber = "697"
+            startingLineNumber = "747"
+            endingLineNumber = "747"
             landmarkName = "-btnMakeOneClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5518,11 +5502,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428473135.111601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "839"
-            endingLineNumber = "839"
+            startingLineNumber = "845"
+            endingLineNumber = "845"
             landmarkName = "-extractThumbnailImage:in:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5742,11 +5726,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "556"
-            endingLineNumber = "556"
+            startingLineNumber = "606"
+            endingLineNumber = "606"
             landmarkName = "-videoDidClose:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5822,11 +5806,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
             landmarkName = "-videoDidClose:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5854,11 +5838,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "568"
-            endingLineNumber = "568"
+            startingLineNumber = "618"
+            endingLineNumber = "618"
             landmarkName = "-videoDidClose:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5870,11 +5854,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "559"
-            endingLineNumber = "559"
+            startingLineNumber = "609"
+            endingLineNumber = "609"
             landmarkName = "-videoDidClose:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5934,11 +5918,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "610"
-            endingLineNumber = "610"
+            startingLineNumber = "660"
+            endingLineNumber = "660"
             landmarkName = "-itemClicked"
             landmarkType = "5">
          </BreakpointContent>
@@ -5950,11 +5934,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "-playVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -5982,11 +5966,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
             landmarkName = "-playVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -6062,11 +6046,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
+            startingLineNumber = "494"
+            endingLineNumber = "494"
             landmarkName = "-enableButtons"
             landmarkType = "5">
          </BreakpointContent>
@@ -6078,11 +6062,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
+            startingLineNumber = "483"
+            endingLineNumber = "483"
             landmarkName = "-disableButtons"
             landmarkType = "5">
          </BreakpointContent>
@@ -6094,11 +6078,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428470279.169104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "684"
-            endingLineNumber = "684"
+            startingLineNumber = "687"
+            endingLineNumber = "687"
             landmarkName = "-setRecordButtonStateRetake"
             landmarkType = "5">
          </BreakpointContent>
@@ -6158,11 +6142,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "-unhideInstructionFixedItems"
             landmarkType = "5">
          </BreakpointContent>
@@ -6174,11 +6158,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428473135.111601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "697"
-            endingLineNumber = "697"
+            startingLineNumber = "703"
+            endingLineNumber = "703"
             landmarkName = "-setRecordButtonStateDone"
             landmarkType = "5">
          </BreakpointContent>
@@ -6190,11 +6174,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/AVCamInstructionsVC.m"
-            timestampString = "428468596.382219"
+            timestampString = "428473135.111601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "735"
-            endingLineNumber = "735"
+            startingLineNumber = "741"
+            endingLineNumber = "741"
             landmarkName = "-setRestartButtonHidden:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6510,11 +6494,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
+            startingLineNumber = "650"
+            endingLineNumber = "650"
             landmarkName = "-videoShouldClose:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6526,11 +6510,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/InstructionCell.m"
-            timestampString = "428468596.382219"
+            timestampString = "428488128.594682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "557"
-            endingLineNumber = "557"
+            startingLineNumber = "607"
+            endingLineNumber = "607"
             landmarkName = "-videoDidClose:"
             landmarkType = "5">
          </BreakpointContent>

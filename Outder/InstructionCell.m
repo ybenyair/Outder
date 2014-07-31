@@ -14,6 +14,7 @@
 #import "UploadManager.h"
 #import "VideoOverlayHelpers.h"
 #import "CoreData.h"
+#import "Defines.h"
 
 @interface InstructionCell ()
 
@@ -73,7 +74,7 @@
     // Do any additional setup after loading the view from its nib.
     self.imageBG.contentMode = UIViewContentModeScaleAspectFit;
     self.labelFixedShot.contentMode = UIViewContentModeScaleAspectFit;
-    self.labelFixedShot.layer.cornerRadius = 10;
+    self.imageShot.contentMode = UIViewContentModeScaleAspectFit;
     self.imageViewVideo.hidden = YES;
     
     self.textEditTitle.layer.shadowOpacity = 1.0;
@@ -82,7 +83,30 @@
     self.textEditTitle.layer.shadowOffset = CGSizeMake(0.0, -1.0);
     
     self.textEditPlaceholder.text = NSLocalizedString(@"TYPE YOUR MESSAGE", nil);
+
+    self.labelFixedShot.text = NSLocalizedString(@"Fixed shot - Cannot be edited!", nil);
+    self.labelFixedShot.font = [UIFont fontWithName:kFontBold size:12];
+    self.labelFixedShot.textColor = [UIColor whiteColor];
     
+    self.labelName.font = [UIFont fontWithName:kFontBold size:16];
+    self.labelName.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    
+    self.labelDone.font = [UIFont fontWithName:kFontBlack size:24];
+    self.labelDone.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelDone.text = NSLocalizedString(@"GREAT! YOU ARE DONE", nil);
+
+    self.labelNumber.font = [UIFont fontWithName:kFontBlack size:45];
+    self.labelNumber.textColor = [UIColor whiteColor];
+    
+    self.labelRecorded.font = [UIFont fontWithName:kFontRegular size:13];
+    self.labelRecorded.textColor = [FontHelpers colorFromHexString:@"#4db500"];
+    self.labelRecorded.text = NSLocalizedString(@"Recorded", nil);
+    
+    self.labelSeconds.font = [UIFont fontWithName:kFontRegular size:13];
+    self.labelSeconds.textColor = [FontHelpers colorFromHexString:@"#4d4d4d"];
+    
+    self.uploadActivity.tintColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelNumOfMakeOne.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -149,6 +173,8 @@
 {
     self.labelName.text = currentInstruction.name;
     self.labelNumber.text = [NSString stringWithFormat:@"%lu", (unsigned long)index + 1];
+    NSString *seconds = NSLocalizedString(@"Seconds", nil);
+    self.labelSeconds.text = [NSString stringWithFormat:@"%d %@", [currentInstruction.length intValue], seconds];
     
     if ([currentInstruction.fixed boolValue] == YES) self.state = kInstructionFixed;
     
@@ -208,6 +234,7 @@
 {
     [self setInstructionsViewActive];
     self.labelNumber.hidden = NO;
+    self.viewNumber.hidden = NO;
 }
 
 - (void) setInstructionRecordLayer
@@ -223,6 +250,7 @@
     // Set parameters
     [self setImage:nil];
     self.labelName.text = self.currentInstruction.name;
+    self.labelName.hidden = NO;
     self.state = kInstructionRecord;
 }
 
@@ -232,6 +260,7 @@
 - (void) hideInstructionFixedItems
 {
     self.labelFixedShot.hidden = YES;
+    self.viewFixedShot.hidden = YES;
     self.btnPlayFixedShot.hidden = YES;
     self.btnPlayFixedShot.enabled = NO;
 }
@@ -240,9 +269,11 @@
 {
     [self setInstructionsViewActive];
     self.labelFixedShot.hidden = NO;
+    self.viewFixedShot.hidden = NO;
     self.btnPlayFixedShot.hidden = NO;
     self.btnPlayFixedShot.enabled = YES;
     self.labelNumber.hidden = NO;
+    self.viewNumber.hidden = NO;
 }
 
 - (void) setInstructionFixedLayer: (BOOL) updateImages
@@ -254,10 +285,14 @@
     
     // Unhide layers
     [self unhideInstructionFixedItems];
-    
+
+    self.viewSeconds.hidden = YES;
+    self.labelSeconds.hidden = YES;
+
     // Set parameters
     if (updateImages) [self setImage:currentInstruction.imageURL];
     self.labelName.text = self.currentInstruction.name;
+    self.labelName.hidden = NO;
     self.state = kInstructionFixed;
 }
 
@@ -270,6 +305,8 @@
     self.btnEditTitle.enabled = NO;
     self.btnPlayPreview.hidden = YES;
     self.btnPlayPreview.enabled = NO;
+    self.viewRecorded.hidden = YES;
+    self.labelRecorded.hidden = YES;
 }
 
 
@@ -281,6 +318,11 @@
     self.btnPlayPreview.hidden = NO;
     self.btnPlayPreview.enabled = YES;
     self.labelNumber.hidden = NO;
+    self.viewNumber.hidden = NO;
+    self.viewRecorded.hidden = NO;
+    self.labelRecorded.hidden = NO;
+    self.viewSeconds.hidden = NO;
+    self.labelSeconds.hidden = NO;
 }
 
 - (void) setInstructionRetakeLayer: (BOOL) updateImages
@@ -297,6 +339,7 @@
     if (updateImages) [self setImageUserShot:currentInstruction.imageURL];
     
     self.labelName.text = self.currentInstruction.name;
+    self.labelName.hidden = NO;
     self.state = kInstructionRetake;
 }
 
@@ -331,6 +374,7 @@
     self.btnMakeVideo.enabled = NO;
     self.uploadActivity.hidden = YES;
     self.labelNumOfMakeOne.hidden = YES;
+    self.labelDone.hidden = YES;
 }
 
 - (void) unhideInstructionDoneItems
@@ -342,7 +386,9 @@
     self.btnMakeVideo.hidden = NO;
     Instruction *inst = [instructions firstObject];
     self.btnMakeVideo.enabled = (![inst.subTemplate.makeOneDisable boolValue]);
-
+    
+    self.labelDone.hidden = NO;
+    
     [self processUploadIndicator];
 }
 
@@ -358,7 +404,11 @@
 
     // Set parameters
     self.labelNumber.hidden = YES;
-    self.labelName.text = NSLocalizedString(@"Great! all shots were recorded", nil);
+    self.viewNumber.hidden = YES;
+    self.viewSeconds.hidden = YES;
+    self.labelSeconds.hidden = YES;
+    self.labelName.hidden = YES;
+    
     [self setImage:nil];
     self.imageShot.backgroundColor = [UIColor clearColor];
     self.imageShot.alpha = 0.5f;

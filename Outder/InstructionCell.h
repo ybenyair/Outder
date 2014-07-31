@@ -45,7 +45,9 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIImageView *imageBG;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelNumber;
+@property (weak, nonatomic) IBOutlet UIImageView *viewNumber;
 @property (weak, nonatomic) IBOutlet UILabel *labelFixedShot;
+@property (weak, nonatomic) IBOutlet UIImageView *viewFixedShot;
 @property (weak, nonatomic) IBOutlet UIImageView *imageShot;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewVideo;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditTitle;
@@ -59,6 +61,11 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *btnMakeVideo;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *uploadActivity;
 @property (weak, nonatomic) IBOutlet UILabel *labelNumOfMakeOne;
+@property (weak, nonatomic) IBOutlet UIImageView *viewSeconds;
+@property (weak, nonatomic) IBOutlet UILabel *labelSeconds;
+@property (weak, nonatomic) IBOutlet UIImageView *viewRecorded;
+@property (weak, nonatomic) IBOutlet UILabel *labelRecorded;
+@property (weak, nonatomic) IBOutlet UILabel *labelDone;
 
 - (IBAction)btnPlayListClicked:(id)sender;
 - (IBAction)btnEditTitleClicked:(id)sender;
