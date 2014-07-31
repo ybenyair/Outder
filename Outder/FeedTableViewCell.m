@@ -34,8 +34,6 @@
     [self setUserInteractionEnabled:YES];
     [self.image setUserInteractionEnabled:YES];
     [self.image setHighlighted:YES];
-    [self.sharedButton setShowsTouchWhenHighlighted:YES];
-    [self.cameraButton setShowsTouchWhenHighlighted:YES];
     // Configure the tapping
     self.image.contentMode = UIViewContentModeScaleAspectFit;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -50,9 +48,12 @@
     
     UIImage *imagePress = [UIImage imageNamed:@"icon_share_press"];
     [self.sharedButton setBackgroundImage:imagePress forState:UIControlStateHighlighted];
-    
+    self.sharedButton.showsTouchWhenHighlighted = YES;
+
     imagePress = [UIImage imageNamed:@"icon_makeit_press"];
     [self.cameraButton setBackgroundImage:imagePress forState:UIControlStateHighlighted];
+    self.cameraButton.showsTouchWhenHighlighted = YES;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

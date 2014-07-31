@@ -7,9 +7,14 @@
 //
 
 #import "AVCamInstructionsPortraitView.h"
+#import "AVCamViewController.h"
+#import "AVCamInstructionsVC.h"
+#import "Defines.h"
 
 @implementation AVCamInstructionsPortraitView
-
+{
+    id superCtrl;
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -33,8 +38,17 @@
         }
     }
     
-    self.labelRotate.text = NSLocalizedString(@"Record in landscape mode", nil);
+    self.labelRotate.text = NSLocalizedString(@"Shoot in landscape mode", nil);
+    self.labelRotate.font = [UIFont fontWithName:kFontBold size:24];
     
+    UIImage *imagePress = [UIImage imageNamed:@"back_press"];
+    [self.btnBack setBackgroundImage:imagePress forState:UIControlStateHighlighted];
+    self.btnBack.showsTouchWhenHighlighted = YES;
+    
+    imagePress = [UIImage imageNamed:@"icon_rotate_camera_press"];
+    [self.btnCamera setBackgroundImage:imagePress forState:UIControlStateHighlighted];
+    self.btnCamera.showsTouchWhenHighlighted = YES;
+
     return self;
 }
 
@@ -46,5 +60,18 @@
     // Drawing code
 }
 */
+
+- (void) setSuperCtrl: (id)ctrl
+{
+    superCtrl = ctrl;
+}
+
+- (IBAction)btnBackClicked:(id)sender {
+    [superCtrl btnBackClicked:nil];
+}
+
+- (IBAction)btnCameraClicked:(id)sender {
+    [superCtrl changeCamera:nil];
+}
 
 @end

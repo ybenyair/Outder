@@ -144,10 +144,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="button_makeone_off.png" width="329" height="329"/>
-        <image name="button_show_directions_off.png" width="262" height="67"/>
-        <image name="icon_audio_off.png" width="48" height="48"/>
-        <image name="icons_shots_number.png" width="22" height="27"/>
+        <image name="button_makeone_off.png" width="248" height="248"/>
+        <image name="button_show_directions_off.png" width="197" height="51"/>
+        <image name="icon_audio_off.png" width="24" height="24"/>
+        <image name="icons_shots_number.png" width="11" height="13"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

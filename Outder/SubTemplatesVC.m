@@ -124,6 +124,12 @@
 #pragma mark -
 #pragma mark iCarousel methods
 
+- (void)carouselWillBeginDragging:(iCarousel *)carousel
+{
+    SubTemplateCell *item = [self getCurrentItem];
+    [item currentlyDragged];
+}
+
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
 {
     SubTemplateCell *item = [self getCurrentItem];

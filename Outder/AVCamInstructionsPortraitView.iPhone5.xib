@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AVCamInstructionsPortraitView">
             <connections>
+                <outlet property="btnBack" destination="Nsi-0h-cNE" id="XzK-8Y-tkl"/>
+                <outlet property="btnCamera" destination="jHT-FG-YoW" id="YAB-0E-j1n"/>
                 <outlet property="labelRotate" destination="uOt-yb-xQe" id="YWO-13-7Nj"/>
             </connections>
         </placeholder>
@@ -15,23 +17,52 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RecordPortrait.png" translatesAutoresizingMaskIntoConstraints="NO" id="jKC-Lb-U9K">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="icon_rotate_device.png" translatesAutoresizingMaskIntoConstraints="NO" id="jKC-Lb-U9K">
+                    <rect key="frame" x="73" y="196" width="175" height="175"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Record in landscape mode" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="uOt-yb-xQe" userLabel="Label - Rotate">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Record in landscape mode" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="uOt-yb-xQe" userLabel="Label - Rotate">
                     <rect key="frame" x="26" y="370" width="269" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nsi-0h-cNE" userLabel="Button - back">
+                    <rect key="frame" x="28" y="33" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" backgroundImage="back_off.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnBackClicked:" destination="-1" eventType="touchUpInside" id="OyJ-da-yBd"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jHT-FG-YoW" userLabel="Button - camera">
+                    <rect key="frame" x="254" y="27" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" backgroundImage="icon_rotate_camera_off.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnCameraClicked:" destination="-1" eventType="touchUpInside" id="bno-M6-Ice"/>
+                    </connections>
+                </button>
             </subviews>
+            <constraints>
+                <constraint firstItem="Nsi-0h-cNE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="28" id="FUI-Ei-jDu"/>
+                <constraint firstItem="jHT-FG-YoW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="27" id="J6f-xT-yGI"/>
+                <constraint firstItem="Nsi-0h-cNE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="33" id="nik-yb-kHs"/>
+                <constraint firstAttribute="trailing" secondItem="jHT-FG-YoW" secondAttribute="trailing" constant="20" id="pII-s7-cbF"/>
+                <constraint firstItem="uOt-yb-xQe" firstAttribute="top" secondItem="jKC-Lb-U9K" secondAttribute="bottom" constant="22" id="xll-mH-pT2"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
-        <image name="RecordPortrait.png" width="320" height="480"/>
+        <image name="back_off.png" width="12" height="15"/>
+        <image name="icon_rotate_camera_off.png" width="37" height="25"/>
+        <image name="icon_rotate_device.png" width="174" height="174"/>
     </resources>
 </document>

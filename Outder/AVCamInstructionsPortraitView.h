@@ -10,6 +10,13 @@
 
 @interface AVCamInstructionsPortraitView : UIView
 
+- (void) setSuperCtrl: (id)ctrl;
+
 @property (weak, nonatomic) IBOutlet UILabel *labelRotate;
+@property (weak, nonatomic) IBOutlet UIButton *btnBack;
+@property (weak, nonatomic) IBOutlet UIButton *btnCamera;
+
+- (IBAction)btnBackClicked:(id)sender;
+- (IBAction)btnCameraClicked:(id)sender;
 
 @end

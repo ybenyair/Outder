@@ -86,7 +86,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_makeit_off.png" width="70" height="70"/>
-        <image name="icon_share_off.png" width="70" height="70"/>
+        <image name="icon_makeit_off.png" width="35" height="35"/>
+        <image name="icon_share_off.png" width="35" height="35"/>
     </resources>
 </document>

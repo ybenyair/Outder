@@ -42,5 +42,6 @@
 
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view;
 - (void)currentlyPresented;
+- (void)currentlyDragged;
 
 @end

@@ -50,6 +50,7 @@
     UIButton* button = [[UIButton alloc] initWithFrame:frame];
     [button setBackgroundImage:imageOff forState:UIControlStateNormal];
     [button setBackgroundImage:imagePress forState:UIControlStateHighlighted];
+    button.showsTouchWhenHighlighted = YES;
     
     //set the button to handle clicks - this one calls a method called 'downloadClicked'
     [button addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchDown];
@@ -73,7 +74,8 @@
     UIButton* button = [[UIButton alloc] initWithFrame:frame];
     [button setBackgroundImage:imageOff forState:UIControlStateNormal];
     [button setBackgroundImage:imagePress forState:UIControlStateHighlighted];
-    
+    button.showsTouchWhenHighlighted = YES;
+
     //set the button to handle clicks - this one calls a method called 'downloadClicked'
     [button addTarget:self action:@selector(settingsClicked:) forControlEvents:UIControlEventTouchDown];
     

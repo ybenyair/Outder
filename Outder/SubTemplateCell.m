@@ -112,8 +112,13 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    NSLog(@"viewDidDisappear: %@", subTemplate.title);
+    [self disableAutoPlay];
+}
 
+- (void) disableAutoPlay
+{
+    NSLog(@"disableAutoPlay: %@", subTemplate.title);
+    
     if (autoPlayTimer) {
         NSLog(@"Cancel autoPlay timer: %@", subTemplate.title);
         [autoPlayTimer invalidate];
@@ -126,7 +131,6 @@
         [videoCtrl stopVideo:NO];
     }
 }
-
 
 #pragma mark - ScrollView Methods
 
@@ -230,6 +234,34 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark configure item
+
+- (void)configureItem: (SubTemplate *)data inView: (UIView *)view
+{
+    subTemplate = data;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"id" ascending:YES];
+    
+    NSArray *sortDescriptors = @[sortDescriptor];
+    directions = [NSMutableArray arrayWithArray:[[data.instructions allObjects] sortedArrayUsingDescriptors:sortDescriptors]];
+    
+    [self.tableDirections reloadData];
+    
+    [self configureVideoImage];
+    [self configureTitle];
+    [self configureTableDirections];
+    [self configureBtnMake];
+    [self configureBtnMute];
+    
+    if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
+        [videoCtrl stopVideo:NO];
+        videoCtrl = nil;
+    }
+    
+    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.videoView andURL:subTemplate.videoURL];
+    [videoCtrl setDelegate:self withInfo:nil];
+    [videoCtrl setTapGesture:YES];
+}
+
 - (void) configureBtnMake
 {
     // Set the text inside the image
@@ -292,32 +324,6 @@
     self.btnMute.enabled = NO;
 }
 
-- (void)configureItem: (SubTemplate *)data inView: (UIView *)view
-{
-    subTemplate = data;
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"id" ascending:YES];
-
-    NSArray *sortDescriptors = @[sortDescriptor];
-    directions = [NSMutableArray arrayWithArray:[[data.instructions allObjects] sortedArrayUsingDescriptors:sortDescriptors]];
-    
-    [self.tableDirections reloadData];
-    
-    [self configureVideoImage];
-    [self configureTitle];
-    [self configureTableDirections];
-    [self configureBtnMake];
-    [self configureBtnMute];
-    
-    if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
-        [videoCtrl stopVideo:NO];
-        videoCtrl = nil;
-    }
-    
-    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.videoView andURL:subTemplate.videoURL];
-    [videoCtrl setDelegate:self withInfo:nil];
-    [videoCtrl setTapGesture:YES];
-}
-
 - (void)setImage:(NSString *)imageURL
 {
     NSURL *url = [NSURL URLWithString:imageURL];
@@ -337,17 +343,6 @@
                           }];
 }
 
-- (void)currentlyPresented
-{
-    NSLog(@"currentlyPresented %@", subTemplate.title);
-
-    if (videoCtrl.videoState == kVideoOpened) {
-        NSLog(@"Video is already playing: do not set timer");
-    } else {
-        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
-    }
-}
-
 -(void)aAutoPlay: (NSTimer *)timer
 {
     NSLog(@"aAutoPlay %@", subTemplate.title);
@@ -357,6 +352,25 @@
     [videoCtrl muteVideo:YES];
     [videoCtrl playVideo];
 }
+
+#pragma mark - Events from owner
+
+- (void)currentlyPresented
+{
+    NSLog(@"currentlyPresented %@", subTemplate.title);
+    
+    if (videoCtrl.videoState == kVideoOpened) {
+        NSLog(@"Video is already playing: do not set timer");
+    } else {
+        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)currentlyDragged
+{
+    [self disableAutoPlay];
+}
+
 
 #pragma mark - Actions (MakeOne)
 

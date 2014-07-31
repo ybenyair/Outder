@@ -11,6 +11,7 @@
 #import "CoreData.h"
 #import "Feed.h"
 #import "Instruction.h"
+#import "AVCamInstructionsPortraitView.h"
 
 @interface AVCamInstructionsVC ()
 
@@ -72,6 +73,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    AVCamInstructionsPortraitView *portrait = (AVCamInstructionsPortraitView *)self.portraitView;
+    [portrait setSuperCtrl:self];
     
     self.carousel.type = iCarouselTypeCustom;
     [self.carousel setScrollToItemBoundary:YES];
