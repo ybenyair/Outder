@@ -2,7 +2,7 @@
 //  Feed.h
 //  Outder
 //
-//  Created by Yossi on 7/18/14.
+//  Created by Yossi on 7/31/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSString * videoURL;
+@property (nonatomic, retain) NSNumber * subTemplateID;
 @property (nonatomic, retain) SubTemplate *subTemplate;
 
 @end

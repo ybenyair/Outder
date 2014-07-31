@@ -11,6 +11,7 @@
 #import "SharingInfo.h"
 #import "SharingActivities.h"
 #import "Defines.h"
+#import "AVCamInstructionsVC.h"
 
 @implementation FeedTableViewCell
 {
@@ -159,19 +160,6 @@
 - (void) setStateFeedProcessing
 {
     [self setStateFeedLoading];
-    
-    /*
-    self.progressBar.hidden = YES;
-
-    if (self.activityIndicator.hidden == YES) {
-        self.activityIndicator.hidden = NO;
-        [self.activityIndicator startAnimating];
-    }
-    self.cameraButton.enabled = NO;
-    self.sharedButton.enabled = NO;
-    [self setImageLocal:feed.imageURL];
-     */
-    
 }
 
 - (void) restoreState
@@ -260,29 +248,6 @@
     [videoCtrl setTapGesture:YES];
 }
 
-/*
-- (void)setTapGesture
-{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                      initWithTarget:self action:@selector(feedTap:)];
-    [self addGestureRecognizer:tap];
-}
-
-- (void)feedTap:(UIGestureRecognizer *)sender
-{
-    NSLog(@"Tapped on feed: %@", feed.title);
-    
-    if (self.activityIndicator.hidden == NO) return;
-    
-    if (!videoCtrl) {
-        videoCtrl = [[VideoPlayerViewController alloc] init];
-    }
-    
-    [videoCtrl playVideo:feed.videoURL inView:self.feedContentView];
-    
- }
-*/
-
 #pragma mark - Video player delegate
 
 // The user tapped on the Video view
@@ -327,7 +292,6 @@
 
 }
 
-
 - (IBAction)sharedButtonClicked:(id)sender {
     NSLog(@"shared clicked");
     NSString *text = NSLocalizedString(@"Watch my movie from OUTDER:", nil);
@@ -348,6 +312,11 @@
 
 - (IBAction)cameraButtonClicked:(id)sender {
     NSLog(@"camera clicked");
+    if (!feed.subTemplate) return;
+    
+    AVCamInstructionsVC *vc = [AVCamInstructionsVC loadInstance];
+    [vc setInstructions:feed.subTemplate.instructions];
+    [self.superCtrl presentViewController:vc animated:YES completion:^{}];
 }
 
 @end

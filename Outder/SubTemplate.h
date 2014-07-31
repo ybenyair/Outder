@@ -2,7 +2,7 @@
 //  SubTemplate.h
 //  Outder
 //
-//  Created by Yossi on 7/18/14.
+//  Created by Yossi on 7/31/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
@@ -15,10 +15,11 @@
 
 @property (nonatomic, retain) NSNumber * id;
 @property (nonatomic, retain) NSString * imageURL;
+@property (nonatomic, retain) NSNumber * makeOneDisable;
 @property (nonatomic, retain) NSNumber * order;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * videoURL;
-@property (nonatomic, retain) NSNumber * makeOneDisable;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *feeds;
 @property (nonatomic, retain) NSSet *instructions;
 @property (nonatomic, retain) Template *template;

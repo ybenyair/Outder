@@ -2,7 +2,7 @@
 //  SubTemplate.m
 //  Outder
 //
-//  Created by Yossi on 7/18/14.
+//  Created by Yossi on 7/31/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
@@ -16,10 +16,11 @@
 
 @dynamic id;
 @dynamic imageURL;
+@dynamic makeOneDisable;
 @dynamic order;
 @dynamic title;
 @dynamic videoURL;
-@dynamic makeOneDisable;
+@dynamic name;
 @dynamic feeds;
 @dynamic instructions;
 @dynamic template;

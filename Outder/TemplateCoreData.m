@@ -99,6 +99,7 @@
         instruction = [TemplateCoreData getInstruction:context withId:numID];
         
         instruction.id = numID;
+        instruction.hidden = [instructionData objectForKey:@"hidden"];
         instruction.fixed = [instructionData objectForKey:@"fixed"];
         
         if ([instruction.fixed boolValue] == YES) {
@@ -153,6 +154,8 @@
         subTemplate.imageURL = [subTemplateData objectForKey:@"image"];
         subTemplate.videoURL = [subTemplateData objectForKey:@"video_url"];
         subTemplate.title = [subTemplateData objectForKey:@"title"];
+        subTemplate.name = [subTemplateData objectForKey:@"name"];
+        
         [template addSubTemplatesObject:subTemplate];
         
         NSArray *instructions = [subTemplateData objectForKey:@"instructions"];

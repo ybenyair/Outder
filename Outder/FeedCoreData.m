@@ -80,6 +80,19 @@
     return  feed;
 }
 
++ (SubTemplate *) getSubTemplate: (NSManagedObjectContext *)context withID: (NSNumber *)num
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"SubTemplate"];
+    request.predicate = [NSPredicate predicateWithFormat:@"id = %@", num];
+    NSError *error;
+    SubTemplate *subTemplate = nil;
+    subTemplate = [[context executeFetchRequest:request error:&error] lastObject];
+    if (!subTemplate) {
+        NSLog(@"FEED: did not find subTemplate %@", num);
+    }
+    return  subTemplate;
+}
+
 + (void)fillFeeds:(NSManagedObjectContext *)context data:(NSDictionary *)json feedType:(NSString *)type
 {
     NSArray *dataArray = [json objectForKey:@"data"];
@@ -98,6 +111,8 @@
             feed.videoURL = [feedData objectForKey:@"video_url"];
             feed.imageURL = [feedData objectForKey:@"image"];
             feed.pageURL = [feedData objectForKey:@"page_url"];
+            feed.subTemplateID = [feedData objectForKey:@"subtemplate_id"];
+            feed.subTemplate = [FeedCoreData getSubTemplate:context withID:feed.subTemplateID];
             feed.type = type;
             feed.feedID = [NSNumber numberWithInt:[feedID intValue]];
         }

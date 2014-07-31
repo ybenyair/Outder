@@ -19,6 +19,7 @@
 
 @implementation AVCamInstructionsVC
 {
+    NSMutableArray *_presentedInstructions;
     NSMutableArray *_instructions;
     NSMutableDictionary *_reusedInstructionViews;
     NSInteger _currentPage;
@@ -47,6 +48,21 @@
     return vc;
 }
 
+- (void) dealloc
+{
+    SubTemplate *obj = [self getSubTemplate];
+    NSLog(@"dealloc AVCamInstructionsVC %@", obj.name);
+    
+    [_presentedInstructions removeAllObjects];
+    _presentedInstructions = nil;
+    
+    [_instructions removeAllObjects];
+    _instructions = nil;
+    
+    [_reusedInstructionViews removeAllObjects];
+    _reusedInstructionViews = nil;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,6 +77,16 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"id" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
     _instructions = [NSMutableArray arrayWithArray:[[data allObjects] sortedArrayUsingDescriptors:sortDescriptors]];
+    
+    _presentedInstructions = [[NSMutableArray alloc] init];
+
+    for (id dataElement in _instructions) {
+        Instruction *inst = dataElement;
+        if (![inst.hidden boolValue]) {
+            [_presentedInstructions addObject:inst];
+        }
+    }
+    
 }
 
 - (void) initFromSB
@@ -143,7 +169,7 @@
 
 - (SubTemplate *) getSubTemplate
 {
-    Instruction *inst = [_instructions firstObject];
+    Instruction *inst = [_presentedInstructions firstObject];
     return inst.subTemplate;
 }
 
@@ -221,7 +247,7 @@
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
-    NSInteger count = [_instructions count];
+    NSInteger count = [_presentedInstructions count];
     
     if (isDone) count++;
     
@@ -257,13 +283,20 @@
     //in the wrong place in the carousel
     //[promotedView setImage:promotedTemplate.imageURL];
     //instructionItem.view.frame = self.carousel.frame;
-    if (index == [_instructions count]) {
+    if (index == [_presentedInstructions count]) {
         NSLog(@"Insert DONE instruction");
         instructionItem.state = kInstructionDone;
     }
     
     instructionItem.superCtrl = self;
     instructionItem.instructions = _instructions;
+    
+    if (index < [_presentedInstructions count]) {
+        instructionItem.currentInstruction = [_presentedInstructions objectAtIndex:index];
+    } else {
+        instructionItem.currentInstruction = nil;
+    }
+    
     instructionItem.index = index;
     [instructionItem configureItem: carousel];
 
@@ -435,7 +468,7 @@
 
 - (Instruction *) getCurrentInstruction
 {
-    return [_instructions objectAtIndex:self.carousel.currentItemIndex];
+    return [_presentedInstructions objectAtIndex:self.carousel.currentItemIndex];
 }
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
@@ -459,7 +492,7 @@
     [self deleteFiles];
 
     Instruction *inst = nil;
-    for (id dataElement in _instructions) {
+    for (id dataElement in _presentedInstructions) {
         
         inst = (Instruction *)dataElement;
         if ([inst.fixed boolValue] == NO) {
@@ -504,7 +537,7 @@
     NSMutableArray *imageFiles = [[NSMutableArray alloc] init];
     NSMutableArray *videoFiles = [[NSMutableArray alloc] init];
 
-    for (id dataElement in _instructions) {
+    for (id dataElement in _presentedInstructions) {
         Instruction *inst = (Instruction *)dataElement;
         if ([inst.fixed boolValue] == NO)
         {
@@ -860,7 +893,7 @@
     BOOL completed = YES;
     
     Instruction *inst = nil;
-    for (id dataElement in _instructions) {
+    for (id dataElement in _presentedInstructions) {
         inst = (Instruction *)dataElement;
         if ([inst.fixed boolValue] == NO) {
             NSLog(@"Checking completion of instruction: %d", [inst.id intValue]);
@@ -885,7 +918,7 @@
 {
     Feed *ntfyFeed = notification.object;
     SubTemplate *ntfySubTemplate = ntfyFeed.subTemplate;
-    Instruction *inst = [_instructions firstObject];
+    Instruction *inst = [_presentedInstructions firstObject];
     SubTemplate *subTemplate = inst.subTemplate;
     
     if (ntfySubTemplate == subTemplate) {

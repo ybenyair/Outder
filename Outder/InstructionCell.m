@@ -147,12 +147,6 @@
 
 - (void)configureItem: (UIView *)view
 {
-    if (index < [instructions count]) {
-        currentInstruction = [instructions objectAtIndex:index];
-    } else {
-        currentInstruction = nil;
-    }
-    
     self.labelName.text = currentInstruction.name;
     self.labelNumber.text = [NSString stringWithFormat:@"%lu", (unsigned long)index + 1];
     

@@ -289,9 +289,7 @@
 
 - (void) configureVideoImage
 {
-    //self.labelName.text = @"Today i feel very lucky";
-    
-    self.labelName.text = @"Today i feel";
+    self.labelName.text = subTemplate.name;
     
     self.labelName.adjustsFontSizeToFitWidth = NO;
     self.labelName.numberOfLines = 0;
