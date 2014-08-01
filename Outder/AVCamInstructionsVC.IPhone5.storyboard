@@ -31,8 +31,8 @@
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OI-h8-svc" userLabel="Button - back">
-                                                <rect key="frame" x="24" y="26" width="20" height="20"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OI-h8-svc" userLabel="Button - back">
+                                                <rect key="frame" x="8" y="15" width="36" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" image="back_off.png">
@@ -43,7 +43,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4y-iM-g40" userLabel="Button - flip">
-                                                <rect key="frame" x="515" y="16" width="37" height="25"/>
+                                                <rect key="frame" x="508" y="9" width="51" height="39"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" image="icon_rotate_camera_off.png">
@@ -66,7 +66,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-OU-aTZ" userLabel="Button - Record">
-                                                <rect key="frame" x="253" y="139" width="62" height="62"/>
+                                                <rect key="frame" x="253" y="100" width="62" height="62"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" image="icon_record_off.png">
@@ -96,9 +96,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="f4y-iM-g40" secondAttribute="trailing" constant="10" id="R0x-ee-Nao"/>
-                                            <constraint firstItem="5OI-h8-svc" firstAttribute="leading" secondItem="Vbb-wp-Rag" secondAttribute="leading" constant="24" id="b6y-ze-Dge"/>
                                             <constraint firstItem="f4y-iM-g40" firstAttribute="top" secondItem="Vbb-wp-Rag" secondAttribute="top" constant="22" id="dPZ-Dh-y64"/>
-                                            <constraint firstItem="5OI-h8-svc" firstAttribute="top" secondItem="Vbb-wp-Rag" secondAttribute="top" constant="26" id="pIL-ip-kzW"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -123,6 +121,8 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="btnBack" destination="5OI-h8-svc" id="k4d-XI-ZO4"/>
+                        <outlet property="btnFlip" destination="f4y-iM-g40" id="xdw-I5-XWh"/>
                         <outlet property="btnRestart" destination="AZW-HI-8V9" id="gI7-cy-BjA"/>
                         <outlet property="cameraButton" destination="f4y-iM-g40" id="UG1-1g-xMf"/>
                         <outlet property="carousel" destination="mIR-Kr-b4h" id="Kqr-SY-zlL"/>

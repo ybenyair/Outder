@@ -253,14 +253,14 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			if (isRecording)
 			{
 				[[self cameraButton] setEnabled:NO];
-				[[self recordButton] setTitle:NSLocalizedString(@"Stop", @"Recording button stop title") forState:UIControlStateNormal];
+				//[[self recordButton] setTitle:NSLocalizedString(@"Stop", @"Recording button stop title") forState:UIControlStateNormal];
                 [self ntfyRecordStart];
 				[[self recordButton] setEnabled:YES];
 			}
 			else
 			{
 				[[self cameraButton] setEnabled:YES];
-				[[self recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
+				//[[self recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
                 [self ntfyRecordEnd];
 				[[self recordButton] setEnabled:YES];
 			}

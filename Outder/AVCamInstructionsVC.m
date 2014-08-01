@@ -126,6 +126,8 @@
     }
 
     self.recordButton.showsTouchWhenHighlighted = YES;
+    self.btnBack.showsTouchWhenHighlighted = YES;
+    self.btnFlip.showsTouchWhenHighlighted = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -672,7 +674,7 @@
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_off.png"] forState:UIControlStateNormal];
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_press.png"] forState:UIControlStateHighlighted];
     
-    self.recordButton.frame = CGRectMake(0, 0, 50, 50);
+    self.recordButton.frame = CGRectMake(0, 0, 62, 62);
     self.recordButton.center = self.viewRecordTimer.center;
 }
 
