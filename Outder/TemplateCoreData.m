@@ -10,6 +10,7 @@
 #import "Template.h"
 #import "SubTemplate.h"
 #import "Instruction.h"
+#import "UserText.h"
 #import "AppDelegate.h"
 
 @implementation TemplateCoreData
@@ -121,6 +122,42 @@
     }
 }
 
++ (void) removeAllUserTexts: (SubTemplate *)subTemplate atContext:(NSManagedObjectContext *)context
+{
+    for (UserText * object in subTemplate.userTexts) {
+        [context deleteObject:object];
+    }
+}
+
++ (UserText *)getUserText:(NSString *)hintText withID:(NSNumber *)hintID atContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserText"];
+    request.predicate = [NSPredicate predicateWithFormat:@"textHint = %@ AND id = %@", hintText, hintID];
+    NSError *error;
+    UserText *obj = nil;
+    obj = [[context executeFetchRequest:request error:&error] lastObject];
+    
+    if (!error && !obj) {
+        // Create the initial userInfo entity in the DB
+        obj = [NSEntityDescription insertNewObjectForEntityForName:@"UserText" inManagedObjectContext:context];
+        NSLog(@"New userText object for hint: %@ id: %@", hintText, hintID);
+	} else {
+        NSLog(@"Update userText object for hint: %@ id: %@", hintText, hintID);
+    }
+
+    return  obj;
+}
+
++ (void)fillUserTexts: (NSArray *)userTexts inSubTemplate:(SubTemplate *)subTemplate atContext:(NSManagedObjectContext *)context
+{    
+    for (id dataElement in userTexts) {
+        NSString *data = (NSString *)dataElement;
+        UserText *obj = [TemplateCoreData getUserText:data withID:subTemplate.id atContext:context];
+        obj.textHint = data;
+        obj.id = subTemplate.id;
+        [subTemplate addUserTextsObject:obj];
+    }
+}
 
 + (SubTemplate *)getSubTemplate:(NSManagedObjectContext *)context withId:(NSNumber *)subTemplateID
 {
@@ -160,6 +197,10 @@
         
         NSArray *instructions = [subTemplateData objectForKey:@"instructions"];
         [TemplateCoreData fillInstructions:instructions inSubTemplate:subTemplate atContext:context];
+        
+        NSArray *userTexts = [subTemplateData objectForKey:@"user_texts"];
+        [TemplateCoreData fillUserTexts:userTexts inSubTemplate:subTemplate atContext:context];
+
     }
 }
 

@@ -54,7 +54,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIR-Kr-b4h" userLabel="iCarousel" customClass="iCarousel">
-                                                <rect key="frame" x="49" y="54" width="470" height="212"/>
+                                                <rect key="frame" x="49" y="9" width="470" height="302"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="3CP-BY-4fX"/>
@@ -110,6 +110,10 @@
                                             <constraint firstItem="f4y-iM-g40" firstAttribute="top" secondItem="Vbb-wp-Rag" secondAttribute="top" constant="22" id="dPZ-Dh-y64"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jV2-OY-3HN" userLabel="View - editText" customClass="AVCamInstructionsTextView">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -144,6 +148,7 @@
                         <outlet property="portraitView" destination="aEA-Ti-KWX" id="cL0-ox-62A"/>
                         <outlet property="previewView" destination="sVI-mX-69Q" id="UGh-um-teZ"/>
                         <outlet property="recordButton" destination="YMe-OU-aTZ" id="cbc-TW-22p"/>
+                        <outlet property="viewEditText" destination="jV2-OY-3HN" id="7b9-3e-IWS"/>
                         <outlet property="viewRecordTimer" destination="nf0-fB-78Q" id="8lf-RY-vAH"/>
                     </connections>
                 </viewController>

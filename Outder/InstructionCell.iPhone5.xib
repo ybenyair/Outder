@@ -25,11 +25,8 @@
                 <outlet property="labelRecorded" destination="Nfs-mB-40h" id="mVm-GR-wts"/>
                 <outlet property="labelRight" destination="qfs-6P-Zyg" id="Tqt-E5-BqH"/>
                 <outlet property="labelSeconds" destination="XBl-J1-iOb" id="hCC-cD-dBf"/>
-                <outlet property="textEditPlaceholder" destination="Mg7-s0-ZXl" id="8tJ-si-GPH"/>
-                <outlet property="textEditTitle" destination="fLm-kq-ook" id="9gl-sI-zPN"/>
                 <outlet property="uploadActivity" destination="xAX-s0-uW6" id="UZH-K3-19m"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="viewEditText" destination="6Pq-z4-qKe" id="uOB-5d-7ka"/>
                 <outlet property="viewFixedShot" destination="ao4-dO-umc" id="95i-Cx-uAu"/>
                 <outlet property="viewInstructions" destination="rV8-bq-9Iu" id="KkP-qY-drc"/>
                 <outlet property="viewNumber" destination="6kr-hq-0oV" id="UCQ-Sf-yls"/>
@@ -42,29 +39,6 @@
             <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Pq-z4-qKe" userLabel="View - edit title">
-                    <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fLm-kq-ook" userLabel="Edit Title">
-                            <rect key="frame" x="173" y="65" width="221" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Heavy" family="Avenir Next Condensed" pointSize="27"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="hqE-RY-Ab3"/>
-                            </connections>
-                        </textField>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TYPE YOUR MESSAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mg7-s0-ZXl" userLabel="Label - placeholder">
-                            <rect key="frame" x="164" y="65" width="241" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Heavy" family="Avenir Next Condensed" pointSize="27"/>
-                            <color key="textColor" red="0.68529211956521741" green="0.68529211956521741" blue="0.68529211956521741" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rV8-bq-9Iu" userLabel="View - intructions">
                     <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

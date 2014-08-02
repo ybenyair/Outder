@@ -81,13 +81,13 @@
     self.imageShot.contentMode = UIViewContentModeScaleAspectFit;
     self.imageViewVideo.hidden = YES;
     
+    /*
     self.textEditTitle.layer.shadowOpacity = 1.0;
     self.textEditTitle.layer.shadowRadius = 0.0;
     self.textEditTitle.layer.shadowColor = [UIColor blackColor].CGColor;
     self.textEditTitle.layer.shadowOffset = CGSizeMake(0.0, -1.0);
-    
     self.textEditPlaceholder.text = NSLocalizedString(@"TYPE YOUR MESSAGE", nil);
-
+    */
     self.labelFixedShot.text = NSLocalizedString(@"Fixed shot - Cannot be edited!", nil);
     self.labelFixedShot.font = [UIFont fontWithName:kFontBold size:12];
     self.labelFixedShot.textColor = [UIColor whiteColor];
@@ -123,8 +123,20 @@
     self.labelCenter.textColor = [UIColor whiteColor];
 }
 
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void) currentlyPresented
+{
+
+}
+
 - (void) viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
     [self closeVideo:nil];
 }
 
@@ -198,45 +210,6 @@
 }
 
 #pragma mark -
-#pragma mark contorl the visibale views
-
-- (void) hideEditTextView
-{
-    self.viewEditText.hidden = YES;
-    self.viewEditText.userInteractionEnabled = NO;
-}
-
-- (void) unhideEditTextView
-{
-    self.viewEditText.hidden = NO;
-    self.viewEditText.userInteractionEnabled = YES;
-}
-
-- (void) hideInstructionsView
-{
-    self.viewInstructions.hidden = YES;
-    self.viewInstructions.userInteractionEnabled = NO;
-}
-
-- (void) unhideInstructionsView
-{
-    self.viewInstructions.hidden = NO;
-    self.viewInstructions.userInteractionEnabled = YES;
-}
-
-- (void) setInstructionsViewActive
-{
-    [self hideEditTextView];
-    [self unhideInstructionsView];
-}
-
-- (void) setEditTextViewActive
-{
-    [self hideInstructionsView];
-    [self unhideEditTextView];
-}
-
-#pragma mark -
 #pragma mark contorl the visibale items in kInstructionRecord state
 
 - (void) hideInstructionRecordItems
@@ -246,7 +219,6 @@
 
 - (void) unhideInstructionRecordItems
 {
-    [self setInstructionsViewActive];
     self.labelNumber.hidden = NO;
     self.viewNumber.hidden = NO;
 }
@@ -282,7 +254,6 @@
 
 - (void) unhideInstructionFixedItems
 {
-    [self setInstructionsViewActive];
     self.labelFixedShot.hidden = NO;
     self.viewFixedShot.hidden = NO;
     self.btnPlayFixedShot.hidden = NO;
@@ -331,7 +302,6 @@
 
 - (void) unhideInstructionRetakeItems
 {
-    [self setInstructionsViewActive];
     self.btnRetake.hidden = NO;
     self.btnRetake.enabled = YES;
     self.btnPlayPreview.hidden = NO;
@@ -404,7 +374,6 @@
 
 - (void) unhideInstructionDoneItems
 {
-    [self setInstructionsViewActive];
     self.btnPlayDone.hidden = NO;
     self.btnPlayDone.enabled = YES;
     
@@ -443,6 +412,7 @@
     
     self.labelLeft.text = kMakeString;
     self.labelRight.text = kPreviewString;
+    
 }
 
 - (void)setImage:(NSString *)imageURL
@@ -687,23 +657,14 @@
     return NO;
 }
 
+
 #pragma mark -
-#pragma mark play video (call back from iCarousel)
+#pragma mark Actions
 
 - (void)itemClicked
 {
     NSLog(@"itemClicked");
 }
-
-#pragma mark -
-#pragma mark edit title
-
-- (void) resetTextTitle
-{
-    self.textEditPlaceholder.hidden = NO;
-    self.textEditTitle.text = @"";
-}
-
 
 - (IBAction)btnRetakeClicked:(id)sender {
     [self.superCtrl btnRetakeClicked];
@@ -712,53 +673,6 @@
 - (IBAction)btnPlayListClicked:(id)sender {
     [self playVideoList];
 }
-
-- (IBAction)btnEditTitleClicked:(id)sender {
-    
-    // add the observer
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldDidChange:)
-                                                 name:@"UITextFieldTextDidChangeNotification"
-                                               object:self.textEditTitle];
-    
-    [self setEditTextViewActive];
-    [self.textEditTitle becomeFirstResponder];
-}
-
-// the method to call on a change
-- (void)textFieldDidChange:(NSNotification*)aNotification
-{
-    NSLog(@"textViewDidChange");
-    
-    if(self.textEditTitle.text.length == 0)
-    {
-        [self resetTextTitle];
-    }
-    else
-    {
-        self.textEditPlaceholder.hidden = YES;
-    }
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    [self resetTextTitle];
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    NSLog(@"textFieldShouldReturn: %@", textField.text);
-    // add the observer
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:@"UITextFieldTextDidChangeNotification"
-                                               object:self.textEditTitle];
-    [textField resignFirstResponder];
-    [self setInstructionsViewActive];
-    return YES;
-}
-
-#pragma mark -
-#pragma mark Actions
 
 - (IBAction)btnPreviewClicked:(id)sender {
     NSLog(@"btnPreviewClicked");

@@ -19,7 +19,7 @@ typedef enum {
     kInstructionDone
 } eInstructionState;
 
-@interface InstructionCell : UIViewController <UITextFieldDelegate>
+@interface InstructionCell : UIViewController
 {
     NSUInteger index;
     eInstructionState state;
@@ -40,7 +40,7 @@ typedef enum {
 - (void)updateMakeOneCount;
 - (void)setImage:(NSString *)imageURL;
 - (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath;
-
+- (void)currentlyPresented;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBG;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
@@ -51,12 +51,9 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIImageView *imageShot;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewVideo;
 @property (weak, nonatomic) IBOutlet UIButton *btnRetake;
-@property (weak, nonatomic) IBOutlet UIView *viewEditText;
 @property (weak, nonatomic) IBOutlet UIView *viewInstructions;
-@property (weak, nonatomic) IBOutlet UITextField *textEditTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayPreview;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayFixedShot;
-@property (weak, nonatomic) IBOutlet UILabel *textEditPlaceholder;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayDone;
 @property (weak, nonatomic) IBOutlet UIButton *btnMakeVideo;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *uploadActivity;
@@ -72,7 +69,6 @@ typedef enum {
 
 - (IBAction)btnRetakeClicked:(id)sender;
 - (IBAction)btnPlayListClicked:(id)sender;
-- (IBAction)btnEditTitleClicked:(id)sender;
 - (IBAction)btnPreviewClicked:(id)sender;
 - (IBAction)btnFixedShotClicked:(id)sender;
 - (IBAction)btnMakeOneClicked:(id)sender;

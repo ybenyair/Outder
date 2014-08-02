@@ -13,6 +13,7 @@
 #import "Instruction.h"
 #import "AVCamInstructionsPortraitView.h"
 #import "Defines.h"
+#import "UserText.h"
 
 @interface AVCamInstructionsVC ()
 
@@ -23,7 +24,7 @@
     NSMutableArray *_presentedInstructions;
     NSMutableArray *_instructions;
     NSMutableDictionary *_reusedInstructionViews;
-    NSInteger _currentPage;
+    NSInteger _previousPage;
     CGFloat beginOffset;
     CGFloat endOffset;
     BOOL isRecording;
@@ -109,7 +110,6 @@
     
     self.carousel.type = iCarouselTypeCustom;
     [self.carousel setScrollToItemBoundary:YES];
-    _currentPage = 0;
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if (UIDeviceOrientationIsLandscape(orientation) ) {
@@ -141,7 +141,10 @@
     self.btnRestart.titleLabel.font = [UIFont fontWithName:kFontBold size:14];
     self.btnRestart.titleLabel.textColor = [UIColor whiteColor];
     self.btnRestart.titleLabel.text = kRestartString;
-
+    
+    [self.viewEditText setSuperCtrl:self];
+    [self.viewEditText setUserTextHints:[[self getSubTemplate] userTexts]];
+    self.viewEditText.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -240,7 +243,9 @@
 - (void)configureViewLandscape
 {
     self.portraitView.hidden = YES;
-    self.landscapeView.hidden = NO;
+    if (self.viewEditText.hidden == YES) {
+        self.landscapeView.hidden = NO;
+    }
 }
 
 #pragma mark -
@@ -267,6 +272,8 @@
     
     if (isDone) count++;
     
+    _previousPage = count;
+
     NSLog(@"Number of instructions = %ld", (long)count);
     return count;
 }
@@ -374,6 +381,33 @@
             break;
     }
     
+    if (_previousPage != carousel.currentItemIndex) {
+        _previousPage = carousel.currentItemIndex;
+        [instruction currentlyPresented];
+        
+        if ((instruction.state == kInstructionDone) && ![self.viewEditText isCompleted]) {
+            [self startEditText];
+        }
+    }
+    
+}
+
+- (void) startEditText
+{
+    self.viewEditText.hidden = NO;
+    self.viewEditText.userInteractionEnabled = YES;
+    self.landscapeView.hidden = YES;
+    self.landscapeView.userInteractionEnabled = NO;
+    [self.viewEditText startEditText];
+}
+
+- (void) editTextEnded
+{
+    [self.viewEditText endEditText];
+    self.landscapeView.hidden = NO;
+    self.landscapeView.userInteractionEnabled = YES;
+    self.viewEditText.hidden = YES;
+    self.viewEditText.userInteractionEnabled = NO;
 }
 
 - (void)updateInstructionState
@@ -525,6 +559,13 @@
             inst.videoURL = nil;
         }
     }
+    
+    for (id dataElement in [[self getSubTemplate] userTexts]) {
+        UserText *userText = dataElement;
+        userText.text = @"";
+    }
+    
+    [self.viewEditText setUserTextHints:[[self getSubTemplate] userTexts]];
     
     [self deleteDoneInstruction];
     

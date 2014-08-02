@@ -9,6 +9,7 @@
 #import "SubTemplate.h"
 #import "iCarousel.h"
 #import "AVCamViewController.h"
+#import "AVCamInstructionsTextView.h"
 
 @interface AVCamInstructionsVC : AVCamViewController <iCarouselDataSource, iCarouselDelegate>
 
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnFlip;
 @property (weak, nonatomic) IBOutlet UILabel *labelRecord;
 @property (weak, nonatomic) IBOutlet UIButton *labelRestart;
+@property (weak, nonatomic) IBOutlet AVCamInstructionsTextView *viewEditText;
 
 - (IBAction)btnBackClicked:(id)sender;
 - (IBAction)btnRestartClicked:(id)sender;
@@ -32,6 +34,7 @@
 - (void)setRestartButtonHidden: (BOOL) hidden;
 - (void)updateInstructionState;
 - (void)btnRetakeClicked;
+- (void) editTextEnded;
 
 + (AVCamInstructionsVC *) loadInstance;
 
