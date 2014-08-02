@@ -50,7 +50,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIImageView *viewFixedShot;
 @property (weak, nonatomic) IBOutlet UIImageView *imageShot;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewVideo;
-@property (weak, nonatomic) IBOutlet UIButton *btnEditTitle;
+@property (weak, nonatomic) IBOutlet UIButton *btnRetake;
 @property (weak, nonatomic) IBOutlet UIView *viewEditText;
 @property (weak, nonatomic) IBOutlet UIView *viewInstructions;
 @property (weak, nonatomic) IBOutlet UITextField *textEditTitle;
@@ -66,7 +66,11 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIImageView *viewRecorded;
 @property (weak, nonatomic) IBOutlet UILabel *labelRecorded;
 @property (weak, nonatomic) IBOutlet UILabel *labelDone;
+@property (weak, nonatomic) IBOutlet UILabel *labelCenter;
+@property (weak, nonatomic) IBOutlet UILabel *labelLeft;
+@property (weak, nonatomic) IBOutlet UILabel *labelRight;
 
+- (IBAction)btnRetakeClicked:(id)sender;
 - (IBAction)btnPlayListClicked:(id)sender;
 - (IBAction)btnEditTitleClicked:(id)sender;
 - (IBAction)btnPreviewClicked:(id)sender;

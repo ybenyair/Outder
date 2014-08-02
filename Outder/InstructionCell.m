@@ -26,6 +26,10 @@
     NSUInteger currentPlaying;
 }
 
+#define kPreviewString NSLocalizedString(@"Preview", nil);
+#define kRetakeString NSLocalizedString(@"Retake", nil);
+#define kMakeString NSLocalizedString(@"Make video", nil);
+
 @synthesize instructions, currentInstruction, index, state;
 
 + (CGFloat) getSpacingBetweenItems
@@ -105,8 +109,18 @@
     self.labelSeconds.font = [UIFont fontWithName:kFontRegular size:13];
     self.labelSeconds.textColor = [FontHelpers colorFromHexString:@"#4d4d4d"];
     
-    self.uploadActivity.tintColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.uploadActivity.color = [FontHelpers colorFromHexString:@"#41beb1"];
     self.labelNumOfMakeOne.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelNumOfMakeOne.font = [UIFont fontWithName:kFontBold size:14];
+    
+    self.labelLeft.font = [UIFont fontWithName:kFontBold size:14];
+    self.labelLeft.textColor = [UIColor whiteColor];
+
+    self.labelRight.font = [UIFont fontWithName:kFontBold size:14];
+    self.labelRight.textColor = [UIColor whiteColor];
+    
+    self.labelCenter.font = [UIFont fontWithName:kFontBold size:14];
+    self.labelCenter.textColor = [UIColor whiteColor];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -263,6 +277,7 @@
     self.viewFixedShot.hidden = YES;
     self.btnPlayFixedShot.hidden = YES;
     self.btnPlayFixedShot.enabled = NO;
+    self.labelCenter.hidden = YES;
 }
 
 - (void) unhideInstructionFixedItems
@@ -274,6 +289,7 @@
     self.btnPlayFixedShot.enabled = YES;
     self.labelNumber.hidden = NO;
     self.viewNumber.hidden = NO;
+    self.labelCenter.hidden = NO;
 }
 
 - (void) setInstructionFixedLayer: (BOOL) updateImages
@@ -294,6 +310,7 @@
     self.labelName.text = self.currentInstruction.name;
     self.labelName.hidden = NO;
     self.state = kInstructionFixed;
+    self.labelCenter.text = kPreviewString;
 }
 
 #pragma mark -
@@ -301,20 +318,22 @@
 
 - (void) hideInstructionRetakeItems
 {
-    self.btnEditTitle.hidden = YES;
-    self.btnEditTitle.enabled = NO;
+    self.btnRetake.hidden = YES;
+    self.btnRetake.enabled = NO;
     self.btnPlayPreview.hidden = YES;
     self.btnPlayPreview.enabled = NO;
     self.viewRecorded.hidden = YES;
     self.labelRecorded.hidden = YES;
+    self.labelLeft.hidden = YES;
+    self.labelRight.hidden = YES;
 }
 
 
 - (void) unhideInstructionRetakeItems
 {
     [self setInstructionsViewActive];
-    self.btnEditTitle.hidden = NO;
-    self.btnEditTitle.enabled = YES;
+    self.btnRetake.hidden = NO;
+    self.btnRetake.enabled = YES;
     self.btnPlayPreview.hidden = NO;
     self.btnPlayPreview.enabled = YES;
     self.labelNumber.hidden = NO;
@@ -323,6 +342,8 @@
     self.labelRecorded.hidden = NO;
     self.viewSeconds.hidden = NO;
     self.labelSeconds.hidden = NO;
+    self.labelLeft.hidden = NO;
+    self.labelRight.hidden = NO;
 }
 
 - (void) setInstructionRetakeLayer: (BOOL) updateImages
@@ -341,6 +362,8 @@
     self.labelName.text = self.currentInstruction.name;
     self.labelName.hidden = NO;
     self.state = kInstructionRetake;
+    self.labelRight.text = kRetakeString;
+    self.labelLeft.text = kPreviewString;
 }
 
 
@@ -375,6 +398,8 @@
     self.uploadActivity.hidden = YES;
     self.labelNumOfMakeOne.hidden = YES;
     self.labelDone.hidden = YES;
+    self.labelLeft.hidden = YES;
+    self.labelRight.hidden = YES;
 }
 
 - (void) unhideInstructionDoneItems
@@ -389,6 +414,9 @@
     
     self.labelDone.hidden = NO;
     
+    self.labelLeft.hidden = NO;
+    self.labelRight.hidden = NO;
+
     [self processUploadIndicator];
 }
 
@@ -412,6 +440,9 @@
     [self setImage:nil];
     self.imageShot.backgroundColor = [UIColor clearColor];
     self.imageShot.alpha = 0.5f;
+    
+    self.labelLeft.text = kMakeString;
+    self.labelRight.text = kPreviewString;
 }
 
 - (void)setImage:(NSString *)imageURL
@@ -480,7 +511,7 @@
 
 - (void) disableButtons
 {
-    self.btnEditTitle.enabled = NO;
+    self.btnRetake.enabled = NO;
     self.btnPlayDone.enabled = NO;
     self.btnPlayPreview.enabled = NO;
     self.btnPlayFixedShot.enabled = NO;
@@ -499,6 +530,8 @@
 #pragma mark play video (a single video)
 
 - (void)playVideo {
+    
+    if (!currentInstruction.videoURL) return;
     
     [self disableButtons];
     
@@ -548,12 +581,14 @@
     
     for (id dataElement in instructions) {
         inst = (Instruction *)dataElement;
-        VideoPlayerViewController *player = [[VideoPlayerViewController alloc] initWithView:self.imageViewVideo andURL:inst.videoURL];
-        player.enableAutoRotation = NO;
-        [player setDelegate:self withInfo:player];
-        [player setFadingDuration:0.0f];
-        [playerList addObject:player];
-        NSLog(@"Insert to the play list: %@", inst.videoURL);
+        if (inst.videoURL) {
+            VideoPlayerViewController *player = [[VideoPlayerViewController alloc] initWithView:self.imageViewVideo andURL:inst.videoURL];
+            player.enableAutoRotation = NO;
+            [player setDelegate:self withInfo:player];
+            [player setFadingDuration:0.0f];
+            [playerList addObject:player];
+            NSLog(@"Insert to the play list: %@", inst.videoURL);
+        }
     }
     
     VideoPlayerViewController *firstPlayer = [playerList objectAtIndex:0];
@@ -669,6 +704,10 @@
     self.textEditTitle.text = @"";
 }
 
+
+- (IBAction)btnRetakeClicked:(id)sender {
+    [self.superCtrl btnRetakeClicked];
+}
 
 - (IBAction)btnPlayListClicked:(id)sender {
     [self playVideoList];

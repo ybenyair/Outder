@@ -12,6 +12,7 @@
 #import "Feed.h"
 #import "Instruction.h"
 #import "AVCamInstructionsPortraitView.h"
+#import "Defines.h"
 
 @interface AVCamInstructionsVC ()
 
@@ -28,6 +29,9 @@
     BOOL isRecording;
     BOOL isDone;
 }
+
+#define kRestartString NSLocalizedString(@"start over", nil);
+#define kRecordString NSLocalizedString(@"Record", nil);
 
 + (AVCamInstructionsVC *) loadInstance
 {
@@ -128,6 +132,16 @@
     self.recordButton.showsTouchWhenHighlighted = YES;
     self.btnBack.showsTouchWhenHighlighted = YES;
     self.btnFlip.showsTouchWhenHighlighted = YES;
+    self.btnRestart.showsTouchWhenHighlighted = YES;
+    
+    self.labelRecord.font = [UIFont fontWithName:kFontBold size:14];
+    self.labelRecord.textColor = [UIColor whiteColor];
+    self.labelRecord.text = kRecordString;
+    
+    self.btnRestart.titleLabel.font = [UIFont fontWithName:kFontBold size:14];
+    self.btnRestart.titleLabel.textColor = [UIColor whiteColor];
+    self.btnRestart.titleLabel.text = kRestartString;
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -370,10 +384,10 @@
 - (void) enableRecodring: (BOOL) enabled
 {
     if (enabled) {
-        self.recordButton.hidden = NO;
+        [self setRecordButtonHidden:NO];
         self.recordButton.enabled = YES;
     } else {
-        self.recordButton.hidden = YES;
+        [self setRecordButtonHidden:YES];
         self.recordButton.enabled = NO;
     }
 }
@@ -483,6 +497,13 @@
 #pragma mark -
 #pragma mark Actions
 
+- (void)btnRetakeClicked
+{
+    [self enableRecodring:YES];
+    self.labelRecord.hidden = YES;
+    [self toggleMovieRecording:nil];
+}
+
 - (IBAction)btnBackClicked:(id)sender
 {
     [CoreData saveDB];
@@ -491,6 +512,8 @@
 
 - (IBAction)btnRestartClicked:(id)sender {
 
+    [self setRecordButtonHidden:YES];
+    
     [self deleteFiles];
 
     Instruction *inst = nil;
@@ -505,8 +528,14 @@
     
     [self deleteDoneInstruction];
     
+    if (self.carousel.numberOfItems == 1) {
+        InstructionCell *item = [self getCurrentItem];
+        [item configureItem:self.carousel];	
+    }
+    
     isDone = NO;
     inst.subTemplate.makeOneDisable = [NSNumber numberWithBool:NO];
+    [CoreData saveDB];
 }
 
 
@@ -659,57 +688,50 @@
 - (void) setRecordButtonStateRecord
 {
     [self enableRecodring:YES];
-    self.btnRestart.hidden = YES;
+    [self setRestartButtonHidden:YES];
+    
     [[self recordButton] setImage:[UIImage imageNamed:@"icon_record_off.png"] forState:UIControlStateNormal];
     [[self recordButton] setImage:[UIImage imageNamed:@"icon_record_press.png"] forState:UIControlStateHighlighted];
     CGPoint center = self.carousel.center;
     center.y = center.y + 10;
     self.recordButton.frame = CGRectMake(0, 0, 62, 62);
     self.recordButton.center = center;
+    self.recordButton.titleLabel.text = nil;
 }
 
 - (void) setRecordButtonStateRecording
 {
-    self.btnRestart.hidden = YES;
+    [self setRestartButtonHidden:YES];
+
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_off.png"] forState:UIControlStateNormal];
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_press.png"] forState:UIControlStateHighlighted];
     
     self.recordButton.frame = CGRectMake(0, 0, 62, 62);
     self.recordButton.center = self.viewRecordTimer.center;
+    self.labelRecord.hidden = YES;
 }
 
 - (void) setRecordButtonStateFixed
 {
     [self enableRecodring:NO];
-    self.btnRestart.hidden = YES;
+    [self setRestartButtonHidden:YES];
 }
 
 - (void) setRecordButtonStateRetake
 {
-    [self enableRecodring:YES];
-    self.btnRestart.hidden = YES;
-
-    [[self recordButton] setImage:[UIImage imageNamed:@"icon_retake_off.png"] forState:UIControlStateNormal];
-    [[self recordButton] setImage:[UIImage imageNamed:@"icon_retake_press.png"] forState:UIControlStateHighlighted];
-
-    CGPoint center = self.carousel.center;
-    center.y = center.y + 80;
-    self.recordButton.frame = CGRectMake(0, 0, 32, 25);
-    self.recordButton.bounds = CGRectMake(0, 0, 32, 25);
-    self.recordButton.center = center;
+    [self enableRecodring:NO];
 }
 
 - (void) setRecordButtonStateDone
 {
     [self enableRecodring:NO];
-    self.btnRestart.hidden = NO;
-    
+    [self setRestartButtonHidden:NO];
 }
 
 - (void) setRecordButtonStateDragging
 {
     [self enableRecodring:NO];
-    self.btnRestart.hidden = YES;
+    [self setRestartButtonHidden:YES];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
@@ -736,11 +758,13 @@
 - (void)setRecordButtonHidden: (BOOL) hidden
 {
     self.recordButton.hidden = hidden;
+    self.labelRecord.hidden = hidden;
 }
 
 - (void)setRestartButtonHidden: (BOOL) hidden
 {
     self.btnRestart.hidden = hidden;
+    self.labelRestart.hidden = hidden;
 }
 
 #pragma mark -

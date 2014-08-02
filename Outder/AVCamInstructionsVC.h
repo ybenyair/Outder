@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnRestart;
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
 @property (weak, nonatomic) IBOutlet UIButton *btnFlip;
+@property (weak, nonatomic) IBOutlet UILabel *labelRecord;
+@property (weak, nonatomic) IBOutlet UIButton *labelRestart;
 
 - (IBAction)btnBackClicked:(id)sender;
 - (IBAction)btnRestartClicked:(id)sender;
@@ -29,6 +31,7 @@
 - (void)setRecordButtonHidden: (BOOL) hidden;
 - (void)setRestartButtonHidden: (BOOL) hidden;
 - (void)updateInstructionState;
+- (void)btnRetakeClicked;
 
 + (AVCamInstructionsVC *) loadInstance;
 

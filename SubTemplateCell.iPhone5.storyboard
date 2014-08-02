@@ -144,8 +144,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="button_makeone_off.png" width="248" height="248"/>
-        <image name="button_show_directions_off.png" width="197" height="51"/>
+        <image name="button_makeone_off.png" width="164" height="164"/>
+        <image name="button_show_directions_off.png" width="131" height="33"/>
         <image name="icon_audio_off.png" width="24" height="24"/>
         <image name="icons_shots_number.png" width="11" height="13"/>
     </resources>

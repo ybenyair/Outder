@@ -66,23 +66,34 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-OU-aTZ" userLabel="Button - Record">
-                                                <rect key="frame" x="253" y="100" width="62" height="62"/>
+                                                <rect key="frame" x="215" y="129" width="138" height="62"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <state key="normal" image="icon_record_off.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
+                                                <fontDescription key="fontDescription" name=".LucidaGrandeUI" family=".Lucida Grande UI" pointSize="11"/>
+                                                <state key="normal" image="icon_record_off.png"/>
                                                 <connections>
                                                     <action selector="toggleMovieRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="d0A-LS-VbE"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZW-HI-8V9" userLabel="Button - restart">
-                                                <rect key="frame" x="268" y="229" width="32" height="25"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6PU-7A-AkK" userLabel="Label - Record">
+                                                <rect key="frame" x="240" y="191" width="88" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXH-eS-2j3" userLabel="Label - restart">
+                                                <rect key="frame" x="238" y="247" width="16" height="13"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" image="icon_restart_off.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZW-HI-8V9" userLabel="Button - restart">
+                                                <rect key="frame" x="234" y="240" width="100" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <state key="normal" title="start over"/>
                                                 <connections>
                                                     <action selector="btnRestartClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MrD-KZ-VTL"/>
                                                 </connections>
@@ -126,6 +137,8 @@
                         <outlet property="btnRestart" destination="AZW-HI-8V9" id="gI7-cy-BjA"/>
                         <outlet property="cameraButton" destination="f4y-iM-g40" id="UG1-1g-xMf"/>
                         <outlet property="carousel" destination="mIR-Kr-b4h" id="Kqr-SY-zlL"/>
+                        <outlet property="labelRecord" destination="6PU-7A-AkK" id="hMy-Kg-TLJ"/>
+                        <outlet property="labelRestart" destination="TXH-eS-2j3" id="gSg-43-vhp"/>
                         <outlet property="landscapeView" destination="Vbb-wp-Rag" id="8DC-0r-iaG"/>
                         <outlet property="pageControl" destination="WEh-5N-dhq" id="Jis-N6-zjN"/>
                         <outlet property="portraitView" destination="aEA-Ti-KWX" id="cL0-ox-62A"/>
@@ -146,7 +159,7 @@
     <resources>
         <image name="back_off.png" width="12" height="15"/>
         <image name="icon_record_off.png" width="62" height="62"/>
-        <image name="icon_restart_off.png" width="35" height="27"/>
+        <image name="icon_restart_off.png" width="16" height="12"/>
         <image name="icon_rotate_camera_off.png" width="37" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
