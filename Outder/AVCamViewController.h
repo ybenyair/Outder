@@ -47,11 +47,13 @@
 
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface AVCamViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIButton *recordButton;
 @property (nonatomic) BOOL lockInterfaceRotation;
+@property (nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 
 - (IBAction)toggleMovieRecording:(id)sender;
 - (IBAction)changeCamera:(id)sender;

@@ -108,6 +108,7 @@
             instruction.videoURL = [instructionData objectForKey:@"video_url"];
         }
         
+        instruction.selfi = [instructionData objectForKey:@"selfi"];
         instruction.usertexthint = [instructionData objectForKey:@"usertexthint"];
         instruction.usertext = [instructionData objectForKey:@"usertext"];
         instruction.name = [instructionData objectForKey:@"name"];

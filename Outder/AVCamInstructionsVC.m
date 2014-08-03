@@ -345,7 +345,7 @@
     
     instructionItem.index = index;
     [instructionItem configureItem: carousel];
-
+    
     return view;
 }
 
@@ -406,7 +406,11 @@
     
     if (_previousPage != carousel.currentItemIndex) {
         
+        [self configureCameraPosition];
+
         [instruction currentlyPresented];
+        
+        autoPlay = [self shouldAutoPlay];
         
         if (autoPlay) {
             
@@ -1085,21 +1089,28 @@
 {
     BOOL enabled = YES;
     
-    Instruction *inst = nil;
-    for (id dataElement in _presentedInstructions) {
-        inst = (Instruction *)dataElement;
-        if ([inst.fixed boolValue] == NO) {
-
-            if (inst.imageURL != nil) {
-                NSLog(@"Auto play disabled");
-                enabled = NO;
-                break;
+    if (self.carousel.currentItemIndex > 0) {
+        enabled = NO;
+    } else {
+        
+        Instruction *inst = nil;
+        for (id dataElement in _presentedInstructions) {
+            inst = (Instruction *)dataElement;
+            if ([inst.fixed boolValue] == NO) {
+                
+                if (inst.imageURL != nil) {
+                    NSLog(@"Auto play disabled");
+                    enabled = NO;
+                    break;
+                }
             }
         }
     }
     
     if (enabled) {
         NSLog(@"Auto play enabled");
+    } else {
+        NSLog(@"Auto play disabled");
     }
     
     return enabled;
@@ -1118,6 +1129,51 @@
             ntfySubTemplate.makeOneDisable = [NSNumber numberWithBool:YES];
         }
         [item updateMakeOneCount];
+    }
+}
+
+#pragma mark -
+#pragma mark CAMERA positions
+
+- (void) configureCameraPosition
+{
+    Instruction *inst = [self getCurrentInstruction];
+    if ([inst.selfi boolValue] == YES) {
+        [self setCameraFront];
+    } else {
+        [self setCameraBack];
+    }
+}
+
+
+- (void) setCameraFront {
+    AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
+    AVCaptureDevicePosition currentPosition = [currentVideoDevice position];
+
+    switch (currentPosition)
+    {
+        case AVCaptureDevicePositionBack:
+            [self changeCamera:nil];
+            break;
+        case AVCaptureDevicePositionFront:
+        case AVCaptureDevicePositionUnspecified:
+            break;
+    }
+}
+
+- (void) setCameraBack
+{
+    AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
+    AVCaptureDevicePosition currentPosition = [currentVideoDevice position];
+    
+    switch (currentPosition)
+    {
+        case AVCaptureDevicePositionBack:
+            break;
+        case AVCaptureDevicePositionFront:
+        case AVCaptureDevicePositionUnspecified:
+            [self changeCamera:nil];
+            break;
     }
 }
 

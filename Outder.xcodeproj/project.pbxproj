@@ -133,9 +133,9 @@
 		1888B4211989C06700957213 /* tabs_popular_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B4201989C06700957213 /* tabs_popular_on@2x.png */; };
 		1888B4231989C06F00957213 /* tabs_create_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B4221989C06F00957213 /* tabs_create_on@2x.png */; };
 		1888B4261989D9CB00957213 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888B4251989D9CB00957213 /* Feed.m */; };
-		1888B42C1989E03D00957213 /* Instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888B42B1989E03D00957213 /* Instruction.m */; };
 		1888B438198A398500957213 /* frame_lite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B437198A398500957213 /* frame_lite@2x.png */; };
 		1888D50D198E886100B8E720 /* icon_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888D50C198E886100B8E720 /* icon_arrow@2x.png */; };
+		1888D510198ECC0F00B8E720 /* Instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888D50F198ECC0F00B8E720 /* Instruction.m */; };
 		1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A5194F74BE0065FFE0 /* blackArrow.png */; };
 		1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A6194F74BE0065FFE0 /* blackArrow@2x.png */; };
@@ -399,10 +399,10 @@
 		1888B4221989C06F00957213 /* tabs_create_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs_create_on@2x.png"; sourceTree = "<group>"; };
 		1888B4241989D9CB00957213 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		1888B4251989D9CB00957213 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
-		1888B42A1989E03D00957213 /* Instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instruction.h; sourceTree = "<group>"; };
-		1888B42B1989E03D00957213 /* Instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instruction.m; sourceTree = "<group>"; };
 		1888B437198A398500957213 /* frame_lite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_lite@2x.png"; sourceTree = "<group>"; };
 		1888D50C198E886100B8E720 /* icon_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow@2x.png"; sourceTree = "<group>"; };
+		1888D50E198ECC0F00B8E720 /* Instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instruction.h; sourceTree = "<group>"; };
+		1888D50F198ECC0F00B8E720 /* Instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instruction.m; sourceTree = "<group>"; };
 		1889C0A2194F74BE0065FFE0 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		1889C0A5194F74BE0065FFE0 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -560,12 +560,12 @@
 			isa = PBXGroup;
 			children = (
 				18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */,
+				1888D50E198ECC0F00B8E720 /* Instruction.h */,
+				1888D50F198ECC0F00B8E720 /* Instruction.m */,
 				18E168BB198D7421003A1042 /* UserText.h */,
 				18E168BC198D7421003A1042 /* UserText.m */,
 				18E168B2198D4089003A1042 /* SubTemplate.h */,
 				18E168B3198D4089003A1042 /* SubTemplate.m */,
-				1888B42A1989E03D00957213 /* Instruction.h */,
-				1888B42B1989E03D00957213 /* Instruction.m */,
 				1888B4241989D9CB00957213 /* Feed.h */,
 				1888B4251989D9CB00957213 /* Feed.m */,
 				188DB1E4195F5ADE00EA404C /* Template.h */,
@@ -1276,6 +1276,7 @@
 				186990BF197A8CC00004C44F /* ASIS3ServiceRequest.m in Sources */,
 				186990DB197A8F1B0004C44F /* ASIInputStream.m in Sources */,
 				1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */,
+				1888D510198ECC0F00B8E720 /* Instruction.m in Sources */,
 				183C14EE1950DDBA00DF8ABD /* ServerCommunication.m in Sources */,
 				1886683E196B6BBD00B82A16 /* AVCamPreviewView.m in Sources */,
 				18984AAF19486E37001410B7 /* TitleNavBarVC.m in Sources */,
@@ -1319,7 +1320,6 @@
 				186990D8197A8F1B0004C44F /* ASIDownloadCache.m in Sources */,
 				1834BF9F1947ACB300AE7332 /* DejalActivityView.m in Sources */,
 				18FB7C8219676267005C9ABA /* FBActivity.m in Sources */,
-				1888B42C1989E03D00957213 /* Instruction.m in Sources */,
 				18F821E6196C17620030374E /* InstructionCell.m in Sources */,
 				186990D9197A8F1B0004C44F /* ASIFormDataRequest.m in Sources */,
 				186990D6197A8F1B0004C44F /* ASIDataCompressor.m in Sources */,

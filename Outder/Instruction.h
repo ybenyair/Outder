@@ -2,7 +2,7 @@
 //  Instruction.h
 //  Outder
 //
-//  Created by Yossi on 7/31/14.
+//  Created by Yossi on 8/3/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface Instruction : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * fixed;
+@property (nonatomic, retain) NSNumber * hidden;
 @property (nonatomic, retain) NSNumber * id;
 @property (nonatomic, retain) NSString * imageURL;
 @property (nonatomic, retain) NSNumber * length;
@@ -25,7 +26,7 @@
 @property (nonatomic, retain) NSNumber * usertext;
 @property (nonatomic, retain) NSString * usertexthint;
 @property (nonatomic, retain) NSString * videoURL;
-@property (nonatomic, retain) NSNumber * hidden;
+@property (nonatomic, retain) NSNumber * selfi;
 @property (nonatomic, retain) SubTemplate *subTemplate;
 
 @end

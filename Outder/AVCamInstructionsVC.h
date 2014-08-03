@@ -30,15 +30,20 @@
 - (IBAction)btnBackClicked:(id)sender;
 - (IBAction)btnRestartClicked:(id)sender;
 
+// Camera
+- (void) setCameraFront;
+- (void) setCameraBack;
+- (void)setRecordButtonHidden: (BOOL) hidden;
+
 // Events from childrens
 - (void) editTextEnded;
 - (void) videoPlayEnded;
 - (void) makeOneClicked;
+- (void) btnRetakeClicked;
 
-- (void)setRecordButtonHidden: (BOOL) hidden;
-- (void)setRestartButtonHidden: (BOOL) hidden;
-- (void)updateInstructionState;
-- (void)btnRetakeClicked;
+// Methods for childrens
+- (void) setRestartButtonHidden: (BOOL) hidden;
+- (void) updateInstructionState;
 - (void) startEditText;
 - (void) moveToNextInstruction: (CGFloat) delay;
 
