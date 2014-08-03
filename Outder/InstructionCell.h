@@ -35,13 +35,6 @@ typedef enum {
 @property NSUInteger index;
 @property eInstructionState state;
 
-- (void)configureItem: (UIView *)view;
-- (void)itemClicked;
-- (void)updateMakeOneCount;
-- (void)setImage:(NSString *)imageURL;
-- (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath;
-- (void)currentlyPresented;
-
 @property (weak, nonatomic) IBOutlet UIImageView *imageBG;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelNumber;
@@ -66,11 +59,23 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *labelCenter;
 @property (weak, nonatomic) IBOutlet UILabel *labelLeft;
 @property (weak, nonatomic) IBOutlet UILabel *labelRight;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditText;
 
 - (IBAction)btnRetakeClicked:(id)sender;
 - (IBAction)btnPlayListClicked:(id)sender;
 - (IBAction)btnPreviewClicked:(id)sender;
 - (IBAction)btnFixedShotClicked:(id)sender;
 - (IBAction)btnMakeOneClicked:(id)sender;
+- (IBAction)btnEditTextClicked:(id)sender;
+
+
+- (void)configureItem: (UIView *)view;
+- (void)playVideo;
+- (void)playVideoList;
+- (void)itemClicked;
+- (void)updateMakeOneCount;
+- (void)setImage:(NSString *)imageURL;
+- (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath;
+- (void)currentlyPresented;
 
 @end

@@ -51,6 +51,8 @@
 @interface AVCamViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIButton *recordButton;
+@property (nonatomic) BOOL lockInterfaceRotation;
+
 - (IBAction)toggleMovieRecording:(id)sender;
 - (IBAction)changeCamera:(id)sender;
 

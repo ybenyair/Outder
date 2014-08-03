@@ -29,6 +29,7 @@
     CGFloat endOffset;
     BOOL isRecording;
     BOOL isDone;
+    BOOL autoPlay;
 }
 
 #define kRestartString NSLocalizedString(@"start over", nil);
@@ -129,6 +130,8 @@
         [self insertDoneInstruction];
     }
 
+    autoPlay = [self shouldAutoPlay];
+    
     self.recordButton.showsTouchWhenHighlighted = YES;
     self.btnBack.showsTouchWhenHighlighted = YES;
     self.btnFlip.showsTouchWhenHighlighted = YES;
@@ -250,6 +253,26 @@
 
 #pragma mark -
 #pragma mark iCarousel methods
+
+- (void) moveToNextInstruction: (CGFloat) delay
+{
+    NSUInteger nextIndex = self.carousel.currentItemIndex + 1;
+    if (nextIndex < self.carousel.numberOfItems) {
+        
+        [UIView animateWithDuration:delay
+                         animations:^{
+                             [self.carousel setAlpha:0.9];
+                         }
+                         completion:^(BOOL finished) {
+                             if (finished)
+                             {
+                                 [self.carousel setAlpha:1.0];
+                                 [self.carousel scrollToItemAtIndex:nextIndex animated:YES];
+                             }
+                         }];
+        
+    }
+}
 
 - (void)carouselDidScroll:(iCarousel *)carousel
 {
@@ -382,32 +405,80 @@
     }
     
     if (_previousPage != carousel.currentItemIndex) {
-        _previousPage = carousel.currentItemIndex;
+        
         [instruction currentlyPresented];
         
-        if ((instruction.state == kInstructionDone) && ![self.viewEditText isCompleted]) {
-            [self startEditText];
+        if (autoPlay) {
+            
+            switch (instruction.state) {
+                case kInstructionDone:
+                    if (![self.viewEditText isCompleted] &&
+                        instruction.btnMakeVideo.enabled) {
+                        [self startEditText];
+                    } else {
+                        [instruction playVideoList];
+                    }
+                    break;
+                case kInstructionFixed:
+                    [instruction playVideo];
+                default:
+                    break;
+            }
         }
+        
     }
     
+    _previousPage = carousel.currentItemIndex;
+    
+}
+
+- (void) videoPlayEnded
+{
+    if (autoPlay) {
+    
+        InstructionCell *instruction = [self getCurrentItem];
+        
+        switch (instruction.state) {
+            case kInstructionDone:
+                autoPlay = NO;
+                break;
+            case kInstructionFixed:
+                [self moveToNextInstruction:0.75f];
+            default:
+                break;
+        }
+    }
 }
 
 - (void) startEditText
 {
+    [self setLockInterfaceRotation:YES];
+    [self deregisterToDeviceOrientationNotification];
+
     self.viewEditText.hidden = NO;
     self.viewEditText.userInteractionEnabled = YES;
     self.landscapeView.hidden = YES;
     self.landscapeView.userInteractionEnabled = NO;
     [self.viewEditText startEditText];
+    
 }
 
 - (void) editTextEnded
 {
+    [self setLockInterfaceRotation:NO];
+    [self registerToDeviceOrientationNotification];
+
     [self.viewEditText endEditText];
     self.landscapeView.hidden = NO;
     self.landscapeView.userInteractionEnabled = YES;
     self.viewEditText.hidden = YES;
     self.viewEditText.userInteractionEnabled = NO;
+    
+    if (autoPlay) {
+        InstructionCell *instruction = [self getCurrentItem];
+        [instruction playVideoList];
+    }
+
 }
 
 - (void)updateInstructionState
@@ -575,6 +646,7 @@
     }
     
     isDone = NO;
+    autoPlay = YES;
     inst.subTemplate.makeOneDisable = [NSNumber numberWithBool:NO];
     [CoreData saveDB];
 }
@@ -845,6 +917,10 @@
                 }
             }
 
+            if (autoPlay) {
+                [self moveToNextInstruction:0.75f];
+            }
+            
             if (!thumbImageFile) {
                 NSString *title = NSLocalizedString(@"CAMERA ERROR", nil);
                 NSString *message = NSLocalizedString(@"RETAKE THE SHOT", nil);
@@ -957,6 +1033,24 @@
 }
 
 #pragma mark -
+#pragma mark EVENTS
+
+- (void) makeOneClicked
+{
+    [UIView animateWithDuration:0.75f
+                     animations:^{
+                         [self.carousel setAlpha:0.9];
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished)
+                         {
+                             [self.carousel setAlpha:1.0];
+                             [self btnBackClicked:nil];
+                         }
+                     }];
+}
+
+#pragma mark -
 #pragma mark DONE with instructions
 
 - (BOOL) wereInstructionsCompleted
@@ -985,6 +1079,30 @@
     }
 
     return completed;
+}
+
+- (BOOL) shouldAutoPlay
+{
+    BOOL enabled = YES;
+    
+    Instruction *inst = nil;
+    for (id dataElement in _presentedInstructions) {
+        inst = (Instruction *)dataElement;
+        if ([inst.fixed boolValue] == NO) {
+
+            if (inst.imageURL != nil) {
+                NSLog(@"Auto play disabled");
+                enabled = NO;
+                break;
+            }
+        }
+    }
+    
+    if (enabled) {
+        NSLog(@"Auto play enabled");
+    }
+    
+    return enabled;
 }
 
 - (void)FeedMakeOneNtfy:(NSNotification *)notification

@@ -135,6 +135,7 @@
 		1888B4261989D9CB00957213 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888B4251989D9CB00957213 /* Feed.m */; };
 		1888B42C1989E03D00957213 /* Instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888B42B1989E03D00957213 /* Instruction.m */; };
 		1888B438198A398500957213 /* frame_lite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B437198A398500957213 /* frame_lite@2x.png */; };
+		1888D50D198E886100B8E720 /* icon_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888D50C198E886100B8E720 /* icon_arrow@2x.png */; };
 		1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A5194F74BE0065FFE0 /* blackArrow.png */; };
 		1889C0AF194F74BE0065FFE0 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889C0A6194F74BE0065FFE0 /* blackArrow@2x.png */; };
@@ -401,6 +402,7 @@
 		1888B42A1989E03D00957213 /* Instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instruction.h; sourceTree = "<group>"; };
 		1888B42B1989E03D00957213 /* Instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instruction.m; sourceTree = "<group>"; };
 		1888B437198A398500957213 /* frame_lite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_lite@2x.png"; sourceTree = "<group>"; };
+		1888D50C198E886100B8E720 /* icon_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow@2x.png"; sourceTree = "<group>"; };
 		1889C0A2194F74BE0065FFE0 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		1889C0A3194F74BE0065FFE0 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		1889C0A5194F74BE0065FFE0 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -742,6 +744,7 @@
 		18859FC119878BE600246765 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1888D50C198E886100B8E720 /* icon_arrow@2x.png */,
 				18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */,
 				18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */,
 				1888B437198A398500957213 /* frame_lite@2x.png */,
@@ -1127,6 +1130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				188B883E1982559000283573 /* p3.mp4 in Resources */,
+				1888D50D198E886100B8E720 /* icon_arrow@2x.png in Resources */,
 				181BF039195FD55300BCBC05 /* splash.jpg in Resources */,
 				1888B3E91989BCF900957213 /* button_show_directions_press@2x.png in Resources */,
 				1888B4021989BCF900957213 /* icon_record_press@2x.png in Resources */,

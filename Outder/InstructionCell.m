@@ -29,6 +29,7 @@
 #define kPreviewString NSLocalizedString(@"Preview", nil);
 #define kRetakeString NSLocalizedString(@"Retake", nil);
 #define kMakeString NSLocalizedString(@"Make video", nil);
+#define kEditText NSLocalizedString(@"Edit text", nil);
 
 @synthesize instructions, currentInstruction, index, state;
 
@@ -95,9 +96,9 @@
     self.labelName.font = [UIFont fontWithName:kFontBold size:16];
     self.labelName.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
     
-    self.labelDone.font = [UIFont fontWithName:kFontBlack size:24];
+    self.labelDone.font = [UIFont fontWithName:kFontBlack size:20];
     self.labelDone.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
-    self.labelDone.text = NSLocalizedString(@"GREAT! YOU ARE DONE", nil);
+    self.labelDone.text = NSLocalizedString(@"Press 'Make video' to complete", nil);
 
     self.labelNumber.font = [UIFont fontWithName:kFontBlack size:45];
     self.labelNumber.textColor = [UIColor whiteColor];
@@ -131,7 +132,7 @@
 
 - (void) currentlyPresented
 {
-
+    
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -144,6 +145,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (SubTemplate *) getSubTemplate
+{
+    Instruction *inst = [instructions firstObject];
+    SubTemplate *subTemplate = inst.subTemplate;
+    return subTemplate;
 }
 
 - (void) restoreState
@@ -334,6 +342,7 @@
     self.state = kInstructionRetake;
     self.labelRight.text = kRetakeString;
     self.labelLeft.text = kPreviewString;
+    
 }
 
 
@@ -370,6 +379,17 @@
     self.labelDone.hidden = YES;
     self.labelLeft.hidden = YES;
     self.labelRight.hidden = YES;
+    self.labelCenter.hidden = YES;
+    self.btnEditText.hidden = YES;
+    self.btnEditText.enabled = NO;
+    
+    CGPoint center = self.labelLeft.center;
+    center.x = self.btnPlayPreview.center.x;
+    self.labelLeft.center = center;
+    
+    center = self.labelRight.center;
+    center.x = self.btnRetake.center.x;
+    self.labelRight.center = center;
 }
 
 - (void) unhideInstructionDoneItems
@@ -381,11 +401,37 @@
     Instruction *inst = [instructions firstObject];
     self.btnMakeVideo.enabled = (![inst.subTemplate.makeOneDisable boolValue]);
     
-    self.labelDone.hidden = NO;
+    CGFloat xLeft = self.btnPlayPreview.center.x;
+    CGFloat xRight = self.btnRetake.center.x;
     
+    if ([[[self getSubTemplate] userTexts] count] > 0) {
+        self.btnEditText.hidden = NO;
+        self.btnEditText.enabled = YES;
+        self.labelCenter.hidden = NO;
+        xLeft = self.btnMakeVideo.center.x;
+        xRight = self.btnPlayDone.center.x;
+    }
+    
+    self.labelDone.hidden = NO;
     self.labelLeft.hidden = NO;
     self.labelRight.hidden = NO;
-
+    
+    CGPoint center = self.labelLeft.center;
+    center.x = xLeft;
+    self.labelLeft.center = center;
+    
+    center = self.btnMakeVideo.center;
+    center.x = xLeft;
+    self.btnMakeVideo.center = center;
+    
+    center = self.labelRight.center;
+    center.x = xRight;
+    self.labelRight.center = center;
+    
+    center = self.btnPlayDone.center;
+    center.x = xRight;
+    self.btnPlayDone.center = center;
+    
     [self processUploadIndicator];
 }
 
@@ -406,13 +452,11 @@
     self.labelSeconds.hidden = YES;
     self.labelName.hidden = YES;
     
-    [self setImage:nil];
-    self.imageShot.backgroundColor = [UIColor clearColor];
-    self.imageShot.alpha = 0.5f;
+    [self setImage:[[self getSubTemplate] imageURL]];
     
     self.labelLeft.text = kMakeString;
     self.labelRight.text = kPreviewString;
-    
+    self.labelCenter.text = kEditText;
 }
 
 - (void)setImage:(NSString *)imageURL
@@ -618,6 +662,8 @@
         playerList = nil;
         [self enableButtons];
         
+        [self.superCtrl videoPlayEnded];
+
     } else {
         
         NSUInteger nextToPlay = indexClosed + 1;
@@ -686,6 +732,9 @@
 
 - (IBAction)btnMakeOneClicked:(id)sender {
     NSLog(@"btnMakeOneClicked");
+
+    self.labelDone.text = NSLocalizedString(@"GREAT!!! YOU ARE DONE", nil);
+
     Feed *feed = [FeedCoreData createFeed:kMyVideoType];
     Instruction *inst = [instructions firstObject];
     SubTemplate *subTemplate = inst.subTemplate;
@@ -708,6 +757,14 @@
                                       object:feed
                                     userInfo:nil];
     
+    
+    
+    
+    [self.superCtrl makeOneClicked];
+}
+
+- (IBAction)btnEditTextClicked:(id)sender {
+    [self.superCtrl startEditText];
 }
 
 - (void)updateMakeOneCount
