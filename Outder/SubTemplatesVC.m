@@ -54,7 +54,6 @@
     //[self setBackNavigationBarItems];
     //[self setNavigationBarTitle];
     self.tabBarController.tabBar.hidden = YES;
-
 }
 
 - (void)didReceiveMemoryWarning

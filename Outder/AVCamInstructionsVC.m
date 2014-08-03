@@ -385,6 +385,7 @@
         
         case kInstructionRecord:
         case kInstructionUnknown:
+            [self configureCameraPosition];
             [self setRecordButtonStateRecord];
             break;
             
@@ -393,6 +394,7 @@
             break;
 
         case kInstructionRetake:
+            [self configureCameraPosition];
             [self setRecordButtonStateRetake];
             break;
 
@@ -406,8 +408,6 @@
     
     if (_previousPage != carousel.currentItemIndex) {
         
-        [self configureCameraPosition];
-
         [instruction currentlyPresented];
         
         autoPlay = [self shouldAutoPlay];
