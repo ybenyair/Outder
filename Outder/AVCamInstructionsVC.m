@@ -410,7 +410,7 @@
         
         [instruction currentlyPresented];
         
-        autoPlay = [self shouldAutoPlay];
+        //autoPlay = [self shouldAutoPlay];
         
         if (autoPlay) {
             
@@ -1089,20 +1089,15 @@
 {
     BOOL enabled = YES;
     
-    if (self.carousel.currentItemIndex > 0) {
-        enabled = NO;
-    } else {
-        
-        Instruction *inst = nil;
-        for (id dataElement in _presentedInstructions) {
-            inst = (Instruction *)dataElement;
-            if ([inst.fixed boolValue] == NO) {
-                
-                if (inst.imageURL != nil) {
-                    NSLog(@"Auto play disabled");
-                    enabled = NO;
-                    break;
-                }
+    Instruction *inst = nil;
+    for (id dataElement in _presentedInstructions) {
+        inst = (Instruction *)dataElement;
+        if ([inst.fixed boolValue] == NO) {
+            
+            if (inst.imageURL != nil) {
+                NSLog(@"Auto play disabled");
+                enabled = NO;
+                break;
             }
         }
     }
