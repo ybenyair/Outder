@@ -24,6 +24,7 @@
     NSArray *textFieldArray;
     NSMutableArray *activeHints;
     id currentTextResponder;
+    id currentTextField;
 }
 
 @synthesize isCompleted;
@@ -149,7 +150,7 @@
                                                       object:dataElement];
     }
     
-    [self.editTextFirst resignFirstResponder];
+    [currentTextResponder resignFirstResponder];
 }
 
 - (NSUInteger) getTextFieldIndex: (UITextField *)item
@@ -191,15 +192,32 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     NSLog(@"textFieldShouldBeginEditing: %p", textField);
-    
+    currentTextField = textField;
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     NSLog(@"textFieldShouldReturn: %@", textField.text);
     
-    isCompleted = YES;
+    NSUInteger nextIndex = [self getTextFieldIndex:textField] + 1;
     
+    if (nextIndex < [activeHints count]) {
+        UITextField *obj = [textFieldArray objectAtIndex:nextIndex];
+        [currentTextResponder resignFirstResponder];
+        [obj becomeFirstResponder];
+        currentTextResponder = obj;
+    } else {
+        [self saveUserText];
+        [superCtrl editTextEnded];
+    }
+    
+    return YES;
+}
+
+- (void) saveUserText
+{
+    isCompleted = YES;
+
     NSUInteger index = 0;
     for (id dataElement in activeHints) {
         if (index < [textFieldArray count]) {
@@ -222,14 +240,10 @@
     }
     
     [CoreData saveDB];
-    [superCtrl editTextEnded];
-    
-    return YES;
 }
 
-
 - (IBAction)btnCloseClicked:(id)sender {
-    [self textFieldShouldReturn:self.editTextFirst];
+    [ self textFieldShouldReturn:currentTextField];
 }
 
 @end

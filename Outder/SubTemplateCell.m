@@ -344,10 +344,12 @@
 -(void)aAutoPlay: (NSTimer *)timer
 {
     NSLog(@"aAutoPlay %@", subTemplate.title);
+    autoPlayTimer = nil;
+    /*
     self.btnMute.hidden = NO;
     self.btnMute.enabled = YES;
-    autoPlayTimer = nil;
     [videoCtrl muteVideo:YES];
+    */
     [videoCtrl playVideo];
 }
 
@@ -360,7 +362,7 @@
     if (videoCtrl.videoState == kVideoOpened) {
         NSLog(@"Video is already playing: do not set timer");
     } else {
-        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
+        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
     }
 }
 

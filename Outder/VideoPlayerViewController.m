@@ -251,7 +251,9 @@ static VideoPlayerViewController *activePlayer = nil;
     self.view.frame = videoView.bounds;
 
     [self positionItemsOnPlayerView];
+    
     [self.view addSubview: self.mPlaybackView];
+    
     [self.view addSubview:overlayView];
     
     if (!getReadyOnly) {
@@ -370,7 +372,7 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void)addItemsOnPlayerView
 {
-    [self.mPlaybackView  addSubview: activityIndicator];
+    [self.mPlaybackView addSubview: activityIndicator];
     if (!tapRecognizer) [self.mPlaybackView addSubview: stopButton];
     [self.mPlaybackView addSubview: playbackErrorLabel];
 }
@@ -406,7 +408,6 @@ static VideoPlayerViewController *activePlayer = nil;
 -(void) playVideo:(NSString *)videoURL inView:(UIView *)videoView
 {
     //[self setDemoOverlay: videoView];
-    
     if (videoState != kVideoClosed)
     {
         NSLog(@"Video is already playing...stoping it...");
@@ -422,7 +423,9 @@ static VideoPlayerViewController *activePlayer = nil;
             }
         }
     }
-    
+
+    playView = videoView;
+
     activePlayer = self;
     
     videoState = kVideoOpening;
@@ -475,7 +478,8 @@ static VideoPlayerViewController *activePlayer = nil;
     getReadyOnly = NO;
     
     NSLog(@"VIDEO & AUDIO: GO");
-    
+ 
+    [self.activityIndicator stopAnimating];
     [videoView addSubview:self.view];
     
     switch (requestedOrientation) {
@@ -550,6 +554,7 @@ static VideoPlayerViewController *activePlayer = nil;
     [self deregisterPlayerCallbacks];
     [self.playbackErrorLabel removeFromSuperview];
     [self.stopButton removeFromSuperview];
+    [self.activityIndicator removeFromSuperview];
     [self.mPlaybackView removeFromSuperview];
     [self.mPlaybackView setPlayer:nil];
     
@@ -587,16 +592,20 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void) muteVideo: (BOOL) mute {
     isMute = mute;
-    NSArray * myTracks = videoItem.tracks;
-    for(int i = 0; i < [myTracks count]; i++)
-    {
-        if([[[myTracks objectAtIndex:i] assetTrack].mediaType
-            isEqualToString:AVMediaTypeAudio] == YES)
+    
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSArray * myTracks = videoItem.tracks;
+        for(int i = 0; i < [myTracks count]; i++)
         {
-            ((AVPlayerItemTrack *)[myTracks
-                                   objectAtIndex:i]).enabled = !mute;
+            if([[[myTracks objectAtIndex:i] assetTrack].mediaType
+                isEqualToString:AVMediaTypeAudio] == YES)
+            {
+                ((AVPlayerItemTrack *)[myTracks
+                                       objectAtIndex:i]).enabled = !mute;
+            }
         }
-    }
+    });
+    
     return;
 }
 
@@ -653,10 +662,8 @@ static VideoPlayerViewController *activePlayer = nil;
                     [queuePlayer pause];
                 } else {
                     NSLog(@"VIDEO: Video & Audio are ready");
-                    [self.activityIndicator stopAnimating];
                     if (!getReadyOnly) {
-                        [self startOverlayAnimation];
-                        [self playOverlayTrack];
+                        [self playWhenPrepared];
                     } else {
                         NSLog(@"VIDEO & AUDIO waiting from GO");
                         [queuePlayer pause];
@@ -691,9 +698,7 @@ static VideoPlayerViewController *activePlayer = nil;
                 NSLog(@"AUDIO: Video & Audio are ready");
                 [self.activityIndicator stopAnimating];
                 if (!getReadyOnly) {
-                    [queuePlayer play];
-                    [self startOverlayAnimation];
-                    [self playOverlayTrack];
+                    [self playWhenPrepared];
                 } else {
                     NSLog(@"VIDEO & AUDIO waiting from GO");
                     [overlayAudioStreamer pause];

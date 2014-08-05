@@ -76,6 +76,9 @@
     [button setBackgroundImage:imagePress forState:UIControlStateHighlighted];
     button.showsTouchWhenHighlighted = YES;
 
+    // Hide it for now
+    button.alpha = 0.0f;
+    
     //set the button to handle clicks - this one calls a method called 'downloadClicked'
     [button addTarget:self action:@selector(settingsClicked:) forControlEvents:UIControlEventTouchDown];
     

@@ -257,6 +257,7 @@
 - (void) moveToNextInstruction: (CGFloat) delay
 {
     NSUInteger nextIndex = self.carousel.currentItemIndex + 1;
+    
     if (nextIndex < self.carousel.numberOfItems) {
         
         [UIView animateWithDuration:delay
@@ -416,12 +417,7 @@
             
             switch (instruction.state) {
                 case kInstructionDone:
-                    if (![self.viewEditText isCompleted] &&
-                        instruction.btnMakeVideo.enabled) {
-                        [self startEditText];
-                    } else {
-                        [instruction playVideoList];
-                    }
+                    [instruction playVideoList];
                     break;
                 case kInstructionFixed:
                     [instruction playVideo];
@@ -479,8 +475,7 @@
     self.viewEditText.userInteractionEnabled = NO;
     
     if (autoPlay) {
-        InstructionCell *instruction = [self getCurrentItem];
-        [instruction playVideoList];
+        [self moveToNextInstruction:0.75f];
     }
 
 }
@@ -762,6 +757,9 @@
     NSLog(@"ntfyRecordStart");
     isRecording = YES;
     [self setRecordButtonStateRecording];
+    [self setBackButtonHidden:YES];
+    [self setCameraButtonHidden:YES];
+    
     [self.carousel setAlpha:1];
     
     [UIView animateWithDuration:0.5f
@@ -788,7 +786,9 @@
     isRecording = NO;
     [self setRecordButtonStateRetake];
     [self stopRecordAnimation];
-
+    [self setBackButtonHidden:NO];
+    [self setCameraButtonHidden:NO];
+    
     [self.carousel setAlpha:0];
     self.carousel.hidden = NO;
 
@@ -819,7 +819,7 @@
 - (void) setRecordButtonStateRecording
 {
     [self setRestartButtonHidden:YES];
-
+    
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_off.png"] forState:UIControlStateNormal];
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_press.png"] forState:UIControlStateHighlighted];
     
@@ -884,6 +884,18 @@
     self.labelRestart.hidden = hidden;
 }
 
+- (void)setBackButtonHidden: (BOOL) hidden
+{
+    self.btnBack.hidden = hidden;
+    self.btnBack.enabled = !hidden;
+}
+
+- (void)setCameraButtonHidden: (BOOL) hidden
+{
+    self.cameraButton.hidden = hidden;
+    self.cameraButton.enabled = !hidden;
+}
+
 #pragma mark -
 #pragma mark Save recorded file
 
@@ -922,7 +934,15 @@
             }
 
             if (autoPlay) {
-                [self moveToNextInstruction:0.75f];
+                
+                BOOL completed = [self wereInstructionsCompleted];
+                
+                if (completed && ![self.viewEditText isCompleted]) {
+                    [self startEditText];
+                    NSLog(@"Open edit text dialog before DONE instruction");
+                } else {
+                    [self moveToNextInstruction:0.75f];
+                }
             }
             
             if (!thumbImageFile) {
@@ -977,7 +997,7 @@
     movie.shouldAutoplay = NO;
     UIImage *singleFrameImage = [movie thumbnailImageAtTime:0
                                                  timeOption:MPMovieTimeOptionExact];
-    
+    	
     [UIImageJPEGRepresentation(singleFrameImage, 0.2f) writeToFile:fullPath atomically:YES];
     
     NSLog(@"Saved new image file %@", fullPath);

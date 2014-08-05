@@ -52,6 +52,7 @@
 @interface AVCamViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIButton *recordButton;
+@property (nonatomic, weak) IBOutlet UIButton *cameraButton;
 @property (nonatomic) BOOL lockInterfaceRotation;
 @property (nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 

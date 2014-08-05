@@ -62,7 +62,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 // For use in the storyboards.
 @property (nonatomic, weak) IBOutlet AVCamPreviewView *previewView;
-@property (nonatomic, weak) IBOutlet UIButton *cameraButton;
 @property (nonatomic, weak) IBOutlet UIButton *stillButton;
 
 - (IBAction)changeCamera:(id)sender;
@@ -347,6 +346,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (IBAction)changeCamera:(id)sender
 {
+    // Yossi return;
+    
 	[[self cameraButton] setEnabled:NO];
 	[[self recordButton] setEnabled:NO];
 	[[self stillButton] setEnabled:NO];

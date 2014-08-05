@@ -69,6 +69,7 @@
 		1886683E196B6BBD00B82A16 /* AVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */; };
 		18878BF9198CEE62008AEF09 /* icon_retake_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */; };
 		18878BFB198CF3A7008AEF09 /* icon_restart_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */; };
+		1887D91C1991538C00A55E5C /* frame_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1887D91B1991538C00A55E5C /* frame_white@2x.png */; };
 		1888B3DD1989BCF900957213 /* alert_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39C1989BCF900957213 /* alert_bg@2x.png */; };
 		1888B3DE1989BCF900957213 /* alert_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39D1989BCF900957213 /* alert_icon@2x.png */; };
 		1888B3DF1989BCF900957213 /* back_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39E1989BCF900957213 /* back_off@2x.png */; };
@@ -334,6 +335,7 @@
 		1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
 		18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_retake_off@2x.png"; sourceTree = "<group>"; };
 		18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_restart_off@2x.png"; sourceTree = "<group>"; };
+		1887D91B1991538C00A55E5C /* frame_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_white@2x.png"; sourceTree = "<group>"; };
 		1888B39C1989BCF900957213 /* alert_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert_bg@2x.png"; sourceTree = "<group>"; };
 		1888B39D1989BCF900957213 /* alert_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert_icon@2x.png"; sourceTree = "<group>"; };
 		1888B39E1989BCF900957213 /* back_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_off@2x.png"; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 		18859FC119878BE600246765 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1887D91B1991538C00A55E5C /* frame_white@2x.png */,
 				1888D50C198E886100B8E720 /* icon_arrow@2x.png */,
 				18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */,
 				18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */,
@@ -1168,6 +1171,7 @@
 				1885FF251965D5D1008E93A5 /* SubTemplatesVC.xib in Resources */,
 				1888B4111989BCF900957213 /* preloader_bg@2x.png in Resources */,
 				18EC4FB0193D0E4B003E5335 /* InfoPlist.strings in Resources */,
+				1887D91C1991538C00A55E5C /* frame_white@2x.png in Resources */,
 				18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */,
 				1888B41F1989C05A00957213 /* tabs_myvideos_on@2x.png in Resources */,
 				188569EA194D1F3F00980F36 /* home.png in Resources */,
