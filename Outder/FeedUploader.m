@@ -7,6 +7,8 @@
 //
 
 #import "FeedUploader.h"
+#import "SubTemplate.h"
+#import "FileHelpers.h"
 
 @implementation FeedUploader
 
@@ -31,6 +33,7 @@
 - (void)queueDidFinish:(ASINetworkQueue *)queue {
     NSLog(@"UPLOAD FEED: done [%@]", self.feed.title);
     if ([self.feed.progress intValue] == 100) {
+        [FileHelpers deleteFiles:self.feed.subTemplate.instructions];
         [self.feedUploadDelegate uploadResponse:kFeedUploadDone progress:self.feed.progress uploader:self];
     } else {
         [self.feedUploadDelegate uploadResponse:kFeedUploadError progress:self.feed.progress uploader:self];

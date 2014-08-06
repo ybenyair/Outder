@@ -209,5 +209,4 @@ static UploadManager *instance;
     [uploader go];
 }
 
-
 @end

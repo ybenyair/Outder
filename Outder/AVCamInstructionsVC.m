@@ -14,6 +14,7 @@
 #import "AVCamInstructionsPortraitView.h"
 #import "Defines.h"
 #import "UserText.h"
+#import "FileHelpers.h"
 
 @interface AVCamInstructionsVC ()
 
@@ -618,8 +619,6 @@
 
     [self setRecordButtonHidden:YES];
     
-    [self deleteFiles];
-
     Instruction *inst = nil;
     for (id dataElement in _presentedInstructions) {
         
@@ -671,81 +670,8 @@
         }
     }
 
-    if (videoFiles) [self deleteVideoFiles:videoFiles];
-    if (imageFiles) [self deleteImageFiles:imageFiles];
-}
-
-- (void) deleteFiles
-{
-    NSMutableArray *imageFiles = [[NSMutableArray alloc] init];
-    NSMutableArray *videoFiles = [[NSMutableArray alloc] init];
-
-    for (id dataElement in _presentedInstructions) {
-        Instruction *inst = (Instruction *)dataElement;
-        if ([inst.fixed boolValue] == NO)
-        {
-            if (inst.videoURL) [videoFiles addObject:inst.videoURL];
-            if (inst.imageURL) [imageFiles addObject:inst.imageURL];
-        }
-    }
-    
-    [self deleteVideoFiles:videoFiles];
-    [self deleteImageFiles:imageFiles];
-}
-
-- (void) deleteVideoFiles: (NSMutableArray *)files
-{
-    NSLog(@"Video files to delete: %ld", (long)[files count]);
-    
-    dispatch_queue_t myQueue = dispatch_queue_create("com.outder.deletevideofiles",NULL);
-    dispatch_async(myQueue, ^{
-        
-        for (id dataElement in files) {
-            NSString *file = (NSString *)dataElement;
-            NSError* error = nil;
-            NSURL *url = [NSURL URLWithString:file];
-            NSLog(@"Delete video file %@", url);
-            [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
-            if (error) {
-                NSLog(@"%@", error);
-            }
-        }
-        
-        NSLog(@"Done removinging video files");
-        NSError *error;
-        NSFileManager *fileMgr = [NSFileManager defaultManager];
-        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        NSLog(@"Documents directory: %@", [fileMgr contentsOfDirectoryAtPath:documentsDirectory error:&error]);
-        
-    });
-}
-
-- (void) deleteImageFiles: (NSMutableArray *)files
-{
-    NSLog(@"Image files to delete: %ld", (long)[files count]);
-    
-    dispatch_queue_t myQueue = dispatch_queue_create("com.outder.deleteimagefiles",NULL);
-    dispatch_async(myQueue, ^{
-        
-        for (id dataElement in files) {
-            NSString *file = (NSString *)dataElement;
-            NSError* error = nil;
-            NSLog(@"Delete image file %@", file);
-            [[NSFileManager defaultManager] removeItemAtPath:file error:&error];
-            
-            if (error) {
-                NSLog(@"%@", error);
-            }
-        }
-        
-        NSLog(@"Done removinging images files");
-
-        NSError *error;
-        NSFileManager *fileMgr = [NSFileManager defaultManager];
-        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        NSLog(@"Documents directory: %@", [fileMgr contentsOfDirectoryAtPath:documentsDirectory error:&error]);
-
-    });
+    if (videoFiles) [FileHelpers deleteVideoFiles:videoFiles];
+    if (imageFiles) [FileHelpers deleteImageFiles:imageFiles];
 }
 
 #pragma mark -
