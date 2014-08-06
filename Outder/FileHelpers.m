@@ -59,7 +59,7 @@
             }
         }
         
-        NSLog(@"Done removinging video files");
+        NSLog(@"Done removing video files");
         NSError *error;
         NSFileManager *fileMgr = [NSFileManager defaultManager];
         NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
@@ -86,7 +86,7 @@
             }
         }
         
-        NSLog(@"Done removinging images files");
+        NSLog(@"Done removing images files");
         
         NSError *error;
         NSFileManager *fileMgr = [NSFileManager defaultManager];

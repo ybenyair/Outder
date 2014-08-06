@@ -498,6 +498,7 @@
 }
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
 {
+    NSLog(@"carouselWillBeginDragging");
     [self setRecordButtonStateDragging];
     beginOffset = carousel.scrollOffset;
     carousel.forceScrollDirection = 0;
@@ -505,13 +506,16 @@
 
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
+    NSLog(@"carouselWillBeginDragging");
+
     endOffset = carousel.scrollOffset;
     CGFloat diff = endOffset - beginOffset;
     NSLog(@"carouselDidEndDragging: offset-diff %f  offset %f", diff, carousel.scrollOffset);
 
     // Dragging within bounds
     if (fabs(diff) < 0.5 && fabs(diff) > 0.05) {
-        
+        autoPlay = NO;
+        NSLog(@"Auto play disabled");
         if (diff > 0) {
             if (carousel.currentItemIndex < carousel.numberOfItems - 1) carousel.forceScrollDirection = 1;
         } else {
@@ -618,6 +622,9 @@
 - (IBAction)btnRestartClicked:(id)sender {
 
     [self setRecordButtonHidden:YES];
+    
+    SubTemplate *subTemplate = [self getSubTemplate];
+    [FileHelpers deleteFiles:subTemplate.instructions];
     
     Instruction *inst = nil;
     for (id dataElement in _presentedInstructions) {
