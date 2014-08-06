@@ -444,7 +444,7 @@
                 autoPlay = NO;
                 break;
             case kInstructionFixed:
-                [self moveToNextInstruction:0.75f];
+                [self moveToNextInstruction:0.25f];
             default:
                 break;
         }

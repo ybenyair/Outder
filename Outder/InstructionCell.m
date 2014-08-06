@@ -395,6 +395,9 @@
     center = self.labelRight.center;
     center.x = self.btnRetake.center.x;
     self.labelRight.center = center;
+    
+    self.imageShot.alpha = 1.0f;
+    self.imageShot.backgroundColor = [UIColor clearColor];
 }
 
 - (void) unhideInstructionDoneItems
