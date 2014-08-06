@@ -22,6 +22,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zfi-bn-2I2">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aEA-Ti-KWX" userLabel="View - overlay.portrait" customClass="AVCamInstructionsPortraitView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -148,6 +152,7 @@
                         <outlet property="portraitView" destination="aEA-Ti-KWX" id="cL0-ox-62A"/>
                         <outlet property="previewView" destination="sVI-mX-69Q" id="UGh-um-teZ"/>
                         <outlet property="recordButton" destination="YMe-OU-aTZ" id="cbc-TW-22p"/>
+                        <outlet property="viewBlur" destination="Zfi-bn-2I2" id="2Cp-VL-d3f"/>
                         <outlet property="viewEditText" destination="jV2-OY-3HN" id="7b9-3e-IWS"/>
                         <outlet property="viewRecordTimer" destination="nf0-fB-78Q" id="8lf-RY-vAH"/>
                     </connections>

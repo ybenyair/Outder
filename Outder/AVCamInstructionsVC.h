@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelRecord;
 @property (weak, nonatomic) IBOutlet UIButton *labelRestart;
 @property (weak, nonatomic) IBOutlet AVCamInstructionsTextView *viewEditText;
+@property (weak, nonatomic) IBOutlet UIView *viewBlur;
 
 - (IBAction)btnBackClicked:(id)sender;
 - (IBAction)btnRestartClicked:(id)sender;

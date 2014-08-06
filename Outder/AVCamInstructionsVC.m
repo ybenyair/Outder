@@ -98,6 +98,7 @@
 
 - (void) initFromSB
 {
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     _reusedInstructionViews = [NSMutableDictionary dictionary];
     isRecording = NO;
     isDone = NO;
@@ -112,15 +113,17 @@
     
     self.carousel.type = iCarouselTypeCustom;
     [self.carousel setScrollToItemBoundary:YES];
+
+    self.pageControl.numberOfPages = [self numberOfItemsInCarousel:self.carousel];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    NSLog(@"UIDeviceOrientation %ld", (long)orientation);
+    
     if (UIDeviceOrientationIsLandscape(orientation) ) {
         [self configureViewLandscape];
     } else {
         [self configureViewPortrait];
     }
-
-    self.pageControl.numberOfPages = [self numberOfItemsInCarousel:self.carousel];
     
     [self setRecordButtonHidden:YES];
     [self setRestartButtonHidden:YES];
@@ -240,12 +243,14 @@
 
 - (void)configureViewPortrait
 {
+    NSLog(@"configureViewPortrait");
     self.portraitView.hidden = NO;
     self.landscapeView.hidden = YES;
 }
 
 - (void)configureViewLandscape
 {
+    NSLog(@"configureViewLandscape");
     self.portraitView.hidden = YES;
     if (self.viewEditText.hidden == YES) {
         self.landscapeView.hidden = NO;
@@ -387,20 +392,24 @@
         
         case kInstructionRecord:
         case kInstructionUnknown:
+            self.viewBlur.hidden = YES;
             [self configureCameraPosition];
             [self setRecordButtonStateRecord];
             break;
             
         case kInstructionFixed:
+            self.viewBlur.hidden = YES;
             [self setRecordButtonStateFixed];
             break;
 
         case kInstructionRetake:
+            self.viewBlur.hidden = YES;
             [self configureCameraPosition];
             [self setRecordButtonStateRetake];
             break;
 
         case kInstructionDone:
+            self.viewBlur.hidden = NO;
             [self setRecordButtonStateDone];
             break;
 
@@ -688,6 +697,7 @@
 {
     // We were notified that the AVCam controller actualy started the recording
     NSLog(@"ntfyRecordStart");
+    [self deregisterToDeviceOrientationNotification];
     isRecording = YES;
     [self setRecordButtonStateRecording];
     [self setBackButtonHidden:YES];
@@ -716,6 +726,7 @@
 {
     // We were notified that the AVCam controller actualy ended the recording
     NSLog(@"ntfyRecordEnd");
+    [self registerToDeviceOrientationNotification];
     isRecording = NO;
     [self setRecordButtonStateRetake];
     [self stopRecordAnimation];

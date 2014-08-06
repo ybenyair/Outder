@@ -453,8 +453,6 @@
     self.labelName.hidden = YES;
     
     [self setImage:nil];
-    self.imageShot.alpha = 0.3f;
-    self.imageShot.backgroundColor = [FontHelpers colorFromHexString:@"#41beb1"];
     
     self.labelLeft.text = kMakeString;
     self.labelRight.text = kPreviewString;
