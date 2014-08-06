@@ -66,7 +66,8 @@ static UploadManager *instance;
 - (void)MakeOne:(NSNotification *)notification
 {
     [CoreData saveDB];
-    [self uploadFeed:notification.object];
+    Feed *feed = notification.object;
+    [self uploadFeed:feed];
 }
 
 - (void) uploadFeed: (Feed *)feed

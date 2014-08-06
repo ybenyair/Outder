@@ -88,6 +88,26 @@ static NSString *CellIdentifier = @"templateCell";
     self.carousel.centerItemWhenSelected = NO;
     
     [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
+    
+    // Adding observer
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(MakeOne:)
+                                                 name:@"MakeOne"
+                                               object:nil];
+}
+
+- (void) dealloc
+{
+    // Adding observer
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"MakeOne"
+                                                  object:nil];
+}
+
+- (void)MakeOne:(NSNotification *)notification
+{
+    self.tabBarController.selectedIndex = 2;
+    [self removeSubTemplatesViewController];
 }
 
 - (void) setBarItemRight
@@ -455,6 +475,14 @@ static NSString *CellIdentifier = @"templateCell";
 {
     SubTemplatesVC *subCtrl = [[SubTemplatesVC alloc] initWithSubTemplates:template.subTemplates];
     [self.navigationController pushViewController:subCtrl animated:NO];
+}
+
+
+-(void) removeSubTemplatesViewController
+{
+    SubTemplatesVC *subCtrl = (SubTemplatesVC *)[self.navigationController popViewControllerAnimated:YES];
+    [subCtrl clearPresentedViewControllers];
+    subCtrl = nil;
 }
 
 

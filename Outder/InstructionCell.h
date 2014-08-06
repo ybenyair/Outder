@@ -30,7 +30,7 @@ typedef enum {
 
 @property (nonatomic,strong) NSMutableArray *instructions;
 @property (nonatomic,strong) Instruction *currentInstruction;
-@property (nonatomic,strong) AVCamInstructionsVC *superCtrl;
+@property (nonatomic,weak) AVCamInstructionsVC *superCtrl;
 
 @property NSUInteger index;
 @property eInstructionState state;

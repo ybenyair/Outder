@@ -63,6 +63,11 @@
     return cell;
 }
 
+- (void) dealloc
+{
+    NSLog(@"dealloc InstructionCell");
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

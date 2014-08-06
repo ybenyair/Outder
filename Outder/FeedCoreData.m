@@ -60,8 +60,11 @@
     }
 }
 
-+ (Feed *)getFeed:(NSManagedObjectContext *)context feedID:(NSString *)feedID feedType:(NSString *)type
++ (Feed *)getFeed:(NSNumber *)feedID feedType:(NSString *)type
 {
+    AppDelegate *app = [AppDelegate getInstance];
+    NSManagedObjectContext *context = app.managedObjectContext;
+    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
     request.predicate = [NSPredicate predicateWithFormat:@"feedID = %@ AND type = %@", feedID, type];
     NSError *error;
@@ -99,8 +102,8 @@
     for (id dataElement in dataArray) {
 
         NSDictionary *feedData = (NSDictionary *)dataElement;
-        NSString *feedID = [feedData objectForKey:@"id"];
-        Feed *feed = [FeedCoreData getFeed:context feedID:feedID feedType:type];
+        NSNumber *feedID = [feedData objectForKey:@"id"];
+        Feed *feed = [FeedCoreData getFeed:feedID feedType:type];
         
         if (feed.feedID == 0) {
             // A new feed

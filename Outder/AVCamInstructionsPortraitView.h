@@ -12,6 +12,7 @@
 
 - (void) setSuperCtrl: (id)ctrl;
 
+@property (nonatomic,weak) id superCtrl;
 @property (weak, nonatomic) IBOutlet UILabel *labelRotate;
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
 @property (weak, nonatomic) IBOutlet UIButton *btnCamera;

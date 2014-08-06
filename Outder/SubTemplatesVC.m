@@ -64,13 +64,13 @@
 
 - (void) dealloc
 {
-
+    NSLog(@"dealloc SubTemplatesVC");
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.carousel scrollToItemAtIndex:(self.carousel.currentItemIndex + 1) animated:YES];
+    //[self.carousel scrollToItemAtIndex:(self.carousel.currentItemIndex + 1) animated:YES];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -291,6 +291,11 @@
     AVCamInstructionsVC *vc = [AVCamInstructionsVC loadInstance];
     [vc setInstructions:subTemplate.instructions];
     [self presentViewController:vc animated:YES completion:^{}];
+}
+
+- (void)clearPresentedViewControllers
+{
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 @end

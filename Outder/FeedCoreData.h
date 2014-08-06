@@ -17,5 +17,6 @@
 + (void)fillFeeds:(NSManagedObjectContext *)context data:(NSDictionary *)json feedType:(NSString *)type;
 + (Feed *)createFeed:(NSString *)type;
 + (NSArray *)getUploadingFeeds:(NSString *)type;
++ (Feed *)getFeed:(NSNumber *)feedID feedType:(NSString *)type;
 
 @end

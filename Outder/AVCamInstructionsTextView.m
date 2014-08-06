@@ -18,7 +18,6 @@
 
 @implementation AVCamInstructionsTextView
 {
-    id superCtrl;
     BOOL isCompleted;
     NSArray *placeholderArray;
     NSArray *textFieldArray;
@@ -27,7 +26,7 @@
     id currentTextField;
 }
 
-@synthesize isCompleted;
+@synthesize isCompleted, superCtrl;
 
 - (id)initWithFrame:(CGRect)frame
 {

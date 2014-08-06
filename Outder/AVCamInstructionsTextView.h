@@ -15,6 +15,7 @@
 - (void) startEditText;
 - (void) endEditText;
 
+@property (nonatomic,weak) id superCtrl;
 @property (weak, nonatomic) IBOutlet UILabel *labelPlaceholderFirst;
 @property (weak, nonatomic) IBOutlet UITextField *editTextFirst;
 @property (weak, nonatomic) IBOutlet UILabel *labelPlaceholderSecond;

@@ -11,10 +11,18 @@
 #import "AVCamInstructionsVC.h"
 #import "Defines.h"
 
+@interface AVCamInstructionsPortraitView ()
+
+
+@end
+
 @implementation AVCamInstructionsPortraitView
 {
-    id superCtrl;
+
 }
+
+@synthesize superCtrl;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

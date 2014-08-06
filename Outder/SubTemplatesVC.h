@@ -14,6 +14,7 @@
 @interface SubTemplatesVC : TitleNavBarVC <iCarouselDataSource, iCarouselDelegate, SubTemplateCellDelegate>
 
 - (id)initWithSubTemplates:(NSSet *)data;
+- (void)clearPresentedViewControllers;
 
 @property (weak, nonatomic) IBOutlet iCarousel *carousel;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
