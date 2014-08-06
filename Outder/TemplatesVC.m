@@ -473,8 +473,12 @@ static NSString *CellIdentifier = @"templateCell";
 
 -(void) createSubTemplatesViewController: (Template *)template
 {
-    SubTemplatesVC *subCtrl = [[SubTemplatesVC alloc] initWithSubTemplates:template.subTemplates];
-    [self.navigationController pushViewController:subCtrl animated:NO];
+    if ([template.subTemplates count] > 0) {
+        SubTemplatesVC *subCtrl = [[SubTemplatesVC alloc] initWithSubTemplates:template.subTemplates];
+        [self.navigationController pushViewController:subCtrl animated:NO];
+    } else {
+        NSLog(@"Empty template %@", template.title);
+    }
 }
 
 
