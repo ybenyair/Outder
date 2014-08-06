@@ -34,10 +34,6 @@
                                 <rect key="frame" x="105" y="31" width="109" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Video_text_bg" translatesAutoresizingMaskIntoConstraints="NO" id="F4H-rj-pnk" userLabel="Image View - Background">
-                                <rect key="frame" x="30" y="247" width="259" height="93"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRD-mA-8JK" customClass="FBLoginView">
                                 <rect key="frame" x="30" y="263" width="259" height="43"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,8 +42,12 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="l1F-hM-dvk"/>
                                 </connections>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Video_text_bg" translatesAutoresizingMaskIntoConstraints="NO" id="F4H-rj-pnk" userLabel="Image View - Background">
+                                <rect key="frame" x="35" y="318" width="249" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RtR-CS-NUj">
-                                <rect key="frame" x="103" y="304" width="113" height="30"/>
+                                <rect key="frame" x="30" y="321" width="259" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login as a guest">
                                     <color key="titleColor" red="0.17138559635805939" green="1" blue="0.76764982923647507" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,7 +57,7 @@
                                     <action selector="guestLoginClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="o5y-b6-zCV"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fxe-ZZ-r2f" userLabel="View - TermOfUse">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fxe-ZZ-r2f" userLabel="View - TermOfUse">
                                 <rect key="frame" x="46" y="520" width="227" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -86,12 +86,16 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="tvj-7s-n29" firstAttribute="top" secondItem="Fxe-ZZ-r2f" secondAttribute="bottom" constant="7" id="fT8-xW-4u0"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="btnGuestLogin" destination="RtR-CS-NUj" id="vlM-PX-x1b"/>
                         <outlet property="fbLoginView" destination="BRD-mA-8JK" id="biE-Rx-w0y"/>
                         <outlet property="viewImageBG" destination="X46-fw-k5h" id="O0G-Un-zR5"/>
                         <outlet property="viewVideo" destination="fz4-ek-fWY" id="SU7-d3-7tm"/>
@@ -108,7 +112,7 @@
     </scenes>
     <resources>
         <image name="Video_text_bg" width="272" height="75"/>
-        <image name="logo.png" width="257" height="72"/>
+        <image name="logo.png" width="76" height="21"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

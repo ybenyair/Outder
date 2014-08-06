@@ -427,7 +427,7 @@
 
 - (void) setMakeOneSmaller
 {
-    self.btnMake.titleLabel.font = [UIFont fontWithName:kFontBlack size:18];
+    self.btnMake.titleLabel.font = [UIFont fontWithName:kFontBlack size:16];
     self.btnMake.frame = self.labelMakePlace.frame;
     self.btnMake.bounds = self.labelMakePlace.bounds;
     self.btnMake.center = self.labelMakePlace.center;

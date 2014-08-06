@@ -42,7 +42,7 @@
         spacing = 0.78f;
     } else {
         // code for 3.5-inch screen
-        spacing = 0.82f;
+        spacing = 0.71f;
     }
     
     return spacing;
@@ -51,15 +51,7 @@
 + (InstructionCell *) loadInstance;
 {
     InstructionCell *cell = nil;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    if (screenBounds.size.height == 568) {
-        // code for 4-inch screen
-        cell = [[InstructionCell alloc] initWithNibName:@"InstructionCell.iPhone5" bundle:nil];
-     } else {
-        // code for 3.5-inch screen
-        cell = [[InstructionCell alloc] initWithNibName:@"InstructionCell.iPhone4" bundle:nil];
-     }
-    
+    cell = [[InstructionCell alloc] initWithNibName:@"InstructionCell" bundle:nil];
     return cell;
 }
 

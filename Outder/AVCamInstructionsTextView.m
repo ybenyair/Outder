@@ -41,7 +41,14 @@
     
     if ((self = [super initWithCoder:aDecoder])){
         
-        [self addSubview:[[[NSBundle mainBundle] loadNibNamed:@"AVCamInstructionsTextView" owner:self options:nil] objectAtIndex:0]];
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if (screenBounds.size.height == 568) {
+            // code for 4-inch screen
+            [self addSubview:[[[NSBundle mainBundle] loadNibNamed:@"AVCamInstructionsTextView.iPhone5" owner:self options:nil] objectAtIndex:0]];
+        } else {
+            // code for 3.5-inch screen
+            [self addSubview:[[[NSBundle mainBundle] loadNibNamed:@"AVCamInstructionsTextView.iPhone4" owner:self options:nil] objectAtIndex:0]];
+        }
     }
     
     self.labelPlaceholderFirst.font = [UIFont fontWithName:kFontBold size:35];

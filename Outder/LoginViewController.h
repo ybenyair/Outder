@@ -21,6 +21,7 @@
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic,strong) VideoPlayerViewController *videoCtrl;
+@property (weak, nonatomic) IBOutlet UIButton *btnGuestLogin;
 
 @property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;
 @property (weak, nonatomic) IBOutlet UIView *viewVideo;

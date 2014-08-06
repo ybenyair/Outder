@@ -30,17 +30,8 @@
 + (LoginViewController *) loadInstance
 {
     UIStoryboard *sb = nil;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    if (screenBounds.size.height == 568) {
-        // code for 4-inch screen
-        sb = [UIStoryboard storyboardWithName:@"LoginViewController.iPhone5" bundle:nil];
-    } else {
-        // code for 3.5-inch screen
-        sb = [UIStoryboard storyboardWithName:@"LoginViewController.iPhone4" bundle:nil];
-    }
-    
+    sb = [UIStoryboard storyboardWithName:@"LoginViewController" bundle:nil];
     LoginViewController *vc = [sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        
     return vc;
 }
 
@@ -97,8 +88,10 @@
     // Do any additional setup after loading the view from its nib.
     self.fbLoginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     self.fbLoginView.loginBehavior = FBSessionLoginBehaviorForcingSafari;
-    
     self.viewImageBG.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    
+    self.btnGuestLogin.titleLabel.font = [UIFont fontWithName:kFontBold size:18];
+    self.btnGuestLogin.titleLabel.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
 }
 
 -(BOOL)shouldAutorotate
