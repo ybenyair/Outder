@@ -29,7 +29,6 @@
 		185CDD4E198054640082B856 /* InstructionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185CDD4D198054640082B856 /* InstructionUploader.m */; };
 		185CDD50198054700082B856 /* FeedUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185CDD4F198054700082B856 /* FeedUploader.m */; };
 		18699037197872070004C44F /* UploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18699036197872070004C44F /* UploadManager.m */; };
-		186990451979C70D0004C44F /* SubTemplateCell.iPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186990441979C70D0004C44F /* SubTemplateCell.iPhone5.storyboard */; };
 		186990BA197A8CC00004C44F /* ASIS3Bucket.m in Sources */ = {isa = PBXBuildFile; fileRef = 186990AF197A8CBF0004C44F /* ASIS3Bucket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186990BB197A8CC00004C44F /* ASIS3BucketObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 186990B1197A8CC00004C44F /* ASIS3BucketObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186990BC197A8CC00004C44F /* ASIS3BucketRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 186990B3197A8CC00004C44F /* ASIS3BucketRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -52,7 +51,6 @@
 		188569EA194D1F3F00980F36 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 188569E9194D1F3F00980F36 /* home.png */; };
 		188569EE194D210700980F36 /* myvideos.png in Resources */ = {isa = PBXBuildFile; fileRef = 188569ED194D210700980F36 /* myvideos.png */; };
 		188569F0194D21D700980F36 /* featured.png in Resources */ = {isa = PBXBuildFile; fileRef = 188569EF194D21D700980F36 /* featured.png */; };
-		18859FBE1986622A00246765 /* LoginViewController.iPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18859FBD1986622A00246765 /* LoginViewController.iPhone5.storyboard */; };
 		1885A04419879F6A00246765 /* almoni-dl-aaa-black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1885A04119879F6A00246765 /* almoni-dl-aaa-black.otf */; };
 		1885A04519879F6A00246765 /* almoni-dl-aaa-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1885A04219879F6A00246765 /* almoni-dl-aaa-bold.otf */; };
 		1885A04619879F6A00246765 /* almoni-dl-aaa-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1885A04319879F6A00246765 /* almoni-dl-aaa-regular.otf */; };
@@ -69,7 +67,6 @@
 		1886683E196B6BBD00B82A16 /* AVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */; };
 		18878BF9198CEE62008AEF09 /* icon_retake_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */; };
 		18878BFB198CF3A7008AEF09 /* icon_restart_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */; };
-		1887D91C1991538C00A55E5C /* frame_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1887D91B1991538C00A55E5C /* frame_white@2x.png */; };
 		1888B3DD1989BCF900957213 /* alert_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39C1989BCF900957213 /* alert_bg@2x.png */; };
 		1888B3DE1989BCF900957213 /* alert_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39D1989BCF900957213 /* alert_icon@2x.png */; };
 		1888B3DF1989BCF900957213 /* back_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39E1989BCF900957213 /* back_off@2x.png */; };
@@ -153,6 +150,14 @@
 		188CEEDD196AD15D00EA0BBD /* Placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188CEEDC196AD15D00EA0BBD /* Placeholder.jpg */; };
 		188DB1E6195F5ADE00EA404C /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = 188DB1E5195F5ADE00EA404C /* Template.m */; };
 		189413B6195ACCF50056907A /* TemplateCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 189413B5195ACCF50056907A /* TemplateCoreData.m */; };
+		1897D6DD199324B900F0BA35 /* FileHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1897D6DC199324B900F0BA35 /* FileHelpers.m */; };
+		1897D6E01993258700F0BA35 /* AVCamInstructionsTextView.iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1897D6DE1993258700F0BA35 /* AVCamInstructionsTextView.iPhone4.xib */; };
+		1897D6E11993258700F0BA35 /* AVCamInstructionsTextView.iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1897D6DF1993258700F0BA35 /* AVCamInstructionsTextView.iPhone5.xib */; };
+		1897D6E31993259F00F0BA35 /* InstructionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1897D6E21993259F00F0BA35 /* InstructionCell.xib */; };
+		1897D6E6199325DE00F0BA35 /* SubTemplateCell.iPhone4.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1897D6E4199325DE00F0BA35 /* SubTemplateCell.iPhone4.storyboard */; };
+		1897D6E7199325DE00F0BA35 /* SubTemplateCell.iPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1897D6E5199325DE00F0BA35 /* SubTemplateCell.iPhone5.storyboard */; };
+		1897D6E9199325F100F0BA35 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1897D6E8199325F100F0BA35 /* LoginViewController.storyboard */; };
+		1897D6EB1993264B00F0BA35 /* record_portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1897D6EA1993264B00F0BA35 /* record_portrait@2x.png */; };
 		18984AAF19486E37001410B7 /* TitleNavBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18984AAE19486E37001410B7 /* TitleNavBarVC.m */; };
 		18984AB61948F1EB001410B7 /* signOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 18984AB51948F1EB001410B7 /* signOut.png */; };
 		18ACD7F2196DE49D0001AC8B /* AVCamInstructionsPortraitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ACD7F1196DE49D0001AC8B /* AVCamInstructionsPortraitView.m */; };
@@ -169,7 +174,6 @@
 		18DE960D194568E100021A5D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DE960C194568E100021A5D /* MediaPlayer.framework */; };
 		18DEDEC0195AAAF6002DE2D2 /* TemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DEDEBF195AAAF6002DE2D2 /* TemplateCell.m */; };
 		18E168AA198D1B91003A1042 /* AVCamInstructionsTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E168A9198D1B91003A1042 /* AVCamInstructionsTextView.m */; };
-		18E168AE198D210F003A1042 /* AVCamInstructionsTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E168AD198D210F003A1042 /* AVCamInstructionsTextView.xib */; };
 		18E168B4198D4089003A1042 /* SubTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E168B3198D4089003A1042 /* SubTemplate.m */; };
 		18E168BD198D7421003A1042 /* UserText.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E168BC198D7421003A1042 /* UserText.m */; };
 		18E96431194F07F300A2A317 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E96430194F07F300A2A317 /* RootViewController.m */; };
@@ -188,9 +192,7 @@
 		18EC4FC5193D0E4B003E5335 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA9193D0E4B003E5335 /* CoreData.framework */; };
 		18EC4FCD193D0E4B003E5335 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18EC4FCB193D0E4B003E5335 /* InfoPlist.strings */; };
 		18EC4FCF193D0E4B003E5335 /* OutderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4FCE193D0E4B003E5335 /* OutderTests.m */; };
-		18F561AC196B58E8002EA1FD /* RecordPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F561AB196B58E8002EA1FD /* RecordPortrait.png */; };
 		18F821E6196C17620030374E /* InstructionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F821E4196C17620030374E /* InstructionCell.m */; };
-		18F821E7196C17620030374E /* InstructionCell.iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F821E5196C17620030374E /* InstructionCell.iPhone4.xib */; };
 		18F8A91E196DEFCA001093E4 /* flip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A91D196DEFCA001093E4 /* flip@2x.png */; };
 		18F8A920196DF364001093E4 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A91F196DF364001093E4 /* back@2x.png */; };
 		18F8A925196E0903001093E4 /* recBtn1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A924196E0903001093E4 /* recBtn1@2x.png */; };
@@ -199,7 +201,6 @@
 		18F8A931196F71E5001093E4 /* recBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A930196F71E5001093E4 /* recBtn2@2x.png */; };
 		18F8A933196F71F1001093E4 /* recBtn3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A932196F71F1001093E4 /* recBtn3@2x.png */; };
 		18F8A9351971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9341971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard */; };
-		18F8A9371971C90E001093E4 /* InstructionCell.iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */; };
 		18F8A93919722872001093E4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F8A93819722872001093E4 /* AVFoundation.framework */; };
 		18F8A9421972B1C1001093E4 /* AVPlayerPlaybackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8A9411972B1C1001093E4 /* AVPlayerPlaybackView.m */; };
 		18FB7C7A196754A4005C9ABA /* SharingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB7C79196754A4005C9ABA /* SharingInfo.m */; };
@@ -268,7 +269,6 @@
 		185CDD511980547A0082B856 /* FeedUploader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedUploader.h; path = Outder/FeedUploader.h; sourceTree = "<group>"; };
 		18699035197871F50004C44F /* UploadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UploadManager.h; path = Outder/UploadManager.h; sourceTree = "<group>"; };
 		18699036197872070004C44F /* UploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploadManager.m; path = Outder/UploadManager.m; sourceTree = "<group>"; };
-		186990441979C70D0004C44F /* SubTemplateCell.iPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SubTemplateCell.iPhone5.storyboard; sourceTree = "<group>"; };
 		186990AD197A8CBF0004C44F /* ASINSXMLParserCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINSXMLParserCompat.h; sourceTree = "<group>"; };
 		186990AE197A8CBF0004C44F /* ASIS3Bucket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIS3Bucket.h; sourceTree = "<group>"; };
 		186990AF197A8CBF0004C44F /* ASIS3Bucket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIS3Bucket.m; sourceTree = "<group>"; };
@@ -313,7 +313,6 @@
 		188569E9194D1F3F00980F36 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		188569ED194D210700980F36 /* myvideos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myvideos.png; sourceTree = "<group>"; };
 		188569EF194D21D700980F36 /* featured.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = featured.png; sourceTree = "<group>"; };
-		18859FBD1986622A00246765 /* LoginViewController.iPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViewController.iPhone5.storyboard; sourceTree = "<group>"; };
 		1885A04119879F6A00246765 /* almoni-dl-aaa-black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "almoni-dl-aaa-black.otf"; sourceTree = "<group>"; };
 		1885A04219879F6A00246765 /* almoni-dl-aaa-bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "almoni-dl-aaa-bold.otf"; sourceTree = "<group>"; };
 		1885A04319879F6A00246765 /* almoni-dl-aaa-regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "almoni-dl-aaa-regular.otf"; sourceTree = "<group>"; };
@@ -335,7 +334,6 @@
 		1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
 		18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_retake_off@2x.png"; sourceTree = "<group>"; };
 		18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_restart_off@2x.png"; sourceTree = "<group>"; };
-		1887D91B1991538C00A55E5C /* frame_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_white@2x.png"; sourceTree = "<group>"; };
 		1888B39C1989BCF900957213 /* alert_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert_bg@2x.png"; sourceTree = "<group>"; };
 		1888B39D1989BCF900957213 /* alert_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert_icon@2x.png"; sourceTree = "<group>"; };
 		1888B39E1989BCF900957213 /* back_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_off@2x.png"; sourceTree = "<group>"; };
@@ -426,6 +424,15 @@
 		188DB1E5195F5ADE00EA404C /* Template.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
 		189413B4195ACCF50056907A /* TemplateCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemplateCoreData.h; path = Outder/TemplateCoreData.h; sourceTree = "<group>"; };
 		189413B5195ACCF50056907A /* TemplateCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TemplateCoreData.m; path = Outder/TemplateCoreData.m; sourceTree = "<group>"; };
+		1897D6DB199324B100F0BA35 /* FileHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileHelpers.h; path = Outder/FileHelpers.h; sourceTree = "<group>"; };
+		1897D6DC199324B900F0BA35 /* FileHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileHelpers.m; path = Outder/FileHelpers.m; sourceTree = "<group>"; };
+		1897D6DE1993258700F0BA35 /* AVCamInstructionsTextView.iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AVCamInstructionsTextView.iPhone4.xib; sourceTree = "<group>"; };
+		1897D6DF1993258700F0BA35 /* AVCamInstructionsTextView.iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AVCamInstructionsTextView.iPhone5.xib; sourceTree = "<group>"; };
+		1897D6E21993259F00F0BA35 /* InstructionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionCell.xib; sourceTree = "<group>"; };
+		1897D6E4199325DE00F0BA35 /* SubTemplateCell.iPhone4.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SubTemplateCell.iPhone4.storyboard; path = Outder/SubTemplateCell.iPhone4.storyboard; sourceTree = "<group>"; };
+		1897D6E5199325DE00F0BA35 /* SubTemplateCell.iPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SubTemplateCell.iPhone5.storyboard; path = Outder/SubTemplateCell.iPhone5.storyboard; sourceTree = "<group>"; };
+		1897D6E8199325F100F0BA35 /* LoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		1897D6EA1993264B00F0BA35 /* record_portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record_portrait@2x.png"; sourceTree = "<group>"; };
 		18984AAD19486E2F001410B7 /* TitleNavBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TitleNavBarVC.h; sourceTree = "<group>"; };
 		18984AAE19486E37001410B7 /* TitleNavBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleNavBarVC.m; sourceTree = "<group>"; };
 		18984AB51948F1EB001410B7 /* signOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signOut.png; sourceTree = "<group>"; };
@@ -451,7 +458,6 @@
 		18DEDEBF195AAAF6002DE2D2 /* TemplateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TemplateCell.m; path = Outder/TemplateCell.m; sourceTree = "<group>"; };
 		18E168A8198D1B82003A1042 /* AVCamInstructionsTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCamInstructionsTextView.h; sourceTree = "<group>"; };
 		18E168A9198D1B91003A1042 /* AVCamInstructionsTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamInstructionsTextView.m; sourceTree = "<group>"; };
-		18E168AD198D210F003A1042 /* AVCamInstructionsTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AVCamInstructionsTextView.xib; sourceTree = "<group>"; };
 		18E168B2198D4089003A1042 /* SubTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTemplate.h; sourceTree = "<group>"; };
 		18E168B3198D4089003A1042 /* SubTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTemplate.m; sourceTree = "<group>"; };
 		18E168BB198D7421003A1042 /* UserText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserText.h; sourceTree = "<group>"; };
@@ -476,10 +482,8 @@
 		18EC4FCA193D0E4B003E5335 /* OutderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OutderTests-Info.plist"; sourceTree = "<group>"; };
 		18EC4FCC193D0E4B003E5335 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		18EC4FCE193D0E4B003E5335 /* OutderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutderTests.m; sourceTree = "<group>"; };
-		18F561AB196B58E8002EA1FD /* RecordPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RecordPortrait.png; sourceTree = "<group>"; };
 		18F821E3196C17620030374E /* InstructionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionCell.h; sourceTree = "<group>"; };
 		18F821E4196C17620030374E /* InstructionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionCell.m; sourceTree = "<group>"; };
-		18F821E5196C17620030374E /* InstructionCell.iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionCell.iPhone4.xib; sourceTree = "<group>"; };
 		18F8A91D196DEFCA001093E4 /* flip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flip@2x.png"; sourceTree = "<group>"; };
 		18F8A91F196DF364001093E4 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		18F8A924196E0903001093E4 /* recBtn1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recBtn1@2x.png"; sourceTree = "<group>"; };
@@ -488,7 +492,6 @@
 		18F8A930196F71E5001093E4 /* recBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recBtn2@2x.png"; sourceTree = "<group>"; };
 		18F8A932196F71F1001093E4 /* recBtn3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recBtn3@2x.png"; sourceTree = "<group>"; };
 		18F8A9341971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AVCamInstructionsVC.IPhone5.storyboard; sourceTree = "<group>"; };
-		18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionCell.iPhone5.xib; sourceTree = "<group>"; };
 		18F8A93819722872001093E4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		18F8A9401972B1B7001093E4 /* AVPlayerPlaybackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AVPlayerPlaybackView.h; path = Outder/AVPlayerPlaybackView.h; sourceTree = "<group>"; };
 		18F8A9411972B1C1001093E4 /* AVPlayerPlaybackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVPlayerPlaybackView.m; path = Outder/AVPlayerPlaybackView.m; sourceTree = "<group>"; };
@@ -608,7 +611,7 @@
 				183753171967317A0080C85B /* LoginInfo.m */,
 				187A5754193D0F15009BA935 /* LoginViewController.h */,
 				187A5755193D0F15009BA935 /* LoginViewController.m */,
-				18859FBD1986622A00246765 /* LoginViewController.iPhone5.storyboard */,
+				1897D6E8199325F100F0BA35 /* LoginViewController.storyboard */,
 				18DE95C9193D310B00021A5D /* TermOfUseViewController.h */,
 				18DE95CA193D310C00021A5D /* TermOfUseViewController.m */,
 				18DE95FD1944FDDB00021A5D /* TermOfUseViewController.xib */,
@@ -665,6 +668,8 @@
 				18F8A9411972B1C1001093E4 /* AVPlayerPlaybackView.m */,
 				18E96430194F07F300A2A317 /* RootViewController.m */,
 				18E9642F194F07E500A2A317 /* RootViewController.h */,
+				1897D6DC199324B900F0BA35 /* FileHelpers.m */,
+				1897D6DB199324B100F0BA35 /* FileHelpers.h */,
 				185CDD4C198054580082B856 /* InstructionUploader.h */,
 				185CDD4D198054640082B856 /* InstructionUploader.m */,
 				185CDD511980547A0082B856 /* FeedUploader.h */,
@@ -746,7 +751,7 @@
 		18859FC119878BE600246765 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				1887D91B1991538C00A55E5C /* frame_white@2x.png */,
+				1897D6EA1993264B00F0BA35 /* record_portrait@2x.png */,
 				1888D50C198E886100B8E720 /* icon_arrow@2x.png */,
 				18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */,
 				18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */,
@@ -889,7 +894,8 @@
 				1885FF241965D5D1008E93A5 /* SubTemplatesVC.xib */,
 				1885FF301965F1EE008E93A5 /* SubTemplateCell.h */,
 				1885FF2E1965F1A7008E93A5 /* SubTemplateCell.m */,
-				186990441979C70D0004C44F /* SubTemplateCell.iPhone5.storyboard */,
+				1897D6E4199325DE00F0BA35 /* SubTemplateCell.iPhone4.storyboard */,
+				1897D6E5199325DE00F0BA35 /* SubTemplateCell.iPhone5.storyboard */,
 			);
 			name = SubTemplate;
 			path = ..;
@@ -918,11 +924,11 @@
 				1849D0EF196DE0450001B1EA /* InstructionsPortraitVC.xib */,
 				18E168A8198D1B82003A1042 /* AVCamInstructionsTextView.h */,
 				18E168A9198D1B91003A1042 /* AVCamInstructionsTextView.m */,
-				18E168AD198D210F003A1042 /* AVCamInstructionsTextView.xib */,
+				1897D6DE1993258700F0BA35 /* AVCamInstructionsTextView.iPhone4.xib */,
+				1897D6DF1993258700F0BA35 /* AVCamInstructionsTextView.iPhone5.xib */,
 				18F821E3196C17620030374E /* InstructionCell.h */,
 				18F821E4196C17620030374E /* InstructionCell.m */,
-				18F8A9361971C90E001093E4 /* InstructionCell.iPhone5.xib */,
-				18F821E5196C17620030374E /* InstructionCell.iPhone4.xib */,
+				1897D6E21993259F00F0BA35 /* InstructionCell.xib */,
 			);
 			name = Instructions;
 			sourceTree = "<group>";
@@ -937,7 +943,6 @@
 				18F8A91F196DF364001093E4 /* back@2x.png */,
 				18F8A91D196DEFCA001093E4 /* flip@2x.png */,
 				188CEEDC196AD15D00EA0BBD /* Placeholder.jpg */,
-				18F561AB196B58E8002EA1FD /* RecordPortrait.png */,
 				1885FF261965E3A0008E93A5 /* DirectionsGradient.png */,
 				1885FF101965D2CA008E93A5 /* MakeOne.png */,
 				181BF038195FD55300BCBC05 /* splash.jpg */,
@@ -959,8 +964,8 @@
 			children = (
 				18EC4FAB193D0E4B003E5335 /* Outder */,
 				18EC4FC8193D0E4B003E5335 /* OutderTests */,
-				18EC4FA2193D0E4B003E5335 /* Frameworks */,
 				18EC4FA1193D0E4B003E5335 /* Products */,
+				18EC4FA2193D0E4B003E5335 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1144,17 +1149,14 @@
 				1888B40D1989BCF900957213 /* icons_seconds@2x.png in Resources */,
 				1888B4161989BCFA00957213 /* tabs_create_off@2x.png in Resources */,
 				1888B438198A398500957213 /* frame_lite@2x.png in Resources */,
-				18F8A9371971C90E001093E4 /* InstructionCell.iPhone5.xib in Resources */,
-				18F561AC196B58E8002EA1FD /* RecordPortrait.png in Resources */,
 				18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */,
 				1888B4041989BCF900957213 /* icon_restart_press.png in Resources */,
 				18878BFB198CF3A7008AEF09 /* icon_restart_off@2x.png in Resources */,
 				1888B3DE1989BCF900957213 /* alert_icon@2x.png in Resources */,
 				1888B4121989BCF900957213 /* preloader@2x.png in Resources */,
 				1888B4071989BCF900957213 /* icon_rotate_camera_off@2x.png in Resources */,
-				186990451979C70D0004C44F /* SubTemplateCell.iPhone5.storyboard in Resources */,
+				1897D6E7199325DE00F0BA35 /* SubTemplateCell.iPhone5.storyboard in Resources */,
 				1888B3E01989BCF900957213 /* back_press@2x.png in Resources */,
-				18859FBE1986622A00246765 /* LoginViewController.iPhone5.storyboard in Resources */,
 				1888B3E61989BCF900957213 /* button_makeone2_off@2x.png in Resources */,
 				1888B40B1989BCF900957213 /* icon_share_press@2x.png in Resources */,
 				1888B3F51989BCF900957213 /* feed_shadow_upper@2x.png in Resources */,
@@ -1171,9 +1173,9 @@
 				1885FF251965D5D1008E93A5 /* SubTemplatesVC.xib in Resources */,
 				1888B4111989BCF900957213 /* preloader_bg@2x.png in Resources */,
 				18EC4FB0193D0E4B003E5335 /* InfoPlist.strings in Resources */,
-				1887D91C1991538C00A55E5C /* frame_white@2x.png in Resources */,
 				18EC4FBB193D0E4B003E5335 /* Images.xcassets in Resources */,
 				1888B41F1989C05A00957213 /* tabs_myvideos_on@2x.png in Resources */,
+				1897D6E11993258700F0BA35 /* AVCamInstructionsTextView.iPhone5.xib in Resources */,
 				188569EA194D1F3F00980F36 /* home.png in Resources */,
 				1885FF111965D2CA008E93A5 /* MakeOne.png in Resources */,
 				1888B4081989BCF900957213 /* icon_rotate_camera_press@2x.png in Resources */,
@@ -1194,7 +1196,6 @@
 				1889C0B1194F74BE0065FFE0 /* blueArrow@2x.png in Resources */,
 				1889C0B0194F74BE0065FFE0 /* blueArrow.png in Resources */,
 				1888B40A1989BCF900957213 /* icon_share_off@2x.png in Resources */,
-				18F821E7196C17620030374E /* InstructionCell.iPhone4.xib in Resources */,
 				18FB7C8819676455005C9ABA /* Icon_Whatsapp@2x.png in Resources */,
 				1888B3FD1989BCF900957213 /* icon_play_off@2x.png in Resources */,
 				1889C0B4194F74BE0065FFE0 /* whiteArrow.png in Resources */,
@@ -1206,13 +1207,16 @@
 				188B8F1D194A158300A88D43 /* Localizable.strings in Resources */,
 				1889C0AE194F74BE0065FFE0 /* blackArrow.png in Resources */,
 				18D457DD1956B27800C5932F /* mediaStopBtn.png in Resources */,
+				1897D6E31993259F00F0BA35 /* InstructionCell.xib in Resources */,
 				1888B3E31989BCF900957213 /* button_makeone_circle@2x.png in Resources */,
+				1897D6EB1993264B00F0BA35 /* record_portrait@2x.png in Resources */,
 				1888B3E51989BCF900957213 /* button_makeone_press@2x.png in Resources */,
 				1888B3EB1989BCF900957213 /* button_stop_press@2x.png in Resources */,
 				1888B40F1989BCF900957213 /* logo@2x.png in Resources */,
 				18FB7C8619676411005C9ABA /* Icon_Facebook@2x.png in Resources */,
 				1888B4131989BCF900957213 /* settings_off@2x.png in Resources */,
 				1888B3DF1989BCF900957213 /* back_off@2x.png in Resources */,
+				1897D6E01993258700F0BA35 /* AVCamInstructionsTextView.iPhone4.xib in Resources */,
 				18F8A933196F71F1001093E4 /* recBtn3@2x.png in Resources */,
 				18F8A92B196F49D2001093E4 /* AVCamInstructionsPortraitView.iPhone4.xib in Resources */,
 				1829ED2E1978140E0090A62D /* Outder.mp4 in Resources */,
@@ -1249,10 +1253,11 @@
 				18984AB61948F1EB001410B7 /* signOut.png in Resources */,
 				188CEEDD196AD15D00EA0BBD /* Placeholder.jpg in Resources */,
 				1888B3E71989BCF900957213 /* button_makeone2_press@2x.png in Resources */,
+				1897D6E9199325F100F0BA35 /* LoginViewController.storyboard in Resources */,
 				18D457D9195659F500C5932F /* VideoPlayerViewController.xib in Resources */,
 				183C14E4194F9D5000DF8ABD /* FeedTableViewController.xib in Resources */,
-				18E168AE198D210F003A1042 /* AVCamInstructionsTextView.xib in Resources */,
 				1888B3F91989BCF900957213 /* icon_edit_off@2x.png in Resources */,
+				1897D6E6199325DE00F0BA35 /* SubTemplateCell.iPhone4.storyboard in Resources */,
 				183F885F194D61BC006EDD8C /* FeedTableViewCell.xib in Resources */,
 				180474C11954692800067AE0 /* camera.png in Resources */,
 				18F8A931196F71E5001093E4 /* recBtn2@2x.png in Resources */,
@@ -1278,6 +1283,7 @@
 				1888B4261989D9CB00957213 /* Feed.m in Sources */,
 				18D457D8195659F500C5932F /* VideoPlayerViewController.m in Sources */,
 				186990BF197A8CC00004C44F /* ASIS3ServiceRequest.m in Sources */,
+				1897D6DD199324B900F0BA35 /* FileHelpers.m in Sources */,
 				186990DB197A8F1B0004C44F /* ASIInputStream.m in Sources */,
 				1889C0AD194F74BE0065FFE0 /* EGORefreshTableHeaderView.m in Sources */,
 				1888D510198ECC0F00B8E720 /* Instruction.m in Sources */,
