@@ -508,6 +508,7 @@
         self.recordButton.enabled = NO;
     }
 }
+
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
 {
     NSLog(@"carouselWillBeginDragging");

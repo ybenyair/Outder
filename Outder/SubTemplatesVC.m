@@ -24,6 +24,7 @@
     NSMutableDictionary *_reusedSubTemplateViews;
     NSInteger _previousPage;
     BOOL autoPlayVideo;
+    CGFloat beginOffset;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,10 +53,9 @@
     // Do any additional setup after loading the view from its nib.
     _reusedSubTemplateViews = [NSMutableDictionary dictionary];
     self.pageControl.numberOfPages = [_subTemplates count];
-    //[self setBackNavigationBarItems];
-    //[self setNavigationBarTitle];
     self.tabBarController.tabBar.hidden = YES;
     autoPlayVideo = YES;
+    self.carousel.decelerationRate = 0.3;
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,7 +129,29 @@
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
 {
     SubTemplateCell *item = [self getCurrentItem];
+    beginOffset = carousel.scrollOffset;
+    carousel.forceScrollDirection = 0;
     [item currentlyDragged];
+}
+
+- (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
+{
+    CGFloat endOffset = carousel.scrollOffset;
+    CGFloat diff = endOffset - beginOffset;
+    if (diff > 1) {
+        diff =  diff - round(diff);
+    }
+    
+    NSLog(@"carouselDidEndDragging: offset-diff %f  offset %f", diff, carousel.scrollOffset);
+    
+    // Dragging within bounds
+    if (fabs(diff) < 0.5 && fabs(diff) > 0.05) {
+        if (diff > 0) {
+            carousel.forceScrollDirection = 1;
+        } else {
+            carousel.forceScrollDirection = -1;
+        }
+    }
 }
 
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel

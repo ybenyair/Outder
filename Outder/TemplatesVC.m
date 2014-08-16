@@ -94,6 +94,8 @@ static NSString *CellIdentifier = @"templateCell";
                                              selector:@selector(MakeOne:)
                                                  name:@"MakeOne"
                                                object:nil];
+    
+    self.carousel.decelerationRate = 0.3;
 }
 
 - (void) dealloc
