@@ -685,7 +685,7 @@
             NSLog(@"PLAY LIST: more to prepare - %lu", (unsigned long)nextToPrepare);
             
             if (player == [playerList lastObject]) {
-                [player setFadingDuration:1.0f];
+                [player setFadingDuration:0.1f];
             }
         }
 
@@ -696,7 +696,7 @@
 {
     self.imageViewVideo.backgroundColor = [UIColor clearColor];
     VideoPlayerViewController *videoCtrl = userInfo;
-    [videoCtrl setFadingDuration:1.0f];
+    [videoCtrl setFadingDuration:0.1f];
     
     [self closeVideo:userInfo];
     

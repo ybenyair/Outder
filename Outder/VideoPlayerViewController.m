@@ -70,7 +70,7 @@ static VideoPlayerViewController *activePlayer = nil;
     
     [self initStopButton];
     [self initPlaybackErrorLabel];
-    fadingDuration = 1.0f;
+    fadingDuration = 0.1f;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -222,6 +222,8 @@ static VideoPlayerViewController *activePlayer = nil;
 
 - (void)configurePlayerViewBackToPortrait:(CGFloat)angle
 {
+    [self removeTapGestureLandscape];
+
     [UIView animateWithDuration:0.2f
                      animations:^{
                          [self.mPlaybackView setTransform:CGAffineTransformMakeRotation(angle)];
@@ -269,12 +271,18 @@ static VideoPlayerViewController *activePlayer = nil;
     }
 }
 
+- (UIView *) getLandscapeView
+{
+    return [UIApplication sharedApplication].windows.firstObject;
+}
+
 - (void)configurePlayerViewLandscape:(CGFloat)angle withAnimation:(BOOL)animate
 {
     if (getReadyOnly) return;
     
-    //[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
-    UIView *videoView = [UIApplication sharedApplication].windows.firstObject;
+    [self addTapGestureLandscape];
+
+    UIView *videoView = [self getLandscapeView];
     CGFloat width = videoView.frame.size.height;
     CGFloat height = videoView.frame.size.width;
     
@@ -297,7 +305,7 @@ static VideoPlayerViewController *activePlayer = nil;
 
     CGFloat animationDuration = 0.2f;
     if (!animate) animationDuration = 0.0f;
-        
+    
     [UIView animateWithDuration:animationDuration
                      animations:^{
                          [self.mPlaybackView setTransform:CGAffineTransformMakeRotation(angle)];
@@ -547,8 +555,8 @@ static VideoPlayerViewController *activePlayer = nil;
             NSLog(@"Video is closing");
             [self movieFinishedOK];
         }
-    } else
-    {
+        
+    } else {
         [self closeVideo];
     }
     
@@ -559,6 +567,14 @@ static VideoPlayerViewController *activePlayer = nil;
     if (videoState == kVideoClosed) return;
     
     NSLog(@"closeVideo...");
+    
+    if (requestedOrientation != UIInterfaceOrientationPortrait) {
+        [self removeTapGestureLandscape];
+    }
+    
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
     [self deregisterPlayerCallbacks];
     [self.playbackErrorLabel removeFromSuperview];
     [self.stopButton removeFromSuperview];
@@ -753,6 +769,9 @@ static VideoPlayerViewController *activePlayer = nil;
     videoState = kVideoClosing;
     NSLog(@"Video is closing");
     
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
     playbackErrorLabel.hidden = NO;
     [activityIndicator stopAnimating];
     
@@ -778,6 +797,10 @@ static VideoPlayerViewController *activePlayer = nil;
         
         videoState = kVideoClosing;
         NSLog(@"Video is closing");
+        
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        
         [self.mPlaybackView setAlpha:1];
         [overlayView setAlpha:1];
         
@@ -998,6 +1021,25 @@ static VideoPlayerViewController *activePlayer = nil;
 }
 
 #pragma mark - Tap recognizer
+
+- (void)addTapGestureLandscape
+{
+    if (tapRecognizer) {
+        NSLog(@"addTapGestureLandscape");
+        UIView *landscapeView = [self getLandscapeView];
+        [landscapeView addGestureRecognizer:tapRecognizer];
+    }
+}
+
+- (void)removeTapGestureLandscape
+{
+    if (tapRecognizer) {
+        NSLog(@"removeTapGestureLandscape");
+        UIView *landscapeView = [self getLandscapeView];
+        [landscapeView removeGestureRecognizer:tapRecognizer];
+        [playView addGestureRecognizer:tapRecognizer];
+    }
+}
 
 - (void)setTapGesture: (BOOL) enable
 {
