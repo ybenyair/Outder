@@ -245,6 +245,11 @@
 
 #pragma mark - Table view data source
 
+- (void)resetScroll
+{
+    [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.

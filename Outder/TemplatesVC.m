@@ -89,27 +89,12 @@ static NSString *CellIdentifier = @"templateCell";
     
     [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
     
-    // Adding observer
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(MakeOne:)
-                                                 name:@"MakeOne"
-                                               object:nil];
-    
     self.carousel.decelerationRate = 0.3;
 }
 
 - (void) dealloc
 {
-    // Adding observer
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"MakeOne"
-                                                  object:nil];
-}
 
-- (void)MakeOne:(NSNotification *)notification
-{
-    self.tabBarController.selectedIndex = 2;
-    [self removeSubTemplatesViewController];
 }
 
 - (void) setBarItemRight

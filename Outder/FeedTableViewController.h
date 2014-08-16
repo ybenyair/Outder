@@ -35,5 +35,6 @@
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;
 - (void)loadData;
+- (void)resetScroll;
 
 @end

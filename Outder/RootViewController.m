@@ -28,7 +28,7 @@
 }
 
 @synthesize managedObjectContext = _managedObjectContext;
-@synthesize tabController, myVideoVC, featuredVideoVC;
+@synthesize tabController, myVideoVC, featuredVideoVC, templatesVC;
 
 static RootViewController *instance = nil;
 
@@ -89,11 +89,26 @@ static RootViewController *instance = nil;
 - (void)viewDidLoad
 {
     [DejalBezelActivityView activityViewForView:self.view  withLabel:NSLocalizedString(@"Loading...", nil)];
+    
+    // Adding observer
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(MakeOne:)
+                                                 name:@"MakeOne"
+                                               object:nil];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [DejalBezelActivityView removeViewAnimated:YES];
+}
+
+- (void) dealloc
+{
+    // Adding observer
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"MakeOne"
+                                                  object:nil];
 }
 
 - (void) initSplashView
@@ -150,14 +165,14 @@ static RootViewController *instance = nil;
 {
     tabController = [[UITabBarController alloc] init];
     
-    TemplatesVC *homevc = [[TemplatesVC alloc] init];
-    homevc.managedObjectContext = self.managedObjectContext;
-    homevc.tabBarItem.title = NSLocalizedString(@"Create", nil);
-    homevc.tabBarItem.image = [[UIImage imageNamed:@"tabs_create_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    homevc.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_create_on"];
+    templatesVC = [[TemplatesVC alloc] init];
+    templatesVC.managedObjectContext = self.managedObjectContext;
+    templatesVC.tabBarItem.title = NSLocalizedString(@"Create", nil);
+    templatesVC.tabBarItem.image = [[UIImage imageNamed:@"tabs_create_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    templatesVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_create_on"];
     
     UINavigationController *navhome = [[UINavigationController alloc] init];
-    [navhome pushViewController:homevc animated:NO];
+    [navhome pushViewController:templatesVC animated:NO];
     navhome.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
     
     myVideoVC = [[FeedTableViewController alloc] init];
@@ -245,6 +260,14 @@ static RootViewController *instance = nil;
     intValue++;
     value = [NSString stringWithFormat:@"%ld", (long)intValue];
     myVideoVC.tabBarItem.badgeValue = value;
+}
+
+
+- (void)MakeOne:(NSNotification *)notification
+{
+    self.tabController.selectedIndex = 2;
+    [self.myVideoVC resetScroll];
+    [self.templatesVC removeSubTemplatesViewController];
 }
 
 @end

@@ -293,7 +293,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (IBAction)toggleMovieRecording:(id)sender
 {
     // Yossi
-    /*
+    
     static BOOL start = NO;
     if (start == NO) {
         [self ntfyRecordStart];
@@ -313,7 +313,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     }
     
     return;
-    */
+    
     
 	[[self recordButton] setEnabled:NO];
     
@@ -348,7 +348,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (IBAction)changeCamera:(id)sender
 {
     // Yossi
-    // return;
+    return;
     
 	[[self cameraButton] setEnabled:NO];
 	[[self recordButton] setEnabled:NO];

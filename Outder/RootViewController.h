@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ServerCommunication.h"
 #import "FeedTableViewController.h"
+#import "TemplatesVC.h"
 
 @interface RootViewController : UIViewController <ServerCommunicationDelegate>
 
@@ -16,6 +17,7 @@
 @property (strong, nonatomic) UITabBarController *tabController;
 @property (strong, nonatomic) FeedTableViewController *myVideoVC;
 @property (strong, nonatomic) FeedTableViewController *featuredVideoVC;
+@property (strong, nonatomic) TemplatesVC *templatesVC;
 
 + (RootViewController *)getInstance;
 - (void)startLoginViewController:(BOOL)logOut;

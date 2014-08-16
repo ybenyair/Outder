@@ -314,6 +314,7 @@
 
 - (void)makeOneClicked:(SubTemplate *)subTemplate
 {
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     AVCamInstructionsVC *vc = [AVCamInstructionsVC loadInstance];
     [vc setInstructions:subTemplate.instructions];
     [self presentViewController:vc animated:YES completion:^{}];
