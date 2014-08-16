@@ -23,6 +23,7 @@
     NSMutableArray *_subTemplates;
     NSMutableDictionary *_reusedSubTemplateViews;
     NSInteger _previousPage;
+    BOOL autoPlayVideo;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,6 +55,7 @@
     //[self setBackNavigationBarItems];
     //[self setNavigationBarTitle];
     self.tabBarController.tabBar.hidden = YES;
+    autoPlayVideo = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +72,7 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //[self.carousel scrollToItemAtIndex:(self.carousel.currentItemIndex + 1) animated:YES];
+    [self.carousel scrollToItemAtIndex:(self.carousel.currentItemIndex + 1) animated:YES];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -136,6 +138,8 @@
     
     if (_previousPage != carousel.currentItemIndex) {
         _previousPage = carousel.currentItemIndex;
+        [item setAutoPlay:autoPlayVideo];
+        autoPlayVideo = NO; // Only once
         [item currentlyPresented];
     }
 }

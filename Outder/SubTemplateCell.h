@@ -41,6 +41,7 @@
 @property (nonatomic, weak) id <SubTemplateCellDelegate> delegate;
 
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view;
+- (void)setAutoPlay: (BOOL) enabled;
 - (void)currentlyPresented;
 - (void)currentlyDragged;
 

@@ -21,6 +21,7 @@
     NSMutableArray *directions;
     CGRect btnMakeDirectionHideFrame;
     NSTimer *autoPlayTimer;
+    BOOL autoPlay;
 }
 
 @synthesize videoCtrl;
@@ -236,6 +237,11 @@
 
 #pragma mark configure item
 
+- (void)setAutoPlay: (BOOL) enabled
+{
+    autoPlay = enabled;
+}
+
 - (void)configureItem: (SubTemplate *)data inView: (UIView *)view
 {
     subTemplate = data;
@@ -345,11 +351,6 @@
 {
     NSLog(@"aAutoPlay %@", subTemplate.title);
     autoPlayTimer = nil;
-    /*
-    self.btnMute.hidden = NO;
-    self.btnMute.enabled = YES;
-    [videoCtrl muteVideo:YES];
-    */
     [videoCtrl playVideo];
 }
 
@@ -358,11 +359,13 @@
 - (void)currentlyPresented
 {
     NSLog(@"currentlyPresented %@", subTemplate.title);
-    
-    if (videoCtrl.videoState == kVideoOpened) {
-        NSLog(@"Video is already playing: do not set timer");
-    } else {
-        autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
+   
+    if (autoPlay) {
+        if (videoCtrl.videoState == kVideoOpened) {
+            NSLog(@"Video is already playing: do not set timer");
+        } else {
+            autoPlayTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(aAutoPlay:) userInfo:nil repeats:NO];
+        }
     }
 }
 
