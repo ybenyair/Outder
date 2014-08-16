@@ -49,12 +49,7 @@
     self.labelRotate.text = NSLocalizedString(@"Shoot in landscape mode", nil);
     self.labelRotate.font = [UIFont fontWithName:kFontBold size:24];
     
-    UIImage *imagePress = [UIImage imageNamed:@"back_press"];
-    [self.btnBack setBackgroundImage:imagePress forState:UIControlStateHighlighted];
     self.btnBack.showsTouchWhenHighlighted = YES;
-    
-    imagePress = [UIImage imageNamed:@"icon_rotate_camera_press"];
-    [self.btnCamera setBackgroundImage:imagePress forState:UIControlStateHighlighted];
     self.btnCamera.showsTouchWhenHighlighted = YES;
 
     return self;

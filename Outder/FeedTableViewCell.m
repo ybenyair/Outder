@@ -200,7 +200,7 @@
     self.title.adjustsFontSizeToFitWidth = NO;
     self.title.numberOfLines = 0;
     
-    CGFloat fontSize = 54;
+    CGFloat fontSize = 42;
     while (fontSize > 0.0)
     {
         UIFont *font = [UIFont fontWithName:kFontBlack size:fontSize];

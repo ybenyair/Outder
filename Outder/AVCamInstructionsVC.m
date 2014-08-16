@@ -794,8 +794,10 @@
 
 - (void) setRecordButtonStateDragging
 {
-    [self enableRecodring:NO];
-    [self setRestartButtonHidden:YES];
+    if (self.carousel.numberOfItems > 1) {
+        [self enableRecodring:NO];
+        [self setRestartButtonHidden:YES];
+    }
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
