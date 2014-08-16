@@ -296,7 +296,6 @@
 - (void) configureVideoImage
 {
     self.labelName.text = subTemplate.name;
-    
     self.labelName.adjustsFontSizeToFitWidth = NO;
     self.labelName.numberOfLines = 0;
     
@@ -316,10 +315,36 @@
     [self setImage:subTemplate.imageURL];
 }
 
+- (void) configureRightViewTitle {
+    CGRect frame = self.imageInstractionNum.frame;
+    frame.origin.x = 2;
+    self.imageInstractionNum.frame = frame;
+    
+    frame = self.lableInstructionNum.frame;
+    frame.origin.x = self.imageInstractionNum.frame.origin.x + self.imageInstractionNum.frame.size.width - 3;
+    self.lableInstructionNum.frame = frame;
+}
+
+- (void) configureLeftViewTitle {
+    CGRect frame = self.imageInstractionNum.frame;
+    frame.origin.x = self.view.frame.size.width - self.imageInstractionNum.frame.size.width - 2;
+    self.imageInstractionNum.frame = frame;
+    
+    frame = self.lableInstructionNum.frame;
+    frame.origin.x = self.imageInstractionNum.frame.origin.x - self.imageInstractionNum.frame.size.width + 3;
+    self.lableInstructionNum.frame = frame;
+}
+
 - (void) configureTitle
 {
     self.labelTitle.text = subTemplate.title;
     self.lableInstructionNum.text = [NSString stringWithFormat:@"%ld",(long)[subTemplate.instructions count]];
+    if (self.labelTitle.textAlignment == NSTextAlignmentRight) {
+        [self configureRightViewTitle];
+    } else {
+        [self configureLeftViewTitle];
+    }
+    
 }
 
 - (void) configureBtnMute
