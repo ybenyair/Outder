@@ -1346,11 +1346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428303675.393294"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "-orientationChanged:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1362,11 +1362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "806"
-            endingLineNumber = "806"
+            startingLineNumber = "814"
+            endingLineNumber = "814"
             landmarkName = "-stopButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1570,11 +1570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/RootViewController.m"
-            timestampString = "428465853.568814"
+            timestampString = "429874908.831255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "-communicationResponse:responseCode:userData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1586,11 +1586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/RootViewController.m"
-            timestampString = "428451702.038504"
+            timestampString = "429874908.831255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "-getTemplates"
             landmarkType = "5">
          </BreakpointContent>
@@ -2098,11 +2098,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/RootViewController.m"
-            timestampString = "428465853.568814"
+            timestampString = "429874908.831255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "-communicationResponse:responseCode:userData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4254,11 +4254,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "569"
+            endingLineNumber = "569"
             landmarkName = "-closeVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -4515,8 +4515,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "515"
             endingLineNumber = "515"
-            landmarkName = "@implementation InstructionCell"
-            landmarkType = "3">
+            landmarkName = "-getPlayerIndex:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4707,8 +4707,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "705"
             endingLineNumber = "705"
-            landmarkName = "-videoShouldClose:"
-            landmarkType = "5">
+            landmarkName = "@implementation InstructionCell"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4718,11 +4718,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "756"
-            endingLineNumber = "756"
+            startingLineNumber = "764"
+            endingLineNumber = "764"
             landmarkName = "-movieFinishedError"
             landmarkType = "5">
          </BreakpointContent>
@@ -4830,11 +4830,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/RootViewController.m"
-            timestampString = "428465853.568814"
+            timestampString = "429874908.831255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "-startDashboardViewController:withTab:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5406,11 +5406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "857"
-            endingLineNumber = "857"
+            startingLineNumber = "865"
+            endingLineNumber = "865"
             landmarkName = "-startOverlayAnimation"
             landmarkType = "5">
          </BreakpointContent>
@@ -5422,11 +5422,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "903"
-            endingLineNumber = "903"
+            startingLineNumber = "911"
+            endingLineNumber = "911"
             landmarkName = "-aPresentOverlay:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5438,11 +5438,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "906"
-            endingLineNumber = "906"
+            startingLineNumber = "914"
+            endingLineNumber = "914"
             landmarkName = "@implementation VideoPlayerViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -5454,11 +5454,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "915"
-            endingLineNumber = "915"
+            startingLineNumber = "923"
+            endingLineNumber = "923"
             landmarkName = "-setDemoOverlay:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5470,11 +5470,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "938"
-            endingLineNumber = "938"
+            startingLineNumber = "946"
+            endingLineNumber = "946"
             landmarkName = "-registerAudioCallbacks"
             landmarkType = "5">
          </BreakpointContent>
@@ -5486,11 +5486,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "940"
-            endingLineNumber = "940"
+            startingLineNumber = "948"
+            endingLineNumber = "948"
             landmarkName = "-registerAudioCallbacks"
             landmarkType = "5">
          </BreakpointContent>
@@ -5502,11 +5502,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "858"
-            endingLineNumber = "858"
+            startingLineNumber = "866"
+            endingLineNumber = "866"
             landmarkName = "-startOverlayAnimation"
             landmarkType = "5">
          </BreakpointContent>
@@ -5518,11 +5518,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "846"
-            endingLineNumber = "846"
+            startingLineNumber = "854"
+            endingLineNumber = "854"
             landmarkName = "-prepareOverlayImages"
             landmarkType = "5">
          </BreakpointContent>
@@ -5534,11 +5534,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "931"
-            endingLineNumber = "931"
+            startingLineNumber = "939"
+            endingLineNumber = "939"
             landmarkName = "@implementation VideoPlayerViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -5550,11 +5550,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "888"
-            endingLineNumber = "888"
+            startingLineNumber = "896"
+            endingLineNumber = "896"
             landmarkName = "@implementation VideoPlayerViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -5566,11 +5566,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
+            startingLineNumber = "877"
+            endingLineNumber = "877"
             landmarkName = "-startOverlayAnimation"
             landmarkType = "5">
          </BreakpointContent>
@@ -5582,11 +5582,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "893"
-            endingLineNumber = "893"
+            startingLineNumber = "901"
+            endingLineNumber = "901"
             landmarkName = "-aPresentOverlay:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5603,8 +5603,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "644"
             endingLineNumber = "644"
-            landmarkName = "@implementation InstructionCell"
-            landmarkType = "3">
+            landmarkName = "-keepActivePlayers"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5614,11 +5614,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "570"
-            endingLineNumber = "570"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-closeVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -5630,11 +5630,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
+            startingLineNumber = "577"
+            endingLineNumber = "577"
             landmarkName = "-closeVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -5646,11 +5646,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428933334.351331"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "-releaseActivityIndicator"
             landmarkType = "5">
          </BreakpointContent>
@@ -5662,11 +5662,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "814"
-            endingLineNumber = "814"
+            startingLineNumber = "822"
+            endingLineNumber = "822"
             landmarkName = "-stopButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5694,11 +5694,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428933334.351331"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
             landmarkName = "-releaseActivityIndicator"
             landmarkType = "5">
          </BreakpointContent>
@@ -5742,11 +5742,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "783"
-            endingLineNumber = "783"
+            startingLineNumber = "791"
+            endingLineNumber = "791"
             landmarkName = "-movieFinishedOK"
             landmarkType = "5">
          </BreakpointContent>
@@ -5758,11 +5758,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "808"
+            endingLineNumber = "808"
             landmarkName = "-stopButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6062,11 +6062,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "639"
-            endingLineNumber = "639"
+            startingLineNumber = "647"
+            endingLineNumber = "647"
             landmarkName = "-playerItemDidReachEnd:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6078,11 +6078,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "662"
-            endingLineNumber = "662"
+            startingLineNumber = "670"
+            endingLineNumber = "670"
             landmarkName = "-handleVideoCallbacks"
             landmarkType = "5">
          </BreakpointContent>
@@ -6094,11 +6094,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "661"
-            endingLineNumber = "661"
+            startingLineNumber = "669"
+            endingLineNumber = "669"
             landmarkName = "-handleVideoCallbacks"
             landmarkType = "5">
          </BreakpointContent>
@@ -6174,11 +6174,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "751"
-            endingLineNumber = "751"
+            startingLineNumber = "759"
+            endingLineNumber = "759"
             landmarkName = "-movieFinishedError"
             landmarkType = "5">
          </BreakpointContent>
@@ -6206,11 +6206,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "568"
-            endingLineNumber = "568"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
             landmarkName = "-closeVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -6334,11 +6334,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1028"
-            endingLineNumber = "1028"
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
             landmarkName = "-videoImageTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6382,11 +6382,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1015"
-            endingLineNumber = "1015"
+            startingLineNumber = "1023"
+            endingLineNumber = "1023"
             landmarkName = "-videoImageTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7194,11 +7194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "654"
-            endingLineNumber = "654"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
             landmarkName = "-handleVideoCallbacks"
             landmarkType = "5">
          </BreakpointContent>
@@ -7210,11 +7210,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "693"
-            endingLineNumber = "693"
+            startingLineNumber = "701"
+            endingLineNumber = "701"
             landmarkName = "-handleAudioCallbacks"
             landmarkType = "5">
          </BreakpointContent>
@@ -7226,11 +7226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428937619.910915"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
             landmarkName = "-playVideo:inView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7242,11 +7242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "737"
-            endingLineNumber = "737"
+            startingLineNumber = "745"
+            endingLineNumber = "745"
             landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7258,11 +7258,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "466"
+            endingLineNumber = "466"
             landmarkName = "-openVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -7274,11 +7274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "-playWhenPrepared:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7290,11 +7290,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "-pauseVideo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7306,11 +7306,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "624"
-            endingLineNumber = "624"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
             landmarkName = "-playerItemDidReachEnd:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7322,11 +7322,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Outder/VideoPlayerViewController.m"
-            timestampString = "428938467.869299"
+            timestampString = "429876293.835888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "623"
-            endingLineNumber = "623"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "-playerItemDidReachEnd:"
             landmarkType = "5">
          </BreakpointContent>

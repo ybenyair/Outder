@@ -153,7 +153,8 @@ static RootViewController *instance = nil;
     TemplatesVC *homevc = [[TemplatesVC alloc] init];
     homevc.managedObjectContext = self.managedObjectContext;
     homevc.tabBarItem.title = NSLocalizedString(@"Create", nil);
-    homevc.tabBarItem.image	 = [UIImage imageNamed:@"tabs_create_on"];
+    homevc.tabBarItem.image = [[UIImage imageNamed:@"tabs_create_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    homevc.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_create_on"];
     
     UINavigationController *navhome = [[UINavigationController alloc] init];
     [navhome pushViewController:homevc animated:NO];
@@ -163,7 +164,10 @@ static RootViewController *instance = nil;
     myVideoVC.managedObjectContext = self.managedObjectContext;
     myVideoVC.tabBarItem.title = NSLocalizedString(@"My Video", nil);
     myVideoVC.feedType = kMyVideoType;
-    myVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"tabs_myvideos_on"];
+    myVideoVC.tabBarItem.image = [[UIImage imageNamed:@"tabs_myvideos_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    myVideoVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_myvideos_on"];
+    
+    
     UINavigationController *navmyvideo = [[UINavigationController alloc] init];
     [navmyvideo pushViewController:myVideoVC animated:NO];
     navmyvideo.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
@@ -172,7 +176,9 @@ static RootViewController *instance = nil;
     featuredVideoVC.managedObjectContext = self.managedObjectContext;
     featuredVideoVC.tabBarItem.title = NSLocalizedString(@"Popular", nil);
     featuredVideoVC.feedType = kFeaturedVideoType;
-    featuredVideoVC.tabBarItem.image	 = [UIImage imageNamed:@"tabs_popular_on"];
+    featuredVideoVC.tabBarItem.image = [[UIImage imageNamed:@"tabs_popular_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    featuredVideoVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_popular_on"];
+    
     UINavigationController *navfeatured = [[UINavigationController alloc] init];
     [navfeatured pushViewController:featuredVideoVC animated:NO];
     navfeatured.navigationController.navigationBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
@@ -198,6 +204,10 @@ static RootViewController *instance = nil;
     [[UITabBar appearance] setTintColor:colorPress];
     
     [UITabBarItem.appearance setTitleTextAttributes:@{ UITextAttributeTextColor : [UIColor whiteColor] } forState:UIControlStateNormal];
+    
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    [[UITabBar appearance] setSelectedImageTintColor:colorPress];
     
     [UITabBarItem.appearance setTitleTextAttributes:@{UITextAttributeTextColor : colorPress } forState:UIControlStateSelected];
 }

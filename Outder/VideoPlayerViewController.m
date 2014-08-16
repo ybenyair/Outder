@@ -185,6 +185,8 @@ static VideoPlayerViewController *activePlayer = nil;
             /* start special animation */
             NSLog(@"Landscape left");
             requestedOrientation = UIDeviceOrientationLandscapeLeft;
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
             [self configurePlayerViewLandscape:(M_PI / 2) withAnimation:YES];
             break;
         
@@ -192,17 +194,23 @@ static VideoPlayerViewController *activePlayer = nil;
             /* start special animation */
             NSLog(@"Landscape right");
             requestedOrientation = UIDeviceOrientationLandscapeRight;
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
             [self configurePlayerViewLandscape:(3 * M_PI / 2) withAnimation:YES];
             break;
             
         case UIDeviceOrientationPortrait:
             requestedOrientation = UIDeviceOrientationPortrait;
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
             [self configurePlayerViewBackToPortrait:(0)];
             NSLog(@"Portrait");
             break;
             
         case UIDeviceOrientationPortraitUpsideDown:
             requestedOrientation = UIDeviceOrientationPortrait;
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
             [self configurePlayerViewBackToPortrait:(0)];
             NSLog(@"Portrait UpsideDown");
             break;
