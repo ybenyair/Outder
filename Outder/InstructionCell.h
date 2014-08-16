@@ -10,6 +10,7 @@
 #import "Instruction.h"
 #import "VideoPlayerViewController.h"
 #import "AVCamInstructionsVC.h"
+#import "UILabelAligned.h"
 
 typedef enum {
     kInstructionUnknown,
@@ -36,7 +37,7 @@ typedef enum {
 @property eInstructionState state;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBG;
-@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabelAligned *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelNumber;
 @property (weak, nonatomic) IBOutlet UIImageView *viewNumber;
 @property (weak, nonatomic) IBOutlet UILabel *labelFixedShot;
@@ -77,5 +78,6 @@ typedef enum {
 - (void)setImage:(NSString *)imageURL;
 - (void)configureUserShot:(NSString *)imagePath withVideo:(NSString *)videoPath;
 - (void)currentlyPresented;
+- (void)currentlyDragging;
 
 @end

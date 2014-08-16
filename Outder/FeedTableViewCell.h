@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Feed.h"
 #import "VideoPlayerViewController.h"
+#import "UILabelAligned.h"
 
 typedef enum {
     kFeedUnknown,
@@ -24,7 +25,7 @@ typedef enum {
 
 @property eFeedState state;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
-@property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UILabelAligned *title;
 @property (weak, nonatomic) IBOutlet UIButton *sharedButton;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet UIView *feedContentView;

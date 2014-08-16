@@ -132,10 +132,21 @@
     
 }
 
+- (void)currentlyDragging
+{
+    if (playerList) {
+        VideoPlayerViewController *player = [playerList objectAtIndex:currentPlaying];
+        [self closeVideo:player];
+    }
+}
+
 - (void) viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self closeVideo:nil];
+    if (playerList) {
+        VideoPlayerViewController *player = [playerList objectAtIndex:currentPlaying];
+        [self closeVideo:player];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -200,9 +211,90 @@
 #pragma mark -
 #pragma mark configure current view
 
-- (void)configureItem: (UIView *)view
+- (void) configureRightView
+{
+    CGFloat xOffset = self.imageBG.frame.origin.x;
+    CGFloat xWidth = self.imageBG.frame.size.width;
+    
+    // Number view
+    CGRect frame = self.viewNumber.frame;
+    frame.origin.x = xOffset + xWidth - self.viewNumber.frame.size.width - 5;
+    self.viewNumber.frame = frame;
+
+    frame = self.labelNumber.frame;
+    frame.origin.x = xOffset + xWidth - self.viewNumber.frame.size.width - 5;
+    self.labelNumber.frame = frame;
+
+    // Text view
+    frame = self.labelName.frame;
+    frame.origin.x = self.viewNumber.frame.origin.x - self.labelName.frame.size.width - 4;
+    self.labelName.frame = frame;
+    
+    // Seconds view
+    frame = self.viewSeconds.frame;
+    frame.origin.x = xOffset + 5;
+    self.viewSeconds.frame = frame;
+    
+    frame = self.labelSeconds.frame;
+    frame.origin.x = self.viewSeconds.frame.origin.x + self.viewSeconds.frame.size.width + 2;
+    self.labelSeconds.frame = frame;
+    self.labelSeconds.textAlignment = NSTextAlignmentLeft;
+    
+    // Recorded view
+    frame = self.viewRecorded.frame;
+    frame.origin.x = xOffset + 5;
+    self.viewRecorded.frame = frame;
+    
+    frame = self.labelRecorded.frame;
+    frame.origin.x = self.viewRecorded.frame.origin.x + self.viewRecorded.frame.size.width + 2;
+    self.labelRecorded.frame = frame;
+    self.labelRecorded.textAlignment = NSTextAlignmentLeft;
+}
+
+- (void) configureLeftView
+{
+    CGFloat xOffset = self.imageBG.frame.origin.x;
+    CGFloat xWidth = self.imageBG.frame.size.width;
+    
+    // Number view
+    CGRect frame = self.viewNumber.frame;
+    frame.origin.x = xOffset + 5;
+    self.viewNumber.frame = frame;
+    
+    frame = self.labelNumber.frame;
+    frame.origin.x = xOffset + 5;
+    self.labelNumber.frame = frame;
+    
+    // Text view
+    frame = self.labelName.frame;
+    frame.origin.x = self.viewNumber.frame.origin.x + self.viewNumber.frame.size.width + 4;
+    self.labelName.frame = frame;
+    
+    // Seconds view
+    frame = self.viewSeconds.frame;
+    frame.origin.x = xOffset + xWidth - self.viewSeconds.frame.size.width - 5;
+    self.viewSeconds.frame = frame;
+    
+    frame = self.labelSeconds.frame;
+    frame.origin.x = self.viewSeconds.frame.origin.x - self.labelSeconds.frame.size.width - 2;
+    self.labelSeconds.frame = frame;
+    self.labelSeconds.textAlignment = NSTextAlignmentRight;
+    
+    // Recorded view
+    frame = self.viewRecorded.frame;
+    frame.origin.x = xOffset + xWidth - self.viewRecorded.frame.size.width - 5;
+    self.viewRecorded.frame = frame;
+    
+    frame = self.labelRecorded.frame;
+    frame.origin.x = self.viewRecorded.frame.origin.x - self.labelRecorded.frame.size.width - 2;
+    self.labelRecorded.frame = frame;
+    self.labelRecorded.textAlignment = NSTextAlignmentRight;
+}
+
+- (void) configureItem: (UIView *)view
 {
     self.labelName.text = currentInstruction.name;
+    
     self.labelNumber.text = [NSString stringWithFormat:@"%lu", (unsigned long)index + 1];
     NSString *seconds = NSLocalizedString(@"Seconds", nil);
     self.labelSeconds.text = [NSString stringWithFormat:@"%d %@", [currentInstruction.length intValue], seconds];
@@ -212,6 +304,12 @@
     [self restoreState];
 
     [self restoreLayout: YES];
+    
+    if (self.labelName.textAlignment == NSTextAlignmentRight) {
+        [self configureRightView];
+    } else {
+        [self configureLeftView];
+    }
 }
 
 #pragma mark -
@@ -226,6 +324,8 @@
 {
     self.labelNumber.hidden = NO;
     self.viewNumber.hidden = NO;
+    self.viewSeconds.hidden = NO;
+    self.labelSeconds.hidden = NO;
 }
 
 - (void) setInstructionRecordLayer

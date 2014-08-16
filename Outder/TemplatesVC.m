@@ -89,7 +89,7 @@ static NSString *CellIdentifier = @"templateCell";
     
     [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
     
-    self.carousel.decelerationRate = 0.3;
+    self.carousel.decelerationRate = 0.45;
 }
 
 - (void) dealloc

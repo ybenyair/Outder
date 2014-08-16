@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13A598" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13A598" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -10,32 +10,28 @@
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController storyboardIdentifier="AVCamInstructionsVC" id="vXZ-lx-hvc" customClass="AVCamInstructionsVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7Jq-MA-LRi"/>
-                        <viewControllerLayoutGuide type="bottom" id="tvj-7s-n29"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="sVI-mX-69Q" customClass="AVCamPreviewView">
+                            <view contentMode="scaleAspectFit" id="sVI-mX-69Q" customClass="AVCamPreviewView">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obU-9W-03N" userLabel="Image View - blur">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="obU-9W-03N" userLabel="Image View - blur">
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aEA-Ti-KWX" userLabel="View - overlay.portrait" customClass="AVCamInstructionsPortraitView">
+                                    <view contentMode="scaleToFill" id="aEA-Ti-KWX" userLabel="View - overlay.portrait" customClass="AVCamInstructionsPortraitView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-wp-Rag" userLabel="View - overlay.landscape">
+                                    <view contentMode="scaleToFill" id="Vbb-wp-Rag" userLabel="View - overlay.landscape">
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OI-h8-svc" userLabel="Button - back">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5OI-h8-svc" userLabel="Button - back">
                                                 <rect key="frame" x="8" y="4" width="36" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -46,7 +42,7 @@
                                                     <action selector="btnBackClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="whA-Fq-269"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4y-iM-g40" userLabel="Button - flip">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="f4y-iM-g40" userLabel="Button - flip">
                                                 <rect key="frame" x="423" y="9" width="51" height="39"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -57,7 +53,7 @@
                                                     <action selector="changeCamera:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2Lf-Vl-wCY"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIR-Kr-b4h" userLabel="iCarousel" customClass="iCarousel">
+                                            <view contentMode="scaleToFill" id="mIR-Kr-b4h" userLabel="iCarousel" customClass="iCarousel">
                                                 <rect key="frame" x="65" y="15" width="350" height="290"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
@@ -65,11 +61,11 @@
                                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="DIi-yO-JlF"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nf0-fB-78Q" userLabel="View - record timer">
+                                            <view contentMode="scaleToFill" id="nf0-fB-78Q" userLabel="View - record timer">
                                                 <rect key="frame" x="216" y="206" width="48" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-OU-aTZ" userLabel="Button - Record">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YMe-OU-aTZ" userLabel="Button - Record">
                                                 <rect key="frame" x="171" y="129" width="138" height="62"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name=".LucidaGrandeUI" family=".Lucida Grande UI" pointSize="11"/>
@@ -78,14 +74,14 @@
                                                     <action selector="toggleMovieRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="d0A-LS-VbE"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6PU-7A-AkK" userLabel="Label - Record">
-                                                <rect key="frame" x="196" y="191" width="88" height="21"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6PU-7A-AkK" userLabel="Label - Record">
+                                                <rect key="frame" x="196" y="199" width="88" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXH-eS-2j3" userLabel="Label - restart">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TXH-eS-2j3" userLabel="Label - restart">
                                                 <rect key="frame" x="195" y="247" width="16" height="13"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -93,7 +89,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZW-HI-8V9" userLabel="Button - restart">
+                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AZW-HI-8V9" userLabel="Button - restart">
                                                 <rect key="frame" x="190" y="240" width="100" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -102,19 +98,15 @@
                                                     <action selector="btnRestartClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MrD-KZ-VTL"/>
                                                 </connections>
                                             </button>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="WEh-5N-dhq">
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="WEh-5N-dhq">
                                                 <rect key="frame" x="221" y="269" width="39" height="37"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="currentPageIndicatorTintColor" red="0.93499490490000003" green="0.12546871170000001" blue="0.13511399369999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </pageControl>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="f4y-iM-g40" secondAttribute="trailing" constant="5" id="R0x-ee-Nao"/>
-                                            <constraint firstItem="f4y-iM-g40" firstAttribute="top" secondItem="Vbb-wp-Rag" secondAttribute="top" constant="5" id="dPZ-Dh-y64"/>
-                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jV2-OY-3HN" userLabel="View - editText" customClass="AVCamInstructionsTextView">
+                                    <view contentMode="scaleToFill" id="jV2-OY-3HN" userLabel="View - editText" customClass="AVCamInstructionsTextView">
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
@@ -128,12 +120,6 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="sVI-mX-69Q" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="JvV-7K-WtO"/>
-                            <constraint firstAttribute="bottom" secondItem="sVI-mX-69Q" secondAttribute="bottom" id="KV9-56-NIN"/>
-                            <constraint firstAttribute="trailing" secondItem="sVI-mX-69Q" secondAttribute="trailing" id="WCx-TI-SGz"/>
-                            <constraint firstItem="sVI-mX-69Q" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="XrH-Lh-HOX"/>
-                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

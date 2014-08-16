@@ -55,7 +55,7 @@
     self.pageControl.numberOfPages = [_subTemplates count];
     self.tabBarController.tabBar.hidden = YES;
     autoPlayVideo = YES;
-    self.carousel.decelerationRate = 0.3;
+    self.carousel.decelerationRate = 0.45;
 }
 
 - (void)didReceiveMemoryWarning
@@ -136,6 +136,7 @@
 
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
+    /*
     CGFloat endOffset = carousel.scrollOffset;
     CGFloat diff = endOffset - beginOffset;
     if (diff > 1) {
@@ -147,11 +148,14 @@
     // Dragging within bounds
     if (fabs(diff) < 0.5 && fabs(diff) > 0.05) {
         if (diff > 0) {
+            NSLog(@"Force move right");
             carousel.forceScrollDirection = 1;
         } else {
+            NSLog(@"Force move left");
             carousel.forceScrollDirection = -1;
         }
     }
+    */
 }
 
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel

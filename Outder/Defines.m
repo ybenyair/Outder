@@ -19,25 +19,5 @@
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-+(NSTextAlignment)alignmentForString:(NSString *)astring
-{
-    
-    if (astring.length) {
-        
-        NSArray *rightLeftLanguages = @[@"ar",@"he"];
-        
-        NSString *lang = CFBridgingRelease(CFStringTokenizerCopyBestStringLanguage((CFStringRef)astring,CFRangeMake(0,[astring length])));
-        
-        if ([rightLeftLanguages containsObject:lang]) {
-            NSLog(@"%@: Right alignment", astring);
-            return NSTextAlignmentRight;
-            
-        }
-    }
-    
-    NSLog(@"%@: Left alignment", astring);
-    return NSTextAlignmentLeft;
-}
-
 @end
 

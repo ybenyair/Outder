@@ -115,7 +115,7 @@
     
     self.carousel.type = iCarouselTypeCustom;
     [self.carousel setScrollToItemBoundary:YES];
-
+    
     self.pageControl.numberOfPages = [self numberOfItemsInCarousel:self.carousel];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -383,11 +383,13 @@
 
 - (void)carouselDidEndDecelerating:(iCarousel *)carousel
 {
-    
+    NSLog(@"carouselDidEndDecelerating: offset = %f", carousel.scrollOffset);
 }
 
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
 {
+    if (isRecording) return;
+    
     InstructionCell *instruction = [self getCurrentItem];
     NSLog(@"carouselDidEndScrollingAnimation");
 
@@ -511,31 +513,40 @@
 
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
 {
+    if (carousel.numberOfItems == 1) return;
+
     NSLog(@"carouselWillBeginDragging");
     [self setRecordButtonStateDragging];
     beginOffset = carousel.scrollOffset;
     carousel.forceScrollDirection = 0;
+    InstructionCell *item = [self getCurrentItem];
+    [item currentlyDragging];
 }
 
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
-    NSLog(@"carouselWillBeginDragging");
-
+    if (carousel.numberOfItems == 1) return;
+    
     endOffset = carousel.scrollOffset;
     CGFloat diff = endOffset - beginOffset;
     NSLog(@"carouselDidEndDragging: offset-diff %f  offset %f", diff, carousel.scrollOffset);
 
     // Dragging within bounds
-    if (fabs(diff) < 0.5 && fabs(diff) > 0.05) {
+    if (fabs(diff) < 0.5 && fabs(diff) > 0.02) {
         autoPlay = NO;
         NSLog(@"Auto play disabled");
         if (diff > 0) {
-            if (carousel.currentItemIndex < carousel.numberOfItems - 1) carousel.forceScrollDirection = 1;
+            if (carousel.currentItemIndex < carousel.numberOfItems - 1) {
+                NSLog(@"Force move right");
+                carousel.forceScrollDirection = 1;
+            }
         } else {
-            if (carousel.currentItemIndex > 0) carousel.forceScrollDirection = -1;
+            if (carousel.currentItemIndex > 0) {
+                NSLog(@"Force move left");
+                carousel.forceScrollDirection = -1;
+            }
         }
     }
-    
 }
 
 - (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
@@ -795,10 +806,8 @@
 
 - (void) setRecordButtonStateDragging
 {
-    if (self.carousel.numberOfItems > 1) {
-        [self enableRecodring:NO];
-        [self setRestartButtonHidden:YES];
-    }
+    [self enableRecodring:NO];
+    [self setRestartButtonHidden:YES];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
