@@ -108,6 +108,8 @@
 {
     [super viewDidLoad];
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
     AVCamInstructionsPortraitView *portrait = (AVCamInstructionsPortraitView *)self.portraitView;
     [portrait setSuperCtrl:self];
     
@@ -158,6 +160,7 @@
 {
     NSLog(@"AVCamInstructionsVC: viewDidAppear");
     [super viewDidAppear:animated];
+    
     [self registerToDeviceOrientationNotification];
     
     // Adding observer
@@ -624,6 +627,7 @@
 
 - (IBAction)btnBackClicked:(id)sender
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [CoreData saveDB];
     [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
 }
@@ -702,7 +706,7 @@
     [self setRecordButtonStateRecording];
     [self setBackButtonHidden:YES];
     [self setCameraButtonHidden:YES];
-    
+    self.pageControl.hidden = YES;
     [self.carousel setAlpha:1];
     
     [UIView animateWithDuration:0.5f
@@ -732,7 +736,7 @@
     [self stopRecordAnimation];
     [self setBackButtonHidden:NO];
     [self setCameraButtonHidden:NO];
-    
+    self.pageControl.hidden = NO;
     [self.carousel setAlpha:0];
     self.carousel.hidden = NO;
 
@@ -765,7 +769,6 @@
     [self setRestartButtonHidden:YES];
     
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_off.png"] forState:UIControlStateNormal];
-    [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_press.png"] forState:UIControlStateHighlighted];
     
     self.recordButton.frame = CGRectMake(0, 0, 62, 62);
     self.recordButton.center = self.viewRecordTimer.center;
@@ -956,7 +959,7 @@
     return fullPath;
 }
 
-#define kLineWidth 6
+#define kLineWidth 7
 
 -(void)startRecordAnimation
 {

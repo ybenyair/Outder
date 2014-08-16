@@ -570,10 +570,9 @@ static VideoPlayerViewController *activePlayer = nil;
     
     if (requestedOrientation != UIInterfaceOrientationPortrait) {
         [self removeTapGestureLandscape];
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
-    
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
     [self deregisterPlayerCallbacks];
     [self.playbackErrorLabel removeFromSuperview];
@@ -769,8 +768,10 @@ static VideoPlayerViewController *activePlayer = nil;
     videoState = kVideoClosing;
     NSLog(@"Video is closing");
     
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    if (requestedOrientation != UIInterfaceOrientationPortrait) {
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    }
     
     playbackErrorLabel.hidden = NO;
     [activityIndicator stopAnimating];
@@ -798,8 +799,10 @@ static VideoPlayerViewController *activePlayer = nil;
         videoState = kVideoClosing;
         NSLog(@"Video is closing");
         
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        if (requestedOrientation != UIInterfaceOrientationPortrait) {
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        }
         
         [self.mPlaybackView setAlpha:1];
         [overlayView setAlpha:1];
