@@ -51,7 +51,6 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayDone;
 @property (weak, nonatomic) IBOutlet UIButton *btnMakeVideo;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *uploadActivity;
-@property (weak, nonatomic) IBOutlet UILabel *labelNumOfMakeOne;
 @property (weak, nonatomic) IBOutlet UIImageView *viewSeconds;
 @property (weak, nonatomic) IBOutlet UILabel *labelSeconds;
 @property (weak, nonatomic) IBOutlet UIImageView *viewRecorded;

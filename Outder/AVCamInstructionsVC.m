@@ -768,7 +768,7 @@
     [self setRestartButtonHidden:YES];
     
     [[self recordButton] setImage:[UIImage imageNamed:@"icon_record_off.png"] forState:UIControlStateNormal];
-    [[self recordButton] setImage:[UIImage imageNamed:@"icon_record_press.png"] forState:UIControlStateHighlighted];
+
     CGPoint center = self.carousel.center;
     center.y = center.y + 10;
     self.recordButton.frame = CGRectMake(0, 0, 62, 62);

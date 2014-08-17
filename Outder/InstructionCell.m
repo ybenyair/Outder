@@ -51,7 +51,14 @@
 + (InstructionCell *) loadInstance;
 {
     InstructionCell *cell = nil;
-    cell = [[InstructionCell alloc] initWithNibName:@"InstructionCell" bundle:nil];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        // code for 4-inch screen
+        cell = [[InstructionCell alloc] initWithNibName:@"InstructionCell.iPhone5" bundle:nil];
+    } else {
+        // code for 3.5-inch screen
+        cell = [[InstructionCell alloc] initWithNibName:@"InstructionCell.iPhone4" bundle:nil];
+    }
     return cell;
 }
 
@@ -90,14 +97,16 @@
     self.labelFixedShot.font = [UIFont fontWithName:kFontBold size:12];
     self.labelFixedShot.textColor = [UIColor whiteColor];
     
-    self.labelName.font = [UIFont fontWithName:kFontBold size:16];
-    self.labelName.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelName.font = [UIFont fontWithName:kFontBold size:26];
+    //self.labelName.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelName.textColor = [UIColor whiteColor];
     
-    self.labelDone.font = [UIFont fontWithName:kFontBlack size:20];
-    self.labelDone.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelDone.font = [UIFont fontWithName:kFontBlack size:26];
+    //self.labelDone.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelDone.textColor = [UIColor whiteColor];
     self.labelDone.text = NSLocalizedString(@"Press 'Make video' to complete", nil);
 
-    self.labelNumber.font = [UIFont fontWithName:kFontBlack size:45];
+    self.labelNumber.font = [UIFont fontWithName:kFontBlack size:35];
     self.labelNumber.textColor = [UIColor whiteColor];
     
     self.labelRecorded.font = [UIFont fontWithName:kFontRegular size:13];
@@ -105,12 +114,13 @@
     self.labelRecorded.text = NSLocalizedString(@"Recorded", nil);
     
     self.labelSeconds.font = [UIFont fontWithName:kFontRegular size:13];
-    self.labelSeconds.textColor = [FontHelpers colorFromHexString:@"#4d4d4d"];
+    //self.labelSeconds.textColor = [FontHelpers colorFromHexString:@"#4d4d4d"];
+    self.labelSeconds.textColor = [UIColor whiteColor];
     
-    self.uploadActivity.color = [FontHelpers colorFromHexString:@"#41beb1"];
-    self.labelNumOfMakeOne.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
-    self.labelNumOfMakeOne.font = [UIFont fontWithName:kFontBold size:14];
-    
+    //self.uploadActivity.color = [FontHelpers colorFromHexString:@"#41beb1"];
+    //self.labelNumOfMakeOne.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.uploadActivity.color = [UIColor whiteColor];
+
     self.labelLeft.font = [UIFont fontWithName:kFontBold size:14];
     self.labelLeft.textColor = [UIColor whiteColor];
 
@@ -294,7 +304,7 @@
 - (void) configureItem: (UIView *)view
 {
     self.labelName.text = currentInstruction.name;
-    
+    [self.labelName sizeToFit];
     self.labelNumber.text = [NSString stringWithFormat:@"%lu", (unsigned long)index + 1];
     NSString *seconds = NSLocalizedString(@"Seconds", nil);
     self.labelSeconds.text = [NSString stringWithFormat:@"%d %@", [currentInstruction.length intValue], seconds];
@@ -323,7 +333,7 @@
 - (void) unhideInstructionRecordItems
 {
     self.labelNumber.hidden = NO;
-    self.viewNumber.hidden = NO;
+    self.viewNumber.hidden = YES;
     self.viewSeconds.hidden = NO;
     self.labelSeconds.hidden = NO;
 }
@@ -364,7 +374,7 @@
     self.btnPlayFixedShot.hidden = NO;
     self.btnPlayFixedShot.enabled = YES;
     self.labelNumber.hidden = NO;
-    self.viewNumber.hidden = NO;
+    self.viewNumber.hidden = YES;
     self.labelCenter.hidden = NO;
 }
 
@@ -412,7 +422,7 @@
     self.btnPlayPreview.hidden = NO;
     self.btnPlayPreview.enabled = YES;
     self.labelNumber.hidden = NO;
-    self.viewNumber.hidden = NO;
+    self.viewNumber.hidden = YES;
     self.viewRecorded.hidden = NO;
     self.labelRecorded.hidden = NO;
     self.viewSeconds.hidden = NO;
@@ -457,11 +467,8 @@
     if (numOfMakeOne > 0) {
         self.uploadActivity.hidden = NO;
         [self.uploadActivity startAnimating];
-        self.labelNumOfMakeOne.text = [NSString stringWithFormat:@"%ld", (long)numOfMakeOne];
-        self.labelNumOfMakeOne.hidden = NO;
     } else {
         self.uploadActivity.hidden = YES;
-        self.labelNumOfMakeOne.hidden = YES;
     }
 }
 
@@ -472,7 +479,6 @@
     self.btnMakeVideo.hidden = YES;
     self.btnMakeVideo.enabled = NO;
     self.uploadActivity.hidden = YES;
-    self.labelNumOfMakeOne.hidden = YES;
     self.labelDone.hidden = YES;
     self.labelLeft.hidden = YES;
     self.labelRight.hidden = YES;

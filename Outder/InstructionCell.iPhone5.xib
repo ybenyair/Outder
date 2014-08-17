@@ -21,7 +21,6 @@
                 <outlet property="labelFixedShot" destination="S9l-EP-3hA" id="MJ8-yt-Rcw"/>
                 <outlet property="labelLeft" destination="OdH-f0-id0" id="IW4-aj-nfT"/>
                 <outlet property="labelName" destination="8dM-fP-VC7" id="4Ps-BX-r1F"/>
-                <outlet property="labelNumOfMakeOne" destination="K9e-1x-JEQ" id="Yaw-gW-dIE"/>
                 <outlet property="labelNumber" destination="8rY-rW-wvq" id="3wB-ho-Yl6"/>
                 <outlet property="labelRecorded" destination="Nfs-mB-40h" id="mVm-GR-wts"/>
                 <outlet property="labelRight" destination="qfs-6P-Zyg" id="Tqt-E5-BqH"/>
@@ -45,58 +44,65 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="XGX-tl-HpJ" userLabel="Image View - fixed">
-                            <rect key="frame" x="84" y="43" width="400" height="235"/>
+                            <rect key="frame" x="64" y="33" width="442" height="255"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame.png" id="pcu-Ut-kQJ">
-                            <rect key="frame" x="80" y="40" width="408" height="241"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_opacity_50.png" id="pcu-Ut-kQJ">
+                            <rect key="frame" x="63" y="33" width="442" height="255"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Video_text_bg" id="qBc-bl-TMh" userLabel="Image View - background">
+                            <rect key="frame" x="64" y="22" width="440" height="66"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons_seconds.png" id="xXJ-Cr-Xzf" userLabel="Image View - seconds">
-                            <rect key="frame" x="467" y="49" width="14" height="14"/>
+                            <rect key="frame" x="467" y="44" width="14" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XBl-J1-iOb" userLabel="Label - seconds">
-                            <rect key="frame" x="386" y="45" width="76" height="21"/>
+                            <rect key="frame" x="386" y="39" width="76" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons_recorded.png" id="LBe-4c-hh6" userLabel="Image View - recorded">
-                            <rect key="frame" x="467" y="67" width="14" height="14"/>
+                            <rect key="frame" x="467" y="61" width="14" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nfs-mB-40h" userLabel="Label - Recorded">
-                            <rect key="frame" x="386" y="63" width="76" height="21"/>
+                            <rect key="frame" x="386" y="58" width="76" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nvR-P0-Jn7" userLabel="Label - done">
-                            <rect key="frame" x="97" y="42" width="374" height="44"/>
+                            <rect key="frame" x="97" y="33" width="374" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="highlightedColor"/>
+                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instruction #1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8dM-fP-VC7" userLabel="Label - name" customClass="UILabelAligned">
-                            <rect key="frame" x="124" y="43" width="283" height="44"/>
+                            <rect key="frame" x="124" y="40" width="283" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.14973061798554285" green="0.87002497695297487" blue="0.93499490489130432" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
-                            <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shot_number_bg.png" id="6kr-hq-0oV" userLabel="Image View - number">
-                            <rect key="frame" x="86" y="47" width="34" height="34"/>
+                            <rect key="frame" x="86" y="38" width="34" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="8rY-rW-wvq" userLabel="Label - number">
-                            <rect key="frame" x="86" y="44" width="34" height="34"/>
+                            <rect key="frame" x="86" y="37" width="34" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="27"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
+                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alert_bg.png" id="ao4-dO-umc" userLabel="Image - fixed shot alert">
                             <rect key="frame" x="203" y="241" width="162" height="23"/>
@@ -187,22 +193,14 @@
                                 <action selector="btnEditTextClicked:" destination="-1" eventType="touchUpInside" id="pXo-32-0Sv"/>
                             </connections>
                         </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K9e-1x-JEQ" userLabel="Label - numOfMakeOne">
-                            <rect key="frame" x="453" y="38" width="36" height="27"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Heavy" family="Avenir Next Condensed" pointSize="18"/>
-                            <color key="textColor" red="0.087498815440000002" green="0.79239213409999998" blue="0.97843070649999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <size key="shadowOffset" width="0.0" height="0.0"/>
-                        </label>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="xAX-s0-uW6">
-                            <rect key="frame" x="432" y="47" width="37" height="37"/>
+                            <rect key="frame" x="432" y="41" width="37" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="tintColor" red="0.087498815440000002" green="0.79239213409999998" blue="0.97843070649999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="color" red="0.087498815440000002" green="0.79239213409999998" blue="0.97843070649999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </activityIndicatorView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9lc-9s-P3j" userLabel="Image View - video">
-                            <rect key="frame" x="84" y="46" width="400" height="229"/>
+                            <rect key="frame" x="65" y="35" width="438" height="252"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
@@ -214,8 +212,9 @@
         </view>
     </objects>
     <resources>
+        <image name="Video_text_bg" width="272" height="75"/>
         <image name="alert_bg.png" width="162" height="22"/>
-        <image name="frame.png" width="408" height="235"/>
+        <image name="frame_opacity_50.png" width="425" height="245"/>
         <image name="icon_edit_off.png" width="62" height="62"/>
         <image name="icon_play_off.png" width="62" height="62"/>
         <image name="icon_publish_off.png" width="62" height="62"/>
