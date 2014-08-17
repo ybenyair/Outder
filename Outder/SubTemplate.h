@@ -2,7 +2,7 @@
 //  SubTemplate.h
 //  Outder
 //
-//  Created by Yossi on 8/2/14.
+//  Created by Yossi on 8/17/14.
 //  Copyright (c) 2014 Outder. All rights reserved.
 //
 
@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSSet *instructions;
 @property (nonatomic, retain) Template *template;
 @property (nonatomic, retain) NSSet *userTexts;
+@property (nonatomic, retain) NSSet *tips;
 @end
 
 @interface SubTemplate (CoreDataGeneratedAccessors)
@@ -42,5 +43,10 @@
 - (void)removeUserTextsObject:(UserText *)value;
 - (void)addUserTexts:(NSSet *)values;
 - (void)removeUserTexts:(NSSet *)values;
+
+- (void)addTipsObject:(NSManagedObject *)value;
+- (void)removeTipsObject:(NSManagedObject *)value;
+- (void)addTips:(NSSet *)values;
+- (void)removeTips:(NSSet *)values;
 
 @end

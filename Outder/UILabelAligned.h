@@ -10,4 +10,6 @@
 
 @interface UILabelAligned: UILabel
 
++ (NSTextAlignment)alignmentForString:(NSString *)astring;
+
 @end

@@ -71,6 +71,8 @@
 		1887F767199F60D90027B4E1 /* tabs_create_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1887F766199F60D90027B4E1 /* tabs_create_on@2x.png */; };
 		1887F76B199F83740027B4E1 /* button_stop_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1887F76A199F83740027B4E1 /* button_stop_off@2x.png */; };
 		1887F76E199FA8560027B4E1 /* UILabelAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 1887F76D199FA8560027B4E1 /* UILabelAligned.m */; };
+		188832ED19A0E7A0005CE608 /* SubTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 188832EC19A0E7A0005CE608 /* SubTemplate.m */; };
+		188832F319A0EBB3005CE608 /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 188832F219A0EBB3005CE608 /* Tip.m */; };
 		1888B3DD1989BCF900957213 /* alert_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39C1989BCF900957213 /* alert_bg@2x.png */; };
 		1888B3DE1989BCF900957213 /* alert_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39D1989BCF900957213 /* alert_icon@2x.png */; };
 		1888B3DF1989BCF900957213 /* back_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888B39E1989BCF900957213 /* back_off@2x.png */; };
@@ -173,7 +175,6 @@
 		18DE960D194568E100021A5D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DE960C194568E100021A5D /* MediaPlayer.framework */; };
 		18DEDEC0195AAAF6002DE2D2 /* TemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DEDEBF195AAAF6002DE2D2 /* TemplateCell.m */; };
 		18E168AA198D1B91003A1042 /* AVCamInstructionsTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E168A9198D1B91003A1042 /* AVCamInstructionsTextView.m */; };
-		18E168B4198D4089003A1042 /* SubTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E168B3198D4089003A1042 /* SubTemplate.m */; };
 		18E168BD198D7421003A1042 /* UserText.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E168BC198D7421003A1042 /* UserText.m */; };
 		18E96431194F07F300A2A317 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E96430194F07F300A2A317 /* RootViewController.m */; };
 		18EC4FA4193D0E4B003E5335 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC4FA3193D0E4B003E5335 /* Foundation.framework */; };
@@ -342,6 +343,10 @@
 		1887F76A199F83740027B4E1 /* button_stop_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_stop_off@2x.png"; sourceTree = "<group>"; };
 		1887F76C199FA8560027B4E1 /* UILabelAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabelAligned.h; sourceTree = "<group>"; };
 		1887F76D199FA8560027B4E1 /* UILabelAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelAligned.m; sourceTree = "<group>"; };
+		188832EB19A0E7A0005CE608 /* SubTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTemplate.h; sourceTree = "<group>"; };
+		188832EC19A0E7A0005CE608 /* SubTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTemplate.m; sourceTree = "<group>"; };
+		188832F119A0EBB3005CE608 /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
+		188832F219A0EBB3005CE608 /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
 		1888B39C1989BCF900957213 /* alert_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert_bg@2x.png"; sourceTree = "<group>"; };
 		1888B39D1989BCF900957213 /* alert_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert_icon@2x.png"; sourceTree = "<group>"; };
 		1888B39E1989BCF900957213 /* back_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_off@2x.png"; sourceTree = "<group>"; };
@@ -461,8 +466,6 @@
 		18DEDEBF195AAAF6002DE2D2 /* TemplateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TemplateCell.m; path = Outder/TemplateCell.m; sourceTree = "<group>"; };
 		18E168A8198D1B82003A1042 /* AVCamInstructionsTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCamInstructionsTextView.h; sourceTree = "<group>"; };
 		18E168A9198D1B91003A1042 /* AVCamInstructionsTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamInstructionsTextView.m; sourceTree = "<group>"; };
-		18E168B2198D4089003A1042 /* SubTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTemplate.h; sourceTree = "<group>"; };
-		18E168B3198D4089003A1042 /* SubTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTemplate.m; sourceTree = "<group>"; };
 		18E168BB198D7421003A1042 /* UserText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserText.h; sourceTree = "<group>"; };
 		18E168BC198D7421003A1042 /* UserText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserText.m; sourceTree = "<group>"; };
 		18E9642F194F07E500A2A317 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Outder/RootViewController.h; sourceTree = "<group>"; };
@@ -571,13 +574,15 @@
 		1832694D194D4BA3002717DA /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				188832F119A0EBB3005CE608 /* Tip.h */,
+				188832F219A0EBB3005CE608 /* Tip.m */,
 				18EC4FB7193D0E4B003E5335 /* Outder.xcdatamodeld */,
+				188832EB19A0E7A0005CE608 /* SubTemplate.h */,
+				188832EC19A0E7A0005CE608 /* SubTemplate.m */,
 				1888D50E198ECC0F00B8E720 /* Instruction.h */,
 				1888D50F198ECC0F00B8E720 /* Instruction.m */,
 				18E168BB198D7421003A1042 /* UserText.h */,
 				18E168BC198D7421003A1042 /* UserText.m */,
-				18E168B2198D4089003A1042 /* SubTemplate.h */,
-				18E168B3198D4089003A1042 /* SubTemplate.m */,
 				1888B4241989D9CB00957213 /* Feed.h */,
 				1888B4251989D9CB00957213 /* Feed.m */,
 				188DB1E4195F5ADE00EA404C /* Template.h */,
@@ -1314,12 +1319,12 @@
 				188AB93B195EA12C0000106A /* iCarousel.m in Sources */,
 				1885FF231965D5CA008E93A5 /* SubTemplatesVC.m in Sources */,
 				183F885D194D61B6006EDD8C /* FeedTableViewCell.m in Sources */,
+				188832ED19A0E7A0005CE608 /* SubTemplate.m in Sources */,
 				186990DA197A8F1B0004C44F /* ASIHTTPRequest.m in Sources */,
 				1830CD6D19826AFC0050D5D6 /* VideoOverlayHelpers.m in Sources */,
 				186990BB197A8CC00004C44F /* ASIS3BucketObject.m in Sources */,
 				189413B6195ACCF50056907A /* TemplateCoreData.m in Sources */,
 				18DE95CC193D310C00021A5D /* TermOfUseViewController.m in Sources */,
-				18E168B4198D4089003A1042 /* SubTemplate.m in Sources */,
 				1885FF2F1965F1A7008E93A5 /* SubTemplateCell.m in Sources */,
 				187A5757193D0F15009BA935 /* LoginViewController.m in Sources */,
 				186990D5197A8F1B0004C44F /* ASIAuthenticationDialog.m in Sources */,
@@ -1332,6 +1337,7 @@
 				184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */,
 				186990D7197A8F1B0004C44F /* ASIDataDecompressor.m in Sources */,
 				1885FF2A1965F0BD008E93A5 /* TemplatePromotedCell.m in Sources */,
+				188832F319A0EBB3005CE608 /* Tip.m in Sources */,
 				185CDD50198054700082B856 /* FeedUploader.m in Sources */,
 				18419724196D22E300B14558 /* AVCamViewController.m in Sources */,
 				18699037197872070004C44F /* UploadManager.m in Sources */,

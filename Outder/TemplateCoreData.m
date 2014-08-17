@@ -12,6 +12,7 @@
 #import "Instruction.h"
 #import "UserText.h"
 #import "AppDelegate.h"
+#import "Tip.h"
 
 @implementation TemplateCoreData
 
@@ -123,13 +124,6 @@
     }
 }
 
-+ (void) removeAllUserTexts: (SubTemplate *)subTemplate atContext:(NSManagedObjectContext *)context
-{
-    for (UserText * object in subTemplate.userTexts) {
-        [context deleteObject:object];
-    }
-}
-
 + (UserText *)getUserText:(NSString *)hintText withID:(NSNumber *)hintID atContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserText"];
@@ -157,6 +151,36 @@
         obj.textHint = data;
         obj.id = subTemplate.id;
         [subTemplate addUserTextsObject:obj];
+    }
+}
+
++ (Tip *)allocTip:(NSManagedObjectContext *)context
+{
+    Tip *obj = [NSEntityDescription insertNewObjectForEntityForName:@"Tip" inManagedObjectContext:context];
+    return  obj;
+}
+
++ (void) removeAllTips: (SubTemplate *)subTemplate atContext:(NSManagedObjectContext *)context
+{
+    for (Tip * object in subTemplate.tips) {
+        NSLog(@"remove tip: %@", object.text);
+        [context deleteObject:object];
+    }
+}
+
++ (void)fillTips: (NSArray *)tips inSubTemplate:(SubTemplate *)subTemplate atContext:(NSManagedObjectContext *)context
+{
+    [TemplateCoreData removeAllTips:subTemplate atContext:context];
+    
+    NSInteger index = 0;
+    for (id dataElement in tips) {
+        index++;
+        NSString *data = (NSString *)dataElement;
+        Tip *obj = [TemplateCoreData allocTip:context];
+        obj.text = data;
+        obj.id = [NSNumber numberWithInteger:index];
+        [subTemplate addTipsObject:obj];
+        NSLog(@"add tip: %@", obj.text);
     }
 }
 
@@ -201,6 +225,9 @@
         
         NSArray *userTexts = [subTemplateData objectForKey:@"user_texts"];
         [TemplateCoreData fillUserTexts:userTexts inSubTemplate:subTemplate atContext:context];
+
+        NSArray *tips = [subTemplateData objectForKey:@"tips"];
+        [TemplateCoreData fillTips:tips inSubTemplate:subTemplate atContext:context];
 
     }
 }

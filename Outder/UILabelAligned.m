@@ -15,13 +15,13 @@
     [super setText:text];
     
     if (self.textAlignment != NSTextAlignmentCenter) {
-        NSTextAlignment align = [self alignmentForString:text];
+        NSTextAlignment align = [UILabelAligned alignmentForString:text];
         self.textAlignment = align;
     }
 }
 
 
-- (NSTextAlignment)alignmentForString:(NSString *)astring
++ (NSTextAlignment)alignmentForString:(NSString *)astring
 {
     
     if (astring.length) {

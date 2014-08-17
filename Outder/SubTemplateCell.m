@@ -8,8 +8,9 @@
 
 #import "SubTemplateCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Instruction.h"
+#import "Tip.h"
 #import "Defines.h"
+#import "UILabelAligned.h"
 
 @interface SubTemplateCell ()
 
@@ -154,25 +155,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    Instruction *instruction = [directions objectAtIndex:indexPath.row];
-    [self configureCellTextLabel:cell.textLabel withInstruction:instruction];
+    Tip *tip = [directions objectAtIndex:indexPath.row];
+    [self configureCellTextLabel:cell.textLabel withTip:tip];
     cell.backgroundColor = [UIColor colorWithWhite:0.985 alpha:0.5];
     return cell;
 }
 
 
 
-- (void) configureCellTextLabel: (UILabel *)textLabel withInstruction: (Instruction *)data
+- (void) configureCellTextLabel: (UILabel *)textLabel withTip: (Tip *)data
 {
-    textLabel.text = data.name;
+    textLabel.text = data.text;
     textLabel.adjustsFontSizeToFitWidth = NO;
     textLabel.minimumScaleFactor = 0.1;
     
     textLabel.font = [UIFont fontWithName:kFontRegular size:14];
     textLabel.textColor = [FontHelpers colorFromHexString:@"#606060"];
 
-    textLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    textLabel.textAlignment = NSTextAlignmentNatural;
+    textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    textLabel.textAlignment = [UILabelAligned alignmentForString:textLabel.text];
     textLabel.numberOfLines = 0;
 }
 
@@ -180,10 +181,16 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Instruction *instruction = [directions objectAtIndex:indexPath.row];
-    NSString *str = instruction.name;
-    CGSize size = [str sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(tableView.frame.size.width, tableView.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
-    return size.height + 10;
+    Tip *tip = [directions objectAtIndex:indexPath.row];
+    UILabel *label = [[UILabel alloc] init];
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.textAlignment = NSTextAlignmentNatural;
+    label.numberOfLines = 0;
+    label.text = tip.text;
+    label.font = [UIFont fontWithName:kFontRegular size:14];
+    [label sizeToFit];
+    CGSize size = label.frame.size;
+    return size.height + 5;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -248,7 +255,7 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"id" ascending:YES];
     
     NSArray *sortDescriptors = @[sortDescriptor];
-    directions = [NSMutableArray arrayWithArray:[[data.instructions allObjects] sortedArrayUsingDescriptors:sortDescriptors]];
+    directions = [NSMutableArray arrayWithArray:[[data.tips allObjects] sortedArrayUsingDescriptors:sortDescriptors]];
     
     [self.tableDirections reloadData];
     
@@ -286,6 +293,10 @@
 
 - (void) configureTableDirections
 {
+    if (self.btnHideDirections.hidden == NO) {
+        [self btnHideDirectionsClicked:nil];
+    }
+    
     self.tableDirections.hidden = YES;
     self.btnShowDirections.hidden = NO;
     self.btnShowDirections.enabled = YES;
