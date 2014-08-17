@@ -42,14 +42,10 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="l1F-hM-dvk"/>
                                 </connections>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Video_text_bg" translatesAutoresizingMaskIntoConstraints="NO" id="F4H-rj-pnk" userLabel="Image View - Background">
-                                <rect key="frame" x="35" y="318" width="249" height="47"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RtR-CS-NUj">
-                                <rect key="frame" x="30" y="321" width="259" height="36"/>
+                                <rect key="frame" x="30" y="318" width="259" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login as a guest">
+                                <state key="normal" title="Log in as a guest">
                                     <color key="titleColor" red="0.17138559635805939" green="1" blue="0.76764982923647507" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>

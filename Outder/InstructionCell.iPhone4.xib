@@ -47,7 +47,7 @@
                             <rect key="frame" x="81" y="42" width="406" height="238"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_opacity_50.png" id="pcu-Ut-kQJ">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frame_opacity_25.png" id="pcu-Ut-kQJ">
                             <rect key="frame" x="80" y="44" width="408" height="234"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -214,7 +214,7 @@
     <resources>
         <image name="Video_text_bg" width="272" height="75"/>
         <image name="alert_bg.png" width="162" height="22"/>
-        <image name="frame_opacity_50.png" width="425" height="245"/>
+        <image name="frame_opacity_25.png" width="425" height="245"/>
         <image name="icon_edit_off.png" width="62" height="62"/>
         <image name="icon_play_off.png" width="62" height="62"/>
         <image name="icon_publish_off.png" width="62" height="62"/>

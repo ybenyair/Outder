@@ -138,6 +138,15 @@
     self.sharedButton.enabled = YES;
     self.progressBar.hidden = YES;
     [self setImageRemote:feed.imageURL];
+    
+    if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
+        [videoCtrl stopVideo:YES];
+        videoCtrl = nil;
+    }
+    
+    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.feedContentView andURL:feed.videoURL];
+    [videoCtrl setDelegate:self withInfo:nil];
+    [videoCtrl setTapGesture:YES];
 }
 
 - (void) setStateFeedLoading
@@ -155,6 +164,8 @@
         self.activityIndicator.hidden = NO;
         [self.activityIndicator startAnimating];
     }
+    
+    videoCtrl = nil;
 }
 
 - (void) setStateFeedProcessing
@@ -237,15 +248,6 @@
             [self setStateFeedProcessing];
             break;
     }
-
-    if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
-        [videoCtrl stopVideo:YES];
-        videoCtrl = nil;
-    }
-    
-    videoCtrl = [[VideoPlayerViewController alloc] initWithView:self.feedContentView andURL:feed.videoURL];
-    [videoCtrl setDelegate:self withInfo:nil];
-    [videoCtrl setTapGesture:YES];
 }
 
 #pragma mark - Video player delegate

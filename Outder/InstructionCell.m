@@ -24,6 +24,7 @@
 {
     NSMutableArray *playerList;
     NSUInteger currentPlaying;
+    CGFloat labelOrigWidth;
 }
 
 #define kPreviewString NSLocalizedString(@"Preview", nil);
@@ -85,24 +86,16 @@
     self.labelFixedShot.contentMode = UIViewContentModeScaleAspectFit;
     self.imageShot.contentMode = UIViewContentModeScaleAspectFit;
     self.imageViewVideo.hidden = YES;
-    
-    /*
-    self.textEditTitle.layer.shadowOpacity = 1.0;
-    self.textEditTitle.layer.shadowRadius = 0.0;
-    self.textEditTitle.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.textEditTitle.layer.shadowOffset = CGSizeMake(0.0, -1.0);
-    self.textEditPlaceholder.text = NSLocalizedString(@"TYPE YOUR MESSAGE", nil);
-    */
+   
     self.labelFixedShot.text = NSLocalizedString(@"Fixed shot - Cannot be edited!", nil);
     self.labelFixedShot.font = [UIFont fontWithName:kFontBold size:12];
     self.labelFixedShot.textColor = [UIColor whiteColor];
     
-    self.labelName.font = [UIFont fontWithName:kFontBold size:26];
-    //self.labelName.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.labelName.font = [UIFont fontWithName:kFontBold size:24];
     self.labelName.textColor = [UIColor whiteColor];
+    labelOrigWidth = self.labelName.frame.size.width;
     
     self.labelDone.font = [UIFont fontWithName:kFontBlack size:26];
-    //self.labelDone.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
     self.labelDone.textColor = [UIColor whiteColor];
     self.labelDone.text = NSLocalizedString(@"Press 'Make video' to complete", nil);
 
@@ -114,11 +107,8 @@
     self.labelRecorded.text = NSLocalizedString(@"Recorded", nil);
     
     self.labelSeconds.font = [UIFont fontWithName:kFontRegular size:13];
-    //self.labelSeconds.textColor = [FontHelpers colorFromHexString:@"#4d4d4d"];
     self.labelSeconds.textColor = [UIColor whiteColor];
     
-    //self.uploadActivity.color = [FontHelpers colorFromHexString:@"#41beb1"];
-    //self.labelNumOfMakeOne.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
     self.uploadActivity.color = [UIColor whiteColor];
 
     self.labelLeft.font = [UIFont fontWithName:kFontBold size:14];
@@ -301,9 +291,17 @@
     self.labelRecorded.textAlignment = NSTextAlignmentRight;
 }
 
+- (void) resetLabelNameSize
+{
+    CGRect frame = self.labelName.frame;
+    frame.size.width = labelOrigWidth;
+    self.labelName.frame = frame;
+}
+
 - (void) configureItem: (UIView *)view
 {
     self.labelName.text = currentInstruction.name;
+    [self resetLabelNameSize];
     [self.labelName sizeToFit];
     self.labelNumber.text = [NSString stringWithFormat:@"%lu", (unsigned long)index + 1];
     NSString *seconds = NSLocalizedString(@"Seconds", nil);

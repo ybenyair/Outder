@@ -91,7 +91,10 @@
     self.viewImageBG.backgroundColor = [UIColor viewFlipsideBackgroundColor];
     
     self.btnGuestLogin.titleLabel.font = [UIFont fontWithName:kFontBold size:18];
-    self.btnGuestLogin.titleLabel.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.btnGuestLogin.titleLabel.textColor = [UIColor whiteColor];
+    self.btnGuestLogin.backgroundColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    self.btnGuestLogin.titleLabel.text = NSLocalizedString(@"Log in as a guest", nil);
+    
 }
 
 -(BOOL)shouldAutorotate
