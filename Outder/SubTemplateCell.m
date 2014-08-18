@@ -92,10 +92,6 @@
     imagePress = [UIImage imageNamed:@"button_makeone_press"];
     [self.btnMake setBackgroundImage:imagePress forState:UIControlStateHighlighted];
     
-    // Mute button
-    imagePress = [UIImage imageNamed:@"icon_audio_press"];
-    [self.btnMute setBackgroundImage:imagePress forState:UIControlStateHighlighted];
-    
     self.labelMakePlace.hidden = YES;
     self.tableDirections.hidden = YES;
     self.btnHideDirections.hidden = YES;
@@ -263,7 +259,6 @@
     [self configureTitle];
     [self configureTableDirections];
     [self configureBtnMake];
-    [self configureBtnMute];
     
     if (videoCtrl && (videoCtrl.videoState != kVideoClosed)) {
         [videoCtrl stopVideo:NO];
@@ -358,12 +353,6 @@
     
 }
 
-- (void) configureBtnMute
-{
-    self.btnMute.hidden = YES;
-    self.btnMute.enabled = NO;
-}
-
 - (void)setImage:(NSString *)imageURL
 {
     NSURL *url = [NSURL URLWithString:imageURL];
@@ -416,13 +405,6 @@
 - (IBAction)btnMakeOneClicked:(id)sender {
     NSLog(@"btnMakeClicked for subTemplate: %@", subTemplate.title);
     [self.delegate makeOneClicked:subTemplate];
-}
-
-- (IBAction)btnMuteClicked:(id)sender {
-    NSLog(@"btnMuteClicked for subTemplate: %@", subTemplate.title);
-    [videoCtrl muteVideo:!videoCtrl.isMute];
-    self.btnMute.hidden = YES;
-    self.btnMute.enabled = NO;
 }
 
 #pragma mark - Actions (Show directions)
@@ -541,9 +523,7 @@
 // The video was just closed
 - (void)videoDidClose: (id)userInfo
 {
-    self.btnMute.hidden = YES;
-    self.btnMute.enabled = NO;
-    [videoCtrl muteVideo:NO];
+
 }
 
 // Do we support in one than one video instance

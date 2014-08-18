@@ -696,14 +696,26 @@
 {
     // We were notified that the AVCam controller actualy ended the recording
     NSLog(@"ntfyRecordEnd");
-    self.carousel.scrollEnabled = NO;
+    isRecording = NO;
     [self startBusyIndicator];
+    self.carousel.scrollEnabled = NO;
+    [self stopRecordAnimation];
+    self.pageControl.hidden = NO;
+    [self.carousel setAlpha:0];
+    self.carousel.hidden = NO;
+    
+    [self setRecordButtonStateRetake];
+
+    [UIView animateWithDuration:1.5f
+                     animations:^{
+                         [self.carousel setAlpha:1];
+                     }];
 }
 
 - (void) startBusyIndicator
 {
     NSLog(@"startBusyIndicator");
-    busyTimer = [NSTimer scheduledTimerWithTimeInterval:0.75f target:self selector:@selector(aBusyIndicator:) userInfo:nil repeats:NO];
+    busyTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(aBusyIndicator:) userInfo:nil repeats:NO];
 }
 
 -(void)aBusyIndicator: (NSTimer *)timer
@@ -730,26 +742,10 @@
 - (void)executeRecordEnd
 {
     NSLog(@"executeRecordEnd");
-
     self.carousel.scrollEnabled = YES;
     [self stopBusyIndicator];
-    
-    isRecording = NO;
-    [self setRecordButtonStateRetake];
-    [self stopRecordAnimation];
     [self setBackButtonHidden:NO];
     [self setCameraButtonHidden:NO];
-    self.pageControl.hidden = NO;
-    [self.carousel setAlpha:0];
-    self.carousel.hidden = NO;
-    
-    [self.recordButton setAlpha:0];
-    
-    [UIView animateWithDuration:1.5f
-                     animations:^{
-                         [self.carousel setAlpha:1];
-                         [self.recordButton setAlpha:1];
-                     }];
 }
 
 - (void) setRecordButtonStateRecord

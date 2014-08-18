@@ -83,8 +83,6 @@ static NSString *CellIdentifier = @"templateCell";
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"TemplateCell" bundle:nil] forCellWithReuseIdentifier:CellIdentifier];
     
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-    
     self.carousel.type = iCarouselTypeCustom;
     self.carousel.centerItemWhenSelected = NO;
     

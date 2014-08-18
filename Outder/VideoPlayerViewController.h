@@ -55,7 +55,6 @@ typedef enum {
 @property (nonatomic,strong) UILabel *playbackErrorLabel;
 @property  eVideoPlayerState videoState;
 @property  BOOL enableAutoRotation;
-@property  (readonly) BOOL isMute;
 
 @property (strong, nonatomic) AVPlayerPlaybackView *mPlaybackView;
 
@@ -74,7 +73,6 @@ typedef enum {
 - (void) pauseVideo: (BOOL) pasue;
 - (void) stopVideo:(BOOL) animated;
 - (void) repeatVideo: (BOOL) repeat;
-- (void) muteVideo: (BOOL) mute;
 
 // Player methods (when using custom init)
 - (id)initWithView:(UIView *)view andURL:(NSString *) url;

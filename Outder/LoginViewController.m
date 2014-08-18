@@ -253,7 +253,6 @@
 
     // PLay the video
     [videoCtrl prepareVideo];
-    [videoCtrl muteVideo:YES];
     [videoCtrl repeatVideo:YES];
 }
 

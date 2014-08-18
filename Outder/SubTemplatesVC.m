@@ -83,18 +83,18 @@
 
 - (void) backClicked: (id) sender
 {
-    [UIView animateWithDuration:0.5
+    [self.navigationController popViewControllerAnimated:YES];
+
+    self.view.alpha = 1.0f;
+    [UIView animateWithDuration:0.2
                      animations:^{
-                         self.view.alpha = 0.9f;
+                         self.view.alpha = 0.0f;
                      }
                      completion:^(BOOL finished){
                          if (finished) {
-                             [self.navigationController popViewControllerAnimated:NO];
-                             self.view.alpha = 1.0f;
                          }
                      }
      ];
-
 }
 
 - (void) setNavBarView
@@ -318,7 +318,6 @@
 
 - (void)makeOneClicked:(SubTemplate *)subTemplate
 {
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     AVCamInstructionsVC *vc = [AVCamInstructionsVC loadInstance];
     [vc setInstructions:subTemplate.instructions];
     [self presentViewController:vc animated:YES completion:^{}];

@@ -27,7 +27,6 @@
 
 @implementation VideoPlayerViewController
 {
-    BOOL isMute;
     BOOL isRepeat;
 
     UITapGestureRecognizer *tapRecognizer;
@@ -54,7 +53,7 @@ static VideoPlayerViewController *activePlayer = nil;
 
 @synthesize activityIndicator;
 @synthesize stopButton;
-@synthesize videoState, isMute;
+@synthesize videoState;
 @synthesize playbackErrorLabel, enableAutoRotation, mPlaybackView;
 
 #pragma mark - controller initialization
@@ -399,6 +398,7 @@ static VideoPlayerViewController *activePlayer = nil;
 {
     [videoItem addObserver:self forKeyPath:@"status" options:0 context:nil];
     [videoItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
+    [videoItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:0 context:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
@@ -410,6 +410,8 @@ static VideoPlayerViewController *activePlayer = nil;
 {
     [videoItem  removeObserver:self forKeyPath:@"status"];
     [videoItem  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+    [videoItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:AVPlayerItemDidPlayToEndTimeNotification
                                                     object:videoItem];
@@ -471,7 +473,7 @@ static VideoPlayerViewController *activePlayer = nil;
     [overlayView setAlpha:1];
     [activityIndicator startAnimating];
     [self registerToDeviceOrientationNotification];
-    [queuePlayer play];
+    //[queuePlayer play];
 }
 
 #pragma mark - Video Player functions (PREPARE)
@@ -611,27 +613,6 @@ static VideoPlayerViewController *activePlayer = nil;
     isRepeat = repeat;
 }
 
-#pragma mark - Video Player functions (MUTE)
-
-- (void) muteVideo: (BOOL) mute {
-    isMute = mute;
-    
-    dispatch_async(dispatch_get_global_queue(0,0), ^{
-        NSArray * myTracks = videoItem.tracks;
-        for(int i = 0; i < [myTracks count]; i++)
-        {
-            if([[[myTracks objectAtIndex:i] assetTrack].mediaType
-                isEqualToString:AVMediaTypeAudio] == YES)
-            {
-                ((AVPlayerItemTrack *)[myTracks
-                                       objectAtIndex:i]).enabled = !mute;
-            }
-        }
-    });
-    
-    return;
-}
-
 #pragma mark - Video Player (callbacks)
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
@@ -677,7 +658,6 @@ static VideoPlayerViewController *activePlayer = nil;
             NSLog(@"player item status is ready to play");
             if (videoState == kVideoOpening)  {
                 videoState = kVideoOpened;
-                [self muteVideo:isMute];
                 NSLog(@"Video is opened");
                 if (overlayAudioStreamer &&
                     overlayAudioStreamer.status != AVPlayerItemStatusReadyToPlay) {
@@ -743,21 +723,31 @@ static VideoPlayerViewController *activePlayer = nil;
     {
         AVPlayerItem *item = (AVPlayerItem *)object;
         //playerItem status value changed?
-        if ([keyPath isEqualToString:@"status"])
+        if ([keyPath isEqualToString:@"status"] || [keyPath isEqualToString:@"playbackLikelyToKeepUp"])
         {
-            if (item == videoItem) {
-                [self handleVideoCallbacks];
-            } else {
-                [self handleAudioCallbacks];
+            NSLog(@"%@: Loaded times = %@", keyPath, videoItem.loadedTimeRanges);
+            
+            BOOL ready = NO;
+            if (item.playbackLikelyToKeepUp && item.status == AVPlayerItemStatusReadyToPlay) {
+                ready = YES;
             }
             
+            if (ready || item.status == AVPlayerItemStatusFailed) {
+                if (item == videoItem) {
+                    [self handleVideoCallbacks];
+                } else {
+                    [self handleAudioCallbacks];
+                }
+            }
         }
         else if ([keyPath isEqualToString:@"playbackBufferEmpty"])
         {
             if (item.playbackBufferEmpty)
             {
                 NSLog(@"player item playback buffer is empty");
-                [queuePlayer play];
+                if (self.videoState == kVideoOpened) {
+                    [queuePlayer play];
+                }
             }
         }
     }
@@ -969,7 +959,8 @@ static VideoPlayerViewController *activePlayer = nil;
 {
     [overlayAudioItem addObserver:self forKeyPath:@"status" options:0 context:nil];
     [overlayAudioItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:0 context:nil];
-    
+    [overlayAudioItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:0 context:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
@@ -979,10 +970,12 @@ static VideoPlayerViewController *activePlayer = nil;
 - (void) deregisterAudioCallbacks
 {
     [overlayAudioItem  removeObserver:self forKeyPath:@"status"];
-    [videoItem  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+    [overlayAudioItem  removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+    [overlayAudioItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:AVPlayerItemDidPlayToEndTimeNotification
-                                                  object:videoItem];
+                                                  object:overlayAudioItem];
     
 }
 
