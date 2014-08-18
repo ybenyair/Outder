@@ -14,6 +14,7 @@
 #import "ServerCommunication.h"
 #import "DejalActivityView.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "Defines.h"
 
 #define kDefaultTime @"9999-12-31 00:00:00"
 
@@ -90,6 +91,23 @@
     UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     //then set it.  phew.
     self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void) setNavBarView
+{
+    self.navigationItem.titleView = nil;
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont fontWithName:kFontBlack size:24];
+    titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    titleView.textColor = [UIColor whiteColor]; // Change to desired color
+    self.navigationItem.titleView = titleView;
+    if ([self.feedType isEqualToString:kMyVideoType]) {
+        titleView.text = NSLocalizedString(@"MY VIDEOS", nil);
+    } else {
+        titleView.text = NSLocalizedString(@"POPULAR VIDEOS", nil);
+    }
+    [titleView sizeToFit];
 }
 
 - (void)loadData

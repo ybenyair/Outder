@@ -17,7 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet iCarousel *carousel;
 @property (weak, nonatomic) IBOutlet UIView *landscapeView;
-@property (weak, nonatomic) IBOutlet UIView *portraitView;
 @property (weak, nonatomic) IBOutlet UIView *viewRecordTimer;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIButton *btnRestart;
@@ -26,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelRecord;
 @property (weak, nonatomic) IBOutlet UIButton *labelRestart;
 @property (weak, nonatomic) IBOutlet AVCamInstructionsTextView *viewEditText;
-@property (weak, nonatomic) IBOutlet UIView *viewBlur;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)btnBackClicked:(id)sender;
 - (IBAction)btnRestartClicked:(id)sender;

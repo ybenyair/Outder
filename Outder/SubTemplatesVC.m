@@ -72,7 +72,7 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.carousel scrollToItemAtIndex:(self.carousel.currentItemIndex + 1) animated:YES];
+    [self.carousel scrollToItemAtIndex:(self.carousel.currentItemIndex + 1) duration:0.75f];
 }
 
 - (void) viewDidDisappear:(BOOL)animated

@@ -102,13 +102,6 @@
     self.labelNumber.font = [UIFont fontWithName:kFontBlack size:35];
     self.labelNumber.textColor = [UIColor whiteColor];
     
-    self.labelRecorded.font = [UIFont fontWithName:kFontRegular size:13];
-    self.labelRecorded.textColor = [FontHelpers colorFromHexString:@"#4db500"];
-    self.labelRecorded.text = NSLocalizedString(@"Recorded", nil);
-    
-    self.labelSeconds.font = [UIFont fontWithName:kFontRegular size:13];
-    self.labelSeconds.textColor = [UIColor whiteColor];
-    
     self.uploadActivity.color = [UIColor whiteColor];
 
     self.labelLeft.font = [UIFont fontWithName:kFontBold size:14];
@@ -229,32 +222,11 @@
     frame = self.labelName.frame;
     frame.origin.x = self.viewNumber.frame.origin.x - self.labelName.frame.size.width - 4;
     self.labelName.frame = frame;
-    
-    // Seconds view
-    frame = self.viewSeconds.frame;
-    frame.origin.x = xOffset + 5;
-    self.viewSeconds.frame = frame;
-    
-    frame = self.labelSeconds.frame;
-    frame.origin.x = self.viewSeconds.frame.origin.x + self.viewSeconds.frame.size.width + 2;
-    self.labelSeconds.frame = frame;
-    self.labelSeconds.textAlignment = NSTextAlignmentLeft;
-    
-    // Recorded view
-    frame = self.viewRecorded.frame;
-    frame.origin.x = xOffset + 5;
-    self.viewRecorded.frame = frame;
-    
-    frame = self.labelRecorded.frame;
-    frame.origin.x = self.viewRecorded.frame.origin.x + self.viewRecorded.frame.size.width + 2;
-    self.labelRecorded.frame = frame;
-    self.labelRecorded.textAlignment = NSTextAlignmentLeft;
 }
 
 - (void) configureLeftView
 {
     CGFloat xOffset = self.imageBG.frame.origin.x;
-    CGFloat xWidth = self.imageBG.frame.size.width;
     
     // Number view
     CGRect frame = self.viewNumber.frame;
@@ -269,26 +241,6 @@
     frame = self.labelName.frame;
     frame.origin.x = self.viewNumber.frame.origin.x + self.viewNumber.frame.size.width + 4;
     self.labelName.frame = frame;
-    
-    // Seconds view
-    frame = self.viewSeconds.frame;
-    frame.origin.x = xOffset + xWidth - self.viewSeconds.frame.size.width - 5;
-    self.viewSeconds.frame = frame;
-    
-    frame = self.labelSeconds.frame;
-    frame.origin.x = self.viewSeconds.frame.origin.x - self.labelSeconds.frame.size.width - 2;
-    self.labelSeconds.frame = frame;
-    self.labelSeconds.textAlignment = NSTextAlignmentRight;
-    
-    // Recorded view
-    frame = self.viewRecorded.frame;
-    frame.origin.x = xOffset + xWidth - self.viewRecorded.frame.size.width - 5;
-    self.viewRecorded.frame = frame;
-    
-    frame = self.labelRecorded.frame;
-    frame.origin.x = self.viewRecorded.frame.origin.x - self.labelRecorded.frame.size.width - 2;
-    self.labelRecorded.frame = frame;
-    self.labelRecorded.textAlignment = NSTextAlignmentRight;
 }
 
 - (void) resetLabelNameSize
@@ -304,8 +256,6 @@
     [self resetLabelNameSize];
     [self.labelName sizeToFit];
     self.labelNumber.text = [NSString stringWithFormat:@"%lu", (unsigned long)index + 1];
-    NSString *seconds = NSLocalizedString(@"Seconds", nil);
-    self.labelSeconds.text = [NSString stringWithFormat:@"%d %@", [currentInstruction.length intValue], seconds];
     
     if ([currentInstruction.fixed boolValue] == YES) self.state = kInstructionFixed;
     
@@ -332,8 +282,6 @@
 {
     self.labelNumber.hidden = NO;
     self.viewNumber.hidden = YES;
-    self.viewSeconds.hidden = NO;
-    self.labelSeconds.hidden = NO;
 }
 
 - (void) setInstructionRecordLayer
@@ -386,9 +334,6 @@
     // Unhide layers
     [self unhideInstructionFixedItems];
 
-    self.viewSeconds.hidden = YES;
-    self.labelSeconds.hidden = YES;
-
     // Set parameters
     if (updateImages) [self setImage:currentInstruction.imageURL];
     self.labelName.text = self.currentInstruction.name;
@@ -406,8 +351,6 @@
     self.btnRetake.enabled = NO;
     self.btnPlayPreview.hidden = YES;
     self.btnPlayPreview.enabled = NO;
-    self.viewRecorded.hidden = YES;
-    self.labelRecorded.hidden = YES;
     self.labelLeft.hidden = YES;
     self.labelRight.hidden = YES;
 }
@@ -421,10 +364,6 @@
     self.btnPlayPreview.enabled = YES;
     self.labelNumber.hidden = NO;
     self.viewNumber.hidden = YES;
-    self.viewRecorded.hidden = NO;
-    self.labelRecorded.hidden = NO;
-    self.viewSeconds.hidden = NO;
-    self.labelSeconds.hidden = NO;
     self.labelLeft.hidden = NO;
     self.labelRight.hidden = NO;
 }
@@ -552,8 +491,6 @@
     // Set parameters
     self.labelNumber.hidden = YES;
     self.viewNumber.hidden = YES;
-    self.viewSeconds.hidden = YES;
-    self.labelSeconds.hidden = YES;
     self.labelName.hidden = YES;
     
     [self setImage:nil];
@@ -843,7 +780,7 @@
     Instruction *inst = [instructions firstObject];
     SubTemplate *subTemplate = inst.subTemplate;
     // A new feed
-    feed.title = subTemplate.title;
+    feed.title = subTemplate.name;
     feed.videoURL = nil;
     feed.imageURL = inst.imageURL;
     feed.pageURL = nil;

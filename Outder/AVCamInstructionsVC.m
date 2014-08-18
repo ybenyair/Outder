@@ -31,6 +31,7 @@
     BOOL isRecording;
     BOOL isDone;
     BOOL autoPlay;
+    NSTimer *busyTimer;
 }
 
 #define kRestartString NSLocalizedString(@"start over", nil);
@@ -104,14 +105,23 @@
     isDone = NO;
 }
 
+- (BOOL)shouldAutorotate
+{
+    NSLog(@"Should autorotate");
+    return NO;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    NSLog(@"supportedInterfaceOrientations");
+    return UIInterfaceOrientationMaskLandscape;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-
-    AVCamInstructionsPortraitView *portrait = (AVCamInstructionsPortraitView *)self.portraitView;
-    [portrait setSuperCtrl:self];
     
     self.carousel.type = iCarouselTypeCustom;
     [self.carousel setScrollToItemBoundary:YES];
@@ -120,15 +130,12 @@
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     NSLog(@"UIDeviceOrientation %ld", (long)orientation);
-    
-    if (UIDeviceOrientationIsLandscape(orientation) ) {
-        [self configureViewLandscape];
-    } else {
-        [self configureViewPortrait];
-    }
+
+    [self configureViewLandscape];
     
     [self setRecordButtonHidden:YES];
     [self setRestartButtonHidden:YES];
+    self.activityIndicator.hidden = YES;
     
     isDone = [self wereInstructionsCompleted];
     
@@ -161,8 +168,6 @@
     NSLog(@"AVCamInstructionsVC: viewDidAppear");
     [super viewDidAppear:animated];
     
-    [self registerToDeviceOrientationNotification];
-    
     // Adding observer
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(FeedMakeOneNtfy:)
@@ -179,7 +184,6 @@
 {
     NSLog(@"AVCamInstructionsVC: viewDidDisappear");
     [super viewDidDisappear:animated];
-    [self deregisterToDeviceOrientationNotification];
     // Removig observer
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                  name:@"FeedMakeOneStart"
@@ -202,59 +206,9 @@
     return inst.subTemplate;
 }
 
-#pragma mark - device orientation handling
-
-- (void) registerToDeviceOrientationNotification
-{
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
-}
-
-- (void) deregisterToDeviceOrientationNotification
-{
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIDeviceOrientationDidChangeNotification
-                                                  object:nil];
-}
-
-- (void) orientationChanged:(NSNotification *)note
-{
-    UIDevice * device = note.object;
-    switch(device.orientation)
-    {
-        case UIDeviceOrientationLandscapeLeft:
-        case UIDeviceOrientationLandscapeRight:
-            /* start special animation */
-            NSLog(@"Landscape left");
-            [self configureViewLandscape];
-            break;
-        case UIDeviceOrientationPortrait:
-        case UIDeviceOrientationPortraitUpsideDown:
-            NSLog(@"Portrait");
-            [self configureViewPortrait];
-            break;
-            
-        default:
-            break;
-    };
-}
-
-
-- (void)configureViewPortrait
-{
-    NSLog(@"configureViewPortrait");
-    self.portraitView.hidden = NO;
-    self.landscapeView.hidden = YES;
-}
-
 - (void)configureViewLandscape
 {
     NSLog(@"configureViewLandscape");
-    self.portraitView.hidden = YES;
     if (self.viewEditText.hidden == YES) {
         self.landscapeView.hidden = NO;
     }
@@ -397,24 +351,20 @@
         
         case kInstructionRecord:
         case kInstructionUnknown:
-            self.viewBlur.hidden = YES;
             [self configureCameraPosition];
             [self setRecordButtonStateRecord];
             break;
             
         case kInstructionFixed:
-            self.viewBlur.hidden = YES;
             [self setRecordButtonStateFixed];
             break;
 
         case kInstructionRetake:
-            self.viewBlur.hidden = YES;
             [self configureCameraPosition];
             [self setRecordButtonStateRetake];
             break;
 
         case kInstructionDone:
-            self.viewBlur.hidden = NO;
             [self setRecordButtonStateDone];
             break;
 
@@ -468,7 +418,6 @@
 - (void) startEditText
 {
     [self setLockInterfaceRotation:YES];
-    [self deregisterToDeviceOrientationNotification];
 
     self.viewEditText.hidden = NO;
     self.viewEditText.userInteractionEnabled = YES;
@@ -481,7 +430,6 @@
 - (void) editTextEnded
 {
     [self setLockInterfaceRotation:NO];
-    [self registerToDeviceOrientationNotification];
 
     [self.viewEditText endEditText];
     self.landscapeView.hidden = NO;
@@ -523,6 +471,8 @@
     [item currentlyDragging];
 }
 
+#define minDraggingToSwipe 0.02
+
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
     if (carousel.numberOfItems == 1) return;
@@ -531,10 +481,14 @@
     CGFloat diff = endOffset - beginOffset;
     NSLog(@"carouselDidEndDragging: offset-diff %f  offset %f", diff, carousel.scrollOffset);
 
-    // Dragging within bounds
-    if (fabs(diff) < 0.5 && fabs(diff) > 0.02) {
+    if (fabs(diff) > minDraggingToSwipe) {
         autoPlay = NO;
         NSLog(@"Auto play disabled");
+    }
+    
+    // Dragging within bounds
+    if (fabs(diff) < 0.5 && fabs(diff) > minDraggingToSwipe) {
+        
         if (diff > 0) {
             if (carousel.currentItemIndex < carousel.numberOfItems - 1) {
                 NSLog(@"Force move right");
@@ -546,6 +500,7 @@
                 carousel.forceScrollDirection = -1;
             }
         }
+        
     }
 }
 
@@ -641,7 +596,7 @@
 {
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [CoreData saveDB];
-    [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)btnRestartClicked:(id)sender {
@@ -713,7 +668,6 @@
 {
     // We were notified that the AVCam controller actualy started the recording
     NSLog(@"ntfyRecordStart");
-    [self deregisterToDeviceOrientationNotification];
     isRecording = YES;
     [self setRecordButtonStateRecording];
     [self setBackButtonHidden:YES];
@@ -742,7 +696,44 @@
 {
     // We were notified that the AVCam controller actualy ended the recording
     NSLog(@"ntfyRecordEnd");
-    [self registerToDeviceOrientationNotification];
+    self.carousel.scrollEnabled = NO;
+    [self startBusyIndicator];
+}
+
+- (void) startBusyIndicator
+{
+    NSLog(@"startBusyIndicator");
+    busyTimer = [NSTimer scheduledTimerWithTimeInterval:0.75f target:self selector:@selector(aBusyIndicator:) userInfo:nil repeats:NO];
+}
+
+-(void)aBusyIndicator: (NSTimer *)timer
+{
+    NSLog(@"BusyIndicator timer");
+    self.activityIndicator.hidden = NO;
+    [self.activityIndicator startAnimating];
+    busyTimer = nil;
+}
+
+- (void) stopBusyIndicator
+{
+    NSLog(@"stopBusyIndicator");
+    if (busyTimer) {
+        NSLog(@"clear BusyIndicator timer");
+        [busyTimer invalidate];
+        busyTimer = nil;
+    }
+    
+    self.activityIndicator.hidden = YES;
+    [self.activityIndicator stopAnimating];
+}
+
+- (void)executeRecordEnd
+{
+    NSLog(@"executeRecordEnd");
+
+    self.carousel.scrollEnabled = YES;
+    [self stopBusyIndicator];
+    
     isRecording = NO;
     [self setRecordButtonStateRetake];
     [self stopRecordAnimation];
@@ -751,16 +742,15 @@
     self.pageControl.hidden = NO;
     [self.carousel setAlpha:0];
     self.carousel.hidden = NO;
-
+    
     [self.recordButton setAlpha:0];
-
+    
     [UIView animateWithDuration:1.5f
                      animations:^{
                          [self.carousel setAlpha:1];
                          [self.recordButton setAlpha:1];
                      }];
 }
-
 
 - (void) setRecordButtonStateRecord
 {
@@ -882,6 +872,9 @@
         [self deletePreviousRecordedFiles];
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self executeRecordEnd];
+            
             InstructionCell *cell = [self getCurrentItem];
             [cell configureUserShot:thumbImageFile withVideo:[movieURL absoluteString]];
             
@@ -892,14 +885,12 @@
                 }
             }
 
-            if (autoPlay) {
-                
-                BOOL completed = [self wereInstructionsCompleted];
-                
-                if (completed && ![self.viewEditText isCompleted]) {
-                    [self startEditText];
-                    NSLog(@"Open edit text dialog before DONE instruction");
-                } else {
+            BOOL completed = [self wereInstructionsCompleted];
+            if (completed && ![self.viewEditText isCompleted]) {
+                NSLog(@"Open edit text dialog before DONE instruction");
+                [self startEditText];
+            } else {
+                if (autoPlay) {
                     [self moveToNextInstruction:0.75f];
                 }
             }
@@ -1012,7 +1003,8 @@
 {
     self.pageControl.numberOfPages = self.pageControl.numberOfPages - 1;
     [self.carousel removeItemAtIndex:self.carousel.numberOfItems animated:NO];
-    [self.carousel scrollToItemAtIndex:0 animated:YES];
+    CGFloat duration = self.carousel.numberOfItems * 0.25f;
+    [self.carousel scrollToItemAtIndex:0 duration:duration];
 }
 
 #pragma mark -

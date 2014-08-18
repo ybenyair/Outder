@@ -163,11 +163,11 @@ static RootViewController *instance = nil;
 
 - (void)startDashboardViewController: (BOOL)refreshData withTab:(NSUInteger)index
 {
-    tabController = [[UITabBarController alloc] init];
+    tabController = [[CustomTabBarVC alloc] init];
     
     templatesVC = [[TemplatesVC alloc] init];
     templatesVC.managedObjectContext = self.managedObjectContext;
-    templatesVC.tabBarItem.title = NSLocalizedString(@"Create", nil);
+    //templatesVC.tabBarItem.title = NSLocalizedString(@"Create", nil);
     templatesVC.tabBarItem.image = [[UIImage imageNamed:@"tabs_create_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     templatesVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_create_on"];
     
@@ -177,7 +177,7 @@ static RootViewController *instance = nil;
     
     myVideoVC = [[FeedTableViewController alloc] init];
     myVideoVC.managedObjectContext = self.managedObjectContext;
-    myVideoVC.tabBarItem.title = NSLocalizedString(@"My Video", nil);
+    //myVideoVC.tabBarItem.title = NSLocalizedString(@"My Video", nil);
     myVideoVC.feedType = kMyVideoType;
     myVideoVC.tabBarItem.image = [[UIImage imageNamed:@"tabs_myvideos_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     myVideoVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_myvideos_on"];
@@ -189,7 +189,7 @@ static RootViewController *instance = nil;
 
     featuredVideoVC = [[FeedTableViewController alloc] init];
     featuredVideoVC.managedObjectContext = self.managedObjectContext;
-    featuredVideoVC.tabBarItem.title = NSLocalizedString(@"Popular", nil);
+    //featuredVideoVC.tabBarItem.title = NSLocalizedString(@"Popular", nil);
     featuredVideoVC.feedType = kFeaturedVideoType;
     featuredVideoVC.tabBarItem.image = [[UIImage imageNamed:@"tabs_popular_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     featuredVideoVC.tabBarItem.selectedImage = [UIImage imageNamed:@"tabs_popular_on"];
@@ -202,29 +202,12 @@ static RootViewController *instance = nil;
     
     tabController.selectedViewController=[tabController.viewControllers objectAtIndex:index];
     tabController.tabBar.BarTintColor = [UIColor viewFlipsideBackgroundColor];
-    
-    [self setBarItemColors];
-    
+        
     if (refreshData) {
         [self getTemplates];
     } else {
         [self setActiveView:tabController];
     }
-}
-
-- (void) setBarItemColors
-{
-    UIColor *colorPress = [FontHelpers colorFromHexString:@"#41beb1"];
-    
-    [[UITabBar appearance] setTintColor:colorPress];
-    
-    [UITabBarItem.appearance setTitleTextAttributes:@{ UITextAttributeTextColor : [UIColor whiteColor] } forState:UIControlStateNormal];
-    
-    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
-    
-    [[UITabBar appearance] setSelectedImageTintColor:colorPress];
-    
-    [UITabBarItem.appearance setTitleTextAttributes:@{UITextAttributeTextColor : colorPress } forState:UIControlStateSelected];
 }
 
 - (void)communicationResponse:(NSDictionary *)json responseCode:(eCommResponseCode)code userData:(NSObject *)data

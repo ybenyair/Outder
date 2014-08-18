@@ -22,16 +22,12 @@
                 <outlet property="labelLeft" destination="OdH-f0-id0" id="IW4-aj-nfT"/>
                 <outlet property="labelName" destination="8dM-fP-VC7" id="4Ps-BX-r1F"/>
                 <outlet property="labelNumber" destination="8rY-rW-wvq" id="3wB-ho-Yl6"/>
-                <outlet property="labelRecorded" destination="Nfs-mB-40h" id="mVm-GR-wts"/>
                 <outlet property="labelRight" destination="qfs-6P-Zyg" id="Tqt-E5-BqH"/>
-                <outlet property="labelSeconds" destination="XBl-J1-iOb" id="hCC-cD-dBf"/>
                 <outlet property="uploadActivity" destination="xAX-s0-uW6" id="UZH-K3-19m"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewFixedShot" destination="ao4-dO-umc" id="95i-Cx-uAu"/>
                 <outlet property="viewInstructions" destination="rV8-bq-9Iu" id="KkP-qY-drc"/>
                 <outlet property="viewNumber" destination="6kr-hq-0oV" id="UCQ-Sf-yls"/>
-                <outlet property="viewRecorded" destination="LBe-4c-hh6" id="nOE-Jj-P3s"/>
-                <outlet property="viewSeconds" destination="xXJ-Cr-Xzf" id="2FZ-vY-GaL"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -55,28 +51,6 @@
                             <rect key="frame" x="64" y="22" width="440" height="66"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons_seconds.png" id="xXJ-Cr-Xzf" userLabel="Image View - seconds">
-                            <rect key="frame" x="467" y="49" width="14" height="14"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XBl-J1-iOb" userLabel="Label - seconds">
-                            <rect key="frame" x="386" y="45" width="76" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons_recorded.png" id="LBe-4c-hh6" userLabel="Image View - recorded">
-                            <rect key="frame" x="467" y="65" width="14" height="14"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nfs-mB-40h" userLabel="Label - Recorded">
-                            <rect key="frame" x="386" y="61" width="76" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nvR-P0-Jn7" userLabel="Label - done">
                             <rect key="frame" x="97" y="44" width="374" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -85,7 +59,7 @@
                             <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instruction #1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8dM-fP-VC7" userLabel="Label - name" customClass="UILabelAligned">
-                            <rect key="frame" x="124" y="44" width="283" height="44"/>
+                            <rect key="frame" x="123" y="44" width="351" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.14973061798554285" green="0.87002497695297487" blue="0.93499490489130432" alpha="1" colorSpace="calibratedRGB"/>
@@ -219,8 +193,6 @@
         <image name="icon_play_off.png" width="62" height="62"/>
         <image name="icon_publish_off.png" width="62" height="62"/>
         <image name="icon_retake_off.png" width="62" height="62"/>
-        <image name="icons_recorded.png" width="12" height="12"/>
-        <image name="icons_seconds.png" width="12" height="12"/>
         <image name="shot_number_bg.png" width="34" height="34"/>
     </resources>
 </document>

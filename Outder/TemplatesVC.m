@@ -13,6 +13,7 @@
 #import "TemplatePromotedCell.h"
 #import "TemplateCoreData.h"
 #import "SubTemplatesVC.h"
+#import "Defines.h"
 
 @interface PromotedTemplate : NSObject {
     NSInteger templateID;
@@ -97,6 +98,18 @@ static NSString *CellIdentifier = @"templateCell";
 
 }
 
+
+- (void) setBarItemLeft
+{
+    CGRect frame = CGRectMake(0, 0, 20, 20);
+    //init a normal UIButton using that image
+    UIButton* button = [[UIButton alloc] initWithFrame:frame];
+    //finally, create your UIBarButtonItem using that button
+    UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    //then set it.  phew.
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
 - (void) setBarItemRight
 {
     CGRect frame = CGRectMake(0, 0, 20, 20);
@@ -106,6 +119,19 @@ static NSString *CellIdentifier = @"templateCell";
     UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     //then set it.  phew.
     self.navigationItem.rightBarButtonItem = barButtonItem;
+}
+
+- (void) setNavBarView
+{
+    self.navigationItem.titleView = nil;
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont fontWithName:kFontBlack size:24];
+    titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    titleView.textColor = [UIColor whiteColor]; // Change to desired color
+    self.navigationItem.titleView = titleView;
+    titleView.text = NSLocalizedString(@"CREATE A VIDEO", nil);
+    [titleView sizeToFit];
 }
 
 - (void) setPromotedTemplates

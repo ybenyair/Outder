@@ -10,11 +10,12 @@
 #import "ServerCommunication.h"
 #import "FeedTableViewController.h"
 #import "TemplatesVC.h"
+#import "CustomTabBarVC.h"
 
 @interface RootViewController : UIViewController <ServerCommunicationDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) UITabBarController *tabController;
+@property (strong, nonatomic) CustomTabBarVC *tabController;
 @property (strong, nonatomic) FeedTableViewController *myVideoVC;
 @property (strong, nonatomic) FeedTableViewController *featuredVideoVC;
 @property (strong, nonatomic) TemplatesVC *templatesVC;

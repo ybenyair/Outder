@@ -24,8 +24,7 @@
 		183F8883194D8688006EDD8C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F8882194D8688006EDD8C /* ImageIO.framework */; };
 		1841971F196D192800B14558 /* AVCamInstructionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841971E196D192800B14558 /* AVCamInstructionsVC.m */; };
 		18419724196D22E300B14558 /* AVCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18419723196D22E300B14558 /* AVCamViewController.m */; };
-		1849D0F0196DE0450001B1EA /* InstructionsPortraitVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1849D0EF196DE0450001B1EA /* InstructionsPortraitVC.xib */; };
-		184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DDAE61948666000F22B2A /* CustomNavigationController.m */; };
+		184DDAE71948666000F22B2A /* CustomTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DDAE61948666000F22B2A /* CustomTabBarVC.m */; };
 		185CDD4E198054640082B856 /* InstructionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185CDD4D198054640082B856 /* InstructionUploader.m */; };
 		185CDD50198054700082B856 /* FeedUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185CDD4F198054700082B856 /* FeedUploader.m */; };
 		18699037197872070004C44F /* UploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18699036197872070004C44F /* UploadManager.m */; };
@@ -265,9 +264,8 @@
 		1841971E196D192800B14558 /* AVCamInstructionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamInstructionsVC.m; sourceTree = "<group>"; };
 		18419722196D22DB00B14558 /* AVCamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCamViewController.h; sourceTree = "<group>"; };
 		18419723196D22E300B14558 /* AVCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamViewController.m; sourceTree = "<group>"; };
-		1849D0EF196DE0450001B1EA /* InstructionsPortraitVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionsPortraitVC.xib; sourceTree = "<group>"; };
-		184DDAE51948665700F22B2A /* CustomNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
-		184DDAE61948666000F22B2A /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
+		184DDAE51948665700F22B2A /* CustomTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTabBarVC.h; sourceTree = "<group>"; };
+		184DDAE61948666000F22B2A /* CustomTabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarVC.m; sourceTree = "<group>"; };
 		185CDD4C198054580082B856 /* InstructionUploader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = InstructionUploader.h; path = Outder/InstructionUploader.h; sourceTree = "<group>"; };
 		185CDD4D198054640082B856 /* InstructionUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstructionUploader.m; path = Outder/InstructionUploader.m; sourceTree = "<group>"; };
 		185CDD4F198054700082B856 /* FeedUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedUploader.m; path = Outder/FeedUploader.m; sourceTree = "<group>"; };
@@ -700,8 +698,8 @@
 			children = (
 				18984AAD19486E2F001410B7 /* TitleNavBarVC.h */,
 				18984AAE19486E37001410B7 /* TitleNavBarVC.m */,
-				184DDAE51948665700F22B2A /* CustomNavigationController.h */,
-				184DDAE61948666000F22B2A /* CustomNavigationController.m */,
+				184DDAE51948665700F22B2A /* CustomTabBarVC.h */,
+				184DDAE61948666000F22B2A /* CustomTabBarVC.m */,
 				1887F76C199FA8560027B4E1 /* UILabelAligned.h */,
 				1887F76D199FA8560027B4E1 /* UILabelAligned.m */,
 			);
@@ -939,7 +937,6 @@
 				18ACD7F1196DE49D0001AC8B /* AVCamInstructionsPortraitView.m */,
 				18ACD7F3196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib */,
 				18F8A92A196F49D2001093E4 /* AVCamInstructionsPortraitView.iPhone4.xib */,
-				1849D0EF196DE0450001B1EA /* InstructionsPortraitVC.xib */,
 				18E168A8198D1B82003A1042 /* AVCamInstructionsTextView.h */,
 				18E168A9198D1B91003A1042 /* AVCamInstructionsTextView.m */,
 				1897D6DE1993258700F0BA35 /* AVCamInstructionsTextView.iPhone4.xib */,
@@ -1242,7 +1239,6 @@
 				1888B3FB1989BCF900957213 /* icon_makeit_off@2x.png in Resources */,
 				1887F76B199F83740027B4E1 /* button_stop_off@2x.png in Resources */,
 				1888B40C1989BCF900957213 /* icons_recorded@2x.png in Resources */,
-				1849D0F0196DE0450001B1EA /* InstructionsPortraitVC.xib in Resources */,
 				1885FF2C1965F0C5008E93A5 /* TemplatePromotedCell.xib in Resources */,
 				1885A04519879F6A00246765 /* almoni-dl-aaa-bold.otf in Resources */,
 				18F33DF119A04ED30043788F /* frame_opacity_50@2x.png in Resources */,
@@ -1338,7 +1334,7 @@
 				1885FF1E1965D55B008E93A5 /* TemplatesVC.m in Sources */,
 				18E168AA198D1B91003A1042 /* AVCamInstructionsTextView.m in Sources */,
 				18EC4FB6193D0E4B003E5335 /* AppDelegate.m in Sources */,
-				184DDAE71948666000F22B2A /* CustomNavigationController.m in Sources */,
+				184DDAE71948666000F22B2A /* CustomTabBarVC.m in Sources */,
 				186990D7197A8F1B0004C44F /* ASIDataDecompressor.m in Sources */,
 				1885FF2A1965F0BD008E93A5 /* TemplatePromotedCell.m in Sources */,
 				188832F319A0EBB3005CE608 /* Tip.m in Sources */,

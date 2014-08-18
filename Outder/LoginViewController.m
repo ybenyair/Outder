@@ -7,12 +7,10 @@
 //
 
 #import "LoginViewController.h"
-#import "CustomNavigationController.h"
 #import "TermOfUseViewController.h"
 #import "Defines.h"
 #import "DejalActivityView.h"
 #import "LoginInfo.h"
-#import "CustomNavigationController.h"
 #import "RootViewController.h"
 
 @interface LoginViewController ()

@@ -9,25 +9,8 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "LoginViewController.h"
-#import "CustomNavigationController.h"
 #import "LoginInfo.h"
 #import "RootViewController.h"
-
-//UITabBarController category to set the view rotations for ios 6
-@implementation UITabBarController (Background)
-
--(BOOL)shouldAutorotate
-{
-    //I don't want to support auto rotate, but you can return any value you want here
-    return NO;
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    //I want to only support portrait mode
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-@end
 
 @implementation AppDelegate
 
