@@ -495,7 +495,7 @@ static NSString *CellIdentifier = @"templateCell";
 
 -(void) removeSubTemplatesViewController
 {
-    SubTemplatesVC *subCtrl = (SubTemplatesVC *)[self.navigationController popViewControllerAnimated:YES];
+    SubTemplatesVC *subCtrl = (SubTemplatesVC *)[self.navigationController popViewControllerAnimated:NO];
     [subCtrl clearPresentedViewControllers];
     subCtrl = nil;
 }

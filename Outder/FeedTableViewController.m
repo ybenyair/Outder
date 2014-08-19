@@ -82,6 +82,33 @@
 
 #pragma mark - override Navigation bar settiog
 
+- (void) setBarItemRight
+{
+    //create the image for your button, and set the frame for its size
+    CGRect frame = CGRectMake(0, 0, 40, 40);
+    
+    //init a normal UIButton using that image
+    UIButton* button = [[UIButton alloc] initWithFrame:frame];
+    button.showsTouchWhenHighlighted = YES;
+    button.titleLabel.font = [UIFont fontWithName:kFontBold size:12];
+    [button setTitle:NSLocalizedString(@"LOGOUT", nil) forState:UIControlStateNormal];
+    button.titleLabel.textColor = [FontHelpers colorFromHexString:@"#41beb1"];
+    
+    //set the button to handle clicks - this one calls a method called 'downloadClicked'
+    [button addTarget:self action:@selector(logoutClicked:) forControlEvents:UIControlEventTouchDown];
+    
+    //finally, create your UIBarButtonItem using that button
+    UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    //then set it.  phew.
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+    
+    if ([self.feedType isEqualToString:kFeaturedVideoType]) {
+        button.hidden = YES;
+        button.enabled = NO;
+    }
+}
+
 - (void) setBarItemLeft
 {
     CGRect frame = CGRectMake(0, 0, 20, 20);
@@ -108,6 +135,12 @@
         titleView.text = NSLocalizedString(@"POPULAR VIDEOS", nil);
     }
     [titleView sizeToFit];
+}
+
+- (void) logoutClicked: (id) sender
+{
+    RootViewController *root = [RootViewController getInstance];
+    [root startLoginViewController: YES];
 }
 
 - (void)loadData

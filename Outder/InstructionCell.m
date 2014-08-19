@@ -475,6 +475,9 @@
     center.x = xRight;
     self.btnPlayDone.center = center;
     
+    self.imageShot.alpha = 0.3f;
+    self.imageShot.backgroundColor = [UIColor blackColor];
+    
     [self processUploadIndicator];
 }
 

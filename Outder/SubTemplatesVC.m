@@ -78,20 +78,20 @@
 - (void) viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
 }
 
 - (void) backClicked: (id) sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    CGFloat animationDuration = 0.75f;
+    [self.carousel scrollToItemAtIndex:(self.carousel.currentItemIndex - 1) duration:animationDuration];
 
-    self.view.alpha = 1.0f;
-    [UIView animateWithDuration:0.2
+    [UIView animateWithDuration:animationDuration - 0.15f
                      animations:^{
-                         self.view.alpha = 0.0f;
+                         self.view.alpha = 0.95f;
                      }
                      completion:^(BOOL finished){
                          if (finished) {
+                             [self.navigationController popViewControllerAnimated:NO];
                          }
                      }
      ];
@@ -165,7 +165,7 @@
     if (_previousPage != carousel.currentItemIndex) {
         _previousPage = carousel.currentItemIndex;
         [item setAutoPlay:autoPlayVideo];
-        autoPlayVideo = NO; // Only once
+        autoPlayVideo = NO;
         [item currentlyPresented];
     }
 }
@@ -325,7 +325,7 @@
 
 - (void)clearPresentedViewControllers
 {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

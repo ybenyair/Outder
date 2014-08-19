@@ -29,6 +29,8 @@
 
 - (IBAction)btnBackClicked:(id)sender;
 - (IBAction)btnRestartClicked:(id)sender;
+- (IBAction)toggleMovieRecording:(id)sender;
+
 
 // Camera
 - (void) setCameraFront;

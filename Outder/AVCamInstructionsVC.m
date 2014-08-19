@@ -15,6 +15,7 @@
 #import "Defines.h"
 #import "UserText.h"
 #import "FileHelpers.h"
+#import "MP3Player.h"
 
 @interface AVCamInstructionsVC ()
 
@@ -32,6 +33,7 @@
     BOOL isDone;
     BOOL autoPlay;
     NSTimer *busyTimer;
+    MP3Player *mpPlayer;
 }
 
 #define kRestartString NSLocalizedString(@"start over", nil);
@@ -161,6 +163,8 @@
     [self.viewEditText setSuperCtrl:self];
     [self.viewEditText setUserTextHints:[[self getSubTemplate] userTexts]];
     self.viewEditText.hidden = YES;
+    
+    mpPlayer = [[MP3Player alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -584,6 +588,20 @@
 
 #pragma mark -
 #pragma mark Actions
+
+- (IBAction)toggleMovieRecording:(id)sender
+{
+    NSString *sound;
+    if (isRecording) {
+        sound = @"camera_end";
+    } else {
+        sound = @"camera_start";
+    }
+    
+    [mpPlayer playMP3FileNamed:sound completion:nil];
+    
+    [super toggleMovieRecording:nil];
+}
 
 - (void)btnRetakeClicked
 {

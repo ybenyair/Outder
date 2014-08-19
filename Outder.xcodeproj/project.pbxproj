@@ -66,6 +66,9 @@
 		1886683E196B6BBD00B82A16 /* AVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */; };
 		18878BF9198CEE62008AEF09 /* icon_retake_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */; };
 		18878BFB198CF3A7008AEF09 /* icon_restart_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */; };
+		1887C70719A3751A00345EFC /* camera_end.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1887C70519A3751A00345EFC /* camera_end.wav */; };
+		1887C70819A3751A00345EFC /* camera_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1887C70619A3751A00345EFC /* camera_start.wav */; };
+		1887C70C19A3766F00345EFC /* MP3Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 1887C70B19A3766F00345EFC /* MP3Player.m */; };
 		1887F765199F60C70027B4E1 /* tabs_create_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1887F764199F60C70027B4E1 /* tabs_create_off@2x.png */; };
 		1887F767199F60D90027B4E1 /* tabs_create_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1887F766199F60D90027B4E1 /* tabs_create_on@2x.png */; };
 		1887F76B199F83740027B4E1 /* button_stop_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1887F76A199F83740027B4E1 /* button_stop_off@2x.png */; };
@@ -337,6 +340,10 @@
 		1886683D196B6BBD00B82A16 /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
 		18878BF8198CEE62008AEF09 /* icon_retake_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_retake_off@2x.png"; sourceTree = "<group>"; };
 		18878BFA198CF3A7008AEF09 /* icon_restart_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_restart_off@2x.png"; sourceTree = "<group>"; };
+		1887C70519A3751A00345EFC /* camera_end.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = camera_end.wav; path = MP3/camera_end.wav; sourceTree = "<group>"; };
+		1887C70619A3751A00345EFC /* camera_start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = camera_start.wav; path = MP3/camera_start.wav; sourceTree = "<group>"; };
+		1887C70B19A3766F00345EFC /* MP3Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MP3Player.m; sourceTree = "<group>"; };
+		1887C70D19A3774400345EFC /* MP3Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MP3Player.h; sourceTree = "<group>"; };
 		1887F764199F60C70027B4E1 /* tabs_create_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs_create_off@2x.png"; sourceTree = "<group>"; };
 		1887F766199F60D90027B4E1 /* tabs_create_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabs_create_on@2x.png"; sourceTree = "<group>"; };
 		1887F76A199F83740027B4E1 /* button_stop_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_stop_off@2x.png"; sourceTree = "<group>"; };
@@ -596,6 +603,7 @@
 		1834BF9B1947AC3600AE7332 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1887C70919A3762E00345EFC /* MP3Player */,
 				186990DD197A956C0004C44F /* Reachability */,
 				186990C0197A8F1B0004C44F /* ASIHTTPRequest */,
 				186990AC197A8CBF0004C44F /* S3 */,
@@ -860,6 +868,24 @@
 			name = AVCam;
 			sourceTree = "<group>";
 		};
+		1887C70419A374F500345EFC /* MP3 */ = {
+			isa = PBXGroup;
+			children = (
+				1887C70519A3751A00345EFC /* camera_end.wav */,
+				1887C70619A3751A00345EFC /* camera_start.wav */,
+			);
+			name = MP3;
+			sourceTree = "<group>";
+		};
+		1887C70919A3762E00345EFC /* MP3Player */ = {
+			isa = PBXGroup;
+			children = (
+				1887C70D19A3774400345EFC /* MP3Player.h */,
+				1887C70B19A3766F00345EFC /* MP3Player.m */,
+			);
+			name = MP3Player;
+			sourceTree = "<group>";
+		};
 		1889C09F194F74BE0065FFE0 /* EGOTableViewPullRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1040,6 +1066,7 @@
 			children = (
 				1885A04019879F6A00246765 /* Fonts */,
 				18859FC119878BE600246765 /* Images */,
+				1887C70419A374F500345EFC /* MP3 */,
 				188B883D1982559000283573 /* p3.mp4 */,
 				18EC4FBA193D0E4B003E5335 /* Images.xcassets */,
 				188B8F1F194A158300A88D43 /* Localizable.strings */,
@@ -1162,6 +1189,7 @@
 				1888B4141989BCF900957213 /* settings_press@2x.png in Resources */,
 				1888B3F71989BCF900957213 /* icon_audio_off@2x.png in Resources */,
 				1888B3E81989BCF900957213 /* button_show_directions_off@2x.png in Resources */,
+				1887C70719A3751A00345EFC /* camera_end.wav in Resources */,
 				1888B40D1989BCF900957213 /* icons_seconds@2x.png in Resources */,
 				1888B438198A398500957213 /* frame_lite@2x.png in Resources */,
 				18D457DF1956B27E00C5932F /* mediaPlayBtn.png in Resources */,
@@ -1177,6 +1205,7 @@
 				1888B3F51989BCF900957213 /* feed_shadow_upper@2x.png in Resources */,
 				1888B4001989BCF900957213 /* icon_publish_press@2x.png in Resources */,
 				1888B41D1989BCFA00957213 /* V_press@2x.png in Resources */,
+				1887C70819A3751A00345EFC /* camera_start.wav in Resources */,
 				1829ED231977F2710090A62D /* TemplateCell.xib in Resources */,
 				18ACD7F4196DE4C60001AC8B /* AVCamInstructionsPortraitView.iPhone5.xib in Resources */,
 				18F8A9351971C7F6001093E4 /* AVCamInstructionsVC.IPhone5.storyboard in Resources */,
@@ -1333,6 +1362,7 @@
 				186990BC197A8CC00004C44F /* ASIS3BucketRequest.m in Sources */,
 				1885FF1E1965D55B008E93A5 /* TemplatesVC.m in Sources */,
 				18E168AA198D1B91003A1042 /* AVCamInstructionsTextView.m in Sources */,
+				1887C70C19A3766F00345EFC /* MP3Player.m in Sources */,
 				18EC4FB6193D0E4B003E5335 /* AppDelegate.m in Sources */,
 				184DDAE71948666000F22B2A /* CustomTabBarVC.m in Sources */,
 				186990D7197A8F1B0004C44F /* ASIDataDecompressor.m in Sources */,
