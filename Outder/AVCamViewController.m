@@ -258,7 +258,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			{
 				[[self cameraButton] setEnabled:YES];
 				//[[self recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
-                [self ntfyRecordEnd];
+                //[self ntfyRecordEnd];
 				[[self recordButton] setEnabled:YES];
 			}
 		});
@@ -348,7 +348,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (IBAction)changeCamera:(id)sender
 {
     // Yossi
-    // return;
+    //return;
     
 	[[self cameraButton] setEnabled:NO];
 	[[self recordButton] setEnabled:NO];

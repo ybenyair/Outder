@@ -32,8 +32,9 @@
     BOOL isRecording;
     BOOL isDone;
     BOOL autoPlay;
-    NSTimer *busyTimer;
     MP3Player *mpPlayer;
+    NSDate *recordStartTime;
+    NSDate *recordEndTime;
 }
 
 #define kRestartString NSLocalizedString(@"start over", nil);
@@ -109,13 +110,11 @@
 
 - (BOOL)shouldAutorotate
 {
-    NSLog(@"Should autorotate");
     return NO;
 }
 
 -(NSUInteger)supportedInterfaceOrientations
 {
-    NSLog(@"supportedInterfaceOrientations");
     return UIInterfaceOrientationMaskLandscape;
 }
 
@@ -593,8 +592,10 @@
 {
     NSString *sound;
     if (isRecording) {
+        NSLog(@"toggleMovieRecording: end record");
         sound = @"camera_end";
     } else {
+        NSLog(@"toggleMovieRecording: start record");
         sound = @"camera_start";
     }
     
@@ -605,7 +606,6 @@
 
 - (void)btnRetakeClicked
 {
-    [self enableRecodring:YES];
     self.labelRecord.hidden = YES;
     [self toggleMovieRecording:nil];
 }
@@ -614,6 +614,7 @@
 {
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [CoreData saveDB];
+    [self.carousel scrollToItemAtIndex:0 animated:NO];
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -686,6 +687,8 @@
 {
     // We were notified that the AVCam controller actualy started the recording
     NSLog(@"ntfyRecordStart");
+    recordStartTime = [NSDate date];
+    recordEndTime = [NSDate date];
     isRecording = YES;
     [self setRecordButtonStateRecording];
     [self setBackButtonHidden:YES];
@@ -693,7 +696,7 @@
     self.pageControl.hidden = YES;
     [self.carousel setAlpha:1];
     
-    [UIView animateWithDuration:0.5f
+    [UIView animateWithDuration:0.25f
                      animations:^{
                          [self.carousel setAlpha:0];
                      }
@@ -715,16 +718,33 @@
     // We were notified that the AVCam controller actualy ended the recording
     NSLog(@"ntfyRecordEnd");
     isRecording = NO;
+    recordEndTime = [NSDate date];
     [self startBusyIndicator];
-    self.carousel.scrollEnabled = NO;
     [self stopRecordAnimation];
+    [self setRecordButtonHidden:YES];
     self.pageControl.hidden = NO;
+}
+
+- (void) executeRecordEnd
+{
+    NSLog(@"executeRecordEnd");
+    [self stopBusyIndicator];
+    [self setBackButtonHidden:NO];
+    [self setCameraButtonHidden:NO];
+    
+    BOOL validRecordLen = [self isValidRecordLength];
+    if (validRecordLen) {
+        // Recording is OK
+        [self setRecordButtonStateRetake];
+    } else {
+        // Recording is too short: go back to the previous state
+        [self updateInstructionState];
+        [self showAlertForRecordLength];
+    }
+    
     [self.carousel setAlpha:0];
     self.carousel.hidden = NO;
-    
-    [self setRecordButtonStateRetake];
-
-    [UIView animateWithDuration:1.5f
+    [UIView animateWithDuration:1.0f
                      animations:^{
                          [self.carousel setAlpha:1];
                      }];
@@ -733,42 +753,25 @@
 - (void) startBusyIndicator
 {
     NSLog(@"startBusyIndicator");
-    busyTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(aBusyIndicator:) userInfo:nil repeats:NO];
-}
-
--(void)aBusyIndicator: (NSTimer *)timer
-{
-    NSLog(@"BusyIndicator timer");
+    self.carousel.scrollEnabled = NO;
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
-    busyTimer = nil;
 }
+
 
 - (void) stopBusyIndicator
 {
     NSLog(@"stopBusyIndicator");
-    if (busyTimer) {
-        NSLog(@"clear BusyIndicator timer");
-        [busyTimer invalidate];
-        busyTimer = nil;
-    }
-    
     self.activityIndicator.hidden = YES;
     [self.activityIndicator stopAnimating];
-}
-
-- (void)executeRecordEnd
-{
-    NSLog(@"executeRecordEnd");
     self.carousel.scrollEnabled = YES;
-    [self stopBusyIndicator];
-    [self setBackButtonHidden:NO];
-    [self setCameraButtonHidden:NO];
 }
 
 - (void) setRecordButtonStateRecord
 {
+    NSLog(@"setRecordButtonStateRecord");
     [self enableRecodring:YES];
+    //[self setRecordButtonHidden:NO];
     [self setRestartButtonHidden:YES];
     
     [[self recordButton] setImage:[UIImage imageNamed:@"icon_record_off.png"] forState:UIControlStateNormal];
@@ -783,6 +786,7 @@
 - (void) setRecordButtonStateRecording
 {
     [self setRestartButtonHidden:YES];
+    [self setRecordButtonHidden:NO];
     
     [[self recordButton] setImage:[UIImage imageNamed:@"button_stop_off.png"] forState:UIControlStateNormal];
     
@@ -870,6 +874,18 @@
 
 - (void)ntfyFileSaved: (NSURL *)outputFileURL
 {
+    NSLog(@"ntfyFileSaved");
+    [self ntfyRecordEnd];
+
+    BOOL validRecordLen = [self isValidRecordLength];
+    if (!validRecordLen) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:&error];
+        if (error) NSLog(@"%@", error);
+        [self executeRecordEnd];
+        return;
+    }
+    
     dispatch_queue_t myQueue = dispatch_queue_create("com.outder.camerafiles",NULL);
     dispatch_async(myQueue, ^{
         
@@ -1156,5 +1172,37 @@
             break;
     }
 }
+
+#pragma mark Alerts
+
+- (BOOL) isValidRecordLength
+{
+    Instruction *inst = [self getCurrentInstruction];
+    CGFloat minDuration = [inst.minlength intValue];
+    NSTimeInterval diff = [recordEndTime timeIntervalSinceDate:recordStartTime];
+    NSLog(@"Recorded duration is %f", diff);
+    
+    if (minDuration && diff < minDuration) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void) showAlertForRecordLength
+{
+    Instruction *inst = [self getCurrentInstruction];
+    int minDuration = [inst.minlength intValue];
+    NSString *title = NSLocalizedString(@"RECORDING ALERT", nil);
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"MINIMUM SHOT LENGTH IS %d SECOND. PLEASE RECORD AGAIN", nil), minDuration] ;
+    NSString *btn = NSLocalizedString(@"OK", @"OK button title");
+        
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                        delegate:nil
+                                                cancelButtonTitle:btn
+                                                otherButtonTitles:nil];
+    [alertView show];
+}
+
 
 @end
